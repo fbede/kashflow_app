@@ -23,7 +23,6 @@ void main() async {
   WindowOptions windowOptions = WindowOptions(
     minimumSize: Size(400, 600),
     alwaysOnTop: true,
-    //size: Size(800, 600),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
@@ -43,7 +42,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
     return MaterialApp.router(
-      title: appName,
+      title: APPNAME,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       routerConfig: appRouter,
