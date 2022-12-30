@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kashflow/router/app_router.dart';
 import 'package:kashflow/util/strings.dart';
-import 'package:window_manager/window_manager.dart';
 
+import 'startup.dart';
 import 'theme/color_scheme.dart';
 
 //TODO: App Icon Attribution
@@ -17,21 +17,16 @@ import 'theme/color_scheme.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await windowManager.ensureInitialized();
 
-  WindowOptions windowOptions = WindowOptions(
-    minimumSize: Size(400, 600),
-    alwaysOnTop: true,
-    center: true,
-    backgroundColor: Colors.transparent,
-    skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.normal,
-  );
-  windowManager.waitUntilReadyToShow(windowOptions, () async {
-    await windowManager.show();
-    await windowManager.focus();
-  });
+  //Handles intial splashscreen
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  //Handles Window Setting on desktop
+  await setWindowSettings();
+
+  //Registers models e.g Shared Preferences on get_it
+  await registerModelsOnGetIt();
+
   runApp(const MyApp());
 }
 
@@ -40,7 +35,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Removes initial splashscreen
     FlutterNativeSplash.remove();
+
     return MaterialApp.router(
       title: APPNAME,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),

@@ -1,3 +1,7 @@
+//SHARED PREFS KEYS
+const ONBOARDED_KEY = 'hasOnboarded';
+
+//LABELS
 const APPNAME = 'Kashflow';
 const HOME_LABEL = 'Home';
 const DASHBOARD_LABEL = 'Dashboard';
