@@ -7,6 +7,7 @@ const FORGOT_PASSWORD_ROUTE = '/forgotPassword';
 //Bottom NavBar routes
 const HOME_ROUTE = '/';
 const ACCOUNT_ROUTE = '/account';
+const TRANSACTIONS_ROUTE = '/transactions';
 const REPORT_ROUTE = '/report';
 const MORE_ROUTE = '/more';
 

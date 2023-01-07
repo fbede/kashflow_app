@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class DashboardView extends StatelessWidget {
+class LoansView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Dashboard View');
+    return Text('Loans View');
   }
 }

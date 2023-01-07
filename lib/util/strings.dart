@@ -1,11 +1,19 @@
 //SHARED PREFS KEYS
 const ONBOARDED_KEY = 'hasOnboarded';
+const SETTINGS_KEY = 'settings';
 
 //LABELS
-const APPNAME = 'Kashflow';
-const HOME_LABEL = 'Home';
-const DASHBOARD_LABEL = 'Dashboard';
-const TIMELINE_LABEL = 'Timeline';
 const ACCOUNTS_LABEL = 'Accounts';
-const REPORTS_LABEL = 'Reports';
+const APPNAME = 'Kashflow';
+const BALANCE_LABEL = 'Balance';
+const CASH_LABEL = 'Cash';
+const DASHBOARD_LABEL = 'Dashboard';
+const HOME_LABEL = 'Home';
+const LOANS_LABEL = 'Loans';
 const MORE_LABEL = 'More';
+const RECENT_LABEL = 'Recent';
+const REPORTS_LABEL = 'Reports';
+const SETTINGS_LABEL = 'Settings';
+const TIMELINE_LABEL = 'Timeline';
+const TRANSACTIONS_LABEL = 'Transactions';
+const UPCOMING_LABEL = 'Upcoming';

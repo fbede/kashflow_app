@@ -13,30 +13,26 @@ class MobileAppShell extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: child,
-        floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          onPressed: () {},
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: _buildFAB(_getSelectedIndex(context)),
         bottomNavigationBar: NavigationBar(
           height: 70,
           selectedIndex: _getSelectedIndex(context),
           onDestinationSelected: (value) => _onItemTapped(value, context),
           destinations: [
             NavigationDestination(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home_rounded),
               label: HOME_LABEL,
             ),
             NavigationDestination(
-              icon: Icon(Icons.list),
+              icon: Icon(Icons.format_list_numbered_rounded),
               label: ACCOUNTS_LABEL,
             ),
             NavigationDestination(
-              icon: SizedBox.shrink(),
-              label: '',
+              icon: Icon(Icons.receipt_rounded),
+              label: TRANSACTIONS_LABEL,
             ),
             NavigationDestination(
-              icon: Icon(Icons.description),
+              icon: Icon(Icons.bar_chart_rounded),
               label: REPORTS_LABEL,
             ),
             NavigationDestination(
@@ -51,12 +47,14 @@ class MobileAppShell extends StatelessWidget {
 
   static int _getSelectedIndex(BuildContext context) {
     String location = GoRouterState.of(context).location;
-    if (location.contains(DASHBOARD_ROUTE) ||
-        location.contains(TIMELINE_ROUTE)) {
+    if (location.contains(DASHBOARD_ROUTE)) {
       return 0;
     }
     if (location.contains(ACCOUNT_ROUTE)) {
       return 1;
+    }
+    if (location.contains(TRANSACTIONS_ROUTE)) {
+      return 2;
     }
     if (location.contains(REPORT_ROUTE)) {
       return 3;
@@ -76,6 +74,9 @@ class MobileAppShell extends StatelessWidget {
       case 1:
         context.go(ACCOUNT_ROUTE);
         break;
+      case 2:
+        context.go(TRANSACTIONS_ROUTE);
+        break;
       case 3:
         context.go(REPORT_ROUTE);
         break;
@@ -83,5 +84,12 @@ class MobileAppShell extends StatelessWidget {
         context.go(MORE_ROUTE);
         break;
     }
+  }
+
+  FloatingActionButton? _buildFAB(int index) {
+    if (index < 4) {
+      return FloatingActionButton(onPressed: () {});
+    }
+    return null;
   }
 }

@@ -6,6 +6,8 @@ import 'package:kashflow/router/routes.dart';
 import 'package:kashflow/screens/screens.dart';
 import 'package:kashflow/shells/shells.dart';
 
+import '../screens/mobile/mobile_screens.dart';
+
 export 'routes.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -14,9 +16,6 @@ final GlobalKey<NavigatorState> _appNavBarNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 final GlobalKey<NavigatorState> _mobileDashNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'mobile_dash');
-
-Widget _buildscreen(BuildContext context, GoRouterState state) =>
-    SplashScreen();
 
 //TODO: Add redirection rules
 
@@ -66,19 +65,20 @@ final _mainAppRoutes = <RouteBase>[
   GoRoute(
     path: DASHBOARD_ROUTE,
     builder: (BuildContext context, GoRouterState state) {
-      return MobileDashboardShell(index: 0);
-    },
-  ),
-  GoRoute(
-    path: TIMELINE_ROUTE,
-    builder: (BuildContext context, GoRouterState state) {
-      return MobileDashboardShell(index: 1);
+      return Scaffold();
     },
   ),
   GoRoute(
     path: ACCOUNT_ROUTE,
     builder: (BuildContext context, GoRouterState state) {
-      return const SizedBox();
+      return const MobileAccountsShell();
+    },
+  ),
+  //TODO: Change to Transcation Route
+  GoRoute(
+    path: TRANSACTIONS_ROUTE,
+    builder: (BuildContext context, GoRouterState state) {
+      return const MobileTransactionsShell();
     },
   ),
   GoRoute(
@@ -90,7 +90,7 @@ final _mainAppRoutes = <RouteBase>[
   GoRoute(
     path: MORE_ROUTE,
     builder: (BuildContext context, GoRouterState state) {
-      return const SizedBox();
+      return const MobileSettingsPage();
     },
   ),
 ];

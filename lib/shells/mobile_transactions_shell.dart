@@ -5,33 +5,30 @@ import 'package:kashflow/util/strings.dart';
 
 import '../components/components.dart';
 
-class MobileDashboardShell extends StatelessWidget {
-  final int index;
-  const MobileDashboardShell({
+class MobileTransactionsShell extends StatelessWidget {
+  const MobileTransactionsShell({
     Key? key,
-    this.index = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: index,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(APPNAME),
+          title: Text(TRANSACTIONS_LABEL),
           titleTextStyle: Theme.of(context).textTheme.titleLarge,
           bottom: TabBar(
             tabs: [
-              Tab(text: DASHBOARD_LABEL),
-              Tab(text: TIMELINE_LABEL),
+              Tab(text: RECENT_LABEL),
+              Tab(text: UPCOMING_LABEL),
             ],
           ),
         ),
         body: TabBarView(
           children: [
-            DashboardView(),
+            LoansView(),
             TimelineView(),
           ],
         ),

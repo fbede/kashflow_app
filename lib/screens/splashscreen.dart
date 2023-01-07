@@ -12,26 +12,31 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSplashScreen.withScreenRouteFunction(
-      animationDuration: Duration(milliseconds: 1000),
-      splash: 'assets/images/app_logo.png',
-      splashTransition: SplashTransition.fadeTransition,
-      pageTransitionType: PageTransitionType.scale,
-      screenRouteFunction: () async {
-        final prefs = GetIt.I.get<SharedPreferences>();
-        final hasOnboarded = prefs.getBool(ONBOARDED_KEY) ?? false;
+    return SafeArea(
+      child: AnimatedSplashScreen.withScreenRouteFunction(
+        animationDuration: Duration(milliseconds: 1000),
+        splash: 'assets/images/app_logo.png',
+        splashTransition: SplashTransition.fadeTransition,
+        pageTransitionType: PageTransitionType.scale,
+        screenRouteFunction: () async {
+          final prefs = GetIt.I.get<SharedPreferences>();
+          final hasOnboarded = prefs.getBool(ONBOARDED_KEY) ?? false;
 
-        if (!hasOnboarded) {
-          print('meant to go');
-          context.go(ONBOARDING_ROUTE);
-          //TODO: Add login logic
-        } else {
-          //*Note: For some weird reason if this is not put in an else clause it will be executed even if the condition is met
+          //TODO: Uncomment when auth is ready
+          //if (!hasOnboarded) {
+          //print('meant to go');
+          //context.go(ONBOARDING_ROUTE);
+          ////TODO: Add login logic
+          //} else {
+          ////*NOTE: For some weird reason if this is not put in an else clause it will be executed even if the condition is met
+          //context.go(DASHBOARD_ROUTE);
+          //}
+
+          //TODO: Remove when auth is added
           context.go(DASHBOARD_ROUTE);
-        }
-
-        return 'home';
-      },
+          return 'home';
+        },
+      ),
     );
   }
 }

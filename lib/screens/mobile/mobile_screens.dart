@@ -1,1 +1,1 @@
-export 'mobile_libray_page.dart';
+export 'mobile_settings_page.dart';
