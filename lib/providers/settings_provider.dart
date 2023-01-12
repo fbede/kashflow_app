@@ -8,7 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SettingsNotifier extends StateNotifier<Settings> {
   SettingsNotifier(super.state);
 
-  void updateThemeMode({required ThemeMode themeMode}) async {
+  void updateThemeMode({required ThemeMode? themeMode}) async {
+    if (themeMode == null) {
+      return;
+    }
     var prefs = GetIt.I.get<SharedPreferences>();
     state = state.copywith(themeMode: themeMode);
     await prefs.setString(SETTINGS_KEY, state.toJson());

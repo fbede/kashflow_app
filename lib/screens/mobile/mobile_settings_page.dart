@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:kashflow/components/components.dart';
 
 import 'package:kashflow/util/strings.dart';
 
@@ -30,7 +31,7 @@ class MobileSettingsPage extends StatelessWidget {
               gridDelegate: SliverSimpleGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 800,
               ),
-              delegate: SliverChildListDelegate.fixed([]),
+              delegate: SliverChildListDelegate.fixed(_settingsList),
             ),
           ],
         ),
@@ -40,7 +41,7 @@ class MobileSettingsPage extends StatelessWidget {
 }
 
 final _settingsList = <Widget>[
-  //Select theme
+  ThemeModeTile(),
   ListTile(),
   ListTile(),
   ListTile(),

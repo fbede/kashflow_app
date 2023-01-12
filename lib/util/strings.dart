@@ -17,3 +17,9 @@ const SETTINGS_LABEL = 'Settings';
 const TIMELINE_LABEL = 'Timeline';
 const TRANSACTIONS_LABEL = 'Transactions';
 const UPCOMING_LABEL = 'Upcoming';
+
+//SETTINGS STRINGS
+const SELECT_THEMEMODE = 'Select Theme Mode';
+const DARK_THEME_MODE = 'Dark Mode';
+const LIGHT_THEME_MODE = 'Light Mode';
+const SYSTEM_THEME_MODE = 'System Default';
