@@ -15,6 +15,7 @@ class SplashScreen extends StatelessWidget {
     return SafeArea(
       child: AnimatedSplashScreen.withScreenRouteFunction(
         animationDuration: Duration(milliseconds: 1000),
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         splash: 'assets/images/app_logo.png',
         splashTransition: SplashTransition.fadeTransition,
         pageTransitionType: PageTransitionType.scale,

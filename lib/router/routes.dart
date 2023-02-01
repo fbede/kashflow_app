@@ -1,3 +1,5 @@
+part of 'app_router.dart';
+
 //Auth Routes
 const SIGN_IN_ROUTE = '/signIn';
 const SIGN_UP_ROUTE = '/signUp';
@@ -7,7 +9,7 @@ const FORGOT_PASSWORD_ROUTE = '/forgotPassword';
 //Bottom NavBar routes
 const HOME_ROUTE = '/';
 const ACCOUNT_ROUTE = '/account';
-const TRANSACTIONS_ROUTE = '/transactions';
+const TRANSACTIONS_ROUTE = '/records';
 const REPORT_ROUTE = '/report';
 const MORE_ROUTE = '/more';
 
@@ -19,3 +21,6 @@ const SETTING_ROUTE = '/setting';
 //Other Routes
 const ONBOARDING_ROUTE = '/onboarding';
 const SPLASH_ROUTE = '/splash';
+
+//Settings Routes
+const DEFAULT_CURRENCY_ROUTE = 'defaultCurrency';

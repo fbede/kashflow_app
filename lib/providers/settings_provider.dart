@@ -13,7 +13,7 @@ class SettingsNotifier extends StateNotifier<Settings> {
       return;
     }
     var prefs = GetIt.I.get<SharedPreferences>();
-    state = state.copywith(themeMode: themeMode);
+    state = state.copyWith(themeMode: themeMode);
     await prefs.setString(SETTINGS_KEY, state.toJson());
   }
 }

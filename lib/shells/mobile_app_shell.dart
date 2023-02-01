@@ -29,7 +29,7 @@ class MobileAppShell extends StatelessWidget {
             ),
             NavigationDestination(
               icon: Icon(Icons.receipt_rounded),
-              label: TRANSACTIONS_LABEL,
+              label: RECORDS_LABEL,
             ),
             NavigationDestination(
               icon: Icon(Icons.bar_chart_rounded),

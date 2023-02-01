@@ -2,20 +2,32 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:kashflow/models/models.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../util/strings.dart';
 
 @immutable
 class Settings extends Equatable {
   // enum
   final ThemeMode themeMode;
+  final List<PopularCurrency> popularCurrencies =
+      GetIt.I.get<List<PopularCurrency>>();
 
   Settings({
     this.themeMode = ThemeMode.system,
   });
 
-  Settings copywith({ThemeMode? themeMode}) {
-    return Settings(
-      themeMode: themeMode ?? this.themeMode,
-    );
+  factory Settings.load() {
+    final prefs = GetIt.I.get<SharedPreferences>();
+    final String? settingsJson = prefs.getString(SETTINGS_KEY);
+
+    if (settingsJson == null) {
+      return Settings();
+    } else {
+      return Settings.fromJson(settingsJson);
+    }
   }
 
   @override

@@ -5,8 +5,8 @@ import 'package:kashflow/util/strings.dart';
 
 import '../components/components.dart';
 
-class MobileTransactionsShell extends StatelessWidget {
-  const MobileTransactionsShell({
+class MobileRecordsShell extends StatelessWidget {
+  const MobileRecordsShell({
     Key? key,
   }) : super(key: key);
 
@@ -17,8 +17,8 @@ class MobileTransactionsShell extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(TRANSACTIONS_LABEL),
-          titleTextStyle: Theme.of(context).textTheme.titleLarge,
+          title: Text(RECORDS_LABEL),
+          titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
           bottom: TabBar(
             tabs: [
               Tab(text: RECENT_LABEL),

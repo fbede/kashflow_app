@@ -15,11 +15,22 @@ const RECENT_LABEL = 'Recent';
 const REPORTS_LABEL = 'Reports';
 const SETTINGS_LABEL = 'Settings';
 const TIMELINE_LABEL = 'Timeline';
-const TRANSACTIONS_LABEL = 'Transactions';
+const RECORDS_LABEL = 'Records';
 const UPCOMING_LABEL = 'Upcoming';
 
 //SETTINGS STRINGS
 const SELECT_THEMEMODE = 'Select Theme Mode';
+const THEME = 'Theme';
 const DARK_THEME_MODE = 'Dark Mode';
 const LIGHT_THEME_MODE = 'Light Mode';
 const SYSTEM_THEME_MODE = 'System Default';
+const DEFAULT_CURRENCY = 'Default Currency';
+
+const SELECT_DEFAULT_CURRENCY = 'Select Default Currency';
+const CURRENCY_PICKER_HINT = 'Search Currency Name or Code';
+const OWN_CURRENCIES_LABEL = 'Own Currencies';
+const POPULAR_CURRENCIES_LABEL = 'Popular Currencies';
+const OTHER_CURRENCIES_LABEL = 'Other Currencies';
+
+//UTIL STRING
+const DONE_ALL_CAPS_STRING = 'DONE';

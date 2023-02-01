@@ -1,15 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:kashflow/components/components.dart';
+import 'package:kashflow/router/app_router.dart';
 import 'package:kashflow/util/strings.dart';
 
-import '../providers/providers.dart';
+import '../../providers/providers.dart';
 
-class ThemeModeTile extends ConsumerStatefulWidget {
+class MobileSettingsScreen extends ConsumerWidget {
+  const MobileSettingsScreen({Key? key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar.large(
+              automaticallyImplyLeading: false,
+              expandedHeight: MediaQuery.of(context).size.height * 0.4,
+              flexibleSpace: FlexibleSpaceBar(
+                expandedTitleScale: 2.4,
+                title: Text(
+                  SETTINGS_LABEL,
+                  style: Theme.of(context).appBarTheme.titleTextStyle,
+                ),
+                titlePadding: EdgeInsetsDirectional.only(start: 16, bottom: 18),
+              ),
+            ),
+            SliverMasonryGrid(
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              gridDelegate: SliverSimpleGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 700,
+              ),
+              delegate: SliverChildListDelegate.fixed([
+                _ThemeModeTile(),
+                DefaultCurrencyTile(),
+              ]),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ThemeModeTile extends ConsumerStatefulWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => ThemeModeTileState();
 }
 
-class ThemeModeTileState extends ConsumerState<ThemeModeTile> {
+class ThemeModeTileState extends ConsumerState<_ThemeModeTile> {
   late ThemeMode _themeMode;
   ThemeMode? _selectedThemeMode;
 
@@ -17,6 +60,7 @@ class ThemeModeTileState extends ConsumerState<ThemeModeTile> {
   void initState() {
     super.initState();
     _themeMode = ref.read(settingsProvider).themeMode;
+    _selectedThemeMode = _themeMode;
   }
 
   @override
@@ -26,7 +70,7 @@ class ThemeModeTileState extends ConsumerState<ThemeModeTile> {
 
     return ListTile(
       leading: _getWidgetIcon(_themeMode),
-      title: Text(SELECT_THEMEMODE),
+      title: Text(THEME),
       subtitle: Text(_getWidgetString(_themeMode)),
       onTap: (() => _selectThemeMode(context)),
     );
@@ -62,11 +106,12 @@ class ThemeModeTileState extends ConsumerState<ThemeModeTile> {
         return AlertDialog(
           title: Text(SELECT_THEMEMODE),
           content: SizedBox(
-            width: double.maxFinite,
+            width: 300,
             child: ListView(
               shrinkWrap: true,
               children: [
                 RadioListTile<ThemeMode>(
+                  contentPadding: EdgeInsets.all(0),
                   value: ThemeMode.light,
                   groupValue: _selectedThemeMode,
                   title: Text(LIGHT_THEME_MODE),
@@ -81,6 +126,7 @@ class ThemeModeTileState extends ConsumerState<ThemeModeTile> {
                   },
                 ),
                 RadioListTile<ThemeMode>(
+                  contentPadding: EdgeInsets.all(0),
                   value: ThemeMode.dark,
                   groupValue: _selectedThemeMode,
                   title: Text(DARK_THEME_MODE),
@@ -95,6 +141,7 @@ class ThemeModeTileState extends ConsumerState<ThemeModeTile> {
                   },
                 ),
                 RadioListTile<ThemeMode>(
+                  contentPadding: EdgeInsets.all(0),
                   value: ThemeMode.system,
                   groupValue: _selectedThemeMode,
                   title: Text(SYSTEM_THEME_MODE),
@@ -111,6 +158,12 @@ class ThemeModeTileState extends ConsumerState<ThemeModeTile> {
               ],
             ),
           ),
+          actions: [
+            TextButton(
+              onPressed: () => context.pop(),
+              child: Text(DONE_ALL_CAPS_STRING),
+            )
+          ],
         );
       },
     );

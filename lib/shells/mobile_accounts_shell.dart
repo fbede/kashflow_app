@@ -18,7 +18,7 @@ class MobileAccountsShell extends StatelessWidget {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text(ACCOUNTS_LABEL),
-          titleTextStyle: Theme.of(context).textTheme.titleLarge,
+          titleTextStyle: Theme.of(context).appBarTheme.titleTextStyle,
           bottom: TabBar(
             tabs: [
               Tab(text: CASH_LABEL),

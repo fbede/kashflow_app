@@ -1,11 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
+import 'package:kashflow/db/db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
+
+import '../models/models.dart';
 
 Future<void> setWindowSettings() async {
   if (kIsWeb) return;
@@ -35,6 +39,13 @@ Future<void> registerModelsOnGetIt() async {
   GetIt.I.registerSingleton<SharedPreferences>(
     await SharedPreferences.getInstance(),
   );
+
+  //Register Popular Currencies
+  GetIt.I
+      .registerSingleton<List<PopularCurrency>>(await _getPopularCurrencies());
+
+  //Register Drift Database
+  GetIt.I.registerSingleton<DriftDB>(DriftDB());
 }
 
 void registerLicenses() {
@@ -43,4 +54,16 @@ void registerLicenses() {
     final license = await rootBundle.loadString('assets/fonts/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
+}
+
+Future<List<PopularCurrency>> _getPopularCurrencies() async {
+  final String json =
+      await rootBundle.loadString('assets/json/loaded_currencies.json');
+
+  var data = jsonDecode(json) as List;
+
+  List<PopularCurrency> currencies =
+      data.map((e) => PopularCurrency.fromJson(e)).toList();
+
+  return currencies;
 }
