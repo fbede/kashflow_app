@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
-import 'package:kashflow/components/onboarding_view.dart';
+import 'package:kashflow/util/visible_strings.dart';
+import 'package:kashflow/views/views.dart';
 import 'package:kashflow/screens/screens.dart';
 import 'package:kashflow/shells/shells.dart';
 
@@ -18,19 +19,34 @@ final GlobalKey<NavigatorState> _appNavBarNavigatorKey =
 
 final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/splash',
+  initialLocation: AppRoute.SPLASH,
   routes: [
     GoRoute(
-      path: SPLASH_ROUTE,
-      name: SPLASH_ROUTE,
+      path: AppRoute.SPLASH,
+      name: AppRoute.SPLASH,
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => SplashScreen(),
     ),
     GoRoute(
-      path: ONBOARDING_ROUTE,
-      name: ONBOARDING_ROUTE,
+      path: AppRoute.WELCOME,
+      name: AppRoute.WELCOME,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => OnboardingView(),
+      builder: (context, state) => WelcomeView(),
+    ),
+    GoRoute(
+      path: AppRoute.CHOOSE_DEFAULT_CURRENCY,
+      name: AppRoute.CHOOSE_DEFAULT_CURRENCY,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: Text(UserText.Choose_Default_Currency),
+            centerTitle: true,
+          ),
+          body: CurrencyPickerView(),
+        );
+      },
     ),
 
     //TODO: Create actual pages

@@ -4,7 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
 import 'package:kashflow/router/app_router.dart';
-import 'package:kashflow/util/strings.dart';
+import 'package:kashflow/util/visible_strings.dart';
 
 import '../../providers/providers.dart';
 

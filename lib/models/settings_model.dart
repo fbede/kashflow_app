@@ -1,63 +1,63 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:kashflow/models/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kashflow/db/drift_db.dart';
 
-import '../util/strings.dart';
+import '../util/visible_strings.dart';
 
 @immutable
 class Settings extends Equatable {
+  static final DriftDB _db = GetIt.I<DriftDB>();
+  static final _prefs = GetIt.I.get<SharedPreferences>();
+
+  final List<PreloadedCurrencyData> defaultCurrencies =
+      GetIt.I.get<List<PreloadedCurrencyData>>();
+
   // enum
   final ThemeMode themeMode;
-  final List<PopularCurrency> popularCurrencies =
-      GetIt.I.get<List<PopularCurrency>>();
 
-  Settings({
+  factory Settings.load() {
+    return Settings._(
+      themeMode: _getThemeModeFromPrefs(),
+    );
+  }
+
+  Settings._({
     this.themeMode = ThemeMode.system,
   });
 
-  factory Settings.load() {
-    final prefs = GetIt.I.get<SharedPreferences>();
-    final String? settingsJson = prefs.getString(SETTINGS_KEY);
-
-    if (settingsJson == null) {
-      return Settings();
-    } else {
-      return Settings.fromJson(settingsJson);
-    }
-  }
-
   @override
-  List<Object> get props => [themeMode];
+  List<Object> get props => [themeMode, defaultCurrencies];
 
   Settings copyWith({
     ThemeMode? themeMode,
+    List<PreloadedCurrencyData>? defaultCurrencies,
   }) {
-    return Settings(
+    return Settings._(
       themeMode: themeMode ?? this.themeMode,
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'themeMode': themeMode.index,
-    };
+  static ThemeMode _getThemeModeFromPrefs() {
+    final int = _prefs.getInt(THEMEMODE_KEY);
+
+    if (int == 0) return ThemeMode.dark;
+    if (int == 1) return ThemeMode.light;
+    return ThemeMode.system;
   }
 
-  factory Settings.fromMap(Map<String, dynamic> map) {
-    return Settings(
-      themeMode: ThemeMode.values[map['themeMode'] as int],
-    );
+  static void saveThemeModeInPrefs(ThemeMode themeMode) async {
+    switch (themeMode) {
+      case ThemeMode.light:
+        await _prefs.setInt(THEMEMODE_KEY, 1);
+        break;
+      case ThemeMode.dark:
+        await _prefs.setInt(THEMEMODE_KEY, 0);
+        break;
+      case ThemeMode.system:
+        await _prefs.setInt(THEMEMODE_KEY, 2);
+        break;
+    }
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Settings.fromJson(String source) =>
-      Settings.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  bool get stringify => true;
 }

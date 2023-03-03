@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/router/app_router.dart';
-import 'package:kashflow/util/strings.dart';
+import 'package:kashflow/util/hidden_strings.dart';
+import 'package:kashflow/util/paths.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,30 +13,37 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String logoPath = '';
+    Color bgColor = Colors.white;
+
+    if (Theme.of(context).brightness == Brightness.light) {
+      logoPath = Paths.APP_LOGO_PATH_LIGHT;
+    } else {
+      logoPath = Paths.APP_LOGO_PATH_DARK;
+      bgColor = Colors.black;
+    }
+
     return SafeArea(
       child: AnimatedSplashScreen.withScreenRouteFunction(
         animationDuration: Duration(milliseconds: 1000),
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        splash: 'assets/images/app_logo.png',
+        backgroundColor: bgColor,
+        splash: logoPath,
         splashTransition: SplashTransition.fadeTransition,
         pageTransitionType: PageTransitionType.scale,
         screenRouteFunction: () async {
           final prefs = GetIt.I.get<SharedPreferences>();
-          final hasOnboarded = prefs.getBool(ONBOARDED_KEY) ?? false;
+          final hasOnboarded = prefs.getBool(PrefKey.ONBOARDED) ?? false;
 
-          //TODO: Uncomment when auth is ready
-          //if (!hasOnboarded) {
-          //print('meant to go');
-          //context.go(ONBOARDING_ROUTE);
-          ////TODO: Add login logic
-          //} else {
-          ////*NOTE: For some weird reason if this is not put in an else clause it will be executed even if the condition is met
-          //context.go(DASHBOARD_ROUTE);
-          //}
+          //TODO: NOTE: Add Auth Screens before welcome screen and
+          //change condition to check for logged in state
 
-          //TODO: Remove when auth is added
-          context.go(DASHBOARD_ROUTE);
-          return 'home';
+          if (!hasOnboarded) {
+            context.goNamed(AppRoute.WELCOME);
+          } else {
+            context.goNamed(DASHBOARD_ROUTE);
+          }
+
+          return '';
         },
       ),
     );

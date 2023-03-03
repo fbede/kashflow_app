@@ -5,9 +5,9 @@
 import FlutterMacOS
 import Foundation
 
-import path_provider_macos
+import path_provider_foundation
 import screen_retriever
-import shared_preferences_macos
+import shared_preferences_foundation
 import sqlite3_flutter_libs
 import window_manager
 

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/models/popular_currency.dart';
-import 'package:kashflow/util/strings.dart';
+import 'package:kashflow/db/drift_db.dart';
+import 'package:kashflow/util/visible_strings.dart';
 import '../../providers/providers.dart';
 
 class DefaultCurrencyTile extends ConsumerWidget {
@@ -44,15 +44,15 @@ class _SelectCurrencyDetails extends ConsumerStatefulWidget {
 
 class _SelectCurrencyDialogState extends ConsumerState<_SelectCurrencyDetails> {
   TextEditingController _searchBarController = TextEditingController();
-  late final List<PopularCurrency> _popularCurrency;
-  List<PopularCurrency> _searchResultsPopularCurrency = [];
+  late final List<PreloadedCurrencyData> _defaultCurrency;
+  List<PreloadedCurrencyData> _searchResultsDefaultCurrency = [];
 
   @override
   void initState() {
     super.initState();
-    _popularCurrency = ref.read(
-        settingsProvider.select((settings) => settings.popularCurrencies));
-    _searchResultsPopularCurrency = _popularCurrency;
+    _defaultCurrency = ref.read(
+        settingsProvider.select((settings) => settings.defaultCurrencies));
+    _searchResultsDefaultCurrency = _defaultCurrency;
   }
 
   void _searchAllCurrencies(String searchText) {
@@ -116,13 +116,13 @@ class _SelectCurrencyDialogState extends ConsumerState<_SelectCurrencyDetails> {
                     shrinkWrap: true,
                     mainAxisSpacing: 8,
                     crossAxisSpacing: 8,
-                    itemCount: _searchResultsPopularCurrency.length,
+                    itemCount: _searchResultsDefaultCurrency.length,
                     gridDelegate:
                         SliverSimpleGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 400,
                     ),
                     itemBuilder: (context, index) {
-                      var pcs = _searchResultsPopularCurrency;
+                      var pcs = _searchResultsDefaultCurrency;
 
                       return DecoratedBox(
                         decoration: BoxDecoration(
@@ -159,9 +159,9 @@ class _SelectCurrencyDialogState extends ConsumerState<_SelectCurrencyDetails> {
   }
 
   void _searchPopularCurrency(String searchText) {
-    List<PopularCurrency> results = [];
+    List<PreloadedCurrencyData> results = [];
 
-    for (var e in _popularCurrency) {
+    for (var e in _defaultCurrency) {
       if (e.code.toLowerCase().contains(searchText.toLowerCase()) ||
           e.name.toLowerCase().contains(searchText.toLowerCase())) {
         results.add(e);
@@ -169,7 +169,7 @@ class _SelectCurrencyDialogState extends ConsumerState<_SelectCurrencyDetails> {
     }
 
     setState(() {
-      _searchResultsPopularCurrency = results;
+      _searchResultsDefaultCurrency = results;
       print(results);
     });
   }

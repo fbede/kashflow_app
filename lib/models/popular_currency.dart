@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+/* import 'package:equatable/equatable.dart';
 
 class PopularCurrency with EquatableMixin {
   String code;
@@ -33,3 +33,4 @@ class PopularCurrency with EquatableMixin {
   @override
   List<Object> get props => [code, name, symbol];
 }
+ */

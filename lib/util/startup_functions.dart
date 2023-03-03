@@ -1,53 +1,40 @@
 import 'dart:convert';
+import 'dart:ffi' as ffi;
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
-import 'package:kashflow/db/db.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:sqlite3/open.dart';
+import '../db/drift_db.dart';
 
-import '../models/models.dart';
-
-Future<void> setWindowSettings() async {
-  if (kIsWeb) return;
-  if (Platform.isAndroid || Platform.isIOS) return;
-  await windowManager.ensureInitialized();
-
-  WindowOptions windowOptions = WindowOptions(
-    minimumSize: Size(400, 600),
-    //TODO: ADD ALWAYS ON TOP TO SETTINGS
-    alwaysOnTop: true,
-    center: true,
-    backgroundColor: Colors.transparent,
-    skipTaskbar: false,
-    titleBarStyle: TitleBarStyle.normal,
-  );
-  windowManager.waitUntilReadyToShow(
-    windowOptions,
-    () async {
-      await windowManager.show();
-      await windowManager.focus();
-    },
-  );
+setupDB() {
+  open
+    ..overrideFor(
+        OperatingSystem.linux, () => ffi.DynamicLibrary.open('sqlite3.so'))
+    ..overrideFor(
+        OperatingSystem.windows, () => ffi.DynamicLibrary.open('sqlite3.dll'));
 }
 
 Future<void> registerModelsOnGetIt() async {
+  final db = DriftDB();
   //Register SharedPreferences
   GetIt.I.registerSingleton<SharedPreferences>(
     await SharedPreferences.getInstance(),
   );
 
-  //Register Popular Currencies
-  GetIt.I
-      .registerSingleton<List<PopularCurrency>>(await _getPopularCurrencies());
-
   //Register Drift Database
-  GetIt.I.registerSingleton<DriftDB>(DriftDB());
+  GetIt.I.registerSingleton<DriftDB>(db);
+
+  ///Register Preloaded Currencies
+  // GetIt.I.registerSingleton<List<PreloadedCurrencyData>>(
+  // await _getPreloadedCurriences(),
+  //);
 }
 
+///Registers licenses for fonts and others
 void registerLicenses() {
   //Registers font license
   LicenseRegistry.addLicense(() async* {
@@ -56,14 +43,13 @@ void registerLicenses() {
   });
 }
 
-Future<List<PopularCurrency>> _getPopularCurrencies() async {
+///Preloads preloaded currencies
+Future<List<PreloadedCurrencyData>> _getPreloadedCurriences() async {
   final String json =
       await rootBundle.loadString('assets/json/loaded_currencies.json');
 
   var data = jsonDecode(json) as List;
+  print(data);
 
-  List<PopularCurrency> currencies =
-      data.map((e) => PopularCurrency.fromJson(e)).toList();
-
-  return currencies;
+  return data.map((e) => PreloadedCurrencyData.fromJson(e)).toList();
 }

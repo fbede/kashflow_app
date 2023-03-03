@@ -1,5 +1,12 @@
 part of 'app_router.dart';
 
+class AppRoute {
+  //Other Routes
+  static const WELCOME = '/welcome';
+  static const SPLASH = '/splash';
+  static const CHOOSE_DEFAULT_CURRENCY = '/chooseDefaultCurrency';
+}
+
 //Auth Routes
 const SIGN_IN_ROUTE = '/signIn';
 const SIGN_UP_ROUTE = '/signUp';
@@ -17,10 +24,6 @@ const MORE_ROUTE = '/more';
 const DASHBOARD_ROUTE = '/dashboard';
 const TIMELINE_ROUTE = '/timeline';
 const SETTING_ROUTE = '/setting';
-
-//Other Routes
-const ONBOARDING_ROUTE = '/onboarding';
-const SPLASH_ROUTE = '/splash';
 
 //Settings Routes
 const DEFAULT_CURRENCY_ROUTE = 'defaultCurrency';

@@ -1,6 +1,12 @@
+class UserText {
+  static const Welcome = 'Welcome';
+  static const Choose_Default_Currency = 'Choose Default Currency';
+}
+
 //SHARED PREFS KEYS
 const ONBOARDED_KEY = 'hasOnboarded';
 const SETTINGS_KEY = 'settings';
+const THEMEMODE_KEY = 'themeMode';
 
 //LABELS
 const ACCOUNTS_LABEL = 'Accounts';
