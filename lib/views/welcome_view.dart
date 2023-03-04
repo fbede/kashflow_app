@@ -19,7 +19,7 @@ class WelcomeView extends StatelessWidget {
         ),
         SizedBox(height: 8),
         FilledButton(
-          onPressed: () => context.goNamed(AppRoute.CHOOSE_DEFAULT_CURRENCY),
+          onPressed: () => context.pushNamed(AppRoute.CHOOSE_DEFAULT_CURRENCY),
           child: Text(
             UserText.Choose_Default_Currency,
           ),

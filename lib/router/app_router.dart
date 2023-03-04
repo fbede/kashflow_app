@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
+import 'package:kashflow/ui/elements/elements.dart';
 import 'package:kashflow/util/visible_strings.dart';
 import 'package:kashflow/views/views.dart';
 import 'package:kashflow/screens/screens.dart';
@@ -39,8 +40,7 @@ final appRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
+          appBar: SmallCustomAppBar(
             title: Text(UserText.Choose_Default_Currency),
             centerTitle: true,
           ),

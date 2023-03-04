@@ -1,18 +1,18 @@
-/* import 'package:equatable/equatable.dart';
+import 'package:equatable/equatable.dart';
 
-class PopularCurrency with EquatableMixin {
+class BasicCurrency with EquatableMixin {
   String code;
   String name;
   String symbol;
 
-  PopularCurrency({
+  BasicCurrency({
     required this.code,
     required this.name,
     required this.symbol,
   });
 
-  factory PopularCurrency.fromJson(Map<String, dynamic> json) {
-    return PopularCurrency(
+  factory BasicCurrency.fromJson(Map<String, dynamic> json) {
+    return BasicCurrency(
       code: json['code'],
       name: json['name'],
       symbol: json['symbol'],
@@ -33,4 +33,3 @@ class PopularCurrency with EquatableMixin {
   @override
   List<Object> get props => [code, name, symbol];
 }
- */

@@ -1,0 +1,138 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:go_router/go_router.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:kashflow/db/drift_db.dart';
+import 'package:kashflow/util/visible_strings.dart';
+import 'package:remixicon/remixicon.dart';
+import '../../providers/providers.dart';
+import '../models/models.dart';
+
+class PagedCurrencyPickerView extends ConsumerStatefulWidget {
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _PagedCurrencyPickerViewState();
+}
+
+class _PagedCurrencyPickerViewState
+    extends ConsumerState<PagedCurrencyPickerView> {
+  static const _pageSize = 20;
+  final PagingController<int, BasicCurrency> _pagingController =
+      PagingController(firstPageKey: 1, invisibleItemsThreshold: 7);
+
+  @override
+  void initState() {
+    _pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
+    super.initState();
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      final newItems =
+          await _BasicCurrencyService.getBasicCurrencyList(pageKey, _pageSize);
+      final isLastPage = newItems.left.length < _pageSize;
+      if (isLastPage) {
+        _pagingController.appendLastPage(newItems.left);
+      } else {
+        final nextPageKey = pageKey + newItems.left.length;
+        _pagingController.appendPage(newItems.left, nextPageKey);
+      }
+    } catch (error) {
+      _pagingController.error = error;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Paged
+    return PagedSliverBuilder(
+        pagingController: _pagingController,
+        builderDelegate: PagedChildBuilderDelegate(itemBuilder: itemBuilder),
+        loadingListingBuilder: loadingListingBuilder,
+        errorListingBuilder: errorListingBuilder,
+        completedListingBuilder: completedListingBuilder);
+  }
+}
+
+///Preloads preloaded currencies
+Future<List<BasicCurrency>> _getPreloadedCurriences() async {
+  final String json =
+      await rootBundle.loadString('assets/json/loaded_currencies.json');
+
+  var data = jsonDecode(json) as List;
+  print(data);
+
+  return data.map((e) => BasicCurrency.fromJson(e)).toList();
+}
+
+//TODO: Feed non_pagedd currency_picker_view with a service like this
+class _BasicCurrencyService {
+  static Future<Pair<List<BasicCurrency>, _Meta>> getBasicCurrencyList(
+    int pageKey,
+    int pageSize,
+  ) async {
+    //TODO:Modify later after saving currency to database
+    final ownCurrency = List.generate(
+      (pageSize / 3).truncate(),
+      (index) => BasicCurrency(code: 'code', name: 'name', symbol: 'symbol'),
+    );
+    final popCurrency = await _getPreloadedCurriences();
+    final meta =
+        _Meta(ownCurrency.length, popCurrency.length, ownCurrency.length);
+    final maxItemIndex = pageKey * pageSize;
+    final startingIndex = maxItemIndex - pageSize;
+    List<BasicCurrency> buffer = [];
+    int ownCurrencyIndex = 0;
+    int popCurrencyIndex = 0;
+    int otherCurrencyIndex = 0;
+    for (var i = startingIndex; i < maxItemIndex; i++) {
+      //Displaces the first item, the item immediately after the list of own currencies and the item immediately after the list of popular currencies because a title would be placed there instead
+      if ((i == 0) ||
+          (i == ownCurrency.length + 1) ||
+          (i == ownCurrency.length + popCurrency.length + 2)) {
+        buffer.add(
+          BasicCurrency(code: '', name: '', symbol: ''),
+        );
+      }
+
+      //places the items in ownCurrency into the buffer first
+      if (i == ownCurrency.length) {
+        buffer.add(ownCurrency[i - 1]);
+      }
+
+      //if owncurrencies is finished start adding popcurrencies
+      if ((i > ownCurrency.length + 1) &&
+          (i < ownCurrency.length + popCurrency.length + 2)) {
+        buffer.add(popCurrency[i - (ownCurrency.length + 1)]);
+      }
+
+      //if popcurrencies is finished fetch other currencies from web and start adding them
+      if (i > ownCurrency.length + popCurrency.length + 2) {
+        buffer.add(
+            ownCurrency[i - (ownCurrency.length + popCurrency.length + 2)]);
+      }
+    }
+    return Pair<List<BasicCurrency>, _Meta>(
+      left: buffer,
+      right: meta,
+    );
+  }
+}
+
+class _Meta {
+  final int ownCurrencyTitleIndex;
+  final int popCurrencyTitleIndex;
+  final int otherCurrencyTitleIndex;
+
+  _Meta(
+    this.ownCurrencyTitleIndex,
+    this.popCurrencyTitleIndex,
+    this.otherCurrencyTitleIndex,
+  );
+}

@@ -42,14 +42,3 @@ void registerLicenses() {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 }
-
-///Preloads preloaded currencies
-Future<List<PreloadedCurrencyData>> _getPreloadedCurriences() async {
-  final String json =
-      await rootBundle.loadString('assets/json/loaded_currencies.json');
-
-  var data = jsonDecode(json) as List;
-  print(data);
-
-  return data.map((e) => PreloadedCurrencyData.fromJson(e)).toList();
-}
