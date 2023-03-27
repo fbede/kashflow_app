@@ -71,6 +71,45 @@ const darkColorScheme = ColorScheme(
 //TODO: Add more colors (starting with tertiary)
 const newLightColorScheme = ColorScheme(
   brightness: Brightness.light,
+  primary: Color(0xff000000),
+  onPrimary: Color(0xffffffff),
+  secondary: Color(0xff00ff00),
+  onSecondary: Color(0xff000000),
+  error: Color(0xffff0000),
+  onError: Color(0xff000000),
+  errorContainer: Color(0xffff0066),
+  onErrorContainer: Color(0xff000000),
+  background: Color(0xffffffff),
+  onBackground: Color(0xff000000),
+
+  //TODO: Modify later
+  surface: Color(0xffffffff),
+  onSurface: Color(0xff000000),
+);
+
+//TODO: Add more colors (starting with tertiary)
+const newDarkColorScheme = ColorScheme(
+  brightness: Brightness.dark,
+  primary: Color(0xffffcc00),
+  onPrimary: Color(0xff000000),
+  secondary: Color(0xff00ff00),
+  onSecondary: Color(0xff000000),
+  error: Color(0xffff0000),
+  onError: Color(0xff000000),
+  errorContainer: Color(0xffff0066),
+  onErrorContainer: Color(0xff000000),
+  background: Color(0xff000000),
+  onBackground: Color(0xffffffff),
+
+  //TODO: Modify later
+  onSurface: Color(0xffffffff),
+  surface: Color(0xff000000),
+);
+
+//Base theme colors
+//TODO: Add more colors (starting with tertiary)
+const baseLightColorScheme = ColorScheme(
+  brightness: Brightness.light,
   primary: Color(0xffffcc00),
   onPrimary: Color(0xff000000),
   secondary: Color(0xff00ff00),
@@ -88,7 +127,7 @@ const newLightColorScheme = ColorScheme(
 );
 
 //TODO: Add more colors (starting with tertiary)
-const newDarkColorScheme = ColorScheme(
+const baseDarkColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xffffcc00),
   onPrimary: Color(0xff000000),

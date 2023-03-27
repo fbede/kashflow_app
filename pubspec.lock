@@ -350,14 +350,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
-  flutter_staggered_grid_view:
-    dependency: "direct main"
-    description:
-      name: flutter_staggered_grid_view
-      sha256: "1312314293acceb65b92754298754801b0e1f26a1845833b740b30415bbbcf07"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -432,6 +424,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  grouped_scroll_view:
+    dependency: "direct main"
+    description:
+      name: grouped_scroll_view
+      sha256: "3599e2f92ee5d24882b252ca1679dc23b4a5a4dd44e8039e3c2c02e963b2b617"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.9+2"
   html:
     dependency: transitive
     description:
@@ -472,14 +472,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.15"
-  infinite_scroll_pagination:
-    dependency: "direct main"
-    description:
-      name: infinite_scroll_pagination
-      sha256: "9517328f4e373f08f57dbb11c5aac5b05554142024d6b60c903f3b73476d52db"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.2.0"
   intl:
     dependency: transitive
     description:

@@ -23,29 +23,27 @@ class SplashScreen extends StatelessWidget {
       bgColor = Colors.black;
     }
 
-    return SafeArea(
-      child: AnimatedSplashScreen.withScreenRouteFunction(
-        animationDuration: Duration(milliseconds: 1000),
-        backgroundColor: bgColor,
-        splash: logoPath,
-        splashTransition: SplashTransition.fadeTransition,
-        pageTransitionType: PageTransitionType.scale,
-        screenRouteFunction: () async {
-          final prefs = GetIt.I.get<SharedPreferences>();
-          final hasOnboarded = prefs.getBool(PrefKey.ONBOARDED) ?? false;
+    return AnimatedSplashScreen.withScreenRouteFunction(
+      animationDuration: Duration(milliseconds: 1000),
+      backgroundColor: bgColor,
+      splash: logoPath,
+      splashTransition: SplashTransition.fadeTransition,
+      pageTransitionType: PageTransitionType.scale,
+      screenRouteFunction: () async {
+        final prefs = GetIt.I.get<SharedPreferences>();
+        final hasOnboarded = prefs.getBool(PrefKey.ONBOARDED) ?? false;
 
-          //TODO: NOTE: Add Auth Screens before welcome screen and
-          //change condition to check for logged in state
+        //TODO: NOTE: Add Auth Screens before welcome screen and
+        //change condition to check for logged in state
 
-          if (!hasOnboarded) {
-            context.goNamed(AppRoute.WELCOME);
-          } else {
-            context.goNamed(DASHBOARD_ROUTE);
-          }
+        if (!hasOnboarded) {
+          context.goNamed(AppRoute.WELCOME);
+        } else {
+          context.goNamed(DASHBOARD_ROUTE);
+        }
 
-          return '';
-        },
-      ),
+        return '';
+      },
     );
   }
 }

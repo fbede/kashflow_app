@@ -7,8 +7,6 @@ import 'package:kashflow/views/views.dart';
 import 'package:kashflow/screens/screens.dart';
 import 'package:kashflow/shells/shells.dart';
 
-import '../screens/mobile/mobile_screens.dart';
-
 part 'routes.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -38,15 +36,7 @@ final appRouter = GoRouter(
       path: AppRoute.CHOOSE_DEFAULT_CURRENCY,
       name: AppRoute.CHOOSE_DEFAULT_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) {
-        return Scaffold(
-          appBar: SmallCustomAppBar(
-            title: Text(UserText.Choose_Default_Currency),
-            centerTitle: true,
-          ),
-          body: CurrencyPickerView(),
-        );
-      },
+      builder: (context, state) => CurrencyPickerView(),
     ),
 
     //TODO: Create actual pages
@@ -124,7 +114,7 @@ final _mainAppRoutes = <RouteBase>[
     name: MORE_ROUTE,
     parentNavigatorKey: _appNavBarNavigatorKey,
     builder: (BuildContext context, GoRouterState state) {
-      return const MobileSettingsScreen();
+      return const SizedBox();
     },
   ),
 ];

@@ -7,10 +7,9 @@ import 'package:kashflow/util/visible_strings.dart';
 class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            body: Center(
-                child: Column(
+    return Scaffold(
+        body: Center(
+            child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
@@ -20,11 +19,9 @@ class WelcomeView extends StatelessWidget {
         SizedBox(height: 8),
         FilledButton(
           onPressed: () => context.pushNamed(AppRoute.CHOOSE_DEFAULT_CURRENCY),
-          child: Text(
-            UserText.Choose_Default_Currency,
-          ),
+          child: Text(UserText.Choose_Default_Currency),
         ),
       ],
-    ))));
+    )));
   }
 }
