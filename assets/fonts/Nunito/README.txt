@@ -1,32 +1,34 @@
-Josefin Sans Variable Font
-==========================
+Nunito Variable Font
+====================
 
-This download contains Josefin Sans as both variable fonts and static fonts.
+This download contains Nunito as both variable fonts and static fonts.
 
-Josefin Sans is a variable font with this axis:
+Nunito is a variable font with this axis:
   wght
 
 This means all the styles are contained in these files:
-  JosefinSans-VariableFont_wght.ttf
-  JosefinSans-Italic-VariableFont_wght.ttf
+  Nunito-VariableFont_wght.ttf
+  Nunito-Italic-VariableFont_wght.ttf
 
 If your app fully supports variable fonts, you can now pick intermediate styles
 that aren’t available as static fonts. Not all apps support variable fonts, and
-in those cases you can use the static font files for Josefin Sans:
-  static/JosefinSans-Thin.ttf
-  static/JosefinSans-ExtraLight.ttf
-  static/JosefinSans-Light.ttf
-  static/JosefinSans-Regular.ttf
-  static/JosefinSans-Medium.ttf
-  static/JosefinSans-SemiBold.ttf
-  static/JosefinSans-Bold.ttf
-  static/JosefinSans-ThinItalic.ttf
-  static/JosefinSans-ExtraLightItalic.ttf
-  static/JosefinSans-LightItalic.ttf
-  static/JosefinSans-Italic.ttf
-  static/JosefinSans-MediumItalic.ttf
-  static/JosefinSans-SemiBoldItalic.ttf
-  static/JosefinSans-BoldItalic.ttf
+in those cases you can use the static font files for Nunito:
+  static/Nunito-ExtraLight.ttf
+  static/Nunito-Light.ttf
+  static/Nunito-Regular.ttf
+  static/Nunito-Medium.ttf
+  static/Nunito-SemiBold.ttf
+  static/Nunito-Bold.ttf
+  static/Nunito-ExtraBold.ttf
+  static/Nunito-Black.ttf
+  static/Nunito-ExtraLightItalic.ttf
+  static/Nunito-LightItalic.ttf
+  static/Nunito-Italic.ttf
+  static/Nunito-MediumItalic.ttf
+  static/Nunito-SemiBoldItalic.ttf
+  static/Nunito-BoldItalic.ttf
+  static/Nunito-ExtraBoldItalic.ttf
+  static/Nunito-BlackItalic.ttf
 
 Get started
 -----------

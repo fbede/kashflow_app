@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:kashflow/util/hidden_strings.dart';
 
 import 'color_scheme.dart';
 export 'color_scheme.dart';
 
 final lightThemeData = ThemeData(
-  textTheme: GoogleFonts.josefinSansTextTheme().apply(
-    displayColor: newLightColorScheme.onBackground,
-    bodyColor: newLightColorScheme.onBackground,
-  ),
+  fontFamily: HiddenStrings.FONT_FAMILY,
   colorScheme: newLightColorScheme,
   useMaterial3: true,
   dividerTheme: _lightDividerTheme,
@@ -17,10 +15,7 @@ final lightThemeData = ThemeData(
   dialogBackgroundColor: newLightColorScheme.surface,
 );
 final darkThemeData = ThemeData(
-  textTheme: GoogleFonts.josefinSansTextTheme().apply(
-    displayColor: newDarkColorScheme.onBackground,
-    bodyColor: newDarkColorScheme.onBackground,
-  ),
+  fontFamily: HiddenStrings.FONT_FAMILY,
   colorScheme: newDarkColorScheme,
   useMaterial3: true,
   dividerTheme: _darkDividerTheme,

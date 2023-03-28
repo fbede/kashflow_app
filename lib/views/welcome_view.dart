@@ -1,9 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:kashflow/router/app_router.dart';
-import 'package:kashflow/util/visible_strings.dart';
+part of 'views.dart';
 
-//TODO: Fix Onboarding View
 class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,7 +10,10 @@ class WelcomeView extends StatelessWidget {
       children: [
         Text(
           UserText.Welcome,
-          style: TextStyle(fontSize: 32),
+          style: TextStyle(
+            fontSize: 48,
+            fontWeight: FontWeight.w100,
+          ),
         ),
         SizedBox(height: 8),
         FilledButton(

@@ -79,7 +79,7 @@ const newLightColorScheme = ColorScheme(
   onError: Color(0xff000000),
   errorContainer: Color(0xffff0066),
   onErrorContainer: Color(0xff000000),
-  background: Color(0xffffffff),
+  background: Color.fromARGB(255, 255, 255, 255),
   onBackground: Color(0xff000000),
 
   //TODO: Modify later

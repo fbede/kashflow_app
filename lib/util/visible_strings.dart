@@ -1,10 +1,14 @@
 class UserText {
   static const Welcome = 'Welcome';
   static const Choose_Default_Currency = 'Choose Default Currency';
+  static const Select_Currency = 'Select Currency';
+  static const Search_Currency_Name_or_Code = 'Search Currency Name or Code';
+  static const Edit_Currency = 'Edit Currency';
+  static const Create_New_Currency = 'Select Currency';
 }
 
 //SHARED PREFS KEYS
-const ONBOARDED_KEY = 'hasOnboarded';
+
 const SETTINGS_KEY = 'settings';
 const THEMEMODE_KEY = 'themeMode';
 
@@ -33,7 +37,7 @@ const SYSTEM_THEME_MODE = 'System Default';
 const DEFAULT_CURRENCY = 'Default Currency';
 
 const SELECT_DEFAULT_CURRENCY = 'Select Default Currency';
-const CURRENCY_PICKER_HINT = 'Search Currency Name or Code';
+
 const OWN_CURRENCIES_LABEL = 'Own Currencies';
 const POPULAR_CURRENCIES_LABEL = 'Popular Currencies';
 const OTHER_CURRENCIES_LABEL = 'Other Currencies';

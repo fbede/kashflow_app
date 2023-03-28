@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
-import 'package:kashflow/ui/elements/elements.dart';
 import 'package:kashflow/util/visible_strings.dart';
 import 'package:kashflow/views/views.dart';
 import 'package:kashflow/screens/screens.dart';
@@ -36,7 +35,33 @@ final appRouter = GoRouter(
       path: AppRoute.CHOOSE_DEFAULT_CURRENCY,
       name: AppRoute.CHOOSE_DEFAULT_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => CurrencyPickerView(),
+      builder: (context, state) => CurrencyPickerView(
+        titleString: UserText.Choose_Default_Currency,
+      ),
+    ),
+    GoRoute(
+      path: AppRoute.CHOOSE_CURRENCY,
+      name: AppRoute.CHOOSE_CURRENCY,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => CurrencyPickerView(
+        titleString: UserText.Select_Currency,
+      ),
+    ),
+    GoRoute(
+      path: AppRoute.EDIT_CURRENCY,
+      name: AppRoute.EDIT_CURRENCY,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => EditCurrencyView(
+        titleString: UserText.Edit_Currency,
+      ),
+    ),
+    GoRoute(
+      path: AppRoute.CREATE_NEW_CURRENCY,
+      name: AppRoute.CREATE_NEW_CURRENCY,
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) => EditCurrencyView(
+        titleString: UserText.Create_New_Currency,
+      ),
     ),
 
     //TODO: Create actual pages

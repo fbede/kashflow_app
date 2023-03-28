@@ -4,7 +4,12 @@ class AppRoute {
   //Other Routes
   static const WELCOME = '/welcome';
   static const SPLASH = '/splash';
+
+  //Settings Routes
+  static const CHOOSE_CURRENCY = '/chooseCurrency';
   static const CHOOSE_DEFAULT_CURRENCY = '/chooseDefaultCurrency';
+  static const EDIT_CURRENCY = '/editCurrency';
+  static const CREATE_NEW_CURRENCY = '/createNewCurrency';
 }
 
 //Auth Routes

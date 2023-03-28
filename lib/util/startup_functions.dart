@@ -1,12 +1,6 @@
-import 'dart:convert';
 import 'dart:ffi' as ffi;
-import 'dart:io';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:sqlite3/open.dart';
 import '../db/drift_db.dart';
 
@@ -32,13 +26,4 @@ Future<void> registerModelsOnGetIt() async {
   // GetIt.I.registerSingleton<List<PreloadedCurrencyData>>(
   // await _getPreloadedCurriences(),
   //);
-}
-
-///Registers licenses for fonts and others
-void registerLicenses() {
-  //Registers font license
-  LicenseRegistry.addLicense(() async* {
-    final license = await rootBundle.loadString('assets/fonts/OFL.txt');
-    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
-  });
 }

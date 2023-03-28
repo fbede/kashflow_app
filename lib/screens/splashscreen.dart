@@ -31,7 +31,7 @@ class SplashScreen extends StatelessWidget {
       pageTransitionType: PageTransitionType.scale,
       screenRouteFunction: () async {
         final prefs = GetIt.I.get<SharedPreferences>();
-        final hasOnboarded = prefs.getBool(PrefKey.ONBOARDED) ?? false;
+        final hasOnboarded = prefs.getBool(HiddenStrings.ONBOARDED) ?? false;
 
         //TODO: NOTE: Add Auth Screens before welcome screen and
         //change condition to check for logged in state
