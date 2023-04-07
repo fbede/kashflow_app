@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
+import 'package:kashflow/ui/views/views.dart';
 import 'package:kashflow/util/visible_strings.dart';
-import 'package:kashflow/views/views.dart';
+
 import 'package:kashflow/screens/screens.dart';
 import 'package:kashflow/shells/shells.dart';
 
@@ -51,17 +52,23 @@ final appRouter = GoRouter(
       path: AppRoute.EDIT_CURRENCY,
       name: AppRoute.EDIT_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => EditCurrencyView(
-        titleString: UserText.Edit_Currency,
-      ),
+      builder: (context, state) {
+        return EditCurrencyView(
+          titleString: UserText.Edit_Currency,
+          extra: state.extra!,
+        );
+      },
     ),
     GoRoute(
       path: AppRoute.CREATE_NEW_CURRENCY,
       name: AppRoute.CREATE_NEW_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => EditCurrencyView(
-        titleString: UserText.Create_New_Currency,
-      ),
+      builder: (context, state) {
+        return EditCurrencyView(
+          titleString: UserText.Create_New_Currency,
+          extra: state.extra!,
+        );
+      },
     ),
 
     //TODO: Create actual pages

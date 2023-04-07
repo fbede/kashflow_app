@@ -1,15 +1,22 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kashflow/models/models.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:money2/money2.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class SettingsNotifier extends StateNotifier<Settings> {
-  SettingsNotifier(super.state);
+part 'settings_provider.freezed.dart';
 
-  void updateThemeMode({required ThemeMode? themeMode}) async {
-    if (themeMode == null) {
-      return;
-    }
-    state = state.copyWith(themeMode: themeMode);
-    Settings.saveThemeModeInPrefs(themeMode);
+part 'settings_provider.g.dart';
+
+@freezed
+class SettingsState with _$SettingsState {
+  const factory SettingsState({
+    required Currency currency,
+  }) = _SettingsState;
+}
+
+@riverpod
+class SettingsNotifier extends _$SettingsNotifier {
+  @override
+  SettingsState build() {
+    return SettingsState(currency: CommonCurrencies().usd);
   }
 }

@@ -32,6 +32,13 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
   }
 
   @override
+  void dispose() {
+    _pickerController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SmallCustomAppBar(
@@ -69,10 +76,10 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
   SliverGridDelegateWithMaxCrossAxisExtent _getGridDelegate(
       BuildContext context) {
     return SliverGridDelegateWithMaxCrossAxisExtent(
-      mainAxisSpacing: 5,
-      crossAxisSpacing: 5,
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
       maxCrossAxisExtent: 550,
-      mainAxisExtent: 45,
+      mainAxisExtent: 48,
     );
   }
 
@@ -105,7 +112,6 @@ class _ItemWidget extends StatelessWidget {
       )),
       child: Center(
         child: ListTile(
-          //dense: true,
           leading: Text(item.object.code),
           title: Text(
             item.object.name,
@@ -113,8 +119,16 @@ class _ItemWidget extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           trailing: Text(item.object.symbol),
-          //TODO: Modify to pass Basic Currency Info
-          onTap: () => context.pushNamed(AppRoute.EDIT_CURRENCY),
+          onTap: () {
+            final extra = {
+              NavParamKeys.BASIC_CURRENCY_EXTRA_KEY: item.object,
+              NavParamKeys.IS_DEFAULT_EXTRA_KEY: true,
+            };
+            context.pushNamed(
+              AppRoute.EDIT_CURRENCY,
+              extra: extra,
+            );
+          },
         ),
       ),
     );
@@ -169,8 +183,16 @@ class _BottomSearchBar extends StatelessWidget {
             FloatingActionButton.small(
               elevation: 0,
               child: Icon(Remix.add_fill),
-              onPressed: () => context.pushNamed(AppRoute.CREATE_NEW_CURRENCY),
               shape: CircleBorder(eccentricity: 1),
+              onPressed: () {
+                final extra = {
+                  NavParamKeys.IS_DEFAULT_EXTRA_KEY: true,
+                };
+                context.pushNamed(
+                  AppRoute.CREATE_NEW_CURRENCY,
+                  extra: extra,
+                );
+              },
             )
           ],
         ),
@@ -197,8 +219,9 @@ class _RoundedTextField extends StatelessWidget {
         contentPadding: EdgeInsetsDirectional.zero,
         prefixIcon: const Icon(Remix.search_line),
         hintText: UserText.Search_Currency_Name_or_Code,
-        border: _getInputBorder(context),
+        //border: _getInputBorder(context),
         enabledBorder: _getInputBorder(context),
+        focusedBorder: _getFocusedBorder(context),
       ),
     );
   }
@@ -206,6 +229,13 @@ class _RoundedTextField extends StatelessWidget {
   OutlineInputBorder _getInputBorder(BuildContext context) {
     return OutlineInputBorder(
       borderSide: DecorationElements.getRegularBorderSide(context),
+      borderRadius: BorderRadius.circular(30),
+    );
+  }
+
+  OutlineInputBorder _getFocusedBorder(BuildContext context) {
+    return OutlineInputBorder(
+      borderSide: DecorationElements.getFocusedBorderSide(context),
       borderRadius: BorderRadius.circular(30),
     );
   }

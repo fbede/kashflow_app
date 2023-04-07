@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const lightColorScheme = ColorScheme(
+const _lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF2854CC),
   onPrimary: Color(0xFFFFFFFF),
@@ -34,7 +34,7 @@ const lightColorScheme = ColorScheme(
   //scrim: Color(0xFF000000),
 );
 
-const darkColorScheme = ColorScheme(
+const _darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
   primary: Color(0xFFB6C4FF),
   onPrimary: Color(0xFF00287D),
@@ -71,17 +71,19 @@ const darkColorScheme = ColorScheme(
 //TODO: Add more colors (starting with tertiary)
 const newLightColorScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: Color(0xff000000),
-  onPrimary: Color(0xffffffff),
+  primary: Color.fromRGBO(255, 215, 0, 1),
+  onPrimary: Color.fromRGBO(0, 0, 0, 1),
+  // primaryContainer: Color.fromRGBO(255, 250, 224, 1),
   secondary: Color(0xff00ff00),
   onSecondary: Color(0xff000000),
   error: Color(0xffff0000),
   onError: Color(0xff000000),
-  errorContainer: Color(0xffff0066),
-  onErrorContainer: Color(0xff000000),
+  //errorContainer: Color(0xffff0066),
+  //onErrorContainer: Color(0xff000000),
   background: Color.fromARGB(255, 255, 255, 255),
   onBackground: Color(0xff000000),
-
+  outline: Color.fromRGBO(191, 191, 191, 1),
+  outlineVariant: Color.fromRGBO(240, 240, 240, 1),
   //TODO: Modify later
   surface: Color(0xffffffff),
   onSurface: Color(0xff000000),
@@ -90,16 +92,18 @@ const newLightColorScheme = ColorScheme(
 //TODO: Add more colors (starting with tertiary)
 const newDarkColorScheme = ColorScheme(
   brightness: Brightness.dark,
-  primary: Color(0xffffcc00),
-  onPrimary: Color(0xff000000),
+  primary: Color.fromRGBO(255, 215, 0, 1),
+  onPrimary: Color.fromRGBO(0, 0, 0, 1),
   secondary: Color(0xff00ff00),
   onSecondary: Color(0xff000000),
   error: Color(0xffff0000),
   onError: Color(0xff000000),
-  errorContainer: Color(0xffff0066),
-  onErrorContainer: Color(0xff000000),
+  //errorContainer: Color(0xffff0066),
+  //onErrorContainer: Color(0xff000000),
   background: Color(0xff000000),
   onBackground: Color(0xffffffff),
+  outline: Color.fromRGBO(191, 191, 191, 1),
+  outlineVariant: Color.fromRGBO(16, 16, 16, 1),
 
   //TODO: Modify later
   onSurface: Color(0xffffffff),
@@ -108,7 +112,7 @@ const newDarkColorScheme = ColorScheme(
 
 //Base theme colors
 //TODO: Add more colors (starting with tertiary)
-const baseLightColorScheme = ColorScheme(
+const _baseLightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xffffcc00),
   onPrimary: Color(0xff000000),
@@ -127,16 +131,17 @@ const baseLightColorScheme = ColorScheme(
 );
 
 //TODO: Add more colors (starting with tertiary)
-const baseDarkColorScheme = ColorScheme(
+const _baseDarkColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xffffcc00),
   onPrimary: Color(0xff000000),
+
   secondary: Color(0xff00ff00),
   onSecondary: Color(0xff000000),
   error: Color(0xffff0000),
   onError: Color(0xff000000),
-  errorContainer: Color(0xffff0066),
-  onErrorContainer: Color(0xff000000),
+  //errorContainer: Color(0xffff0066),
+  //onErrorContainer: Color(0xff000000),
   background: Color(0xff000000),
   onBackground: Color(0xffffffff),
 

@@ -11,9 +11,6 @@ class Settings extends Equatable {
   static final DriftDB _db = GetIt.I<DriftDB>();
   static final _prefs = GetIt.I.get<SharedPreferences>();
 
-  final List<PreloadedCurrencyData> defaultCurrencies =
-      GetIt.I.get<List<PreloadedCurrencyData>>();
-
   // enum
   final ThemeMode themeMode;
 
@@ -28,11 +25,13 @@ class Settings extends Equatable {
   });
 
   @override
-  List<Object> get props => [themeMode, defaultCurrencies];
+  List<Object> get props => [
+        themeMode,
+      ];
 
   Settings copyWith({
     ThemeMode? themeMode,
-    List<PreloadedCurrencyData>? defaultCurrencies,
+    List? defaultCurrencies,
   }) {
     return Settings._(
       themeMode: themeMode ?? this.themeMode,

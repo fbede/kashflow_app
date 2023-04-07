@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kashflow/router/app_router.dart';
-import 'package:kashflow/theme/themes.dart';
+import 'package:kashflow/ui/elements/themes.dart';
 import 'package:kashflow/util/visible_strings.dart';
 
 //TODO: FIX ME
@@ -22,7 +22,7 @@ class MyApp extends ConsumerWidget {
       child: MaterialApp.router(
         title: APPNAME,
         //TODO: Fix after Settings is solved
-        themeMode: ThemeMode.light,
+        //themeMode: ThemeMode.light,
         theme: lightThemeData,
         darkTheme: darkThemeData,
         routerConfig: appRouter,

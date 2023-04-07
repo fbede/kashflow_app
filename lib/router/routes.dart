@@ -10,6 +10,9 @@ class AppRoute {
   static const CHOOSE_DEFAULT_CURRENCY = '/chooseDefaultCurrency';
   static const EDIT_CURRENCY = '/editCurrency';
   static const CREATE_NEW_CURRENCY = '/createNewCurrency';
+
+  //Navrail Route
+  static const DASHBOARD_ROUTE = '/dashboard';
 }
 
 //Auth Routes

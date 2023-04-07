@@ -1,7 +1,34 @@
 import 'package:equatable/equatable.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-class Group<T> with EquatableMixin {
+part 'util_models.freezed.dart';
+
+part 'util_models.g.dart';
+
+@Freezed(genericArgumentFactories: true)
+class Group<T> with _$Group<T> {
+  const factory Group({
+    required String groupName,
+    required T object,
+  }) = _Group;
+
+  factory Group.fromObject({
+    required T object,
+    required String groupName,
+  }) {
+    return Group<T>(
+      groupName: groupName,
+      object: object,
+    );
+  }
+
+  factory Group.fromJson(
+          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
+      _$GroupFromJson(json, fromJsonT);
+}
+
+/* class Group<T> with EquatableMixin {
   final String groupName;
   final T object;
   Group({
@@ -18,9 +45,9 @@ class Group<T> with EquatableMixin {
 
   @override
   List<Object?> get props => [groupName, object];
-}
+} */
 
-class BasicCurrency with EquatableMixin {
+/* class BasicCurrency {
   String code;
   String name;
   String symbol;
@@ -52,4 +79,17 @@ class BasicCurrency with EquatableMixin {
 
   @override
   List<Object> get props => [code, name, symbol];
+}
+ */
+
+@freezed
+class BasicCurrency with _$BasicCurrency {
+  const factory BasicCurrency({
+    required String code,
+    required String name,
+    required String symbol,
+  }) = _Person;
+
+  factory BasicCurrency.fromJson(Map<String, Object?> json) =>
+      _$BasicCurrencyFromJson(json);
 }

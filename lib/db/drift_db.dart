@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:flutter/services.dart';
 import 'package:kashflow/db/currency_dao.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
@@ -10,7 +8,7 @@ import 'package:path/path.dart' as p;
 part 'drift_db.g.dart';
 
 @DriftDatabase(
-  tables: [UserCurrency, PreloadedCurrency],
+  tables: [DBCurrency],
   daos: [CurrencyDao],
 )
 class DriftDB extends _$DriftDB {
@@ -32,24 +30,18 @@ LazyDatabase _openConnection() {
   });
 }
 
-class UserCurrency extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get language => text().withLength(min: 6, max: 32)();
-  TextColumn get code => text().withLength(min: 6, max: 32)();
+class DBCurrency extends Table {
+  TextColumn get code => text().unique().withLength(min: 3, max: 8)();
   IntColumn get scale => integer()();
-  TextColumn get symbol => text().withLength(min: 6, max: 32)();
-  TextColumn get pattern => text().withLength(min: 6, max: 32)();
+  TextColumn get symbol => text().withLength(min: 1, max: 6)();
+  TextColumn get pattern => text().withLength(min: 2)();
   BoolColumn get invertSeparators => boolean()();
   TextColumn get country => text().nullable()();
-  TextColumn get unit => text()();
-  TextColumn get name => text()();
+  TextColumn get unit => text().nullable()();
+  TextColumn get name => text().nullable()();
   BoolColumn get isDefault => boolean()();
-}
+  BoolColumn get lastModifiedByServer => boolean()();
 
-class PreloadedCurrency extends Table {
-  IntColumn get id => integer().autoIncrement()();
-
-  TextColumn get code => text().withLength(min: 6, max: 32)();
-  TextColumn get name => text()();
-  TextColumn get symbol => text().withLength(min: 6, max: 32)();
+  @override
+  Set<Column> get primaryKey => {code};
 }

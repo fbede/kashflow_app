@@ -97,3 +97,91 @@ class RoundedSearchBar extends StatelessWidget {
     );
   }
 }
+
+class ErrorSnackBar extends SnackBar {
+  ErrorSnackBar({
+    required BuildContext context,
+    required super.content,
+    super.action,
+    super.animation,
+    super.behavior,
+    super.clipBehavior,
+    super.dismissDirection,
+    super.duration,
+    super.elevation,
+    super.key,
+    super.margin,
+    super.onVisible,
+    super.padding,
+    super.shape,
+    super.showCloseIcon,
+    super.width,
+  }) : super(
+          backgroundColor: Theme.of(context).colorScheme.error,
+          closeIconColor: Theme.of(context).colorScheme.error,
+        );
+}
+
+class OkSnackBar extends SnackBar {
+  OkSnackBar({
+    required BuildContext context,
+    required super.content,
+    super.action,
+    super.animation,
+    super.behavior,
+    super.clipBehavior,
+    super.dismissDirection,
+    super.duration,
+    super.elevation,
+    super.key,
+    super.margin,
+    super.onVisible,
+    super.padding,
+    super.shape,
+    super.showCloseIcon,
+    super.width,
+  }) : super(
+          backgroundColor: Theme.of(context).colorScheme.error,
+          closeIconColor: Theme.of(context).colorScheme.error,
+        );
+}
+
+class CustomProgressIndicator extends StatefulWidget {
+  @override
+  State<CustomProgressIndicator> createState() =>
+      _CustomProgressIndicatorState();
+}
+
+class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 500),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return RotationTransition(
+      turns: _controller,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Icon(
+          Remix.refresh_line,
+          color: Theme.of(context).colorScheme.onBackground,
+        ),
+      ),
+    );
+  }
+}
