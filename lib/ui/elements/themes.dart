@@ -27,6 +27,7 @@ final lightThemeData = ThemeData(
       backgroundColor: newLightColorScheme.primary,
     ),
   ),
+  textButtonTheme: _textButtonTheme,
   indicatorColor: newLightColorScheme.onBackground,
   inputDecorationTheme: InputDecorationTheme(
     fillColor: newLightColorScheme.outlineVariant,
@@ -59,6 +60,7 @@ final darkThemeData = ThemeData(
       backgroundColor: newDarkColorScheme.primary,
     ),
   ),
+  textButtonTheme: _textButtonTheme,
   indicatorColor: newDarkColorScheme.onBackground,
   inputDecorationTheme: InputDecorationTheme(
     fillColor: newDarkColorScheme.outlineVariant,
@@ -72,4 +74,13 @@ final darkThemeData = ThemeData(
 final _dividerTheme = DividerThemeData(
   color: newLightColorScheme.outline,
   thickness: 0.5,
+);
+
+final _textButtonTheme = TextButtonThemeData(
+  style: TextButton.styleFrom(
+    alignment: Alignment.center,
+    textStyle: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+  ),
 );

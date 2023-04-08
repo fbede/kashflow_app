@@ -18,6 +18,7 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
 
   @override
   void initState() {
+    _pickerController.title = widget.titleString;
     _pickerController.addListener(() {
       setState(() {});
     });
@@ -58,7 +59,10 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
                   groupedOptions: _getGroupedScrollViewOptions(),
                   itemBuilder:
                       (BuildContext context, Group<BasicCurrency> item) {
-                    return _ItemWidget(item: item);
+                    return _ItemWidget(
+                      item: item,
+                      pickerController: _pickerController,
+                    );
                   },
                   data: _pickerController.data,
                   headerBuilder: (BuildContext context) => SizedBox.shrink(),
@@ -79,7 +83,7 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
       mainAxisSpacing: 4,
       crossAxisSpacing: 4,
       maxCrossAxisExtent: 550,
-      mainAxisExtent: 48,
+      mainAxisExtent: 32,
     );
   }
 
@@ -98,9 +102,13 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
 }
 
 class _ItemWidget extends StatelessWidget {
-  const _ItemWidget({required this.item});
+  const _ItemWidget({
+    required this.item,
+    required _CurrencyPickerController pickerController,
+  }) : _pickerController = pickerController;
 
   final Group<BasicCurrency> item;
+  final _CurrencyPickerController _pickerController;
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +120,7 @@ class _ItemWidget extends StatelessWidget {
       )),
       child: Center(
         child: ListTile(
+          dense: true,
           leading: Text(item.object.code),
           title: Text(
             item.object.name,
@@ -120,14 +129,16 @@ class _ItemWidget extends StatelessWidget {
           ),
           trailing: Text(item.object.symbol),
           onTap: () {
-            final extra = {
+            Map<String, dynamic> extra = {
               NavParamKeys.BASIC_CURRENCY_EXTRA_KEY: item.object,
-              NavParamKeys.IS_DEFAULT_EXTRA_KEY: true,
             };
-            context.pushNamed(
-              AppRoute.EDIT_CURRENCY,
-              extra: extra,
-            );
+            if (_pickerController.title == UserText.Choose_Default_Currency) {
+              extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
+            }
+            if (item.groupName == UserText.Saved_Curriences) {
+              extra.addAll({NavParamKeys.IS_SAVED_EXTRA_KEY: true});
+            }
+            context.pushNamed(AppRoute.EDIT_CURRENCY, extra: extra);
           },
         ),
       ),
@@ -184,20 +195,20 @@ class _BottomSearchBar extends StatelessWidget {
               elevation: 0,
               child: Icon(Remix.add_fill),
               shape: CircleBorder(eccentricity: 1),
-              onPressed: () {
-                final extra = {
-                  NavParamKeys.IS_DEFAULT_EXTRA_KEY: true,
-                };
-                context.pushNamed(
-                  AppRoute.CREATE_NEW_CURRENCY,
-                  extra: extra,
-                );
-              },
+              onPressed: () => _createNewCurrency(context),
             )
           ],
         ),
       ),
     );
+  }
+
+  void _createNewCurrency(BuildContext context) {
+    Map<String, dynamic> extra = {};
+    if (_pickerController.title == UserText.Choose_Default_Currency) {
+      extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
+    }
+    context.pushNamed(AppRoute.CREATE_NEW_CURRENCY, extra: extra);
   }
 }
 
@@ -219,7 +230,6 @@ class _RoundedTextField extends StatelessWidget {
         contentPadding: EdgeInsetsDirectional.zero,
         prefixIcon: const Icon(Remix.search_line),
         hintText: UserText.Search_Currency_Name_or_Code,
-        //border: _getInputBorder(context),
         enabledBorder: _getInputBorder(context),
         focusedBorder: _getFocusedBorder(context),
       ),
@@ -243,6 +253,8 @@ class _RoundedTextField extends StatelessWidget {
 
 //TODO: Update to fetch from web & db
 class _CurrencyPickerController extends ChangeNotifier {
+  String title = '';
+
   final pageSize = 30;
   int pageNumber = 1;
 
@@ -370,7 +382,7 @@ class _CurrencyPickerController extends ChangeNotifier {
     List<Group<BasicCurrency>> currencies = data.map((e) {
       return Group.fromObject(
         object: BasicCurrency.fromJson(e),
-        groupName: 'db currency',
+        groupName: UserText.Saved_Curriences,
       );
     }).toList();
 
@@ -395,7 +407,7 @@ class _CurrencyPickerController extends ChangeNotifier {
     List<Group<BasicCurrency>> currencies = data.map((e) {
       return Group.fromObject(
         object: BasicCurrency.fromJson(e),
-        groupName: 'assets currency',
+        groupName: UserText.Popular_Curriences,
       );
     }).toList();
 

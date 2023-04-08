@@ -20,4 +20,5 @@ class SharedPrefKeys {
 class NavParamKeys {
   static const IS_DEFAULT_EXTRA_KEY = 'isDefault';
   static const BASIC_CURRENCY_EXTRA_KEY = 'basicCurrency';
+  static const IS_SAVED_EXTRA_KEY = 'isSaved';
 }

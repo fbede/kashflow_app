@@ -4,17 +4,19 @@ part of 'views.dart';
 class EditCurrencyView extends ConsumerStatefulWidget {
   EditCurrencyView({
     required this.titleString,
-    required Object extra,
+    Object? extra,
   }) {
+    if (extra == null) return;
     extra = extra as Map<String, dynamic>;
     currency = extra[NavParamKeys.BASIC_CURRENCY_EXTRA_KEY];
-
-    isDefault = extra[NavParamKeys.IS_DEFAULT_EXTRA_KEY];
+    isSaved = extra[NavParamKeys.IS_SAVED_EXTRA_KEY] ?? false;
+    isDefault = extra[NavParamKeys.IS_DEFAULT_EXTRA_KEY] ?? false;
   }
 
   final String titleString;
   late final BasicCurrency? currency;
   late final bool isDefault;
+  late final bool isSaved;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -157,15 +159,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
                       },
                     ),
                     SliverToBoxAdapter(
-                      child: isLoading
-                          ? CustomProgressIndicator()
-                          : FilledButton(
-                              onPressed: () => _complete(),
-                              child: Text('Complete'),
-                            ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: SizedBox(height: 16),
+                      child: SizedBox(height: 8),
                     ),
                     SliverToBoxAdapter(
                       child: isLoading
@@ -175,6 +169,10 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
                               child: Text('Complete'),
                             ),
                     ),
+                    SliverToBoxAdapter(
+                      child: SizedBox(height: 8),
+                    ),
+                    _buildDeleteButton(),
                     SliverToBoxAdapter(
                       child: SizedBox(height: 16),
                     ),
@@ -185,6 +183,39 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
           ),
         ],
       ),
+    );
+  }
+
+  SliverToBoxAdapter _buildDeleteButton() {
+    if (widget.isSaved) {
+      return SliverToBoxAdapter(
+        child: Row(
+          children: [
+            Spacer(),
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.error,
+              ),
+              onPressed: () {},
+              child: Text(
+                UserText.Delete,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+            ),
+            Spacer(),
+          ],
+        ),
+      );
+    }
+    return SliverToBoxAdapter(
+      child: isLoading
+          ? CustomProgressIndicator()
+          : FilledButton(
+              onPressed: () => _complete(),
+              child: Text('Complete'),
+            ),
     );
   }
 
@@ -208,8 +239,9 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       isLoading = true;
       setState(() {});
       try {
+        await Future.delayed(Duration(minutes: 1));
         await _currencyDao
-            .saveCurrency(currency: currency, isDefault: true)
+            .saveCurrency(currency: currency, isDefault: widget.isDefault)
             .then((value) {
           _prefs.setBool(SharedPrefKeys.ONBOARDED, true);
           context.goNamed(AppRoute.DASHBOARD_ROUTE);

@@ -1,10 +1,18 @@
 class UserText {
+  //Onboarding Strings
   static const Welcome = 'Welcome';
+
+  //Currency Management Strings
   static const Choose_Default_Currency = 'Choose Default Currency';
   static const Select_Currency = 'Select Currency';
   static const Search_Currency_Name_or_Code = 'Search Currency Name or Code';
   static const Edit_Currency = 'Edit Currency';
-  static const Create_New_Currency = 'Select Currency';
+  static const Create_New_Currency = 'Create New Currency';
+  static const Saved_Curriences = 'Saved Currencies';
+  static const Popular_Curriences = 'Popular Currencies';
+
+  //Util Strings
+  static const Delete = 'Delete';
 }
 
 //SHARED PREFS KEYS

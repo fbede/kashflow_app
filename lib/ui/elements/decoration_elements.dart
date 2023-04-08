@@ -15,4 +15,14 @@ class DecorationElements {
       width: 2,
     );
   }
+
+  static ButtonStyle getErrorTextButtonStyle(BuildContext context) {
+    return TextButton.styleFrom(
+      alignment: Alignment.center,
+      textStyle: TextStyle(
+        color: Theme.of(context).colorScheme.error,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
 }

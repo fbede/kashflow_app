@@ -55,7 +55,7 @@ final appRouter = GoRouter(
       builder: (context, state) {
         return EditCurrencyView(
           titleString: UserText.Edit_Currency,
-          extra: state.extra!,
+          extra: state.extra,
         );
       },
     ),
@@ -66,7 +66,7 @@ final appRouter = GoRouter(
       builder: (context, state) {
         return EditCurrencyView(
           titleString: UserText.Create_New_Currency,
-          extra: state.extra!,
+          extra: state.extra,
         );
       },
     ),
