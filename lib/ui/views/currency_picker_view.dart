@@ -83,7 +83,7 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
       mainAxisSpacing: 4,
       crossAxisSpacing: 4,
       maxCrossAxisExtent: 550,
-      mainAxisExtent: 32,
+      mainAxisExtent: 48,
     );
   }
 
@@ -112,36 +112,40 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
+    return /* DecoratedBox(
       decoration: BoxDecoration(
           border: Border.all(
         color: Theme.of(context).dividerTheme.color!,
         width: Theme.of(context).dividerTheme.thickness!,
       )),
-      child: Center(
-        child: ListTile(
-          dense: true,
-          leading: Text(item.object.code),
-          title: Text(
-            item.object.name,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          trailing: Text(item.object.symbol),
-          onTap: () {
-            Map<String, dynamic> extra = {
-              NavParamKeys.BASIC_CURRENCY_EXTRA_KEY: item.object,
-            };
-            if (_pickerController.title == UserText.Choose_Default_Currency) {
-              extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
-            }
-            if (item.groupName == UserText.Saved_Curriences) {
-              extra.addAll({NavParamKeys.IS_SAVED_EXTRA_KEY: true});
-            }
-            context.pushNamed(AppRoute.EDIT_CURRENCY, extra: extra);
-          },
+      child: */
+        Card(
+      margin: EdgeInsets.all(0),
+      shadowColor: Colors.transparent,
+      elevation: 1,
+      child: ListTile(
+        dense: true,
+        leading: Text(item.object.code),
+        title: Text(
+          item.object.name,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
+        trailing: Text(item.object.symbol),
+        onTap: () {
+          Map<String, dynamic> extra = {
+            NavParamKeys.BASIC_CURRENCY_EXTRA_KEY: item.object,
+          };
+          if (_pickerController.title == UserText.Choose_Default_Currency) {
+            extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
+          }
+          if (item.groupName == UserText.Saved_Curriences) {
+            extra.addAll({NavParamKeys.IS_SAVED_EXTRA_KEY: true});
+          }
+          context.pushNamed(AppRoute.EDIT_CURRENCY, extra: extra);
+        },
       ),
+      // ),
     );
   }
 }
@@ -193,8 +197,8 @@ class _BottomSearchBar extends StatelessWidget {
             SizedBox(width: 16),
             FloatingActionButton.small(
               elevation: 0,
-              child: Icon(Remix.add_fill),
               shape: CircleBorder(eccentricity: 1),
+              child: Icon(Remix.add_fill),
               onPressed: () => _createNewCurrency(context),
             )
           ],

@@ -225,7 +225,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       mainAxisSpacing: 4,
       crossAxisSpacing: 16,
       maxCrossAxisExtent: 550,
-      mainAxisExtent: 48,
+      mainAxisExtent: 56,
     );
   }
 

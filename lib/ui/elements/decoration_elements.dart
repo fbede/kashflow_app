@@ -5,13 +5,13 @@ class DecorationElements {
   static BorderSide getRegularBorderSide(BuildContext context) {
     return BorderSide(
       color: Theme.of(context).colorScheme.outline,
-      width: Theme.of(context).dividerTheme.thickness!,
+      width: Theme.of(context).dividerTheme.thickness ?? 1,
     );
   }
 
   static BorderSide getFocusedBorderSide(BuildContext context) {
     return BorderSide(
-      color: Theme.of(context).colorScheme.onBackground,
+      color: Theme.of(context).colorScheme.primary,
       width: 2,
     );
   }
