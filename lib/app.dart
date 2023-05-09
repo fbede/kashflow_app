@@ -22,7 +22,7 @@ class MyApp extends ConsumerWidget {
       child: MaterialApp.router(
         title: APPNAME,
         //TODO: Fix after Settings is solved
-        themeMode: ThemeMode.light,
+        //themeMode: ThemeMode.light,
         theme: lightFlexTheme,
         darkTheme: darkFlexTheme,
         routerConfig: appRouter,

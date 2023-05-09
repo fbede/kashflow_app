@@ -10,6 +10,7 @@ import 'package:kashflow/models/util_models.dart';
 import 'package:kashflow/router/app_router.dart';
 import 'package:kashflow/ui/elements/elements.dart';
 import 'package:kashflow/util/hidden_strings.dart';
+import 'package:kashflow/util/responsive.dart';
 import 'package:kashflow/util/visible_strings.dart';
 
 import 'dart:convert';
@@ -19,7 +20,7 @@ import 'package:go_router/go_router.dart';
 import 'package:grouped_scroll_view/grouped_scroll_view.dart';
 import 'package:kashflow/util/paths.dart';
 import 'package:money2/money2.dart';
-import 'package:nb_utils/nb_utils.dart';
+
 import 'package:remixicon/remixicon.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

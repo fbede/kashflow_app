@@ -80,8 +80,8 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
   SliverGridDelegateWithMaxCrossAxisExtent _getGridDelegate(
       BuildContext context) {
     return SliverGridDelegateWithMaxCrossAxisExtent(
-      mainAxisSpacing: 4,
-      crossAxisSpacing: 4,
+      mainAxisSpacing: 8,
+      crossAxisSpacing: 8,
       maxCrossAxisExtent: 550,
       mainAxisExtent: 48,
     );
@@ -112,17 +112,11 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return /* DecoratedBox(
-      decoration: BoxDecoration(
-          border: Border.all(
-        color: Theme.of(context).dividerTheme.color!,
-        width: Theme.of(context).dividerTheme.thickness!,
-      )),
-      child: */
-        Card(
+    return Card(
       margin: EdgeInsets.all(0),
       shadowColor: Colors.transparent,
-      elevation: 1,
+      elevation: 0,
+
       child: ListTile(
         dense: true,
         leading: Text(item.object.code),

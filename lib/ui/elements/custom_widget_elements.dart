@@ -16,7 +16,7 @@ class _CustomBackButton extends StatelessWidget {
   }
 
   bool getVisibility(BuildContext context) {
-    if (!context.canPop) return false;
+    if (context.canPop()) return false;
     if (showButton == true) return true;
     if (showButton == false) return false;
     if (context.isPhone()) return true;
@@ -96,54 +96,6 @@ class RoundedSearchBar extends StatelessWidget {
       ),
     );
   }
-}
-
-class ErrorSnackBar extends SnackBar {
-  ErrorSnackBar({
-    required BuildContext context,
-    required super.content,
-    super.action,
-    super.animation,
-    super.behavior,
-    super.clipBehavior,
-    super.dismissDirection,
-    super.duration,
-    super.elevation,
-    super.key,
-    super.margin,
-    super.onVisible,
-    super.padding,
-    super.shape,
-    super.showCloseIcon,
-    super.width,
-  }) : super(
-          backgroundColor: Theme.of(context).colorScheme.error,
-          closeIconColor: Theme.of(context).colorScheme.error,
-        );
-}
-
-class OkSnackBar extends SnackBar {
-  OkSnackBar({
-    required BuildContext context,
-    required super.content,
-    super.action,
-    super.animation,
-    super.behavior,
-    super.clipBehavior,
-    super.dismissDirection,
-    super.duration,
-    super.elevation,
-    super.key,
-    super.margin,
-    super.onVisible,
-    super.padding,
-    super.shape,
-    super.showCloseIcon,
-    super.width,
-  }) : super(
-          backgroundColor: Theme.of(context).colorScheme.error,
-          closeIconColor: Theme.of(context).colorScheme.error,
-        );
 }
 
 class CustomProgressIndicator extends StatefulWidget {

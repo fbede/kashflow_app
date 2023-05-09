@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
 
-double getScreenWidth(BuildContext context) {
-  return MediaQuery.of(context).size.width;
-}
+extension BuildContextUtils on BuildContext {
+  double getScreenWidth() => MediaQuery.of(this).size.width;
 
-Widget buildResponsiveScreen({
-  required BuildContext context,
-  required Widget mobileScreen,
-  required Widget tabletScreen,
-  Widget? desktopScreen,
-}) {
-  if (MediaQuery.of(context).size.width < 500) {
-    return mobileScreen;
+  ThemeData theme() => Theme.of(this);
+
+  void showSnackBar(String text) {
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(content: Text(text)));
   }
-  if (MediaQuery.of(context).size.width > 500 &&
-      MediaQuery.of(context).size.width < 1100) {
-    return tabletScreen;
+
+  void showErrorSnackBar(String text) {
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(
+      content: Text(text),
+      backgroundColor: Theme.of(this).colorScheme.error,
+      closeIconColor: Theme.of(this).colorScheme.error,
+    ));
   }
-  if (MediaQuery.of(context).size.width > 1100 && desktopScreen == null) {
-    return tabletScreen;
+
+  bool isPhone() => MediaQuery.of(this).size.width < 500;
+
+  bool isTablet() =>
+      MediaQuery.of(this).size.width > 500 &&
+      MediaQuery.of(this).size.width < 1100;
+
+  bool isDesktop() => MediaQuery.of(this).size.width > 1100;
+
+  Widget buildResponsiveScreen({
+    required Widget mobileScreen,
+    Widget? tabletScreen,
+    required Widget desktopScreen,
+  }) {
+    if (isPhone()) return mobileScreen;
+
+    if (isTablet() && tabletScreen != null) return tabletScreen;
+
+    return desktopScreen;
   }
-  return desktopScreen!;
 }

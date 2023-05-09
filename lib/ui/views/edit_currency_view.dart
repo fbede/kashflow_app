@@ -248,26 +248,23 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
         });
       } catch (e) {
         if (context.isPhone()) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            ErrorSnackBar(
-              context: context,
-              content: Text(e.toString()),
-            ),
-          );
+          context.showErrorSnackBar(e.toString());
         } else {
           showDialog(
             context: context,
-            builder: (context) => AlertDialog(
-              title: Icon(
-                Remix.error_warning_line,
-                color: Theme.of(context).colorScheme.error,
-              ),
-              content: Text(
-                e.toString(),
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
-              ),
-            ),
+            builder: (context) {
+              return AlertDialog(
+                title: Icon(
+                  Remix.error_warning_line,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                content: Text(
+                  e.toString(),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Theme.of(context).colorScheme.error),
+                ),
+              );
+            },
           );
         }
       } finally {
