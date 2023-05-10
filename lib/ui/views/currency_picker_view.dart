@@ -115,7 +115,7 @@ class _ItemWidget extends StatelessWidget {
     return Card(
       margin: EdgeInsets.all(0),
       shadowColor: Colors.transparent,
-      elevation: 0,
+      elevation: 1,
 
       child: ListTile(
         dense: true,
