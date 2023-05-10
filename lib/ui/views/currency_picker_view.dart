@@ -222,7 +222,7 @@ class _RoundedTextField extends StatelessWidget {
     return TextField(
       keyboardType: TextInputType.text,
       autocorrect: false,
-      onChanged: (v) => onChanged(v),
+      onChanged: onChanged,
       decoration: InputDecoration(
         filled: true,
         contentPadding: EdgeInsetsDirectional.zero,
@@ -375,11 +375,11 @@ class _CurrencyPickerController extends ChangeNotifier {
     final String json =
         await rootBundle.loadString(Paths.PRELOADED_CURRENCY_JSON);
 
-    var data = jsonDecode(json) as List;
+    final data = jsonDecode(json) as List;
 
     List<Group<BasicCurrency>> currencies = data.map((e) {
       return Group.fromObject(
-        object: BasicCurrency.fromJson(e),
+        object: BasicCurrency.fromJson(e as Map<String, Object>),
         groupName: UserText.Saved_Curriences,
       );
     }).toList();
@@ -404,7 +404,7 @@ class _CurrencyPickerController extends ChangeNotifier {
 
     List<Group<BasicCurrency>> currencies = data.map((e) {
       return Group.fromObject(
-        object: BasicCurrency.fromJson(e),
+        object: BasicCurrency.fromJson(e as Map<String, Object?>),
         groupName: UserText.Popular_Curriences,
       );
     }).toList();
@@ -429,7 +429,7 @@ class _CurrencyPickerController extends ChangeNotifier {
 
     List<Group<BasicCurrency>> currencies = data.map((e) {
       return Group.fromObject(
-        object: BasicCurrency.fromJson(e),
+        object: BasicCurrency.fromJson(e as Map<String, Object?>),
         groupName: 'pb currency',
       );
     }).toList();

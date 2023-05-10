@@ -1,9 +1,9 @@
 part of 'elements.dart';
 
 class _CustomBackButton extends StatelessWidget {
-  const _CustomBackButton({this.showButton});
+  const _CustomBackButton({bool? showButton}) : _showButton = showButton;
 
-  final bool? showButton;
+  final bool? _showButton;
   @override
   Widget build(BuildContext context) {
     return Visibility(
@@ -17,8 +17,8 @@ class _CustomBackButton extends StatelessWidget {
 
   bool getVisibility(BuildContext context) {
     if (context.canPop()) return false;
-    if (showButton == true) return true;
-    if (showButton == false) return false;
+    if (_showButton == true) return true;
+    if (_showButton == false) return false;
     if (context.isPhone()) return true;
     return false;
   }

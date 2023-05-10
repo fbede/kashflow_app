@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
-import 'package:kashflow/ui/views/views.dart';
-import 'package:kashflow/util/visible_strings.dart';
-
 import 'package:kashflow/screens/screens.dart';
 import 'package:kashflow/shells/shells.dart';
+import 'package:kashflow/ui/views/views.dart';
+import 'package:kashflow/util/visible_strings.dart';
 
 part 'routes.dart';
 
@@ -36,7 +35,7 @@ final appRouter = GoRouter(
       path: AppRoute.CHOOSE_DEFAULT_CURRENCY,
       name: AppRoute.CHOOSE_DEFAULT_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => CurrencyPickerView(
+      builder: (final _, final __) => const CurrencyPickerView(
         titleString: UserText.Choose_Default_Currency,
       ),
     ),
@@ -44,7 +43,7 @@ final appRouter = GoRouter(
       path: AppRoute.CHOOSE_CURRENCY,
       name: AppRoute.CHOOSE_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => CurrencyPickerView(
+      builder: (context, state) => const CurrencyPickerView(
         titleString: UserText.Select_Currency,
       ),
     ),
@@ -52,23 +51,19 @@ final appRouter = GoRouter(
       path: AppRoute.EDIT_CURRENCY,
       name: AppRoute.EDIT_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) {
-        return EditCurrencyView(
-          titleString: UserText.Edit_Currency,
-          extra: state.extra,
-        );
-      },
+      builder: (context, state) => EditCurrencyView(
+        titleString: UserText.Edit_Currency,
+        extra: state.extra,
+      ),
     ),
     GoRoute(
       path: AppRoute.CREATE_NEW_CURRENCY,
       name: AppRoute.CREATE_NEW_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) {
-        return EditCurrencyView(
-          titleString: UserText.Create_New_Currency,
-          extra: state.extra,
-        );
-      },
+      builder: (context, state) => EditCurrencyView(
+        titleString: UserText.Create_New_Currency,
+        extra: state.extra,
+      ),
     ),
 
     //TODO: Create actual pages
@@ -100,9 +95,7 @@ final appRouter = GoRouter(
     ShellRoute(
       navigatorKey: _appNavBarNavigatorKey,
       routes: _mainAppRoutes,
-      builder: (BuildContext context, GoRouterState state, Widget child) {
-        return MobileAppShell(child: child);
-      },
+      builder: (context, state, child) => MobileAppShell(child: child),
     ),
   ],
 );
@@ -113,40 +106,30 @@ final _mainAppRoutes = <RouteBase>[
     path: DASHBOARD_ROUTE,
     name: DASHBOARD_ROUTE,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (BuildContext context, GoRouterState state) {
-      return Scaffold();
-    },
+    builder: (context, state) => const Scaffold(),
   ),
   GoRoute(
     path: ACCOUNT_ROUTE,
     name: ACCOUNT_ROUTE,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (BuildContext context, GoRouterState state) {
-      return const MobileAccountsShell();
-    },
+    builder: (context, state) => const MobileAccountsShell(),
   ),
   GoRoute(
     path: TRANSACTIONS_ROUTE,
     name: TRANSACTIONS_ROUTE,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (BuildContext context, GoRouterState state) {
-      return const MobileRecordsShell();
-    },
+    builder: (context, state) => const MobileRecordsShell(),
   ),
   GoRoute(
     path: REPORT_ROUTE,
     name: REPORT_ROUTE,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (BuildContext context, GoRouterState state) {
-      return const SizedBox();
-    },
+    builder: (context, state) => const SizedBox(),
   ),
   GoRoute(
     path: MORE_ROUTE,
     name: MORE_ROUTE,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (BuildContext context, GoRouterState state) {
-      return const SizedBox();
-    },
+    builder: (context, state) => const SizedBox(),
   ),
 ];

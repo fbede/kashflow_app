@@ -7,12 +7,15 @@ and this project adheres to a modified version of [Semantic Versioning](https://
 
 **Note: Commented code is considered deprecated**
 
-## [Unreleased]
+## Unreleased
 
 ### Added
 
+- Added all dart lints
 
 ### Changed
+
+- Customized lints to fit my personal taste.
 
 ### Deprecated
 ### Fixed 

@@ -3,14 +3,15 @@ part of 'views.dart';
 
 class EditCurrencyView extends ConsumerStatefulWidget {
   EditCurrencyView({
+    super.key,
     required this.titleString,
     Object? extra,
   }) {
     if (extra == null) return;
     extra = extra as Map<String, dynamic>;
-    currency = extra[NavParamKeys.BASIC_CURRENCY_EXTRA_KEY];
-    isSaved = extra[NavParamKeys.IS_SAVED_EXTRA_KEY] ?? false;
-    isDefault = extra[NavParamKeys.IS_DEFAULT_EXTRA_KEY] ?? false;
+    currency = extra[NavParamKeys.BASIC_CURRENCY_EXTRA_KEY] as BasicCurrency?;
+    isSaved = extra[NavParamKeys.IS_SAVED_EXTRA_KEY] as bool? ?? false;
+    isDefault = extra[NavParamKeys.IS_DEFAULT_EXTRA_KEY] as bool? ?? false;
   }
 
   final String titleString;
@@ -61,7 +62,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
     currencyCodeController.text = widget.currency?.code ?? '';
     currencyCodeHint = widget.currency?.code ?? 'USD';
     currencySymbolController.text = widget.currency?.symbol ?? '';
-    currencySymbolHint = widget.currency?.symbol ?? '\$';
+    currencySymbolHint = widget.currency?.symbol ?? r'$';
     currencyNameController.text = widget.currency?.name ?? '';
     currencyNameHint = widget.currency?.name ?? 'US Dollar';
 

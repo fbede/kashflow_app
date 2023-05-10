@@ -1,4 +1,6 @@
 ///The strings found in this class cannot be seen by the user
+// ignore_for_file: constant_identifier_names
+
 @Deprecated(
     'This class is to be deleted use other  more specific keys like DevStringKeys, SharedPrefKeys & NavParamKeys')
 class HiddenStrings {
