@@ -379,7 +379,7 @@ class _CurrencyPickerController extends ChangeNotifier {
 
     List<Group<BasicCurrency>> currencies = data.map((e) {
       return Group.fromObject(
-        object: BasicCurrency.fromJson(e as Map<String, Object>),
+        object: BasicCurrency.fromJson(e as Map<String, dynamic>),
         groupName: UserText.Saved_Curriences,
       );
     }).toList();

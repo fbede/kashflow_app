@@ -13,14 +13,13 @@ analyzer:
     - "test/.test_coverage.dart"
     - "bin/cache/**"
     - "lib/generated_plugin_registrant.dart"
-    # - "analysis_options.yaml"
+    - "analysis_options.yaml"
 
 linter:
   rules:
     always_put_control_body_on_new_line: false
     always_specify_types: false
     avoid_final_parameters: false
-
     flutter_style_todos: false
     omit_local_variable_types: false
     prefer_double_quotes: false

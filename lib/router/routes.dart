@@ -1,7 +1,5 @@
 // ignore_for_file: constant_identifier_names
 
-part of 'app_router.dart';
-
 class AppRoute {
   //Other Routes
   static const WELCOME = '/welcome';

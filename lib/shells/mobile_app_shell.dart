@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/router/app_router.dart';
+import 'package:kashflow/router/routes.dart';
 import 'package:kashflow/util/visible_strings.dart';
 
 class MobileAppShell extends StatelessWidget {

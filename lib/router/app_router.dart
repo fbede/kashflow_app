@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
+import 'package:kashflow/router/routes.dart';
 import 'package:kashflow/screens/screens.dart';
 import 'package:kashflow/shells/shells.dart';
 import 'package:kashflow/ui/views/views.dart';
 import 'package:kashflow/util/visible_strings.dart';
 
-part 'routes.dart';
-
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _appNavBarNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
-
-//TODO: Add redirection rules
 
 final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,

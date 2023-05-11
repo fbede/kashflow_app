@@ -2,8 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to a modified version of [Semantic Versioning](https://semver.org/spec/v2.0.0.html). In this version, major ui/ux changes and installation requirements mean a bump in the major version number. Any backward compatible feature change is indicated by a bump minor version number. Bug fixes and chores are indicated by bumps in patch version number.
+The format is based on a modified version of [Keep a Changelog](https://keepachangelog.com/en/1.0.0/). The major difference is that links would only be provided for publicly available builds.
+
+This project also adheres to a modified version of [Semantic Versioning](https://semver.org/spec/v2.0.0.html). In this version, major ui/ux changes and installation requirements mean a bump in the major version number. Any backward compatible feature change is indicated by a bump minor version number. Bug fixes and chores are indicated by bumps in patch version number.
+
+Todo: Make this a private changelog
 
 **Note: Commented code is considered deprecated**
 
@@ -12,14 +15,22 @@ and this project adheres to a modified version of [Semantic Versioning](https://
 ### Added
 
 - Added all dart lints
+- Added .env to store secrets
+- Added .env to gitignore
+- Added sentry for crash reporting
+- Added new main_*,dart files with environment configs
 
 ### Changed
 
 - Customized lints to fit my personal taste.
+- Improved Readme
 
 ### Deprecated
 ### Fixed 
-### Removed 
+### Removed
+
+- Removed main.dart to force developer to add a build entry point
+
 ### Security
 
 ## 0.0.0 - 2023-05-10
