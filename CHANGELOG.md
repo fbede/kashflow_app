@@ -19,6 +19,8 @@ Todo: Make this a private changelog
 - Added .env to gitignore
 - Added sentry for crash reporting
 - Added new main_*,dart files with environment configs
+- Added and configured talker for proper logging
+- Generated asset routes
 
 ### Changed
 

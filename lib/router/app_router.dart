@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
+import 'package:kashflow/onboarding/splashscreen.dart';
 import 'package:kashflow/router/routes.dart';
-import 'package:kashflow/screens/screens.dart';
+import 'package:kashflow/shared/logs/log_handler.dart';
 import 'package:kashflow/shells/shells.dart';
 import 'package:kashflow/ui/views/views.dart';
 import 'package:kashflow/util/visible_strings.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -15,12 +17,15 @@ final GlobalKey<NavigatorState> _appNavBarNavigatorKey =
 final appRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: AppRoute.SPLASH,
+  observers: [
+    TalkerRouteObserver(AppLogger.start()),
+  ],
   routes: [
     GoRoute(
       path: AppRoute.SPLASH,
       name: AppRoute.SPLASH,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => SplashScreen(),
+      builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       path: AppRoute.WELCOME,
@@ -71,24 +76,7 @@ final appRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) => SignInView(),
     ),
-    GoRoute(
-      path: SIGN_UP_ROUTE,
-      name: SIGN_UP_ROUTE,
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => SplashScreen(),
-    ),
-    GoRoute(
-      path: CONFIRM_EMAIL_ROUTE,
-      name: CONFIRM_EMAIL_ROUTE,
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => SplashScreen(),
-    ),
-    GoRoute(
-      path: FORGOT_PASSWORD_ROUTE,
-      name: FORGOT_PASSWORD_ROUTE,
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => SplashScreen(),
-    ),
+
     ShellRoute(
       navigatorKey: _appNavBarNavigatorKey,
       routes: _mainAppRoutes,

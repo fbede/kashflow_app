@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kashflow/shared/app.dart';
 import 'package:kashflow/config/env.dart';
+import 'package:kashflow/shared/app.dart';
 import 'package:kashflow/shared/startup_functions.dart';
-
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 const _environment = 'Production';
@@ -26,7 +25,7 @@ Future<void> _appRunner() async {
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await registerModelsOnGetIt();
+  await registerSingletonsOnGetIt();
 
   runApp(const ProviderScope(child: MyApp()));
 }

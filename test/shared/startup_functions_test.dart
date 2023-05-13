@@ -8,7 +8,7 @@ void main() {
     'Tests that the models are registered on get it',
     () async {
       SharedPreferences.setMockInitialValues({});
-      await registerModelsOnGetIt();
+      await registerSingletonsOnGetIt();
       final isRegistered = GetIt.I.isRegistered<SharedPreferences>();
       expect(true, isRegistered);
     },

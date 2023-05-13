@@ -10,6 +10,8 @@ import 'package:kashflow/shared/startup_functions.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
+//TODO: Replace Animated splash screen
+
 const _environment = 'Development';
 
 Future<void> main() async {
@@ -18,7 +20,7 @@ Future<void> main() async {
       options
         ..dsn = Env.sentryDsn
         ..environment = _environment
-        ..tracesSampleRate = 1.0;
+        ..tracesSampleRate = 0;
     },
     appRunner: _appRunner,
   );
@@ -31,7 +33,7 @@ Future<void> _appRunner() async {
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await registerModelsOnGetIt();
+  await registerSingletonsOnGetIt();
 
   runApp(const ProviderScope(child: MyApp()));
 }

@@ -2,7 +2,6 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/router/app_router.dart';
 import 'package:kashflow/router/routes.dart';
 import 'package:kashflow/util/hidden_strings.dart';
 import 'package:kashflow/util/paths.dart';

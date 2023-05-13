@@ -25,7 +25,7 @@ Future<void> _appRunner() async {
 
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await registerModelsOnGetIt();
+  await registerSingletonsOnGetIt();
 
   runApp(const ProviderScope(child: MyApp()));
 }
