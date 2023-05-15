@@ -1,8 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
 class AppRoute {
-  //Other Routes
-  static const WELCOME = '/welcome';
+  //Onboarding Routes
+  static const ONBOARDING = '/onboarding';
   static const SPLASH = '/splash';
 
   //Settings Routes

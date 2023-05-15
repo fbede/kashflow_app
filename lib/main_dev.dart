@@ -2,15 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kashflow/config/env.dart';
 import 'package:kashflow/shared/app.dart';
 import 'package:kashflow/shared/startup_functions.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_manager/window_manager.dart';
-
-//TODO: Replace Animated splash screen
 
 const _environment = 'Development';
 
@@ -27,11 +24,7 @@ Future<void> main() async {
 }
 
 Future<void> _appRunner() async {
-  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
   await _setWindowSettings();
-
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await registerSingletonsOnGetIt();
 

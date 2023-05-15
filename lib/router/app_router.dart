@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/components/components.dart';
 import 'package:kashflow/onboarding/splashscreen.dart';
+import 'package:kashflow/onboarding/welcome_screen.dart';
 import 'package:kashflow/router/routes.dart';
 import 'package:kashflow/shared/logs/log_handler.dart';
 import 'package:kashflow/shells/shells.dart';
@@ -28,16 +29,16 @@ final appRouter = GoRouter(
       builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
-      path: AppRoute.WELCOME,
-      name: AppRoute.WELCOME,
+      path: AppRoute.ONBOARDING,
+      name: AppRoute.ONBOARDING,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) => WelcomeView(),
+      builder: (context, state) => const WelcomeScreen(),
     ),
     GoRoute(
       path: AppRoute.CHOOSE_DEFAULT_CURRENCY,
       name: AppRoute.CHOOSE_DEFAULT_CURRENCY,
       parentNavigatorKey: _rootNavigatorKey,
-      builder: (final _, final __) => const CurrencyPickerView(
+      builder: (_, __) => const CurrencyPickerView(
         titleString: UserText.Choose_Default_Currency,
       ),
     ),

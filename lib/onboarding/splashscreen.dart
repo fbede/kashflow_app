@@ -1,49 +1,58 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kashflow/gen/assets.gen.dart';
 import 'package:kashflow/router/routes.dart';
-import 'package:kashflow/util/hidden_strings.dart';
-import 'package:kashflow/util/paths.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:kashflow/util/responsive.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    String logoPath = '';
-    Color bgColor = Colors.white;
+  State<SplashScreen> createState() => _SplashScreenState();
+}
 
-    if (Theme.of(context).brightness == Brightness.light) {
-      logoPath = Paths.APP_LOGO_PATH_LIGHT;
-    } else {
-      logoPath = Paths.APP_LOGO_PATH_DARK;
-      bgColor = Colors.black;
-    }
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(milliseconds: 1000),
+    vsync: this,
+  )..repeat(reverse: true);
 
-    return AnimatedSplashScreen.withScreenRouteFunction(
-      animationDuration: Duration(milliseconds: 1000),
-      backgroundColor: bgColor,
-      splash: logoPath,
-      splashTransition: SplashTransition.fadeTransition,
-      pageTransitionType: PageTransitionType.scale,
-      screenRouteFunction: () async {
-        final prefs = GetIt.I.get<SharedPreferences>();
-        final hasOnboarded = prefs.getBool(SharedPrefKeys.ONBOARDED) ?? false;
+  late final Animation<double> _animation = CurvedAnimation(
+    parent: _controller,
+    curve: Curves.linear,
+  );
 
-        //TODO: Add Auth Screens before welcome screen and change condition to check for logged in state
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) async => await _gotoNextScreen());
+  }
 
-        if (!hasOnboarded) {
-          context.goNamed(AppRoute.WELCOME);
-        } else {
-          context.goNamed(AppRoute.WELCOME);
-          //context.goNamed(DASHBOARD_ROUTE);
-        }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
-        return '';
-      },
-    );
+  @override
+  Widget build(BuildContext context) => ColoredBox(
+        color: context.theme().scaffoldBackgroundColor,
+        child: Center(
+          child: FractionallySizedBox(
+            heightFactor: 0.2,
+            child: FadeTransition(
+              opacity: _animation,
+              child: Assets.images.appLogo.image(),
+            ),
+          ),
+        ),
+      );
+
+  Future<void> _gotoNextScreen() async {
+    final router = GoRouter.of(context);
+    await Future.delayed(const Duration(seconds: 1), () {});
+    router.goNamed(AppRoute.ONBOARDING);
   }
 }

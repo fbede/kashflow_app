@@ -7,21 +7,19 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:kashflow/onboarding/splashscreen.dart';
 
 import 'package:kashflow/shared/app.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Tests the normal onboarding flow in a simulated environment',
+      (tester) async {
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.byType(SplashScreen), findsOneWidget);
+    expect(find.byType(FadeTransition), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.pumpAndSettle();
 
     // Verify that our counter has incremented.
     expect(find.text('0'), findsNothing);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kashflow/config/env.dart';
 import 'package:kashflow/shared/app.dart';
@@ -21,10 +20,6 @@ Future<void> main() async {
 }
 
 Future<void> _appRunner() async {
-  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-
   await registerSingletonsOnGetIt();
 
   runApp(const ProviderScope(child: MyApp()));

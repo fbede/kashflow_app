@@ -3,23 +3,25 @@ import 'package:talker_flutter/talker_flutter.dart';
 
 class LogHandler implements TalkerObserver {
   @override
-  void Function(TalkerError err) get onError => _handleError;
+  dynamic Function(TalkerError err) get onError => _handleError;
 
   @override
-  void Function(TalkerException err) get onException => _handleException;
+  dynamic Function(TalkerException err) get onException => _handleException;
 
   @override
-  void Function(TalkerDataInterface log) get onLog => _handleLog;
+  dynamic Function(TalkerDataInterface log) get onLog => _handleLog;
 
-  Future<void> _handleError(TalkerError err) async {
+  dynamic _handleError(TalkerError err) async {
     await Sentry.captureException(err.exception, stackTrace: err.stackTrace);
+    return err.message;
   }
 
-  Future<void> _handleException(TalkerException err) async {
+  dynamic _handleException(TalkerException err) async {
     await Sentry.captureException(err.exception, stackTrace: err.stackTrace);
+    return err.message;
   }
 
-  void _handleLog(TalkerDataInterface log) {}
+  dynamic _handleLog(TalkerDataInterface log) {}
 }
 
 extension AppLogger on Talker {
