@@ -23,7 +23,7 @@ dependencies:
   money2: ^3.3.0
   path: ^1.8.2
   path_provider: ^2.0.11
-  remixicon: ^1.0.0
+  phosphor_flutter: ^2.0.0
   riverpod_annotation: ^2.0.0
   sentry_flutter: ^7.5.2
   shared_preferences: ^2.0.15
@@ -71,6 +71,11 @@ flutter:
         - asset: assets/fonts/Nunito/Nunito-BoldItalic.ttf
         - asset: assets/fonts/Nunito/Nunito-ExtraBoldItalic.ttf
         - asset: assets/fonts/Nunito/Nunito-BlackItalic.ttf
+
+    - family: DancingScript
+      fonts:
+        - asset: assets/fonts/Dancing_Script/DancingScript-VariableFont_wght.ttf
+
   uses-material-design: true
 
 flutter_gen:

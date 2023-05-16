@@ -192,7 +192,7 @@ class _BottomSearchBar extends StatelessWidget {
             FloatingActionButton.small(
               elevation: 0,
               shape: CircleBorder(eccentricity: 1),
-              child: Icon(Remix.add_fill),
+              child: Icon(PhosphorIcons.regular.plus),
               onPressed: () => _createNewCurrency(context),
             )
           ],
@@ -226,7 +226,7 @@ class _RoundedTextField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         contentPadding: EdgeInsetsDirectional.zero,
-        prefixIcon: const Icon(Remix.search_line),
+        prefixIcon: Icon(PhosphorIcons.regular.magnifyingGlass),
         hintText: UserText.Search_Currency_Name_or_Code,
         enabledBorder: _getInputBorder(context),
         focusedBorder: _getFocusedBorder(context),

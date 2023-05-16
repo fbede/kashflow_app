@@ -5,15 +5,13 @@ class _CustomBackButton extends StatelessWidget {
 
   final bool? _showButton;
   @override
-  Widget build(BuildContext context) {
-    return Visibility(
-      visible: getVisibility(context),
-      child: GestureDetector(
-        onTap: () => context.pop(),
-        child: Icon(Remix.arrow_left_line),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => Visibility(
+        visible: getVisibility(context),
+        child: GestureDetector(
+          onTap: () => context.pop(),
+          child: Icon(PhosphorIcons.regular.caretLeft),
+        ),
+      );
 
   bool getVisibility(BuildContext context) {
     if (context.canPop()) return false;
@@ -86,7 +84,7 @@ class RoundedSearchBar extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         contentPadding: EdgeInsetsDirectional.zero,
-        prefixIcon: const Icon(Remix.search_line),
+        prefixIcon: Icon(PhosphorIcons.regular.magnifyingGlass),
         hintText: hintText,
         border: searchOutlineInputBorder,
         enabledBorder: searchOutlineInputBorder,
@@ -121,16 +119,14 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return RotationTransition(
-      turns: _controller,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Icon(
-          Remix.refresh_line,
-          color: Theme.of(context).colorScheme.onBackground,
+  Widget build(BuildContext context) => RotationTransition(
+        turns: _controller,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          child: Icon(
+            PhosphorIcons.regular.circleNotch,
+            color: Theme.of(context).colorScheme.onBackground,
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

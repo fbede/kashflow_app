@@ -10,6 +10,9 @@
 class FontFamily {
   FontFamily._();
 
+  /// Font family: DancingScript
+  static const String dancingScript = 'DancingScript';
+
   /// Font family: Nunito
   static const String nunito = 'Nunito';
 }

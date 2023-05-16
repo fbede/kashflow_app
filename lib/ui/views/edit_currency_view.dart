@@ -256,7 +256,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
             builder: (context) {
               return AlertDialog(
                 title: Icon(
-                  Remix.error_warning_line,
+                  PhosphorIcons.regular.warningCircle,
                   color: Theme.of(context).colorScheme.error,
                 ),
                 content: Text(

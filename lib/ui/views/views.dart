@@ -17,7 +17,7 @@ import 'package:kashflow/util/paths.dart';
 import 'package:kashflow/util/responsive.dart';
 import 'package:kashflow/util/visible_strings.dart';
 import 'package:money2/money2.dart';
-import 'package:remixicon/remixicon.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'currency_picker_view.dart';
