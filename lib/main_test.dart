@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kashflow/config/env.dart';
-import 'package:kashflow/shared/app.dart';
-import 'package:kashflow/shared/startup_functions.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+
+import 'config/env.dart';
+import 'shared/app.dart';
+import 'shared/startup_functions.dart';
 
 const _environment = 'Testing';
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/gen/assets.gen.dart';
-import 'package:kashflow/router/routes.dart';
-import 'package:kashflow/util/responsive.dart';
+import '../gen/assets.gen.dart';
+import '../shared/route_names.dart';
+import '../util/responsive.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -53,6 +53,6 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> _gotoNextScreen() async {
     final router = GoRouter.of(context);
     await Future.delayed(const Duration(seconds: 1), () {});
-    router.goNamed(AppRoute.ONBOARDING);
+    router.goNamed(Routes.onboarding);
   }
 }

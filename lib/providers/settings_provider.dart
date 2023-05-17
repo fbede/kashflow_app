@@ -16,7 +16,5 @@ class SettingsState with _$SettingsState {
 @riverpod
 class SettingsNotifier extends _$SettingsNotifier {
   @override
-  SettingsState build() {
-    return SettingsState(currency: CommonCurrencies().usd);
-  }
+  SettingsState build() => SettingsState(currency: CommonCurrencies().usd);
 }

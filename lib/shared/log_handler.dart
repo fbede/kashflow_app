@@ -24,6 +24,6 @@ class LogHandler implements TalkerObserver {
   dynamic _handleLog(TalkerDataInterface log) {}
 }
 
-extension AppLogger on Talker {
-  static Talker start() => TalkerFlutter.init(observers: [LogHandler()]);
+extension LoggerBuilder on Talker {
+  static Talker build() => TalkerFlutter.init(observers: [LogHandler()]);
 }

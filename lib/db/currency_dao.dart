@@ -1,12 +1,13 @@
 import 'package:drift/drift.dart';
-import 'package:kashflow/db/drift_db.dart';
 import 'package:money2/money2.dart';
+
+import 'drift_db.dart';
 
 part 'currency_dao.g.dart';
 
 @DriftAccessor(tables: [DBCurrency])
 class CurrencyDao extends DatabaseAccessor<DriftDB> with _$CurrencyDaoMixin {
-  CurrencyDao(DriftDB db) : super(db);
+  CurrencyDao(super.db);
 
   Future<void> saveCurrency({
     required Currency currency,

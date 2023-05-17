@@ -3,8 +3,8 @@ part of 'views.dart';
 
 class EditCurrencyView extends ConsumerStatefulWidget {
   EditCurrencyView({
-    super.key,
     required this.titleString,
+    super.key,
     Object? extra,
   }) {
     if (extra == null) return;
@@ -90,109 +90,107 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: SmallCustomAppBar(
-        title: Text(widget.titleString),
-      ),
-      body: Column(
-        children: [
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Display Style'),
-                  SizedBox(height: 16),
-                  Text(
-                    _getCurrencyStyle(),
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  Text('Amount: ${_getDisplayString()}'),
-                ],
-              ),
-            ),
-          ),
-          SizedBox(height: 16),
-          Expanded(
-            child: Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: SmallCustomAppBar(
+          title: Text(widget.titleString),
+        ),
+        body: Column(
+          children: [
+            Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: CustomScrollView(
-                  slivers: [
-                    SliverGrid.builder(
-                      itemCount: 11,
-                      gridDelegate: _getGridDelegate(context),
-                      itemBuilder: (context, index) {
-                        switch (index) {
-                          case 0:
-                            return _buildCurrencyCode();
-                          case 1:
-                            return _buildCurrencySymbol();
-                          case 2:
-                            return _buildCurrencyName();
-                          case 3:
-                            return _buildCurrencyUnit();
-                          case 4:
-                            return _buildCurrencyCountry();
-                          case 5:
-                            return _buildInvertSeparators();
-                          case 6:
-                            return _buildIsCryptoCurrency();
-                          case 7:
-                            return _buildUseCurrencyCode();
-                          case 8:
-                            return _buildCurrencyOnRightSide();
-                          case 9:
-                            return _buildAddSpace();
-                          case 10:
-                            return _buildShowZeros();
-                          default:
-                            return SizedBox.shrink();
-                        }
-                      },
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text('Display Style'),
+                    const SizedBox(height: 16),
+                    Text(
+                      _getCurrencyStyle(),
+                      style: const TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    SliverToBoxAdapter(
-                      child: SizedBox(height: 8),
-                    ),
-                    SliverToBoxAdapter(
-                      child: isLoading
-                          ? CustomProgressIndicator()
-                          : FilledButton(
-                              onPressed: () => _complete(),
-                              child: Text('Complete'),
-                            ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: SizedBox(height: 8),
-                    ),
-                    _buildDeleteButton(),
-                    SliverToBoxAdapter(
-                      child: SizedBox(height: 16),
-                    ),
+                    const SizedBox(height: 16),
+                    Text('Amount: ${_getDisplayString()}'),
                   ],
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+            const SizedBox(height: 16),
+            Expanded(
+              child: Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverGrid.builder(
+                        itemCount: 11,
+                        gridDelegate: _getGridDelegate(context),
+                        itemBuilder: (context, index) {
+                          switch (index) {
+                            case 0:
+                              return _buildCurrencyCode();
+                            case 1:
+                              return _buildCurrencySymbol();
+                            case 2:
+                              return _buildCurrencyName();
+                            case 3:
+                              return _buildCurrencyUnit();
+                            case 4:
+                              return _buildCurrencyCountry();
+                            case 5:
+                              return _buildInvertSeparators();
+                            case 6:
+                              return _buildIsCryptoCurrency();
+                            case 7:
+                              return _buildUseCurrencyCode();
+                            case 8:
+                              return _buildCurrencyOnRightSide();
+                            case 9:
+                              return _buildAddSpace();
+                            case 10:
+                              return _buildShowZeros();
+                            default:
+                              return const SizedBox.shrink();
+                          }
+                        },
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 8),
+                      ),
+                      SliverToBoxAdapter(
+                        child: isLoading
+                            ? const CustomProgressIndicator()
+                            : FilledButton(
+                                onPressed: _complete,
+                                child: const Text('Complete'),
+                              ),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 8),
+                      ),
+                      _buildDeleteButton(),
+                      const SliverToBoxAdapter(
+                        child: SizedBox(height: 16),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
 
   SliverToBoxAdapter _buildDeleteButton() {
     if (widget.isSaved) {
       return SliverToBoxAdapter(
         child: Row(
           children: [
-            Spacer(),
+            const Spacer(),
             TextButton(
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.error,
@@ -205,32 +203,32 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       );
     }
     return SliverToBoxAdapter(
       child: isLoading
-          ? CustomProgressIndicator()
+          ? const CustomProgressIndicator()
           : FilledButton(
-              onPressed: () => _complete(),
-              child: Text('Complete'),
+              onPressed: _complete,
+              child: const Text('Complete'),
             ),
     );
   }
 
   SliverGridDelegateWithMaxCrossAxisExtent _getGridDelegate(
-      BuildContext context) {
-    return SliverGridDelegateWithMaxCrossAxisExtent(
-      mainAxisSpacing: 4,
-      crossAxisSpacing: 16,
-      maxCrossAxisExtent: 550,
-      mainAxisExtent: 56,
-    );
-  }
+    BuildContext context,
+  ) =>
+      const SliverGridDelegateWithMaxCrossAxisExtent(
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 16,
+        maxCrossAxisExtent: 550,
+        mainAxisExtent: 56,
+      );
 
-  void _complete() async {
+  Future<void> _complete() async {
     final isValid = _formKey.currentState!.validate();
 
     late Currency currency;
@@ -240,32 +238,30 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       isLoading = true;
       setState(() {});
       try {
-        await Future.delayed(Duration(minutes: 1));
+        await Future.delayed(const Duration(minutes: 1));
         await _currencyDao
             .saveCurrency(currency: currency, isDefault: widget.isDefault)
             .then((value) {
           _prefs.setBool(SharedPrefKeys.ONBOARDED, true);
-          context.goNamed(AppRoute.DASHBOARD_ROUTE);
+          context.goNamed(Routes.DASHBOARD_ROUTE);
         });
       } catch (e) {
         if (context.isPhone()) {
           context.showErrorSnackBar(e.toString());
         } else {
-          showDialog(
+          await showDialog(
             context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Icon(
-                  PhosphorIcons.regular.warningCircle,
-                  color: Theme.of(context).colorScheme.error,
-                ),
-                content: Text(
-                  e.toString(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Theme.of(context).colorScheme.error),
-                ),
-              );
-            },
+            builder: (context) => AlertDialog(
+              title: Icon(
+                PhosphorIcons.regular.warningCircle,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              content: Text(
+                e.toString(),
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ),
           );
         }
       } finally {
@@ -289,222 +285,192 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
     return 4;
   }
 
-  SwitchListTile _buildShowZeros() {
-    return SwitchListTile(
-      contentPadding: EdgeInsets.all(0),
-      title: Text('Always show trailing zeros'),
-      value: showTrailingZeros,
-      onChanged: (value) {
-        showTrailingZeros = value;
-        _updatePattern();
-        setState(() {});
-      },
-    );
-  }
+  SwitchListTile _buildShowZeros() => SwitchListTile(
+        contentPadding: const EdgeInsets.all(0),
+        title: const Text('Always show trailing zeros'),
+        value: showTrailingZeros,
+        onChanged: (value) {
+          showTrailingZeros = value;
+          _updatePattern();
+          setState(() {});
+        },
+      );
 
-  SwitchListTile _buildAddSpace() {
-    return SwitchListTile(
-      contentPadding: EdgeInsets.all(0),
-      title: Text('Add Space Between Currency and Amount'),
-      value: addSpaceBetweenCurrencyAndAmount,
-      onChanged: (value) {
-        addSpaceBetweenCurrencyAndAmount = value;
-        _updatePattern();
-        setState(() {});
-      },
-    );
-  }
+  SwitchListTile _buildAddSpace() => SwitchListTile(
+        contentPadding: const EdgeInsets.all(0),
+        title: const Text('Add Space Between Currency and Amount'),
+        value: addSpaceBetweenCurrencyAndAmount,
+        onChanged: (value) {
+          addSpaceBetweenCurrencyAndAmount = value;
+          _updatePattern();
+          setState(() {});
+        },
+      );
 
-  SwitchListTile _buildCurrencyOnRightSide() {
-    return SwitchListTile(
-      contentPadding: EdgeInsets.all(0),
-      title: Text('Display Currency on Right Side'),
-      value: currencyOnRightSide,
-      onChanged: (value) {
-        currencyOnRightSide = value;
-        _updatePattern();
-        setState(() {});
-      },
-    );
-  }
+  SwitchListTile _buildCurrencyOnRightSide() => SwitchListTile(
+        contentPadding: const EdgeInsets.all(0),
+        title: const Text('Display Currency on Right Side'),
+        value: currencyOnRightSide,
+        onChanged: (value) {
+          currencyOnRightSide = value;
+          _updatePattern();
+          setState(() {});
+        },
+      );
 
-  SwitchListTile _buildUseCurrencyCode() {
-    return SwitchListTile(
-      contentPadding: EdgeInsets.all(0),
-      title: Text('Use Currency Code'),
-      value: useCurrencyCode,
-      onChanged: (value) {
-        useCurrencyCode = value;
-        _updatePattern();
-        setState(() {});
-      },
-    );
-  }
+  SwitchListTile _buildUseCurrencyCode() => SwitchListTile(
+        contentPadding: const EdgeInsets.all(0),
+        title: const Text('Use Currency Code'),
+        value: useCurrencyCode,
+        onChanged: (value) {
+          useCurrencyCode = value;
+          _updatePattern();
+          setState(() {});
+        },
+      );
 
-  SwitchListTile _buildIsCryptoCurrency() {
-    return SwitchListTile(
-      contentPadding: EdgeInsets.all(0),
-      title: Text('Is Cyrptocurrency'),
-      value: isCrypto,
-      onChanged: (value) {
-        isCrypto = value;
-        _updatePattern();
-        setState(() {});
-      },
-    );
-  }
+  SwitchListTile _buildIsCryptoCurrency() => SwitchListTile(
+        contentPadding: const EdgeInsets.all(0),
+        title: const Text('Is Cyrptocurrency'),
+        value: isCrypto,
+        onChanged: (value) {
+          isCrypto = value;
+          _updatePattern();
+          setState(() {});
+        },
+      );
 
-  SwitchListTile _buildInvertSeparators() {
-    return SwitchListTile(
-      contentPadding: EdgeInsets.all(0),
-      title: Text('Invert Separators'),
-      value: invertSeparators,
-      onChanged: (value) {
-        invertSeparators = value;
-        _updatePattern();
-        setState(() {});
-      },
-    );
-  }
+  SwitchListTile _buildInvertSeparators() => SwitchListTile(
+        contentPadding: const EdgeInsets.all(0),
+        title: const Text('Invert Separators'),
+        value: invertSeparators,
+        onChanged: (value) {
+          invertSeparators = value;
+          _updatePattern();
+          setState(() {});
+        },
+      );
 
-  Row _buildCurrencyCountry() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text('Currency Country'),
-        SizedBox(width: 8),
-        Expanded(
-          child: TextFormField(
-            controller: currencyCountryController,
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
-              enabledBorder: _getInputBorder(context),
-              focusedBorder: _getFocusedBorder(context),
+  Row _buildCurrencyCountry() => Row(
+        children: [
+          const Text('Currency Country'),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextFormField(
+              controller: currencyCountryController,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                enabledBorder: _getInputBorder(context),
+                focusedBorder: _getFocusedBorder(context),
+              ),
             ),
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 
-  Row _buildCurrencyUnit() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text('Currency Unit'),
-        SizedBox(width: 8),
-        Expanded(
-          child: TextFormField(
-            controller: currencyUnitController,
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
-              hintText: currencyUnitHint,
-              enabledBorder: _getInputBorder(context),
-              focusedBorder: _getFocusedBorder(context),
+  Row _buildCurrencyUnit() => Row(
+        children: [
+          const Text('Currency Unit'),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextFormField(
+              controller: currencyUnitController,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                hintText: currencyUnitHint,
+                enabledBorder: _getInputBorder(context),
+                focusedBorder: _getFocusedBorder(context),
+              ),
             ),
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 
-  Row _buildCurrencyName() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text('Currency Name'),
-        SizedBox(width: 8),
-        Expanded(
-          child: TextFormField(
-            controller: currencyNameController,
-            textCapitalization: TextCapitalization.words,
-            decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
-              hintText: currencyNameHint,
-              enabledBorder: _getInputBorder(context),
-              focusedBorder: _getFocusedBorder(context),
+  Row _buildCurrencyName() => Row(
+        children: [
+          const Text('Currency Name'),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextFormField(
+              controller: currencyNameController,
+              textCapitalization: TextCapitalization.words,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                hintText: currencyNameHint,
+                enabledBorder: _getInputBorder(context),
+                focusedBorder: _getFocusedBorder(context),
+              ),
             ),
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 
-  Row _buildCurrencySymbol() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text('Currency Symbol*'),
-        SizedBox(width: 8),
-        Expanded(
-          child: TextFormField(
-            controller: currencySymbolController,
-            textCapitalization: TextCapitalization.characters,
-            decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
-              hintText: currencySymbolHint,
-              enabledBorder: _getInputBorder(context),
-              focusedBorder: _getFocusedBorder(context),
+  Row _buildCurrencySymbol() => Row(
+        children: [
+          const Text('Currency Symbol*'),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextFormField(
+              controller: currencySymbolController,
+              textCapitalization: TextCapitalization.characters,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                hintText: currencySymbolHint,
+                enabledBorder: _getInputBorder(context),
+                focusedBorder: _getFocusedBorder(context),
+              ),
+              validator: (v) {
+                if (v == null || v.isEmpty) {
+                  return 'Must not be empty';
+                }
+                return null;
+              },
             ),
-            validator: (v) {
-              if (v == null || v.isEmpty) {
-                return 'Must not be empty';
-              }
-              return null;
-            },
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 
-  Row _buildCurrencyCode() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text('Currency Code*'),
-        SizedBox(width: 8),
-        Expanded(
-          child: TextFormField(
-            maxLines: 1,
-            controller: currencyCodeController,
-            textCapitalization: TextCapitalization.characters,
-            decoration: InputDecoration(
-              isCollapsed: true,
-              contentPadding: EdgeInsets.symmetric(vertical: 8),
-              hintText: currencyCodeHint,
-              enabledBorder: _getInputBorder(context),
-              focusedBorder: _getFocusedBorder(context),
+  Row _buildCurrencyCode() => Row(
+        children: [
+          const Text('Currency Code*'),
+          const SizedBox(width: 8),
+          Expanded(
+            child: TextFormField(
+              controller: currencyCodeController,
+              textCapitalization: TextCapitalization.characters,
+              decoration: InputDecoration(
+                isCollapsed: true,
+                contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                hintText: currencyCodeHint,
+                enabledBorder: _getInputBorder(context),
+                focusedBorder: _getFocusedBorder(context),
+              ),
+              validator: (v) {
+                if (v == null || v.length < 3) {
+                  return 'Must be at least 3 letters';
+                }
+                return null;
+              },
             ),
-            validator: (v) {
-              if (v == null || v.length < 3) {
-                return 'Must be at least 3 letters';
-              }
-              return null;
-            },
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 
-  UnderlineInputBorder _getInputBorder(BuildContext context) {
-    return UnderlineInputBorder(
-      borderSide: DecorationElements.getRegularBorderSide(context),
-    );
-  }
+  UnderlineInputBorder _getInputBorder(BuildContext context) =>
+      UnderlineInputBorder(
+        borderSide: DecorationElements.getRegularBorderSide(context),
+      );
 
-  UnderlineInputBorder _getFocusedBorder(BuildContext context) {
-    return UnderlineInputBorder(
-      borderSide: DecorationElements.getFocusedBorderSide(context),
-    );
-  }
+  UnderlineInputBorder _getFocusedBorder(BuildContext context) =>
+      UnderlineInputBorder(
+        borderSide: DecorationElements.getFocusedBorderSide(context),
+      );
 
   String _getCurrencyStyle() {
     if (currencyCodeController.text.isEmpty) {
@@ -514,23 +480,23 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
     final currency = _createCurrency();
 
     final money = Money.fromFixedWithCurrency(
-        Fixed.fromInt(_getDisplayString(), scale: _getScale()), currency);
+      Fixed.fromInt(_getDisplayString(), scale: _getScale()),
+      currency,
+    );
 
     return money.toString();
   }
 
-  Currency _createCurrency() {
-    return Currency.create(
-      currencyCodeController.text.toUpperCase(),
-      _getScale(),
-      symbol: currencySymbolController.text,
-      pattern: currencyPattern,
-      invertSeparators: invertSeparators,
-      country: currencyCountryController.text,
-      unit: currencyUnitController.text,
-      name: currencyNameController.text,
-    );
-  }
+  Currency _createCurrency() => Currency.create(
+        currencyCodeController.text.toUpperCase(),
+        _getScale(),
+        symbol: currencySymbolController.text,
+        pattern: currencyPattern,
+        invertSeparators: invertSeparators,
+        country: currencyCountryController.text,
+        unit: currencyUnitController.text,
+        name: currencyNameController.text,
+      );
 
   void _updatePattern() {
     const symbol = 'S';
@@ -554,14 +520,14 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
 
     if (invertSeparators) {
       for (var i = 0; i < 6; i++) {
-        pattern = pattern + hash + hash + hash + '.';
+        pattern = '$pattern$hash$hash$hash.';
       }
-      pattern = pattern + hash + hash + hash + ',';
+      pattern = '$pattern$hash$hash$hash,';
     } else {
       for (var i = 0; i < 6; i++) {
-        pattern = pattern + hash + hash + hash + ',';
+        pattern = '$pattern$hash$hash$hash,';
       }
-      pattern = pattern + hash + hash + hash + '.';
+      pattern = '$pattern$hash$hash$hash.';
     }
 
     if (showTrailingZeros) {

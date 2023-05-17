@@ -1,9 +1,10 @@
-// ignore_for_file: constant_identifier_names
+class Routes {
+  //general
+  static const home = '/';
 
-class AppRoute {
   //Onboarding Routes
-  static const ONBOARDING = '/onboarding';
-  static const SPLASH = '/splash';
+  static const onboarding = '/onboarding';
+  static const splash = '/splash';
 
   //Settings Routes
   static const CHOOSE_CURRENCY = '/chooseCurrency';

@@ -2,7 +2,7 @@
 // ignore_for_file: constant_identifier_names
 
 @Deprecated(
-    'This class is to be deleted use other  more specific keys like DevStringKeys, SharedPrefKeys & NavParamKeys')
+    'This class is to be deleted use other  more specific keys like DevStringKeys, SharedPrefKeys & NavParamKeys',)
 class HiddenStrings {
   static const SETTINGS = 'settings';
   static const THEMEMODE = 'themeMode';

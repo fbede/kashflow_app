@@ -14,7 +14,7 @@ extension BuildContextUtils on BuildContext {
       content: Text(text),
       backgroundColor: Theme.of(this).colorScheme.error,
       closeIconColor: Theme.of(this).colorScheme.error,
-    ));
+    ),);
   }
 
   bool isPhone() => MediaQuery.of(this).size.width < 500;
@@ -27,8 +27,7 @@ extension BuildContextUtils on BuildContext {
 
   Widget buildResponsiveScreen({
     required Widget mobileScreen,
-    Widget? tabletScreen,
-    required Widget desktopScreen,
+    required Widget desktopScreen, Widget? tabletScreen,
   }) {
     if (isPhone()) return mobileScreen;
 

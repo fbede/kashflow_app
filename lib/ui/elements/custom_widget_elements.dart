@@ -94,6 +94,8 @@ class RoundedSearchBar extends StatelessWidget {
 }
 
 class CustomProgressIndicator extends StatefulWidget {
+  const CustomProgressIndicator({super.key});
+
   @override
   State<CustomProgressIndicator> createState() =>
       _CustomProgressIndicatorState();
@@ -107,7 +109,7 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       vsync: this,
     )..repeat();
   }

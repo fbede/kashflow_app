@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:kashflow/gen/assets.gen.dart';
-import 'package:kashflow/gen/fonts.gen.dart';
-import 'package:kashflow/util/responsive.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+import '../gen/assets.gen.dart';
+import '../gen/fonts.gen.dart';
+import '../shared/keys.dart';
+import '../shared/route_names.dart';
+import '../shared/user_text.dart';
+import '../util/responsive.dart';
+
+class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
 
   @override
-  State<WelcomeScreen> createState() => _WelcomeScreenState();
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   late final _controller = PageController();
 
-  final duration = const Duration(milliseconds: 250);
-  final curve = Curves.linear;
-  final maxIndex = 3;
-  final minIndex = 0;
+  final _prefs = GetIt.I<SharedPreferences>();
+  final _duration = const Duration(milliseconds: 250);
+  final _curve = Curves.linear;
+  final _maxIndex = 3;
+  final _minIndex = 0;
 
   int currentIndex = 0;
 
@@ -35,26 +43,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               controller: _controller,
               children: [
                 _WelcomeScreenPage(
-                  title: 'Welcome To Kashflow',
-                  subtitle: "Let's help you manage your finances",
+                  title: UserText.onboardingPage1TitleText,
+                  subtitle: UserText.onboardingPage1SubTitleText,
                   content: Assets.images.appLogo.image(height: 128, width: 128),
                 ),
                 _WelcomeScreenPage(
-                  title: 'Record Your Daily Transactions',
-                  subtitle:
-                      'Enter your daily transactions to find out how much you are making and spending.',
+                  title: UserText.onboardingPage2TitleText,
+                  subtitle: UserText.onboardingPage2SubTitleText,
                   content: Assets.svg.dailyTransactions.svg(),
                 ),
                 _WelcomeScreenPage(
-                  title: 'Discover Your Finances',
-                  subtitle:
-                      'Indepth analysis of your money tells you where you can cut costs and increase income.',
+                  title: UserText.onboardingPage3TitleText,
+                  subtitle: UserText.onboardingPage3SubTitleText,
                   content: Assets.svg.incomeExpense.svg(),
                 ),
                 _WelcomeScreenPage(
-                  title: 'Know Your Networth',
-                  subtitle:
-                      'View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!',
+                  title: UserText.onboardingPage4TitleText,
+                  subtitle: UserText.onboardingPage4SubTitleText,
                   content: Assets.svg.assetsAndLiabilities.svg(),
                 ),
               ],
@@ -73,7 +78,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,
             children: List.generate(
-              (maxIndex + 1) * 2,
+              (_maxIndex + 1) * 2,
               growable: false,
               _listGenerator,
             ),
@@ -90,9 +95,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
     if (i.isEven) {
       return GestureDetector(
-        onTap: () async => gotoPage(index),
+        onTap: () async => _gotoPage(index),
         child: AnimatedContainer(
-          duration: duration,
+          duration: _duration,
           height: size,
           width: size,
           decoration: BoxDecoration(
@@ -114,23 +119,23 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             children: [
               const SizedBox(width: 16),
               AnimatedScale(
-                scale: currentIndex != minIndex ? 1 : 0,
-                duration: duration,
+                scale: currentIndex != _minIndex ? 1 : 0,
+                duration: _duration,
                 child: FloatingActionButton(
                   heroTag: null,
-                  onPressed: () async => gotoPage(currentIndex - 1),
+                  onPressed: () async => _gotoPage(currentIndex - 1),
                   child: Icon(PhosphorIcons.regular.caretLeft),
                 ),
               ),
               const Spacer(),
               FloatingActionButton(
                 heroTag: null,
-                onPressed: () async => gotoPage(currentIndex + 1),
+                onPressed: () async => _gotoPage(currentIndex + 1),
                 child: AnimatedSwitcher(
-                  duration: duration,
+                  duration: _duration,
                   transitionBuilder: (child, animation) =>
                       ScaleTransition(scale: animation, child: child),
-                  child: currentIndex != maxIndex
+                  child: currentIndex != _maxIndex
                       ? Icon(
                           PhosphorIcons.regular.caretRight,
                           key: const ValueKey(0),
@@ -147,16 +152,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
       );
 
-  Future<void> gotoPage(int page) async {
-    if (page < minIndex) return;
+  Future<void> _gotoPage(int page) async {
+    if (page < _minIndex) return;
 
-    if (page > maxIndex) {
+    if (page > _maxIndex) {
+      context.goNamed(Routes.home);
+      await _prefs.setBool(PrefKeys.hasOnboarded, true);
       return;
     }
 
     currentIndex = page;
     setState(() {});
-    await _controller.animateToPage(page, duration: duration, curve: curve);
+    await _controller.animateToPage(page, duration: _duration, curve: _curve);
   }
 }
 

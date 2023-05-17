@@ -21,7 +21,7 @@ class Group<T> with _$Group<T> {
       );
 
   factory Group.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
+          Map<String, dynamic> json, T Function(Object?) fromJsonT,) =>
       _$GroupFromJson(json, fromJsonT);
 }
 

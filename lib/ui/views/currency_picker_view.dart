@@ -1,7 +1,7 @@
 part of 'views.dart';
 
 class CurrencyPickerView extends ConsumerStatefulWidget {
-  const CurrencyPickerView({required this.titleString});
+  const CurrencyPickerView({required this.titleString, super.key});
   final String titleString;
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -40,65 +40,54 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: SmallCustomAppBar(
-        title: Text(widget.titleString),
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: GroupedScrollView.grid(
-                  shrinkWrap: true,
-                  scrollController: _scrollController,
-                  gridDelegate: _getGridDelegate(context),
-                  groupedOptions: _getGroupedScrollViewOptions(),
-                  itemBuilder:
-                      (BuildContext context, Group<BasicCurrency> item) {
-                    return _ItemWidget(
+  Widget build(BuildContext context) => Scaffold(
+        appBar: SmallCustomAppBar(
+          title: Text(widget.titleString),
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: GroupedScrollView.grid(
+                    shrinkWrap: true,
+                    scrollController: _scrollController,
+                    gridDelegate: _getGridDelegate(context),
+                    groupedOptions: _getGroupedScrollViewOptions(),
+                    itemBuilder: (context, item) => _ItemWidget(
                       item: item,
                       pickerController: _pickerController,
-                    );
-                  },
-                  data: _pickerController.data,
-                  headerBuilder: (BuildContext context) => SizedBox.shrink(),
-                  footerBuilder: (BuildContext context) => SizedBox.shrink(),
+                    ),
+                    data: _pickerController.data,
+                    headerBuilder: (context) => const SizedBox.shrink(),
+                    footerBuilder: (context) => const SizedBox.shrink(),
+                  ),
                 ),
               ),
             ),
-          ),
-          _BottomSearchBar(pickerController: _pickerController),
-        ],
-      ),
-    );
-  }
+            _BottomSearchBar(pickerController: _pickerController),
+          ],
+        ),
+      );
 
   SliverGridDelegateWithMaxCrossAxisExtent _getGridDelegate(
-      BuildContext context) {
-    return SliverGridDelegateWithMaxCrossAxisExtent(
-      mainAxisSpacing: 8,
-      crossAxisSpacing: 8,
-      maxCrossAxisExtent: 550,
-      mainAxisExtent: 48,
-    );
-  }
+    BuildContext context,
+  ) =>
+      const SliverGridDelegateWithMaxCrossAxisExtent(
+        mainAxisSpacing: 8,
+        crossAxisSpacing: 8,
+        maxCrossAxisExtent: 550,
+        mainAxisExtent: 48,
+      );
 
   GroupedScrollViewOptions<Group<BasicCurrency>, String>
-      _getGroupedScrollViewOptions() {
-    return GroupedScrollViewOptions(
-      itemGrouper: (Group<BasicCurrency> group) {
-        return group.groupName;
-      },
-      stickyHeaderBuilder:
-          (BuildContext context, String groupName, int groupedIndex) {
-        return _StickyHeaderWidget(groupName: groupName);
-      },
-    );
-  }
+      _getGroupedScrollViewOptions() => GroupedScrollViewOptions(
+            itemGrouper: (group) => group.groupName,
+            stickyHeaderBuilder: (context, groupName, groupedIndex) =>
+                _StickyHeaderWidget(groupName: groupName),
+          );
 }
 
 class _ItemWidget extends StatelessWidget {
@@ -111,37 +100,35 @@ class _ItemWidget extends StatelessWidget {
   final _CurrencyPickerController _pickerController;
 
   @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: EdgeInsets.all(0),
-      shadowColor: Colors.transparent,
-      elevation: 1,
+  Widget build(BuildContext context) => Card(
+        margin: const EdgeInsets.all(0),
+        shadowColor: Colors.transparent,
+        elevation: 1,
 
-      child: ListTile(
-        dense: true,
-        leading: Text(item.object.code),
-        title: Text(
-          item.object.name,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+        child: ListTile(
+          dense: true,
+          leading: Text(item.object.code),
+          title: Text(
+            item.object.name,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: Text(item.object.symbol),
+          onTap: () {
+            Map<String, dynamic> extra = {
+              NavParamKeys.BASIC_CURRENCY_EXTRA_KEY: item.object,
+            };
+            if (_pickerController.title == UserText.Choose_Default_Currency) {
+              extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
+            }
+            if (item.groupName == UserText.Saved_Curriences) {
+              extra.addAll({NavParamKeys.IS_SAVED_EXTRA_KEY: true});
+            }
+            context.pushNamed(Routes.EDIT_CURRENCY, extra: extra);
+          },
         ),
-        trailing: Text(item.object.symbol),
-        onTap: () {
-          Map<String, dynamic> extra = {
-            NavParamKeys.BASIC_CURRENCY_EXTRA_KEY: item.object,
-          };
-          if (_pickerController.title == UserText.Choose_Default_Currency) {
-            extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
-          }
-          if (item.groupName == UserText.Saved_Curriences) {
-            extra.addAll({NavParamKeys.IS_SAVED_EXTRA_KEY: true});
-          }
-          context.pushNamed(AppRoute.EDIT_CURRENCY, extra: extra);
-        },
-      ),
-      // ),
-    );
-  }
+        // ),
+      );
 }
 
 class _StickyHeaderWidget extends StatelessWidget {
@@ -150,21 +137,19 @@ class _StickyHeaderWidget extends StatelessWidget {
   final String groupName;
 
   @override
-  Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Theme.of(context).colorScheme.background,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 4),
-        child: Text(
-          '$groupName',
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
+  Widget build(BuildContext context) => ColoredBox(
+        color: Theme.of(context).colorScheme.background,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 4),
+          child: Text(
+            groupName,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }
 
 class _BottomSearchBar extends StatelessWidget {
@@ -175,38 +160,36 @@ class _BottomSearchBar extends StatelessWidget {
   final _CurrencyPickerController _pickerController;
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding:
-          const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 12),
-      child: SizedBox(
-        height: 40,
-        child: Row(
-          children: [
-            Expanded(
-              child: _RoundedTextField(
-                onChanged: (value) => _pickerController.search(text: value),
+  Widget build(BuildContext context) => Padding(
+        padding:
+            const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 12),
+        child: SizedBox(
+          height: 40,
+          child: Row(
+            children: [
+              Expanded(
+                child: _RoundedTextField(
+                  onChanged: (value) => _pickerController.search(text: value),
+                ),
               ),
-            ),
-            SizedBox(width: 16),
-            FloatingActionButton.small(
-              elevation: 0,
-              shape: CircleBorder(eccentricity: 1),
-              child: Icon(PhosphorIcons.regular.plus),
-              onPressed: () => _createNewCurrency(context),
-            )
-          ],
+              const SizedBox(width: 16),
+              FloatingActionButton.small(
+                elevation: 0,
+                shape: const CircleBorder(eccentricity: 1),
+                child: Icon(PhosphorIcons.regular.plus),
+                onPressed: () => _createNewCurrency(context),
+              )
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   void _createNewCurrency(BuildContext context) {
     Map<String, dynamic> extra = {};
     if (_pickerController.title == UserText.Choose_Default_Currency) {
       extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
     }
-    context.pushNamed(AppRoute.CREATE_NEW_CURRENCY, extra: extra);
+    context.pushNamed(Routes.CREATE_NEW_CURRENCY, extra: extra);
   }
 }
 
@@ -218,35 +201,31 @@ class _RoundedTextField extends StatelessWidget {
   final ValueChanged<String> onChanged;
 
   @override
-  Widget build(BuildContext context) {
-    return TextField(
-      keyboardType: TextInputType.text,
-      autocorrect: false,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        filled: true,
-        contentPadding: EdgeInsetsDirectional.zero,
-        prefixIcon: Icon(PhosphorIcons.regular.magnifyingGlass),
-        hintText: UserText.Search_Currency_Name_or_Code,
-        enabledBorder: _getInputBorder(context),
-        focusedBorder: _getFocusedBorder(context),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => TextField(
+        keyboardType: TextInputType.text,
+        autocorrect: false,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          filled: true,
+          contentPadding: EdgeInsetsDirectional.zero,
+          prefixIcon: Icon(PhosphorIcons.regular.magnifyingGlass),
+          hintText: UserText.Search_Currency_Name_or_Code,
+          enabledBorder: _getInputBorder(context),
+          focusedBorder: _getFocusedBorder(context),
+        ),
+      );
 
-  OutlineInputBorder _getInputBorder(BuildContext context) {
-    return OutlineInputBorder(
-      borderSide: DecorationElements.getRegularBorderSide(context),
-      borderRadius: BorderRadius.circular(30),
-    );
-  }
+  OutlineInputBorder _getInputBorder(BuildContext context) =>
+      OutlineInputBorder(
+        borderSide: DecorationElements.getRegularBorderSide(context),
+        borderRadius: BorderRadius.circular(30),
+      );
 
-  OutlineInputBorder _getFocusedBorder(BuildContext context) {
-    return OutlineInputBorder(
-      borderSide: DecorationElements.getFocusedBorderSide(context),
-      borderRadius: BorderRadius.circular(30),
-    );
-  }
+  OutlineInputBorder _getFocusedBorder(BuildContext context) =>
+      OutlineInputBorder(
+        borderSide: DecorationElements.getFocusedBorderSide(context),
+        borderRadius: BorderRadius.circular(30),
+      );
 }
 
 //TODO: Update to fetch from web & db
@@ -275,7 +254,7 @@ class _CurrencyPickerController extends ChangeNotifier {
   List<Group<BasicCurrency>> assetCurrencies = [];
   List<Group<BasicCurrency>> pbCurrencies = [];
 
-  void search({String text = ''}) async {
+  Future<void> search({String text = ''}) async {
     isLoading = true;
     notifyListeners();
     _reset();
@@ -377,16 +356,18 @@ class _CurrencyPickerController extends ChangeNotifier {
 
     final data = jsonDecode(json) as List;
 
-    List<Group<BasicCurrency>> currencies = data.map((e) {
-      return Group.fromObject(
-        object: BasicCurrency.fromJson(e as Map<String, dynamic>),
-        groupName: UserText.Saved_Curriences,
-      );
-    }).toList();
+    List<Group<BasicCurrency>> currencies = data
+        .map(
+          (e) => Group.fromObject(
+            object: BasicCurrency.fromJson(e as Map<String, dynamic>),
+            groupName: UserText.Saved_Curriences,
+          ),
+        )
+        .toList();
 
     List<Group<BasicCurrency>> result = [];
 
-    for (var element in currencies) {
+    for (final element in currencies) {
       if (element.object.code.toLowerCase().contains(text.toLowerCase()) ||
           element.object.name.toLowerCase().contains(text.toLowerCase())) {
         result.add(element);
@@ -400,18 +381,20 @@ class _CurrencyPickerController extends ChangeNotifier {
     final String json =
         await rootBundle.loadString(Paths.PRELOADED_CURRENCY_JSON);
 
-    var data = jsonDecode(json) as List;
+    final data = jsonDecode(json) as List;
 
-    List<Group<BasicCurrency>> currencies = data.map((e) {
-      return Group.fromObject(
-        object: BasicCurrency.fromJson(e as Map<String, Object?>),
-        groupName: UserText.Popular_Curriences,
-      );
-    }).toList();
+    List<Group<BasicCurrency>> currencies = data
+        .map(
+          (e) => Group.fromObject(
+            object: BasicCurrency.fromJson(e as Map<String, Object?>),
+            groupName: UserText.Popular_Curriences,
+          ),
+        )
+        .toList();
 
     List<Group<BasicCurrency>> result = [];
 
-    for (var element in currencies) {
+    for (final element in currencies) {
       if (element.object.code.toLowerCase().contains(text.toLowerCase()) ||
           element.object.name.toLowerCase().contains(text.toLowerCase())) {
         result.add(element);
@@ -425,18 +408,20 @@ class _CurrencyPickerController extends ChangeNotifier {
     final String json =
         await rootBundle.loadString(Paths.PRELOADED_CURRENCY_JSON);
 
-    var data = jsonDecode(json) as List;
+    final data = jsonDecode(json) as List;
 
-    List<Group<BasicCurrency>> currencies = data.map((e) {
-      return Group.fromObject(
-        object: BasicCurrency.fromJson(e as Map<String, Object?>),
-        groupName: 'pb currency',
-      );
-    }).toList();
+    List<Group<BasicCurrency>> currencies = data
+        .map(
+          (e) => Group.fromObject(
+            object: BasicCurrency.fromJson(e as Map<String, Object?>),
+            groupName: 'pb currency',
+          ),
+        )
+        .toList();
 
     List<Group<BasicCurrency>> result = [];
 
-    for (var element in currencies) {
+    for (final element in currencies) {
       if (element.object.code.toLowerCase().contains(text.toLowerCase()) ||
           element.object.name.toLowerCase().contains(text.toLowerCase())) {
         result.add(element);

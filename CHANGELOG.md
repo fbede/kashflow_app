@@ -8,46 +8,28 @@ This project also adheres to a modified version of [Semantic Versioning](https:/
 
 Todo: Make this a private changelog
 
-**Note: Commented code is considered deprecated**
+**Note: Commented code is also considered deprecated**
 
 ## Unreleased
 
 ### Added
-
-- Added all dart lints
-- Added .env to store secrets
-- Added .env to gitignore
-- Added sentry for crash reporting
-- Added new main_*,dart files with environment configs
-- Added and configured talker for proper logging
-- Generated asset routes
-
 ### Changed
-
-- Customized lints to fit my personal taste.
-- Improved Readme
-
 ### Deprecated
 ### Fixed 
 ### Removed
-
-- Removed main.dart to force developer to add a build entry point
-
 ### Security
 
-## 0.0.0 - 2023-05-10
+## 0.0.0 - 2023-05-17
 
 ### Added
 
 - Added a copyright note.
 - Added a changelog.
-- Added sentry-flutter as a dependecy.
+- Added sentry-flutter to monitor bugs remotely.
+- Added an onboarding screen.
 
 ### Changed
 
 - Restarted versioning from 0.0.0 because I just added a changelog and decided on a versioning style.
 - Changed splashscreen, applogo and appname.
-- Changed app README from the default flutter version to something more suitable for the app.
-
-### Deprecated
-- Deprecated attempted sentry implementation because it was not setup properly.
+- Changed app README.

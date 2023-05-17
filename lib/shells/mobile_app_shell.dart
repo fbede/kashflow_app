@@ -1,53 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/router/app_router.dart';
-import 'package:kashflow/router/routes.dart';
-import 'package:kashflow/util/visible_strings.dart';
+import '../shared/route_names.dart';
+import '../util/visible_strings.dart';
 
 class MobileAppShell extends StatelessWidget {
   final Widget child;
 
-  const MobileAppShell({required this.child});
+  const MobileAppShell({required this.child, super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: child,
-        floatingActionButton: _buildFAB(_getSelectedIndex(context)),
-        bottomNavigationBar: NavigationBar(
-          height: 70,
-          selectedIndex: _getSelectedIndex(context),
-          onDestinationSelected: (value) => _onItemTapped(value, context),
-          destinations: [
-            NavigationDestination(
-              icon: Icon(Icons.home_rounded),
-              label: HOME_LABEL,
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.format_list_numbered_rounded),
-              label: ACCOUNTS_LABEL,
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.receipt_rounded),
-              label: RECORDS_LABEL,
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.bar_chart_rounded),
-              label: REPORTS_LABEL,
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.more_horiz),
-              label: MORE_LABEL,
-            ),
-          ],
+  Widget build(BuildContext context) => SafeArea(
+        child: Scaffold(
+          body: child,
+          floatingActionButton: _buildFAB(_getSelectedIndex(context)),
+          bottomNavigationBar: NavigationBar(
+            height: 70,
+            selectedIndex: _getSelectedIndex(context),
+            onDestinationSelected: (value) => _onItemTapped(value, context),
+            destinations: const [
+              NavigationDestination(
+                icon: Icon(Icons.home_rounded),
+                label: HOME_LABEL,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.format_list_numbered_rounded),
+                label: ACCOUNTS_LABEL,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.receipt_rounded),
+                label: RECORDS_LABEL,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.bar_chart_rounded),
+                label: REPORTS_LABEL,
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.more_horiz),
+                label: MORE_LABEL,
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   static int _getSelectedIndex(BuildContext context) {
-    String location = GoRouterState.of(context).location;
+    final String location = GoRouterState.of(context).location;
     if (location.contains(DASHBOARD_ROUTE)) {
       return 0;
     }

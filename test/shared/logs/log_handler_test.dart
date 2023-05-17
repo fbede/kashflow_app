@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/shared/logs/log_handler.dart';
+import 'package:kashflow/shared/log_handler.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 void main() {
