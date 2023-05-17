@@ -1,5 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'views.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
+import 'package:money2/money2.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../elements/elements.dart';
+import '../shared/responsive.dart';
+import '../shared/route_names.dart';
+import '../shared/user_text.dart';
+import '../util/old_hidden_strings.dart';
+import 'db/currency_dao.dart';
+import 'db/drift_db.dart';
+import 'models/util_models.dart';
 
 class EditCurrencyView extends ConsumerStatefulWidget {
   EditCurrencyView({
@@ -80,7 +94,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
   }
 
   @override
-  dispose() {
+  void dispose() {
     currencyCodeController.dispose();
     currencyCountryController.dispose();
     currencyNameController.dispose();
@@ -238,18 +252,18 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       isLoading = true;
       setState(() {});
       try {
-        await Future.delayed(const Duration(minutes: 1));
+        await Future.delayed(const Duration(minutes: 1), () {});
         await _currencyDao
             .saveCurrency(currency: currency, isDefault: widget.isDefault)
             .then((value) {
           _prefs.setBool(SharedPrefKeys.ONBOARDED, true);
-          context.goNamed(Routes.DASHBOARD_ROUTE);
+          context.goNamed(Routes.dashboard);
         });
-      } catch (e) {
+      } on Exception catch (e) {
         if (context.isPhone()) {
           context.showErrorSnackBar(e.toString());
         } else {
-          await showDialog(
+          await showDialog<Widget>(
             context: context,
             builder: (context) => AlertDialog(
               title: Icon(
@@ -286,7 +300,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
   }
 
   SwitchListTile _buildShowZeros() => SwitchListTile(
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: const Text('Always show trailing zeros'),
         value: showTrailingZeros,
         onChanged: (value) {
@@ -297,7 +311,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       );
 
   SwitchListTile _buildAddSpace() => SwitchListTile(
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: const Text('Add Space Between Currency and Amount'),
         value: addSpaceBetweenCurrencyAndAmount,
         onChanged: (value) {
@@ -308,7 +322,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       );
 
   SwitchListTile _buildCurrencyOnRightSide() => SwitchListTile(
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: const Text('Display Currency on Right Side'),
         value: currencyOnRightSide,
         onChanged: (value) {
@@ -319,7 +333,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       );
 
   SwitchListTile _buildUseCurrencyCode() => SwitchListTile(
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: const Text('Use Currency Code'),
         value: useCurrencyCode,
         onChanged: (value) {
@@ -330,7 +344,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       );
 
   SwitchListTile _buildIsCryptoCurrency() => SwitchListTile(
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: const Text('Is Cyrptocurrency'),
         value: isCrypto,
         onChanged: (value) {
@@ -341,7 +355,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       );
 
   SwitchListTile _buildInvertSeparators() => SwitchListTile(
-        contentPadding: const EdgeInsets.all(0),
+        contentPadding: EdgeInsets.zero,
         title: const Text('Invert Separators'),
         value: invertSeparators,
         onChanged: (value) {

@@ -15,7 +15,11 @@ Todo: Make this a private changelog
 ### Added
 ### Changed
 ### Deprecated
-### Fixed 
+### Fixed
+
+- Fixed onboarding screen bug where indicator does not update when panning through the pages.
+- Fixed UI/UX of Home Screen.
+
 ### Removed
 ### Security
 

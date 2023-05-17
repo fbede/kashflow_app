@@ -14,5 +14,11 @@ class UserText {
   static const String onboardingPage4SubTitleText =
       '''View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!''';
 
+  //home screen
+  static const String homeNavBarHome = 'Home';
+  static const String homeNavBarRecords = 'Records';
+  static const String homeNavBarOther = 'Other';
+
   //general
+  static const String Delete = 'Delete';
 }

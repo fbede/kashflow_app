@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
+import '../account module/home_screen.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../onboarding/splashscreen.dart';
-import '../shells/mobile_accounts_shell.dart';
-import '../shells/mobile_app_shell.dart';
-import '../shells/mobile_records_shell.dart';
 import 'log_handler.dart';
+import 'mobile_app_shell.dart';
 import 'route_names.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
@@ -30,20 +29,20 @@ final _baseRoutes = <RouteBase>[
     path: Routes.splash,
     name: Routes.splash,
     parentNavigatorKey: _rootNavigatorKey,
-    builder: (context, state) => const SplashScreen(),
+    builder: (_, __) => const SplashScreen(),
   ),
   GoRoute(
     path: Routes.onboarding,
     name: Routes.onboarding,
     parentNavigatorKey: _rootNavigatorKey,
-    builder: (context, state) => const OnboardingScreen(),
+    builder: (_, __) => const OnboardingScreen(),
   ),
 
   //TODO: Rewrite AppShell
   ShellRoute(
     navigatorKey: _appNavBarNavigatorKey,
     routes: _mainAppRoutes,
-    builder: (context, state, child) => MobileAppShell(child: child),
+    builder: (_, __, child) => MobileAppShell(child: child),
   ),
 ];
 
@@ -52,35 +51,23 @@ final _mainAppRoutes = <RouteBase>[
     path: Routes.home,
     name: Routes.home,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    redirect: (_, __) => DASHBOARD_ROUTE,
+    redirect: (_, __) => Routes.dashboard,
   ),
   GoRoute(
-    path: DASHBOARD_ROUTE,
-    name: DASHBOARD_ROUTE,
+    path: Routes.dashboard,
+    name: Routes.dashboard,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (context, state) => const Scaffold(),
+    builder: (_, __) => const HomeScreen(),
   ),
   GoRoute(
-    path: ACCOUNT_ROUTE,
-    name: ACCOUNT_ROUTE,
-    parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (context, state) => const MobileAccountsShell(),
-  ),
-  GoRoute(
-    path: TRANSACTIONS_ROUTE,
-    name: TRANSACTIONS_ROUTE,
-    parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (context, state) => const MobileRecordsShell(),
-  ),
-  GoRoute(
-    path: REPORT_ROUTE,
-    name: REPORT_ROUTE,
+    path: Routes.records,
+    name: Routes.records,
     parentNavigatorKey: _appNavBarNavigatorKey,
     builder: (context, state) => const SizedBox(),
   ),
   GoRoute(
-    path: MORE_ROUTE,
-    name: MORE_ROUTE,
+    path: Routes.other,
+    name: Routes.other,
     parentNavigatorKey: _appNavBarNavigatorKey,
     builder: (context, state) => const SizedBox(),
   ),

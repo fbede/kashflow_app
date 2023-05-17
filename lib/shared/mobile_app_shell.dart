@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../shared/route_names.dart';
-import '../util/visible_strings.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import 'route_names.dart';
+import 'user_text.dart';
 
 class MobileAppShell extends StatelessWidget {
   final Widget child;
@@ -14,29 +16,24 @@ class MobileAppShell extends StatelessWidget {
           body: child,
           floatingActionButton: _buildFAB(_getSelectedIndex(context)),
           bottomNavigationBar: NavigationBar(
-            height: 70,
+            animationDuration: const Duration(milliseconds: 500),
             selectedIndex: _getSelectedIndex(context),
             onDestinationSelected: (value) => _onItemTapped(value, context),
-            destinations: const [
+            destinations: [
               NavigationDestination(
-                icon: Icon(Icons.home_rounded),
-                label: HOME_LABEL,
+                icon: Icon(PhosphorIcons.light.house),
+                selectedIcon: Icon(PhosphorIcons.fill.house),
+                label: UserText.homeNavBarHome,
               ),
               NavigationDestination(
-                icon: Icon(Icons.format_list_numbered_rounded),
-                label: ACCOUNTS_LABEL,
+                icon: Icon(PhosphorIcons.light.receipt),
+                selectedIcon: Icon(PhosphorIcons.fill.receipt),
+                label: UserText.homeNavBarRecords,
               ),
               NavigationDestination(
-                icon: Icon(Icons.receipt_rounded),
-                label: RECORDS_LABEL,
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.bar_chart_rounded),
-                label: REPORTS_LABEL,
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.more_horiz),
-                label: MORE_LABEL,
+                icon: Icon(PhosphorIcons.light.dotsThreeOutline),
+                selectedIcon: Icon(PhosphorIcons.fill.dotsThreeOutline),
+                label: UserText.homeNavBarOther,
               ),
             ],
           ),
@@ -45,47 +42,35 @@ class MobileAppShell extends StatelessWidget {
 
   static int _getSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).location;
-    if (location.contains(DASHBOARD_ROUTE)) {
+    if (location.contains(Routes.dashboard)) {
       return 0;
     }
-    if (location.contains(ACCOUNT_ROUTE)) {
+    if (location.contains(Routes.records)) {
       return 1;
     }
-    if (location.contains(TRANSACTIONS_ROUTE)) {
+    if (location.contains(Routes.other)) {
       return 2;
     }
-    if (location.contains(REPORT_ROUTE)) {
-      return 3;
-    }
-    if (location.contains(MORE_ROUTE)) {
-      return 4;
-    }
 
-    return 5;
+    return 3;
   }
 
   void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
-        context.go(DASHBOARD_ROUTE);
+        context.go(Routes.dashboard);
         break;
       case 1:
-        context.go(ACCOUNT_ROUTE);
+        context.go(Routes.records);
         break;
       case 2:
-        context.go(TRANSACTIONS_ROUTE);
-        break;
-      case 3:
-        context.go(REPORT_ROUTE);
-        break;
-      case 4:
-        context.go(MORE_ROUTE);
+        context.go(Routes.other);
         break;
     }
   }
 
   FloatingActionButton? _buildFAB(int index) {
-    if (index < 4) {
+    if (index < 2) {
       return FloatingActionButton(onPressed: () {});
     }
     return null;

@@ -1,4 +1,20 @@
-part of 'views.dart';
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:grouped_scroll_view/grouped_scroll_view.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../elements/elements.dart';
+import '../gen/assets.gen.dart';
+import '../shared/route_names.dart';
+
+import '../util/old_hidden_strings.dart';
+import '../util/visible_strings.dart';
+import 'models/util_models.dart';
 
 class CurrencyPickerView extends ConsumerStatefulWidget {
   const CurrencyPickerView({required this.titleString, super.key});
@@ -18,17 +34,18 @@ class _SelectCurrencyPickerViewState extends ConsumerState<CurrencyPickerView> {
 
   @override
   void initState() {
-    _pickerController.title = widget.titleString;
-    _pickerController.addListener(() {
-      setState(() {});
-    });
+    _pickerController
+      ..title = widget.titleString
+      ..addListener(() {
+        setState(() {});
+      });
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           0.8 * _scrollController.position.maxScrollExtent) {
         _pickerController.fetch();
       }
     });
-    _pickerController.search();
+    unawaited(_pickerController.search());
     super.initState();
   }
 
@@ -101,7 +118,7 @@ class _ItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Card(
-        margin: const EdgeInsets.all(0),
+        margin: EdgeInsets.zero,
         shadowColor: Colors.transparent,
         elevation: 1,
 
@@ -114,8 +131,8 @@ class _ItemWidget extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           trailing: Text(item.object.symbol),
-          onTap: () {
-            Map<String, dynamic> extra = {
+          onTap: () async {
+            final Map<String, dynamic> extra = {
               NavParamKeys.BASIC_CURRENCY_EXTRA_KEY: item.object,
             };
             if (_pickerController.title == UserText.Choose_Default_Currency) {
@@ -124,7 +141,7 @@ class _ItemWidget extends StatelessWidget {
             if (item.groupName == UserText.Saved_Curriences) {
               extra.addAll({NavParamKeys.IS_SAVED_EXTRA_KEY: true});
             }
-            context.pushNamed(Routes.EDIT_CURRENCY, extra: extra);
+            await context.pushNamed(Routes.EDIT_CURRENCY, extra: extra);
           },
         ),
         // ),
@@ -169,7 +186,8 @@ class _BottomSearchBar extends StatelessWidget {
             children: [
               Expanded(
                 child: _RoundedTextField(
-                  onChanged: (value) => _pickerController.search(text: value),
+                  onChanged: (value) async =>
+                      _pickerController.search(text: value),
                 ),
               ),
               const SizedBox(width: 16),
@@ -177,19 +195,19 @@ class _BottomSearchBar extends StatelessWidget {
                 elevation: 0,
                 shape: const CircleBorder(eccentricity: 1),
                 child: Icon(PhosphorIcons.regular.plus),
-                onPressed: () => _createNewCurrency(context),
+                onPressed: () async => _createNewCurrency(context),
               )
             ],
           ),
         ),
       );
 
-  void _createNewCurrency(BuildContext context) {
-    Map<String, dynamic> extra = {};
+  Future<void> _createNewCurrency(BuildContext context) async {
+    final Map<String, dynamic> extra = {};
     if (_pickerController.title == UserText.Choose_Default_Currency) {
       extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
     }
-    context.pushNamed(Routes.CREATE_NEW_CURRENCY, extra: extra);
+    await context.pushNamed(Routes.CREATE_NEW_CURRENCY, extra: extra);
   }
 }
 
@@ -352,11 +370,11 @@ class _CurrencyPickerController extends ChangeNotifier {
 
   Future<void> _getCurriencesFromDB(String text) async {
     final String json =
-        await rootBundle.loadString(Paths.PRELOADED_CURRENCY_JSON);
+        await rootBundle.loadString(Assets.json.loadedCurrencies);
 
     final data = jsonDecode(json) as List;
 
-    List<Group<BasicCurrency>> currencies = data
+    final List<Group<BasicCurrency>> currencies = data
         .map(
           (e) => Group.fromObject(
             object: BasicCurrency.fromJson(e as Map<String, dynamic>),
@@ -365,7 +383,7 @@ class _CurrencyPickerController extends ChangeNotifier {
         )
         .toList();
 
-    List<Group<BasicCurrency>> result = [];
+    final List<Group<BasicCurrency>> result = [];
 
     for (final element in currencies) {
       if (element.object.code.toLowerCase().contains(text.toLowerCase()) ||
@@ -379,11 +397,11 @@ class _CurrencyPickerController extends ChangeNotifier {
 
   Future<void> _getCurriencesFromAssets(String text) async {
     final String json =
-        await rootBundle.loadString(Paths.PRELOADED_CURRENCY_JSON);
+        await rootBundle.loadString(Assets.json.loadedCurrencies);
 
     final data = jsonDecode(json) as List;
 
-    List<Group<BasicCurrency>> currencies = data
+    final List<Group<BasicCurrency>> currencies = data
         .map(
           (e) => Group.fromObject(
             object: BasicCurrency.fromJson(e as Map<String, Object?>),
@@ -392,7 +410,7 @@ class _CurrencyPickerController extends ChangeNotifier {
         )
         .toList();
 
-    List<Group<BasicCurrency>> result = [];
+    final List<Group<BasicCurrency>> result = [];
 
     for (final element in currencies) {
       if (element.object.code.toLowerCase().contains(text.toLowerCase()) ||
@@ -406,11 +424,11 @@ class _CurrencyPickerController extends ChangeNotifier {
 
   Future<void> _getCurriencesFromPB(String text) async {
     final String json =
-        await rootBundle.loadString(Paths.PRELOADED_CURRENCY_JSON);
+        await rootBundle.loadString(Assets.json.loadedCurrencies);
 
     final data = jsonDecode(json) as List;
 
-    List<Group<BasicCurrency>> currencies = data
+    final List<Group<BasicCurrency>> currencies = data
         .map(
           (e) => Group.fromObject(
             object: BasicCurrency.fromJson(e as Map<String, Object?>),
@@ -419,7 +437,7 @@ class _CurrencyPickerController extends ChangeNotifier {
         )
         .toList();
 
-    List<Group<BasicCurrency>> result = [];
+    final List<Group<BasicCurrency>> result = [];
 
     for (final element in currencies) {
       if (element.object.code.toLowerCase().contains(text.toLowerCase()) ||

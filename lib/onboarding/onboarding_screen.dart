@@ -9,7 +9,7 @@ import '../gen/fonts.gen.dart';
 import '../shared/keys.dart';
 import '../shared/route_names.dart';
 import '../shared/user_text.dart';
-import '../util/responsive.dart';
+import '../shared/responsive.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -19,7 +19,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  late final _controller = PageController();
+  late final PageController _controller;
 
   final _prefs = GetIt.I<SharedPreferences>();
   final _duration = const Duration(milliseconds: 250);
@@ -28,6 +28,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _minIndex = 0;
 
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PageController();
+    _controller.addListener(() {
+      currentIndex = _controller.page!.toInt();
+      setState(() {});
+    });
+  }
 
   @override
   void dispose() {
@@ -161,9 +171,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       return;
     }
 
+    await _controller.animateToPage(page, duration: _duration, curve: _curve);
     currentIndex = page;
     setState(() {});
-    await _controller.animateToPage(page, duration: _duration, curve: _curve);
   }
 }
 

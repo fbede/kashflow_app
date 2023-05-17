@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../gen/assets.gen.dart';
 import '../shared/route_names.dart';
-import '../util/responsive.dart';
+import '../shared/responsive.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     WidgetsBinding.instance
-        .addPostFrameCallback((_) async => await _gotoNextScreen());
+        .addPostFrameCallback((_) async => _gotoNextScreen());
   }
 
   @override
