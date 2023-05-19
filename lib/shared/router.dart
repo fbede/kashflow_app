@@ -15,16 +15,25 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 final GlobalKey<NavigatorState> _appNavBarNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
 
-GoRouter getRouter() => GoRouter(
+final router = GoRouter(
+  navigatorKey: _rootNavigatorKey,
+  initialLocation: Routes.splash,
+  observers: [
+    TalkerRouteObserver(LoggerBuilder.build()),
+  ],
+  routes: _appBaseRoutes,
+);
+
+GoRouter getTestRouter({String? initalLocation}) => GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: Routes.splash,
+      initialLocation: initalLocation ?? Routes.splash,
       observers: [
         TalkerRouteObserver(LoggerBuilder.build()),
       ],
-      routes: _baseRoutes,
+      routes: _appBaseRoutes,
     );
 
-final _baseRoutes = <RouteBase>[
+final _appBaseRoutes = <RouteBase>[
   GoRoute(
     path: Routes.splash,
     name: Routes.splash,

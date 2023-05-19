@@ -1,6 +1,8 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
+import '../gen/fonts.gen.dart';
+
 ThemeData getLightTheme({bool isWhite = true}) => FlexThemeData.light(
       colors: const FlexSchemeColor(
         primary: Color(0xff008000),
@@ -36,6 +38,7 @@ ThemeData getLightTheme({bool isWhite = true}) => FlexThemeData.light(
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       useMaterial3: true,
       swapLegacyOnMaterial3: true,
+      fontFamily: FontFamily.nunito,
     );
 
 ThemeData getDarkTheme({bool isBlack = true}) => FlexThemeData.dark(
@@ -69,8 +72,14 @@ ThemeData getDarkTheme({bool isBlack = true}) => FlexThemeData.dark(
         useSecondary: true,
         useTertiary: true,
       ),
-      tones: FlexTones.vivid(Brightness.dark).onMainsUseBW().onSurfacesUseBW(),
+      tones:
+          FlexTones.vivid(Brightness.dark), //.onMainsUseBW().onSurfacesUseBW(),
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       useMaterial3: true,
       swapLegacyOnMaterial3: true,
+      fontFamily: FontFamily.nunito,
     );
+
+const slowGlobalAnimationDuration = Duration(milliseconds: 1000);
+const midGlobalAnimationDuration = Duration(milliseconds: 500);
+const fastGlobalAnimationDuration = Duration(milliseconds: 250);

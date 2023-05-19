@@ -12,8 +12,8 @@ class Routes {
   static const other = '/other';
 
   //Settings Routes
-  static const CHOOSE_CURRENCY = '/chooseCurrency';
-  static const CHOOSE_DEFAULT_CURRENCY = '/chooseDefaultCurrency';
-  static const EDIT_CURRENCY = '/editCurrency';
-  static const CREATE_NEW_CURRENCY = '/createNewCurrency';
+  static const chooseCurrency = '/chooseCurrency';
+  static const chooseDefaultCurrency = '/chooseDefaultCurrency';
+  static const editCurrency = '/editCurrency';
+  static const createNewCurrency = '/createNewCurrency';
 }

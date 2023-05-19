@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../gen/assets.gen.dart';
-import '../shared/route_names.dart';
+import '../shared/keys.dart';
 import '../shared/responsive.dart';
+import '../shared/route_names.dart';
+import '../shared/themes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,7 +19,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(milliseconds: 1000),
+    duration: slowGlobalAnimationDuration,
     vsync: this,
   )..repeat(reverse: true);
 
@@ -22,6 +27,8 @@ class _SplashScreenState extends State<SplashScreen>
     parent: _controller,
     curve: Curves.linear,
   );
+
+  final _prefs = GetIt.I<SharedPreferences>();
 
   @override
   void initState() {
@@ -52,7 +59,14 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _gotoNextScreen() async {
     final router = GoRouter.of(context);
-    await Future.delayed(const Duration(seconds: 1), () {});
+    await Future.delayed(slowGlobalAnimationDuration, () {});
+    final hasOnboarded = _prefs.getBool(PrefKeys.hasOnboarded) ?? false;
+
+    if (hasOnboarded) {
+      router.goNamed(Routes.home);
+      return;
+    }
+
     router.goNamed(Routes.onboarding);
   }
 }

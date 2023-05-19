@@ -7,9 +7,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../gen/assets.gen.dart';
 import '../gen/fonts.gen.dart';
 import '../shared/keys.dart';
-import '../shared/route_names.dart';
-import '../shared/user_text.dart';
 import '../shared/responsive.dart';
+import '../shared/route_names.dart';
+import '../shared/themes.dart';
+import '../shared/user_text.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -22,7 +23,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   late final PageController _controller;
 
   final _prefs = GetIt.I<SharedPreferences>();
-  final _duration = const Duration(milliseconds: 250);
+  final _duration = fastGlobalAnimationDuration;
   final _curve = Curves.linear;
   final _maxIndex = 3;
   final _minIndex = 0;
@@ -107,6 +108,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       return GestureDetector(
         onTap: () async => _gotoPage(index),
         child: AnimatedContainer(
+          key: ValueKey(index),
           duration: _duration,
           height: size,
           width: size,
@@ -144,7 +146,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: AnimatedSwitcher(
                   duration: _duration,
                   transitionBuilder: (child, animation) =>
-                      ScaleTransition(scale: animation, child: child),
+                      RotationTransition(turns: animation, child: child),
                   child: currentIndex != _maxIndex
                       ? Icon(
                           PhosphorIcons.regular.caretRight,
@@ -198,17 +200,13 @@ class _WelcomeScreenPage extends StatelessWidget {
             const SizedBox(height: 32),
             Text(
               title,
-              style: context.theme().textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: FontFamily.dancingScript,
-                    color: context.theme().colorScheme.secondary,
-                  ),
+              style: _getOnboardingTitleTextStyle(context),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
             Text(
               subtitle,
-              style: context.theme().textTheme.bodyMedium,
+              style: _onboardingSubtitleTextStyle,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 112),
@@ -216,3 +214,12 @@ class _WelcomeScreenPage extends StatelessWidget {
         ),
       );
 }
+
+TextStyle _getOnboardingTitleTextStyle(BuildContext context) => TextStyle(
+      fontSize: 45,
+      fontWeight: FontWeight.w100,
+      fontFamily: FontFamily.dancingScript,
+      color: context.theme().colorScheme.secondary,
+    );
+
+const _onboardingSubtitleTextStyle = TextStyle(fontSize: 16);

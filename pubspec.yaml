@@ -55,28 +55,29 @@ flutter:
   fonts:
     - family: Nunito
       fonts:
-        - asset: assets/fonts/Nunito/Nunito-Italic-VariableFont_wght.ttf
-        - asset: assets/fonts/Nunito/Nunito-VariableFont_wght.ttf
-       # - asset: assets/fonts/Nunito/Nunito-ExtraLight.ttf
-       # - asset: assets/fonts/Nunito/Nunito-Light.ttf
-       # - asset: assets/fonts/Nunito/Nunito-Regular.ttf
-       # - asset: assets/fonts/Nunito/Nunito-Medium.ttf
-       # - asset: assets/fonts/Nunito/Nunito-SemiBold.ttf
-       # - asset: assets/fonts/Nunito/Nunito-Bold.ttf
-       # - asset: assets/fonts/Nunito/Nunito-ExtraBold.ttf
-       # - asset: assets/fonts/Nunito/Nunito-Black.ttf
-       # - asset: assets/fonts/Nunito/Nunito-ExtraLightItalic.ttf
-       # - asset: assets/fonts/Nunito/Nunito-LightItalic.ttf
-       # - asset: assets/fonts/Nunito/Nunito-Italic.ttf
-       # - asset: assets/fonts/Nunito/Nunito-MediumItalic.ttf
-       # - asset: assets/fonts/Nunito/Nunito-SemiBoldItalic.ttf
-       # - asset: assets/fonts/Nunito/Nunito-BoldItalic.ttf
-       # - asset: assets/fonts/Nunito/Nunito-ExtraBoldItalic.ttf
-       # - asset: assets/fonts/Nunito/Nunito-BlackItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-ExtraLight.ttf
+        - asset: assets/fonts/Nunito/Nunito-Light.ttf
+        - asset: assets/fonts/Nunito/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito/Nunito-Medium.ttf
+        - asset: assets/fonts/Nunito/Nunito-SemiBold.ttf
+        - asset: assets/fonts/Nunito/Nunito-Bold.ttf
+        - asset: assets/fonts/Nunito/Nunito-ExtraBold.ttf
+        - asset: assets/fonts/Nunito/Nunito-Black.ttf
+        - asset: assets/fonts/Nunito/Nunito-ExtraLightItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-LightItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-Italic.ttf
+        - asset: assets/fonts/Nunito/Nunito-MediumItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-SemiBoldItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-BoldItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Nunito/Nunito-BlackItalic.ttf
 
     - family: DancingScript
       fonts:
-        - asset: assets/fonts/Dancing_Script/DancingScript-VariableFont_wght.ttf
+        - asset: assets/fonts/Dancing_Script/DancingScript-Bold.ttf
+        - asset: assets/fonts/Dancing_Script/DancingScript-Medium.ttf
+        - asset: assets/fonts/Dancing_Script/DancingScript-Regular.ttf
+        - asset: assets/fonts/Dancing_Script/DancingScript-SemiBold.ttf
 
   uses-material-design: true
 
@@ -97,9 +98,6 @@ flutter_native_splash:
     icon_background_color_dark: "#000000"
 
   web: true
-  android_gravity: fill
-  ios_content_mode: scaleToFill
-  web_image_mode: contain
 
 icons_launcher:
   image_path: 'assets/images/app_logo.png'

@@ -12,9 +12,12 @@ import '../elements/elements.dart';
 import '../gen/assets.gen.dart';
 import '../shared/route_names.dart';
 
-import '../util/old_hidden_strings.dart';
-import '../util/visible_strings.dart';
+import 'util/old_hidden_strings.dart';
+
 import 'models/util_models.dart';
+import 'util/visible_strings.dart';
+
+//TODO: Migrate App Names
 
 class CurrencyPickerView extends ConsumerStatefulWidget {
   const CurrencyPickerView({required this.titleString, super.key});
@@ -141,7 +144,7 @@ class _ItemWidget extends StatelessWidget {
             if (item.groupName == UserText.Saved_Curriences) {
               extra.addAll({NavParamKeys.IS_SAVED_EXTRA_KEY: true});
             }
-            await context.pushNamed(Routes.EDIT_CURRENCY, extra: extra);
+            await context.pushNamed(Routes.editCurrency, extra: extra);
           },
         ),
         // ),
@@ -207,7 +210,7 @@ class _BottomSearchBar extends StatelessWidget {
     if (_pickerController.title == UserText.Choose_Default_Currency) {
       extra.addAll({NavParamKeys.IS_DEFAULT_EXTRA_KEY: true});
     }
-    await context.pushNamed(Routes.CREATE_NEW_CURRENCY, extra: extra);
+    await context.pushNamed(Routes.createNewCurrency, extra: extra);
   }
 }
 

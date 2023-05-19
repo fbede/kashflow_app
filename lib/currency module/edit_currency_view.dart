@@ -10,7 +10,7 @@ import '../elements/elements.dart';
 import '../shared/responsive.dart';
 import '../shared/route_names.dart';
 import '../shared/user_text.dart';
-import '../util/old_hidden_strings.dart';
+import 'util/old_hidden_strings.dart';
 import 'db/currency_dao.dart';
 import 'db/drift_db.dart';
 import 'models/util_models.dart';
@@ -211,7 +211,7 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
               ),
               onPressed: () {},
               child: Text(
-                UserText.Delete,
+                UserText.delete,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.error,
                 ),

@@ -20,5 +20,6 @@ class UserText {
   static const String homeNavBarOther = 'Other';
 
   //general
-  static const String Delete = 'Delete';
+  static const String appName = 'Kashflow';
+  static const String delete = 'Delete';
 }
