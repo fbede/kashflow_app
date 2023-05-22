@@ -46,8 +46,6 @@ final _appBaseRoutes = <RouteBase>[
     parentNavigatorKey: _rootNavigatorKey,
     builder: (_, __) => const OnboardingScreen(),
   ),
-
-  //TODO: Rewrite AppShell
   ShellRoute(
     navigatorKey: _appNavBarNavigatorKey,
     routes: _mainAppRoutes,

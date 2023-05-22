@@ -54,21 +54,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               controller: _controller,
               children: [
                 _WelcomeScreenPage(
+                  key: const ValueKey('page1'),
                   title: UserText.onboardingPage1TitleText,
                   subtitle: UserText.onboardingPage1SubTitleText,
                   content: Assets.images.appLogo.image(height: 128, width: 128),
                 ),
                 _WelcomeScreenPage(
+                  key: const ValueKey('page2'),
                   title: UserText.onboardingPage2TitleText,
                   subtitle: UserText.onboardingPage2SubTitleText,
                   content: Assets.svg.dailyTransactions.svg(),
                 ),
                 _WelcomeScreenPage(
+                  key: const ValueKey('page3'),
                   title: UserText.onboardingPage3TitleText,
                   subtitle: UserText.onboardingPage3SubTitleText,
                   content: Assets.svg.incomeExpense.svg(),
                 ),
                 _WelcomeScreenPage(
+                  key: const ValueKey('page4'),
                   title: UserText.onboardingPage4TitleText,
                   subtitle: UserText.onboardingPage4SubTitleText,
                   content: Assets.svg.assetsAndLiabilities.svg(),
@@ -89,7 +93,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             mainAxisSize: MainAxisSize.min,
             children: List.generate(
-              (_maxIndex + 1) * 2,
+              (_maxIndex * 2) + 1,
               growable: false,
               _listGenerator,
             ),
@@ -108,7 +112,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       return GestureDetector(
         onTap: () async => _gotoPage(index),
         child: AnimatedContainer(
-          key: ValueKey(index),
           duration: _duration,
           height: size,
           width: size,
@@ -181,6 +184,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
 class _WelcomeScreenPage extends StatelessWidget {
   const _WelcomeScreenPage({
+    super.key,
     this.title = '',
     this.subtitle = '',
     this.content = const SizedBox(),

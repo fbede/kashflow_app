@@ -11,10 +11,8 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../elements/elements.dart';
 import '../gen/assets.gen.dart';
 import '../shared/route_names.dart';
-
-import 'util/old_hidden_strings.dart';
-
 import 'models/util_models.dart';
+import 'util/old_hidden_strings.dart';
 import 'util/visible_strings.dart';
 
 //TODO: Migrate App Names

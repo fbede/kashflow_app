@@ -15,6 +15,7 @@ class _CustomBackButton extends StatelessWidget {
 
   bool getVisibility(BuildContext context) {
     if (context.canPop()) return false;
+    // ignore: use_if_null_to_convert_nulls_to_bools
     if (_showButton == true) return true;
     if (_showButton == false) return false;
     if (context.isPhone()) return true;
