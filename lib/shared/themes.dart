@@ -55,7 +55,7 @@ ThemeData getDarkTheme({bool isBlack = true}) => FlexThemeData.dark(
       usedColors: 2,
       surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
       blendLevel: 13,
-      darkIsTrueBlack: true,
+      darkIsTrueBlack: isBlack,
       subThemesData: const FlexSubThemesData(
         useTextTheme: true,
         useM2StyleDividerInM3: true,

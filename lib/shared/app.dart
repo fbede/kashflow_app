@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../user preferences module/theme_provider.dart';
 import 'router.dart';
 import 'themes.dart';
 import 'user_text.dart';
@@ -13,8 +14,11 @@ class MyApp extends ConsumerWidget {
         visible: false,
         child: MaterialApp.router(
           title: UserText.appName,
-          theme: getLightTheme(),
-          darkTheme: getDarkTheme(),
+          theme:
+              getLightTheme(isWhite: ref.watch(themesProvider).isBlackAndWhite),
+          darkTheme:
+              getDarkTheme(isBlack: ref.watch(themesProvider).isBlackAndWhite),
+          themeMode: ref.watch(themesProvider).themeMode,
           routerConfig: router,
         ),
       );

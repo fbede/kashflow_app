@@ -16,7 +16,7 @@ Future<void> main() async {
   await SentryFlutter.init(
     (options) {
       options
-        ..dsn = Env.sentryDsn
+        ..dsn = kDebugMode ? '' : Env.sentryDsn
         ..environment = _environment
         ..tracesSampleRate = 0;
     },

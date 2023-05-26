@@ -10,9 +10,9 @@ class HiddenStrings {
 }
 
 ///These are strings used by the developer as keys no non essenstial things
-class DevStringKeys {
+/* class DevStringKeys {
   static const FONT_FAMILY = 'Nunito';
-}
+} */
 
 ///These keys are used to store stuff in shared preferences
 class SharedPrefKeys {

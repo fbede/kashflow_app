@@ -7,13 +7,13 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../elements/elements.dart';
+import '../shared/drift_db.dart';
 import '../shared/responsive.dart';
 import '../shared/route_names.dart';
 import '../shared/user_text.dart';
+import '../shared/util_models.dart';
+import 'currency_dao.dart';
 import 'util/old_hidden_strings.dart';
-import 'db/currency_dao.dart';
-import 'db/drift_db.dart';
-import 'models/util_models.dart';
 
 class EditCurrencyView extends ConsumerStatefulWidget {
   EditCurrencyView({

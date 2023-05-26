@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../shared/themes.dart';
+import '../shared/user_text.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,14 +14,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late final _controller = TabController(length: 2, vsync: this);
 
-  String index = '0';
+  String title = UserText.homeTabPocketMoney;
+
   int intIndex = 1;
 
   @override
   void initState() {
     super.initState();
     _controller.addListener(() {
-      index = _controller.index.toString();
+      if (_controller.index == 0) {
+        title = UserText.homeTabPocketMoney;
+      } else {
+        title = UserText.homeTabNetWorth;
+      }
+
       intIndex = _controller.index + 1;
       setState(() {});
     });
@@ -30,16 +38,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         body: CustomScrollView(
           slivers: [
             _HomeAppBar(
-              balanceAmount: index,
-              balanceChange: index,
+              balanceAmount: title,
+              balanceChange: title,
               controller: _controller,
               randomInt: intIndex,
-              title: index,
+              title: title,
             ),
             SliverFillRemaining(
               child: TabBarView(
                 controller: _controller,
-                children: const [Text('1'), Text('2')],
+                children: const [_PurseTabBody(), Text('2')],
               ),
             )
           ],
@@ -112,7 +120,43 @@ class _HomeAppBar extends StatelessWidget {
               const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           unselectedLabelStyle:
               const TextStyle(fontWeight: FontWeight.w200, fontSize: 16),
-          tabs: const [Tab(text: 'Cash'), Tab(text: 'Portfoilo')],
+          tabs: const [
+            Tab(text: UserText.homeTabBarPurse),
+            Tab(text: UserText.homeTabBarPortfoilo)
+          ],
         ),
+      );
+}
+
+class _PurseTabBody extends StatelessWidget {
+  const _PurseTabBody();
+
+  @override
+  Widget build(BuildContext context) => ListView(
+        children: [
+          const SizedBox(height: 8),
+          const Padding(
+            padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
+            child: Text(r' Cash Balance: $2,004.54'),
+          ),
+          const SizedBox(height: 8),
+          const Divider(height: 1),
+          Material(
+            child: ListTile(
+              leading: Icon(PhosphorIcons.regular.bank),
+              title: Text('First Bank'),
+              trailing: Text(r'$2,004.54'),
+            ),
+          ),
+          Divider(height: 1),
+          Material(
+            child: ListTile(
+              leading: CircleAvatar(),
+              title: Text('First Bank'),
+              trailing: Text(r'$2,004.54'),
+            ),
+          ),
+          Divider(height: 1),
+        ],
       );
 }

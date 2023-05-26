@@ -17,9 +17,25 @@ class UserText {
   //home screen
   static const String homeNavBarHome = 'Home';
   static const String homeNavBarRecords = 'Records';
-  static const String homeNavBarOther = 'Other';
+  static const String homeNavBarSettings = 'Settings';
+  static const String homeTabBarPurse = 'Purse';
+  static const String homeTabBarPortfoilo = 'Portfolio';
+  static const String homeTabPocketMoney = 'POCKET MONEY';
+  static const String homeTabNetWorth = 'NET WORTH';
+
+  //settings screen
+  static const String makeThemeBackgroundBlack = 'Make Background Black';
+  static const String makeThemeBackgroundWhite = 'Make Background White';
+  static const String selectTheme = 'Select Theme';
+  static const String theme = 'Theme';
+  static const String light = 'Light';
+  static const String dark = 'Dark';
+  static const String defaultCurrency = 'Default Currency';
 
   //general
   static const String appName = 'Kashflow';
   static const String delete = 'Delete';
+  static const String save = 'Save';
+  static const String cancel = 'Cancel';
+  static const String system = 'System';
 }

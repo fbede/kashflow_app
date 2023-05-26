@@ -5,6 +5,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 import '../account module/home_screen.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../onboarding/splashscreen.dart';
+import '../user preferences module/settings_screen.dart';
 import 'log_handler.dart';
 import 'mobile_app_shell.dart';
 import 'route_names.dart';
@@ -76,6 +77,6 @@ final _mainAppRoutes = <RouteBase>[
     path: Routes.other,
     name: Routes.other,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    builder: (context, state) => const SizedBox(),
+    builder: (context, state) => const SettingsScreen(),
   ),
 ];

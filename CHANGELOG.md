@@ -13,6 +13,10 @@ Todo: Make this a private changelog
 ## Unreleased
 
 ### Added
+
+- ThemeMode support has been added.
+- Started work on home screen.
+
 ### Changed
 ### Deprecated
 ### Fixed

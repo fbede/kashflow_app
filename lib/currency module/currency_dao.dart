@@ -1,7 +1,9 @@
+// ignore_for_file: matching_super_parameters
+
 import 'package:drift/drift.dart';
 import 'package:money2/money2.dart';
 
-import 'drift_db.dart';
+import '../shared/drift_db.dart';
 
 part 'currency_dao.g.dart';
 
@@ -9,6 +11,9 @@ part 'currency_dao.g.dart';
 class CurrencyDao extends DatabaseAccessor<DriftDB> with _$CurrencyDaoMixin {
   CurrencyDao(super.db);
 
+  Future<List<DBCurrencyData>> fetchAllCurrencies() => select(dBCurrency).get();
+
+  @Deprecated('Default Currency is now stored in shared preferences')
   Future<void> saveCurrency({
     required Currency currency,
     bool isDefault = false,
