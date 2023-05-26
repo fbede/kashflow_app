@@ -30,7 +30,7 @@ LazyDatabase _openConnection() => LazyDatabase(() async {
 class DBCurrency extends Table {
   TextColumn get id => text().unique()();
   TextColumn get code => text().unique().withLength(min: 3, max: 8)();
-  IntColumn get scale => integer()();
+  IntColumn get scale => integer().withDefault(const Constant(4))();
   TextColumn get symbol => text().withLength(min: 1, max: 6)();
   BoolColumn get invertSeparators => boolean()();
   TextColumn get pattern => text().withLength(min: 2)();

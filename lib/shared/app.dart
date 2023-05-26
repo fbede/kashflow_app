@@ -10,16 +10,19 @@ class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) => TooltipVisibility(
-        visible: false,
-        child: MaterialApp.router(
-          title: UserText.appName,
-          theme:
-              getLightTheme(isWhite: ref.watch(themesProvider).isBlackAndWhite),
-          darkTheme:
-              getDarkTheme(isBlack: ref.watch(themesProvider).isBlackAndWhite),
-          themeMode: ref.watch(themesProvider).themeMode,
-          routerConfig: router,
-        ),
-      );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themesProvider).themeMode;
+    final isBlackAndWhiteBackground = ref.watch(themesProvider).isBlackAndWhite;
+
+    return TooltipVisibility(
+      visible: false,
+      child: MaterialApp.router(
+        title: UserText.appName,
+        theme: getLightTheme(isWhite: isBlackAndWhiteBackground),
+        darkTheme: getDarkTheme(isBlack: isBlackAndWhiteBackground),
+        themeMode: themeMode,
+        routerConfig: router,
+      ),
+    );
+  }
 }
