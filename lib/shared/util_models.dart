@@ -15,24 +15,11 @@ class Group<T> with _$Group<T> {
     required T object,
     required String groupName,
   }) =>
-      Group<T>(
-        groupName: groupName,
-        object: object,
-      );
+      Group<T>(groupName: groupName, object: object);
 
   factory Group.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT,) =>
+    Map<String, dynamic> json,
+    T Function(Object?) fromJsonT,
+  ) =>
       _$GroupFromJson(json, fromJsonT);
-}
-
-@freezed
-class BasicCurrency with _$BasicCurrency {
-  const factory BasicCurrency({
-    required String code,
-    required String name,
-    required String symbol,
-  }) = _Person;
-
-  factory BasicCurrency.fromJson(Map<String, Object?> json) =>
-      _$BasicCurrencyFromJson(json);
 }

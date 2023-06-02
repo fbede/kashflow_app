@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../shared/keys.dart';
+import '../shared/shared_providers.dart';
 
 final themesProvider = AutoDisposeNotifierProvider<ThemeNotifier,
     ({ThemeMode themeMode, bool isBlackAndWhite})>(
@@ -12,22 +12,22 @@ final themesProvider = AutoDisposeNotifierProvider<ThemeNotifier,
 
 class ThemeNotifier
     extends AutoDisposeNotifier<({ThemeMode themeMode, bool isBlackAndWhite})> {
-  final _prefs = GetIt.I<SharedPreferences>();
-  final darkModeInt = 0;
-  final lightModeInt = 1;
-  final systemModeInt = 2;
-
   late ThemeMode _oldThemeMode;
   late bool _oldBlackAndWhiteValue;
   late int themeModeInt;
   late bool currentBlackAndWhiteValue;
 
+  final darkModeInt = 0;
+  final lightModeInt = 1;
+  final systemModeInt = 2;
+
   @override
   ({ThemeMode themeMode, bool isBlackAndWhite}) build() {
-    themeModeInt = _prefs.getInt(PrefKeys.themeModeInt) ?? systemModeInt;
+    final prefs = ref.watch(prefsProvider).asData!.value;
+    themeModeInt = prefs.getInt(PrefKeys.themeModeInt) ?? systemModeInt;
 
     currentBlackAndWhiteValue =
-        _prefs.getBool(PrefKeys.isBlackOrWhiteBackground) ?? false;
+        prefs.getBool(PrefKeys.isBlackOrWhiteBackground) ?? false;
 
     _oldThemeMode = _getThemeModeFromInt(themeModeInt);
 
@@ -58,12 +58,14 @@ class ThemeNotifier
     _oldThemeMode = state.themeMode;
     _oldBlackAndWhiteValue = state.isBlackAndWhite;
 
+    final prefs = await SharedPreferences.getInstance();
+
     await Future.wait([
-      _prefs.setInt(
+      prefs.setInt(
         PrefKeys.themeModeInt,
         _getIntFromThemeMode(state.themeMode),
       ),
-      _prefs.setBool(PrefKeys.isBlackOrWhiteBackground, state.isBlackAndWhite),
+      prefs.setBool(PrefKeys.isBlackOrWhiteBackground, state.isBlackAndWhite),
     ]);
   }
 

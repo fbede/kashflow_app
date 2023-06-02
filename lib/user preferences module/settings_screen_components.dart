@@ -13,74 +13,76 @@ class ChangeThemeDialog extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeNotifier = ref.watch(themesProvider.notifier);
 
-    return SizedBox(
-      width: 350,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              UserText.selectTheme,
-              style: context.theme().textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            const Divider(),
-            RadioListTile<int>(
-              title: const Text(UserText.light),
-              value: themeNotifier.lightModeInt,
-              groupValue: themeNotifier.themeModeInt,
-              onChanged: (i) => themeNotifier.changeThemeMode(i!),
-            ),
-            RadioListTile<int>(
-              title: const Text(UserText.dark),
-              value: themeNotifier.darkModeInt,
-              groupValue: themeNotifier.themeModeInt,
-              onChanged: (i) => themeNotifier.changeThemeMode(i!),
-            ),
-            RadioListTile<int>(
-              title: const Text(UserText.system),
-              value: themeNotifier.systemModeInt,
-              groupValue: themeNotifier.themeModeInt,
-              onChanged: (i) => themeNotifier.changeThemeMode(i!),
-            ),
-            const Divider(),
-            SwitchListTile(
-              title: Text(_getSwitchText(context)),
-              value: themeNotifier.currentBlackAndWhiteValue,
-              onChanged: (value) {
-                if (value) {
-                  themeNotifier.makeBackgroundWhiteOrBlack();
-                } else {
-                  themeNotifier.doNotmakeBackgroundWhiteOrBlack();
-                }
-              },
-            ),
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    child: const Text(UserText.cancel),
-                    onPressed: () {
-                      themeNotifier.cancelThemeChange();
-                      context.pop();
-                    },
-                  ),
-                  TextButton(
-                    child: const Text(UserText.save),
-                    onPressed: () async {
-                      final router = GoRouter.of(context);
-                      await themeNotifier.saveTheme();
-                      router.pop();
-                    },
-                  ),
-                ],
+    return Dialog(
+      child: SizedBox(
+        width: 350,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                UserText.selectTheme,
+                style: context.theme().textTheme.headlineSmall,
               ),
-            )
-          ],
+              const SizedBox(height: 8),
+              const Divider(),
+              RadioListTile<int>(
+                title: const Text(UserText.light),
+                value: themeNotifier.lightModeInt,
+                groupValue: themeNotifier.themeModeInt,
+                onChanged: (i) => themeNotifier.changeThemeMode(i!),
+              ),
+              RadioListTile<int>(
+                title: const Text(UserText.dark),
+                value: themeNotifier.darkModeInt,
+                groupValue: themeNotifier.themeModeInt,
+                onChanged: (i) => themeNotifier.changeThemeMode(i!),
+              ),
+              RadioListTile<int>(
+                title: const Text(UserText.system),
+                value: themeNotifier.systemModeInt,
+                groupValue: themeNotifier.themeModeInt,
+                onChanged: (i) => themeNotifier.changeThemeMode(i!),
+              ),
+              const Divider(),
+              SwitchListTile(
+                title: Text(_getSwitchText(context)),
+                value: themeNotifier.currentBlackAndWhiteValue,
+                onChanged: (value) {
+                  if (value) {
+                    themeNotifier.makeBackgroundWhiteOrBlack();
+                  } else {
+                    themeNotifier.doNotmakeBackgroundWhiteOrBlack();
+                  }
+                },
+              ),
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      child: const Text(UserText.cancel),
+                      onPressed: () {
+                        themeNotifier.cancelThemeChange();
+                        context.pop();
+                      },
+                    ),
+                    TextButton(
+                      child: const Text(UserText.save),
+                      onPressed: () async {
+                        final router = GoRouter.of(context);
+                        await themeNotifier.saveTheme();
+                        router.pop();
+                      },
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

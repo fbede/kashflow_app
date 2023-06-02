@@ -23,15 +23,3 @@ Map<String, dynamic> _$$_GroupToJson<T>(
       'groupName': instance.groupName,
       'object': toJsonT(instance.object),
     };
-
-_$_Person _$$_PersonFromJson(Map<String, dynamic> json) => _$_Person(
-      code: json['code'] as String,
-      name: json['name'] as String,
-      symbol: json['symbol'] as String,
-    );
-
-Map<String, dynamic> _$$_PersonToJson(_$_Person instance) => <String, dynamic>{
-      'code': instance.code,
-      'name': instance.name,
-      'symbol': instance.symbol,
-    };

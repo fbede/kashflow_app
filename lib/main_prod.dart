@@ -4,7 +4,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'config/env.dart';
 import 'shared/app.dart';
-import 'shared/startup_functions.dart';
 
 const _environment = 'Production';
 
@@ -16,12 +15,6 @@ Future<void> main() async {
         ..environment = _environment
         ..tracesSampleRate = 1.0;
     },
-    appRunner: _appRunner,
+    appRunner: () => runApp(const ProviderScope(child: MyApp())),
   );
-}
-
-Future<void> _appRunner() async {
-  await registerSingletonsOnGetIt();
-
-  runApp(const ProviderScope(child: MyApp()));
 }

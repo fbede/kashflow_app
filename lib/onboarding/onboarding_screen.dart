@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,7 +23,6 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   late final PageController _controller;
 
-  final _prefs = GetIt.I<SharedPreferences>();
   final _duration = fastGlobalAnimationDuration;
   final _curve = Curves.linear;
   final _maxIndex = 3;
@@ -172,13 +172,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     if (page > _maxIndex) {
       context.goNamed(Routes.home);
-      await _prefs.setBool(PrefKeys.hasOnboarded, true);
+
+      unawaited(_savePreferences());
+
       return;
     }
 
     await _controller.animateToPage(page, duration: _duration, curve: _curve);
     currentIndex = page;
     setState(() {});
+  }
+
+  Future<void> _savePreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(PrefKeys.hasOnboarded, true);
   }
 }
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,8 +27,6 @@ class _SplashScreenState extends State<SplashScreen>
     parent: _controller,
     curve: Curves.linear,
   );
-
-  final _prefs = GetIt.I<SharedPreferences>();
 
   @override
   void initState() {
@@ -60,7 +58,8 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> _gotoNextScreen() async {
     final router = GoRouter.of(context);
     await Future.delayed(slowGlobalAnimationDuration, () {});
-    final hasOnboarded = _prefs.getBool(PrefKeys.hasOnboarded) ?? false;
+    final prefs = await SharedPreferences.getInstance();
+    final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
 
     if (hasOnboarded) {
       router.goNamed(Routes.home);

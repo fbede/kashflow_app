@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../currency module/currency_picker_dialog.dart';
 import '../shared/user_text.dart';
 import 'settings_screen_components.dart';
 import 'theme_provider.dart';
@@ -35,7 +37,7 @@ class _ThemeListTile extends ConsumerWidget {
         subtitle: _buildSubTitle(ref),
         onTap: () async => showDialog(
           context: context,
-          builder: (_) => const Dialog(child: ChangeThemeDialog()),
+          builder: (_) => const ChangeThemeDialog(),
         ),
       );
 
@@ -80,15 +82,8 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
         title: const Text(UserText.defaultCurrency),
         subtitle: _buildSubTitle(ref),
         onTap: () async {
-          final IconData? result =
-              await showIconPicker(context: context, defalutIcon: Icons.abc);
-          print(result);
+          final Currency result = await showCurrencyPicker(context: context);
         },
-
-        /*  onTap: () async => showDialog(
-          context: context,
-          builder: (_) => const Dialog(child: ChangeThemeDialog()),
-        ), */
       );
 
   Icon _buildIcon(WidgetRef ref) {

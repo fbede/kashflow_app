@@ -8,7 +8,6 @@ import 'package:window_manager/window_manager.dart';
 
 import 'config/env.dart';
 import 'shared/app.dart';
-import 'shared/startup_functions.dart';
 
 const _environment = 'Development';
 
@@ -26,8 +25,6 @@ Future<void> main() async {
 
 Future<void> _appRunner() async {
   await _setWindowSettings();
-
-  await registerSingletonsOnGetIt();
 
   runApp(const ProviderScope(child: MyApp()));
 }

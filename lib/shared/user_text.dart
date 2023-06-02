@@ -38,4 +38,6 @@ class UserText {
   static const String save = 'Save';
   static const String cancel = 'Cancel';
   static const String system = 'System';
+  static const String otherCurriences = 'Other Currencies';
+  static const String savedCurriences = 'Saved Currencies';
 }

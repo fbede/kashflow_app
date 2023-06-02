@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:get_it/get_it.dart';
 import 'package:kashflow/account%20module/home_screen.dart';
 import 'package:kashflow/shared/keys.dart';
 import 'package:kashflow/shared/route_names.dart';
 import 'package:kashflow/shared/router.dart';
+import 'package:kashflow/shared/themes.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  setUp(() async {
-    SharedPreferences.setMockInitialValues({});
-    GetIt.I.registerSingleton(await SharedPreferences.getInstance());
-  });
-
-  tearDown(() async {
-    await GetIt.I.reset();
-  });
+  setUp(() async => SharedPreferences.setMockInitialValues({}));
 
   group(
       '''Checks that the onboarding screen works properly while using the buttons to navigate''',
@@ -240,8 +234,11 @@ void main() {
     testWidgets('Tests Routing to HomePage is completed correctly',
         (tester) async {
       await tester.pumpWidget(
-        MaterialApp.router(
-          routerConfig: getTestRouter(initalLocation: Routes.onboarding),
+        ProviderScope(
+          child: MaterialApp.router(
+            theme: getLightTheme(),
+            routerConfig: getTestRouter(initalLocation: Routes.onboarding),
+          ),
         ),
       );
 
@@ -257,8 +254,9 @@ void main() {
 
       expect(find.byType(HomeScreen), findsOneWidget);
 
-      final hasOnboarded =
-          GetIt.I<SharedPreferences>().getBool(PrefKeys.hasOnboarded) ?? false;
+      final prefs = await SharedPreferences.getInstance();
+
+      final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
 
       expect(hasOnboarded, true);
     });

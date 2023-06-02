@@ -10,8 +10,8 @@ import '../currency module/currency_dao.dart';
 part 'drift_db.g.dart';
 
 @DriftDatabase(
-  tables: [DBCurrency],
-  daos: [CurrencyDao],
+  tables: [CurrencyTable],
+  daos: [LocalCurrencyDao],
 )
 class DriftDB extends _$DriftDB {
   DriftDB() : super(_openConnection());
@@ -23,22 +23,24 @@ class DriftDB extends _$DriftDB {
 
 LazyDatabase _openConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
-      final file = File(p.join(dbFolder.path, 'db.sqlite'));
+      final file = File(p.join(dbFolder.path, 'db2.sqlite'));
       return NativeDatabase.createInBackground(file);
     });
 
-class DBCurrency extends Table {
-  TextColumn get id => text().unique()();
-  TextColumn get code => text().unique().withLength(min: 3, max: 8)();
+class CurrencyTable extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get code => text().withLength(min: 3, max: 8)();
   IntColumn get scale => integer().withDefault(const Constant(4))();
   TextColumn get symbol => text().withLength(min: 1, max: 6)();
-  BoolColumn get invertSeparators => boolean()();
-  TextColumn get pattern => text().withLength(min: 2)();
+  BoolColumn get invertSeparators =>
+      boolean().withDefault(const Constant(false))();
+  TextColumn get pattern =>
+      text().withLength(min: 2).withDefault(const Constant('S0.00'))();
   TextColumn get country => text().nullable()();
   TextColumn get unit => text().nullable()();
   TextColumn get name => text().nullable()();
-  BoolColumn get lastModifiedByServer => boolean()();
-
-  @override
-  Set<Column> get primaryKey => {id};
+  BoolColumn get lastModifiedByServer =>
+      boolean().withDefault(const Constant(false))();
+  DateTimeColumn get lastModified =>
+      dateTime().withDefault(Constant(DateTime.now()))();
 }

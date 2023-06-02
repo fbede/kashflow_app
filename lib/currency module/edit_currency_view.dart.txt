@@ -253,12 +253,12 @@ class _EditCurrencyViewState extends ConsumerState<EditCurrencyView> {
       setState(() {});
       try {
         await Future.delayed(const Duration(minutes: 1), () {});
-        await _currencyDao
+        /*  await _currencyDao
             .saveCurrency(currency: currency, isDefault: widget.isDefault)
             .then((value) {
           _prefs.setBool(SharedPrefKeys.ONBOARDED, true);
           context.goNamed(Routes.dashboard);
-        });
+        }); */
       } on Exception catch (e) {
         if (context.isPhone()) {
           context.showErrorSnackBar(e.toString());
