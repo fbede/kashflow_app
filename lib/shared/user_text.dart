@@ -31,6 +31,7 @@ class UserText {
   static const String light = 'Light';
   static const String dark = 'Dark';
   static const String defaultCurrency = 'Default Currency';
+  static const String searchCurrencyNameOrCode = 'Search Currency Name or Code';
 
   //general
   static const String appName = 'Kashflow';

@@ -5,14 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:grouped_scroll_view/grouped_scroll_view.dart';
 import 'package:money2/money2.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
-import '../shared/log_handler.dart';
 import '../shared/util_models.dart';
 import 'currency_list_provider.dart';
 
-class CurrencyPickerWidget extends ConsumerStatefulWidget {
-  const CurrencyPickerWidget({required this.onTap, super.key});
+class CurrencyPickerWidget2 extends ConsumerStatefulWidget {
+  const CurrencyPickerWidget2({required this.onTap, super.key});
 
   final void Function(Currency c) onTap;
 
@@ -22,31 +20,27 @@ class CurrencyPickerWidget extends ConsumerStatefulWidget {
 }
 
 class _SelectCurrencyPickerViewState
-    extends ConsumerState<CurrencyPickerWidget> {
+    extends ConsumerState<CurrencyPickerWidget2> {
   final ScrollController _scrollController = ScrollController();
 
   bool isFetching = false;
 
   @override
   void initState() {
-    _scrollController.addListener(_loadNextPage);
     super.initState();
+    _scrollController.addListener(_loadNextPage);
   }
 
   Future<void> _loadNextPage() async {
-    if (_scrollController.position.pixels >=
+    if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       if (isFetching) return;
 
       isFetching = true;
 
-      try {
-        await ref.read(currencyListProvider.notifier).loadNextPage();
-      } on Exception catch (e, s) {
-        LogHandler().onException(TalkerException(e, stackTrace: s));
-      } finally {
-        isFetching = false;
-      }
+      await ref.read(currencyListProvider.notifier).loadNextPage();
+
+      isFetching = false;
     }
   }
 
@@ -58,7 +52,7 @@ class _SelectCurrencyPickerViewState
 
   @override
   Widget build(BuildContext context) => GroupedScrollView.grid(
-        shrinkWrap: true,
+        physics: const AlwaysScrollableScrollPhysics(),
         scrollController: _scrollController,
         gridDelegate: _getGridDelegate(context),
         groupedOptions: _getGroupedScrollViewOptions(),
@@ -134,68 +128,3 @@ class _StickyHeaderWidget extends StatelessWidget {
         ),
       );
 }
-
-/* class _BottomSearchBar extends ConsumerWidget {
-  const _BottomSearchBar();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) => Padding(
-        padding:
-            const EdgeInsetsDirectional.symmetric(horizontal: 16, vertical: 12),
-        child: SizedBox(
-          height: 40,
-          child: Row(
-            children: [
-              Expanded(
-                child: _RoundedTextField(
-                  onChanged: (value) async =>
-                      _pickerController.search(text: value),
-                ),
-              ),
-              const SizedBox(width: 16),
-              FloatingActionButton.small(
-                elevation: 0,
-                shape: const CircleBorder(eccentricity: 1),
-                child: Icon(PhosphorIcons.regular.plus),
-                onPressed: () {},
-              )
-            ],
-          ),
-        ),
-      );
-}
- */
-/* class _RoundedTextField extends StatelessWidget {
-  const _RoundedTextField({
-    required this.onChanged,
-  });
-
-  final ValueChanged<String> onChanged;
-
-  @override
-  Widget build(BuildContext context) => TextField(
-        keyboardType: TextInputType.text,
-        autocorrect: false,
-        onChanged: onChanged,
-        decoration: InputDecoration(
-          filled: true,
-          contentPadding: EdgeInsetsDirectional.zero,
-          prefixIcon: Icon(PhosphorIcons.regular.magnifyingGlass),
-          hintText: UserText.Search_Currency_Name_or_Code,
-          enabledBorder: _getInputBorder(context),
-          focusedBorder: _getFocusedBorder(context),
-        ),
-      );
-
-  OutlineInputBorder _getInputBorder(BuildContext context) =>
-      OutlineInputBorder(
-        borderSide: DecorationElements.getRegularBorderSide(context),
-        borderRadius: BorderRadius.circular(30),
-      );
-
-  OutlineInputBorder _getFocusedBorder(BuildContext context) =>
-      OutlineInputBorder(
-        borderSide: DecorationElements.getFocusedBorderSide(context),
-        borderRadius: BorderRadius.circular(30),
-      );
-} */

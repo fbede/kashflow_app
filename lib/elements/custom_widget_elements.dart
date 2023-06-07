@@ -126,10 +126,7 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
         turns: _controller,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Icon(
-            PhosphorIcons.regular.circleNotch,
-            color: Theme.of(context).colorScheme.onBackground,
-          ),
+          child: Icon(PhosphorIcons.regular.spinnerGap),
         ),
       );
 }

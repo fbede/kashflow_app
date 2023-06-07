@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -14,6 +15,8 @@ part 'drift_db.g.dart';
   daos: [LocalCurrencyDao],
 )
 class DriftDB extends _$DriftDB {
+  static final instance = DriftDB();
+
   DriftDB() : super(_openConnection());
 
   //* Increase this number whenever schema is changed
@@ -23,7 +26,11 @@ class DriftDB extends _$DriftDB {
 
 LazyDatabase _openConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
-      final file = File(p.join(dbFolder.path, 'db2.sqlite'));
+      final file = File(p.join(dbFolder.path, 'db.sqlite'));
+      if (kDebugMode) {
+        await file.delete(recursive: true);
+        await file.create(recursive: true);
+      }
       return NativeDatabase.createInBackground(file);
     });
 

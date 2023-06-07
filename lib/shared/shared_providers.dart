@@ -7,4 +7,4 @@ final prefsProvider = FutureProvider<SharedPreferences>(
   (ref) async => SharedPreferences.getInstance(),
 );
 
-final localDBProvider = Provider((ref) => DriftDB());
+final localDBProvider = Provider((ref) => DriftDB.instance);

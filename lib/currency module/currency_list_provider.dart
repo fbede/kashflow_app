@@ -4,11 +4,9 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:money2/money2.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 import '../gen/assets.gen.dart';
 import '../shared/constants.dart';
-import '../shared/log_handler.dart';
 import '../shared/shared_providers.dart';
 import '../shared/user_text.dart';
 import '../shared/util_models.dart';
@@ -38,12 +36,11 @@ class CurrencyListNotifier extends AutoDisposeNotifier<
     final db = ref.watch(localDBProvider);
     _dbCurrencyDao = LocalCurrencyDao(db);
     unawaited(_loadCurrenciesFromAsset());
-    unawaited(loadNextPage());
     return (currency: _currencyList, isExhausted: _isExhausted);
   }
 
   Future<void> loadNextPage() async {
-    print('load page has begun');
+    print('load page is caled');
     if (_dbIsExhausted) {
       await _fetchCurrenciesFromAsset();
     } else {
@@ -70,28 +67,25 @@ class CurrencyListNotifier extends AutoDisposeNotifier<
   }
 
   Future<void> _fetchCurrenciesFromDB() async {
-    try {
-      final currencies = await _dbCurrencyDao.fetchCurrencies(page: _dbPage);
+    final currencies = await _dbCurrencyDao.fetchCurrencies(page: _dbPage);
 
-      if (currencies.length < defaultPageSize) {
-        _dbIsExhausted = true;
-      }
-
-      _dbPage++;
-
-      final groupCurrency = currencies
-          .map((e) => Group(groupName: UserText.savedCurriences, object: e));
-
-      _currencyList.addAll(groupCurrency);
-      _dbCurrencies.addAll(groupCurrency);
-
-      state = (currency: _currencyList, isExhausted: _isExhausted);
-    } on Exception catch (_) {
-      rethrow;
+    if (currencies.length < defaultPageSize) {
+      _dbIsExhausted = true;
     }
+
+    _dbPage++;
+
+    final groupCurrency = currencies
+        .map((e) => Group(groupName: UserText.savedCurriences, object: e));
+
+    _currencyList.addAll(groupCurrency);
+    _dbCurrencies.addAll(groupCurrency);
+
+    state = (currency: _currencyList, isExhausted: _isExhausted);
   }
 
   Future<void> _fetchCurrenciesFromAsset() async {
+    print('asset');
     final startRange = (_assetPage - 1) * defaultPageSize;
     final endRange = startRange + defaultPageSize;
     final currencies = _assetCurrencies.getRange(startRange, endRange);

@@ -1,8 +1,10 @@
 import 'package:drift/drift.dart';
 import 'package:money2/money2.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import '../shared/constants.dart';
 import '../shared/drift_db.dart';
+import '../shared/log_handler.dart';
 
 part 'currency_dao.g.dart';
 
@@ -37,7 +39,8 @@ class LocalCurrencyDao extends DatabaseAccessor<DriftDB>
             ),
           )
           .toList();
-    } on Exception catch (_) {
+    } on Exception catch (e, s) {
+      LogHandler().onException(TalkerException(e, stackTrace: s));
       rethrow;
     }
   }
