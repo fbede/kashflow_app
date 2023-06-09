@@ -1,15 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:money2/money2.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
-import '../elements/elements.dart';
-import '../shared/constants.dart';
-import '../shared/log_handler.dart';
-import '../shared/responsive.dart';
-import '../shared/user_text.dart';
-import 'asset_currency_service.dart';
+import '../../elements/elements.dart';
+import '../../shared/constants.dart';
+import '../../shared/drift_db.dart';
+import '../../shared/responsive.dart';
+import '../../shared/user_text.dart';
+import 'currency_picker_service.dart';
 
 class CurrencyPickerBody extends StatefulWidget {
   const CurrencyPickerBody({
@@ -18,7 +16,7 @@ class CurrencyPickerBody extends StatefulWidget {
     super.key,
   });
 
-  final void Function(Currency c) onTap;
+  final void Function(CurrencyTableData c) onTap;
   final TextEditingController textController;
 
   @override
@@ -27,14 +25,17 @@ class CurrencyPickerBody extends StatefulWidget {
 
 class _CurrencyPickerBodyState extends State<CurrencyPickerBody> {
   final _scrollController = ScrollController();
-  final _currencyService = AssetCurrencyService();
+  final _pickerService = CurrencyPickerService();
 
-  List<Currency> _assetCurrencies = [];
+  List<CurrencyTableData> _assetCurrencies = [];
+  List<CurrencyTableData> _savedCurrencies = [];
 
   String _searchTerm = '';
 
-  bool _assetIsFetching = false;
-  bool _assetListIsExhausted = false;
+  bool _assetCurrencyIsFetching = false;
+  bool _assetCurrenciesIsExhausted = false;
+  bool _savedCurrencyIsFetching = false;
+  bool _savedCurrenciesIsExhausted = false;
 
   int _assetPageNumber = defaultFirstPageIndex;
 
@@ -67,60 +68,75 @@ class _CurrencyPickerBodyState extends State<CurrencyPickerBody> {
             ),
           ),
           _AssetCurrencyList(
-            currencies: _assetCurrencies,
-            listIsExhausted: _assetListIsExhausted,
+            currencies: _savedCurrencies,
+            listIsExhausted: _savedCurrenciesIsExhausted,
             onTap: widget.onTap,
           ),
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
-                UserText.savedCurriences,
+                UserText.otherCurriences,
                 style: context.theme().textTheme.titleSmall,
               ),
             ),
           ),
+          _AssetCurrencyList(
+            currencies: _assetCurrencies,
+            listIsExhausted: _assetCurrenciesIsExhausted,
+            onTap: widget.onTap,
+          ),
         ],
       );
 
-  Future<void> _fetchAssetCurrencies() async {
-    if (_assetIsFetching || _assetListIsExhausted) return;
-    _assetIsFetching = true;
-
-    try {
-      final newItems = await _currencyService.loadPage(
-        searchTerm: _searchTerm,
-        pageNumber: _assetPageNumber,
-        pageSize: defaultPageSize,
-      );
-
-      final isLastPage = newItems.length < defaultPageSize;
-
-      if (isLastPage) {
-        _assetListIsExhausted = true;
-      } else {
-        _assetPageNumber++;
-      }
-
-      _assetCurrencies.addAll(newItems);
-    } on Exception catch (e, s) {
-      LogHandler().onException(TalkerException(e, stackTrace: s));
-    } finally {
-      _assetIsFetching = false;
-      setState(() {});
-    }
-  }
-
   Future<void> _firstLoad() async {
+    if (_savedCurrencies.isEmpty) {
+      await _fetchSavedCurrencies();
+    }
+
     await _fetchAssetCurrencies();
 
-    if (_assetListIsExhausted) return;
+    if (_assetCurrenciesIsExhausted) return;
 
     if (_scrollController.position.maxScrollExtent > 0) return;
 
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async => Future.delayed(Duration.zero, () async => _firstLoad()),
+    WidgetsBinding.instance.addPostFrameCallback((_) async => _firstLoad());
+  }
+
+  Future<void> _fetchSavedCurrencies() async {
+    if (_savedCurrencyIsFetching || _savedCurrenciesIsExhausted) return;
+    _savedCurrencyIsFetching = true;
+
+    _savedCurrencies =
+        await _pickerService.loadSavedCurrencies(searchTerm: _searchTerm);
+    _savedCurrenciesIsExhausted = true;
+
+    _savedCurrencyIsFetching = false;
+    setState(() {});
+  }
+
+  Future<void> _fetchAssetCurrencies() async {
+    if (_assetCurrencyIsFetching || _assetCurrenciesIsExhausted) return;
+    _assetCurrencyIsFetching = true;
+
+    final newItems = await _pickerService.loadOtherCurrencies(
+      searchTerm: _searchTerm,
+      pageNumber: _assetPageNumber,
+      pageSize: defaultPageSize,
     );
+
+    final isLastPage = newItems.length < defaultPageSize;
+
+    if (isLastPage) {
+      _assetCurrenciesIsExhausted = true;
+    } else {
+      _assetPageNumber++;
+    }
+
+    _assetCurrencies.addAll(newItems);
+
+    _assetCurrencyIsFetching = false;
+    setState(() {});
   }
 
   Future<void> search() async {
@@ -130,9 +146,12 @@ class _CurrencyPickerBodyState extends State<CurrencyPickerBody> {
   }
 
   void reset() {
-    _assetListIsExhausted = false;
+    _assetCurrenciesIsExhausted = false;
     _assetPageNumber = defaultFirstPageIndex;
     _assetCurrencies = [];
+
+    _savedCurrenciesIsExhausted = false;
+    _savedCurrencies = [];
   }
 }
 
@@ -143,9 +162,9 @@ class _AssetCurrencyList extends StatelessWidget {
     required this.onTap,
   });
 
-  final List<Currency> currencies;
+  final List<CurrencyTableData> currencies;
   final bool listIsExhausted;
-  final ValueChanged<Currency> onTap;
+  final ValueChanged<CurrencyTableData> onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -175,8 +194,8 @@ class _AssetCurrencyList extends StatelessWidget {
 class _ItemWidget extends StatelessWidget {
   const _ItemWidget({required this.item, required this.onTap});
 
-  final Currency item;
-  final void Function(Currency c) onTap;
+  final CurrencyTableData item;
+  final void Function(CurrencyTableData c) onTap;
 
   @override
   Widget build(BuildContext context) => Card(

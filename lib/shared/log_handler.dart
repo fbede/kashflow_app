@@ -1,7 +1,11 @@
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-class LogHandler implements TalkerObserver {
+extension Logger on Talker {
+  static Talker instance = TalkerFlutter.init(observers: [_LogHandler()]);
+}
+
+class _LogHandler implements TalkerObserver {
   @override
   dynamic Function(TalkerError err) get onError => _handleError;
 
@@ -24,6 +28,4 @@ class LogHandler implements TalkerObserver {
   dynamic _handleLog(TalkerDataInterface log) {}
 }
 
-extension Logger on Talker {
-  static Talker build() => TalkerFlutter.init(observers: [LogHandler()]);
-}
+//TODO: Add file logger

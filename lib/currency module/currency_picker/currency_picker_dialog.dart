@@ -1,26 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:money2/money2.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../shared/responsive.dart';
-import '../shared/user_text.dart';
+import '../../shared/drift_db.dart';
+import '../../shared/responsive.dart';
+import '../../shared/user_text.dart';
 import 'currency_picker_body.dart';
 
-Future<Currency> showCurrencyPicker({required BuildContext context}) async {
-  Currency currency = CommonCurrencies().usd;
+Future<CurrencyTableData?> showCurrencyPicker({
+  required BuildContext context,
+}) async {
+  CurrencyTableData? data;
 
   await showDialog<Widget>(
     context: context,
-    builder: (_) => CurrencyPickerDialog(onTap: (c) => print(c)),
+    builder: (_) => CurrencyPickerDialog(
+      onTap: (c) {
+        data = c;
+        context.pop();
+      },
+    ),
   );
 
-  return currency;
+  return data;
 }
 
 class CurrencyPickerDialog extends StatefulWidget {
   const CurrencyPickerDialog({required this.onTap, super.key});
 
-  final ValueChanged<Currency> onTap;
+  final ValueChanged<CurrencyTableData> onTap;
 
   @override
   State<CurrencyPickerDialog> createState() => _CurrencyPickerDialogState();

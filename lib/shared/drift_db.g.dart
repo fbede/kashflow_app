@@ -25,7 +25,8 @@ class $CurrencyTableTable extends CurrencyTable
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 3, maxTextLength: 8),
       type: DriftSqlType.string,
-      requiredDuringInsert: true);
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _scaleMeta = const VerificationMeta('scale');
   @override
   late final GeneratedColumn<int> scale = GeneratedColumn<int>(
@@ -69,18 +70,18 @@ class $CurrencyTableTable extends CurrencyTable
       const VerificationMeta('country');
   @override
   late final GeneratedColumn<String> country = GeneratedColumn<String>(
-      'country', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      'country', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _unitMeta = const VerificationMeta('unit');
   @override
   late final GeneratedColumn<String> unit = GeneratedColumn<String>(
-      'unit', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      'unit', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _lastModifiedByServerMeta =
       const VerificationMeta('lastModifiedByServer');
   @override
@@ -157,14 +158,20 @@ class $CurrencyTableTable extends CurrencyTable
     if (data.containsKey('country')) {
       context.handle(_countryMeta,
           country.isAcceptableOrUnknown(data['country']!, _countryMeta));
+    } else if (isInserting) {
+      context.missing(_countryMeta);
     }
     if (data.containsKey('unit')) {
       context.handle(
           _unitMeta, unit.isAcceptableOrUnknown(data['unit']!, _unitMeta));
+    } else if (isInserting) {
+      context.missing(_unitMeta);
     }
     if (data.containsKey('name')) {
       context.handle(
           _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
     }
     if (data.containsKey('last_modified_by_server')) {
       context.handle(
@@ -200,11 +207,11 @@ class $CurrencyTableTable extends CurrencyTable
       pattern: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}pattern'])!,
       country: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}country']),
+          .read(DriftSqlType.string, data['${effectivePrefix}country'])!,
       unit: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}unit']),
+          .read(DriftSqlType.string, data['${effectivePrefix}unit'])!,
       name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name']),
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       lastModifiedByServer: attachedDatabase.typeMapping.read(DriftSqlType.bool,
           data['${effectivePrefix}last_modified_by_server'])!,
       lastModified: attachedDatabase.typeMapping.read(
@@ -226,9 +233,9 @@ class CurrencyTableData extends DataClass
   final String symbol;
   final bool invertSeparators;
   final String pattern;
-  final String? country;
-  final String? unit;
-  final String? name;
+  final String country;
+  final String unit;
+  final String name;
   final bool lastModifiedByServer;
   final DateTime lastModified;
   const CurrencyTableData(
@@ -238,9 +245,9 @@ class CurrencyTableData extends DataClass
       required this.symbol,
       required this.invertSeparators,
       required this.pattern,
-      this.country,
-      this.unit,
-      this.name,
+      required this.country,
+      required this.unit,
+      required this.name,
       required this.lastModifiedByServer,
       required this.lastModified});
   @override
@@ -252,15 +259,9 @@ class CurrencyTableData extends DataClass
     map['symbol'] = Variable<String>(symbol);
     map['invert_separators'] = Variable<bool>(invertSeparators);
     map['pattern'] = Variable<String>(pattern);
-    if (!nullToAbsent || country != null) {
-      map['country'] = Variable<String>(country);
-    }
-    if (!nullToAbsent || unit != null) {
-      map['unit'] = Variable<String>(unit);
-    }
-    if (!nullToAbsent || name != null) {
-      map['name'] = Variable<String>(name);
-    }
+    map['country'] = Variable<String>(country);
+    map['unit'] = Variable<String>(unit);
+    map['name'] = Variable<String>(name);
     map['last_modified_by_server'] = Variable<bool>(lastModifiedByServer);
     map['last_modified'] = Variable<DateTime>(lastModified);
     return map;
@@ -274,11 +275,9 @@ class CurrencyTableData extends DataClass
       symbol: Value(symbol),
       invertSeparators: Value(invertSeparators),
       pattern: Value(pattern),
-      country: country == null && nullToAbsent
-          ? const Value.absent()
-          : Value(country),
-      unit: unit == null && nullToAbsent ? const Value.absent() : Value(unit),
-      name: name == null && nullToAbsent ? const Value.absent() : Value(name),
+      country: Value(country),
+      unit: Value(unit),
+      name: Value(name),
       lastModifiedByServer: Value(lastModifiedByServer),
       lastModified: Value(lastModified),
     );
@@ -294,9 +293,9 @@ class CurrencyTableData extends DataClass
       symbol: serializer.fromJson<String>(json['symbol']),
       invertSeparators: serializer.fromJson<bool>(json['invertSeparators']),
       pattern: serializer.fromJson<String>(json['pattern']),
-      country: serializer.fromJson<String?>(json['country']),
-      unit: serializer.fromJson<String?>(json['unit']),
-      name: serializer.fromJson<String?>(json['name']),
+      country: serializer.fromJson<String>(json['country']),
+      unit: serializer.fromJson<String>(json['unit']),
+      name: serializer.fromJson<String>(json['name']),
       lastModifiedByServer:
           serializer.fromJson<bool>(json['lastModifiedByServer']),
       lastModified: serializer.fromJson<DateTime>(json['lastModified']),
@@ -312,9 +311,9 @@ class CurrencyTableData extends DataClass
       'symbol': serializer.toJson<String>(symbol),
       'invertSeparators': serializer.toJson<bool>(invertSeparators),
       'pattern': serializer.toJson<String>(pattern),
-      'country': serializer.toJson<String?>(country),
-      'unit': serializer.toJson<String?>(unit),
-      'name': serializer.toJson<String?>(name),
+      'country': serializer.toJson<String>(country),
+      'unit': serializer.toJson<String>(unit),
+      'name': serializer.toJson<String>(name),
       'lastModifiedByServer': serializer.toJson<bool>(lastModifiedByServer),
       'lastModified': serializer.toJson<DateTime>(lastModified),
     };
@@ -327,9 +326,9 @@ class CurrencyTableData extends DataClass
           String? symbol,
           bool? invertSeparators,
           String? pattern,
-          Value<String?> country = const Value.absent(),
-          Value<String?> unit = const Value.absent(),
-          Value<String?> name = const Value.absent(),
+          String? country,
+          String? unit,
+          String? name,
           bool? lastModifiedByServer,
           DateTime? lastModified}) =>
       CurrencyTableData(
@@ -339,9 +338,9 @@ class CurrencyTableData extends DataClass
         symbol: symbol ?? this.symbol,
         invertSeparators: invertSeparators ?? this.invertSeparators,
         pattern: pattern ?? this.pattern,
-        country: country.present ? country.value : this.country,
-        unit: unit.present ? unit.value : this.unit,
-        name: name.present ? name.value : this.name,
+        country: country ?? this.country,
+        unit: unit ?? this.unit,
+        name: name ?? this.name,
         lastModifiedByServer: lastModifiedByServer ?? this.lastModifiedByServer,
         lastModified: lastModified ?? this.lastModified,
       );
@@ -390,9 +389,9 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   final Value<String> symbol;
   final Value<bool> invertSeparators;
   final Value<String> pattern;
-  final Value<String?> country;
-  final Value<String?> unit;
-  final Value<String?> name;
+  final Value<String> country;
+  final Value<String> unit;
+  final Value<String> name;
   final Value<bool> lastModifiedByServer;
   final Value<DateTime> lastModified;
   const CurrencyTableCompanion({
@@ -415,13 +414,16 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
     required String symbol,
     this.invertSeparators = const Value.absent(),
     this.pattern = const Value.absent(),
-    this.country = const Value.absent(),
-    this.unit = const Value.absent(),
-    this.name = const Value.absent(),
+    required String country,
+    required String unit,
+    required String name,
     this.lastModifiedByServer = const Value.absent(),
     this.lastModified = const Value.absent(),
   })  : code = Value(code),
-        symbol = Value(symbol);
+        symbol = Value(symbol),
+        country = Value(country),
+        unit = Value(unit),
+        name = Value(name);
   static Insertable<CurrencyTableData> custom({
     Expression<int>? id,
     Expression<String>? code,
@@ -458,9 +460,9 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
       Value<String>? symbol,
       Value<bool>? invertSeparators,
       Value<String>? pattern,
-      Value<String?>? country,
-      Value<String?>? unit,
-      Value<String?>? name,
+      Value<String>? country,
+      Value<String>? unit,
+      Value<String>? name,
       Value<bool>? lastModifiedByServer,
       Value<DateTime>? lastModified}) {
     return CurrencyTableCompanion(

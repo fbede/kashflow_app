@@ -20,7 +20,7 @@ final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: Routes.splash,
   observers: [
-    TalkerRouteObserver(Logger.build()),
+    TalkerRouteObserver(Logger.instance),
   ],
   routes: _appBaseRoutes,
 );
@@ -29,7 +29,7 @@ GoRouter getTestRouter({String? initalLocation}) => GoRouter(
       navigatorKey: _rootNavigatorKey,
       initialLocation: initalLocation ?? Routes.splash,
       observers: [
-        TalkerRouteObserver(Logger.build()),
+        TalkerRouteObserver(Logger.instance),
       ],
       routes: _appBaseRoutes,
     );

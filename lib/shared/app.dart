@@ -11,15 +11,16 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themesProvider).themeMode;
-    final isBlackAndWhiteBackground = ref.watch(themesProvider).isBlackAndWhite;
+    final themeMode = ref.watch(themesProvider).asData?.value.themeMode;
+    final isBlackAndWhiteBackground =
+        ref.watch(themesProvider).asData?.value.isBlackAndWhite;
 
     return TooltipVisibility(
       visible: false,
       child: MaterialApp.router(
         title: UserText.appName,
-        theme: getLightTheme(isWhite: isBlackAndWhiteBackground),
-        darkTheme: getDarkTheme(isBlack: isBlackAndWhiteBackground),
+        theme: getLightTheme(isWhite: isBlackAndWhiteBackground ?? true),
+        darkTheme: getDarkTheme(isBlack: isBlackAndWhiteBackground ?? true),
         themeMode: themeMode,
         routerConfig: router,
       ),

@@ -26,8 +26,8 @@ class DriftDB extends _$DriftDB {
 
 LazyDatabase _openConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
-      final file = File(p.join(dbFolder.path, 'db.sqlite'));
-      if (kDebugMode) {
+      final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
+      if (kDebugMode & file.existsSync()) {
         await file.delete(recursive: true);
         await file.create(recursive: true);
       }
@@ -36,16 +36,16 @@ LazyDatabase _openConnection() => LazyDatabase(() async {
 
 class CurrencyTable extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get code => text().withLength(min: 3, max: 8)();
+  TextColumn get code => text().withLength(min: 3, max: 8).unique()();
   IntColumn get scale => integer().withDefault(const Constant(4))();
   TextColumn get symbol => text().withLength(min: 1, max: 6)();
   BoolColumn get invertSeparators =>
       boolean().withDefault(const Constant(false))();
   TextColumn get pattern =>
       text().withLength(min: 2).withDefault(const Constant('S0.00'))();
-  TextColumn get country => text().nullable()();
-  TextColumn get unit => text().nullable()();
-  TextColumn get name => text().nullable()();
+  TextColumn get country => text()();
+  TextColumn get unit => text()();
+  TextColumn get name => text()();
   BoolColumn get lastModifiedByServer =>
       boolean().withDefault(const Constant(false))();
   DateTimeColumn get lastModified =>

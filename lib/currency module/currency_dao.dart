@@ -1,10 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:money2/money2.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
-import '../shared/constants.dart';
 import '../shared/drift_db.dart';
 import '../shared/log_handler.dart';
+import 'currency_extensions.dart';
 
 part 'currency_dao.g.dart';
 
@@ -13,35 +12,28 @@ class LocalCurrencyDao extends DatabaseAccessor<DriftDB>
     with _$LocalCurrencyDaoMixin {
   LocalCurrencyDao(super.attachedDatabase);
 
-  Future<List<Currency>> fetchCurrencies({
-    int page = 1,
-    int pageSize = defaultPageSize,
-  }) async {
-    final pageIndex = page;
-    final query = select(currencyTable)
-      ..where((tbl) => tbl.id.isSmallerOrEqualValue(pageIndex * pageSize))
-      ..limit(pageSize);
+  Future<List<Currency>> fetchAllCurrencies() async {
+    final result = await fetchAllCurrenciesData();
+    return result.map(CurrencyUtil.currencyFromCurrencyTableData).toList();
+  }
 
+  Future<List<CurrencyTableData>> fetchAllCurrenciesData() async {
     try {
-      final result = await query.get();
-
-      return result
-          .map(
-            (e) => Currency.create(
-              e.code,
-              e.scale,
-              symbol: e.symbol,
-              pattern: e.pattern,
-              invertSeparators: e.invertSeparators,
-              country: e.country ?? '',
-              name: e.name ?? '',
-              unit: e.unit ?? '',
-            ),
-          )
-          .toList();
+      return await select(currencyTable).get();
     } on Exception catch (e, s) {
-      LogHandler().onException(TalkerException(e, stackTrace: s));
+      Logger.instance.handle(e, s);
       rethrow;
     }
+  }
+
+  Future<Currency?> fetchCurrencyByLocalId(int id) async {
+    final query = select(currencyTable)..where((tbl) => tbl.id.equals(id));
+    final result = await query.getSingleOrNull();
+
+    if (result != null) {
+      return CurrencyUtil.currencyFromCurrencyTableData(result);
+    }
+
+    return null;
   }
 }
