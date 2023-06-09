@@ -10,7 +10,7 @@ import '../shared/drift_db.dart';
 import 'currency_dao.dart';
 import 'currency_extensions.dart';
 
-final savedCurrencyProvider =
+final savedCurrencyProviderFamily =
     AutoDisposeStreamProviderFamily<List<Currency>, String>(
   (ref, searchTerm) async* {
     final dao = LocalCurrencyDao(LocalDB.instance);
@@ -18,11 +18,11 @@ final savedCurrencyProvider =
   },
 );
 
-final assetCurrencyProvider =
+final assetCurrencyProviderFamily =
     AutoDisposeFutureProviderFamily<List<Currency>, String>(
   (ref, searchTerm) async {
     final savedCurrencies =
-        ref.watch(savedCurrencyProvider.call('')).value ?? [];
+        ref.watch(savedCurrencyProviderFamily.call('')).value ?? [];
     final assetCurrencies = await _loadCurrenciesFromAsset();
     final tempResult = _searchCurrencyInList(searchTerm, assetCurrencies);
     final result = <Currency>[];

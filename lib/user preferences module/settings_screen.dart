@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../currency module/currency_picker/currency_picker_dialog.dart';
+import '../currency module/currency_picker_dialog.dart';
 import '../shared/responsive.dart';
 import '../shared/user_text.dart';
 import 'settings_screen_components.dart';

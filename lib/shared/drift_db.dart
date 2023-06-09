@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:io';
 
 import 'package:drift/drift.dart';
@@ -27,10 +29,10 @@ class LocalDB extends _$LocalDB {
 LazyDatabase _openConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
-      if (kDebugMode & file.existsSync()) {
+      /* if (kDebugMode & file.existsSync()) {
         await file.delete(recursive: true);
         await file.create(recursive: true);
-      }
+      } */
       return NativeDatabase.createInBackground(file);
     });
 
