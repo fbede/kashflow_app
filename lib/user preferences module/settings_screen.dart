@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../currency module/currency_picker/currency_picker_dialog.dart';
-import '../currency module/currency_provider.dart';
 import '../shared/responsive.dart';
 import '../shared/user_text.dart';
 import 'settings_screen_components.dart';
@@ -79,20 +78,30 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final defaultCurrency = ref.watch(currencyProvider).value?.defaultCurrency;
+    // final defaultCurrency = ref.watch(currencyProvider).value?.defaultCurrency;
     return ListTile(
-      leading: _buildIcon(context, defaultCurrency?.symbol ?? ''),
+      leading: Text(
+          'data'), //      _buildIcon(context, defaultCurrency?.symbol ?? ''),
       title: const Text(UserText.defaultCurrency),
-      subtitle: Text(defaultCurrency?.name ?? ''),
-      onTap: () async {
-        await showCurrencyPicker(context: context);
-      },
+      subtitle: Text('jjhjh'), //Text(defaultCurrency?.name ?? ''),
+      onTap: () async => onTap(context, ref),
     );
+  }
+
+  Future<void> onTap(BuildContext context, WidgetRef ref) async {
+    final currencyData = await showCurrencyPicker(context: context);
+    if (currencyData != null) {
+      // await ref
+      //   .read(currencyProvider.notifier)
+      // .changeDefaultCurrency(currencyData);
+    }
   }
 
   Widget _buildIcon(BuildContext context, String symbol) {
     late final Text text;
     final symbols = symbol.split(',');
+
+    print(symbols);
 
     final textStyle = context.theme().textTheme.titleLarge;
 

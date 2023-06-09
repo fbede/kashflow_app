@@ -38,10 +38,7 @@ class $CurrencyTableTable extends CurrencyTable
   @override
   late final GeneratedColumn<String> symbol = GeneratedColumn<String>(
       'symbol', aliasedName, false,
-      additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 6),
-      type: DriftSqlType.string,
-      requiredDuringInsert: true);
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _invertSeparatorsMeta =
       const VerificationMeta('invertSeparators');
   @override
@@ -539,11 +536,11 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   }
 }
 
-abstract class _$DriftDB extends GeneratedDatabase {
-  _$DriftDB(QueryExecutor e) : super(e);
+abstract class _$LocalDB extends GeneratedDatabase {
+  _$LocalDB(QueryExecutor e) : super(e);
   late final $CurrencyTableTable currencyTable = $CurrencyTableTable(this);
   late final LocalCurrencyDao localCurrencyDao =
-      LocalCurrencyDao(this as DriftDB);
+      LocalCurrencyDao(this as LocalDB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

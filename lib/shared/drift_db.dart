@@ -14,10 +14,10 @@ part 'drift_db.g.dart';
   tables: [CurrencyTable],
   daos: [LocalCurrencyDao],
 )
-class DriftDB extends _$DriftDB {
-  static final instance = DriftDB();
+class LocalDB extends _$LocalDB {
+  static final instance = LocalDB();
 
-  DriftDB() : super(_openConnection());
+  LocalDB() : super(_openConnection());
 
   //* Increase this number whenever schema is changed
   @override
@@ -38,7 +38,7 @@ class CurrencyTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get code => text().withLength(min: 3, max: 8).unique()();
   IntColumn get scale => integer().withDefault(const Constant(4))();
-  TextColumn get symbol => text().withLength(min: 1, max: 6)();
+  TextColumn get symbol => text()();
   BoolColumn get invertSeparators =>
       boolean().withDefault(const Constant(false))();
   TextColumn get pattern =>

@@ -9,7 +9,7 @@ import '../currency_dao.dart';
 import '../currency_extensions.dart';
 
 class CurrencyPickerService {
-  final currencyDao = LocalCurrencyDao(DriftDB.instance);
+  final currencyDao = LocalCurrencyDao(LocalDB.instance);
 
   List<CurrencyTableData> _assetCurrencies = [];
   List<CurrencyTableData> _savedCurrencies = [];

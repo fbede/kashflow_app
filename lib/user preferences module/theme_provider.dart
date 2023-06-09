@@ -5,13 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../shared/keys.dart';
 
 final themesProvider =
-    AutoDisposeAsyncNotifierProvider<ThemeNotifier, ThemeState>(
-  ThemeNotifier.new,
+    AutoDisposeAsyncNotifierProvider<_ThemeNotifier, _ThemeState>(
+  _ThemeNotifier.new,
 );
 
-typedef ThemeState = ({ThemeMode themeMode, bool isBlackAndWhite});
+typedef _ThemeState = ({ThemeMode themeMode, bool isBlackAndWhite});
 
-class ThemeNotifier extends AutoDisposeAsyncNotifier<ThemeState> {
+class _ThemeNotifier extends AutoDisposeAsyncNotifier<_ThemeState> {
   late ThemeMode _oldThemeMode;
   late bool _oldBlackAndWhiteValue;
   late int themeModeInt;
@@ -22,7 +22,7 @@ class ThemeNotifier extends AutoDisposeAsyncNotifier<ThemeState> {
   final systemModeInt = 2;
 
   @override
-  Future<ThemeState> build() async {
+  Future<_ThemeState> build() async {
     final prefs = await SharedPreferences.getInstance();
     themeModeInt = prefs.getInt(PrefKeys.themeModeInt) ?? systemModeInt;
 
@@ -71,7 +71,10 @@ class ThemeNotifier extends AutoDisposeAsyncNotifier<ThemeState> {
         PrefKeys.themeModeInt,
         _getIntFromThemeMode(_oldThemeMode),
       ),
-      prefs.setBool(PrefKeys.isBlackOrWhiteBackground, _oldBlackAndWhiteValue),
+      prefs.setBool(
+        PrefKeys.isBlackOrWhiteBackground,
+        _oldBlackAndWhiteValue,
+      ),
     ]);
   }
 
