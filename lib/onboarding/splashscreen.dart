@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../gen/assets.gen.dart';
 import '../shared/keys.dart';
+import '../shared/local_db.dart';
+import '../shared/log_handler.dart';
 import '../shared/responsive.dart';
 import '../shared/route_names.dart';
 import '../shared/themes.dart';
@@ -57,15 +59,24 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _gotoNextScreen() async {
     final router = GoRouter.of(context);
-    await Future.delayed(slowGlobalAnimationDuration, () {});
-    final prefs = await SharedPreferences.getInstance();
-    final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
 
-    if (hasOnboarded) {
-      router.goNamed(Routes.home);
-      return;
+    try {
+      await LocalDB.instance
+          .doWhenOpened((e) => Logger.instance.log('Database Opened'));
+
+      await Future.delayed(slowGlobalAnimationDuration, () {});
+      final prefs = await SharedPreferences.getInstance();
+      final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
+
+      if (hasOnboarded) {
+        router.goNamed(Routes.home);
+        return;
+      }
+
+      router.goNamed(Routes.onboarding);
+    } on Exception catch (e, s) {
+      Logger.instance.handle(e, s);
+      rethrow;
     }
-
-    router.goNamed(Routes.onboarding);
   }
 }

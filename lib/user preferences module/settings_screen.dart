@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../currency module/currency_picker_dialog.dart';
+import '../currency module/default_currency_provider.dart';
 import '../shared/responsive.dart';
 import '../shared/user_text.dart';
 import 'settings_screen_components.dart';
@@ -20,6 +21,7 @@ class SettingsScreen extends StatelessWidget {
               delegate: SliverChildListDelegate(const [
                 _ThemeListTile(),
                 _DefaultCurrencyListTile(),
+                _ManageCurrenciesListTile(),
               ]),
             )
           ],
@@ -78,30 +80,26 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final defaultCurrency = ref.watch(currencyProvider).value?.defaultCurrency;
+    final defaultCurrency = ref.watch(defaultCurrencyProvider).value;
+
     return ListTile(
-      leading: Text(
-          'data'), //      _buildIcon(context, defaultCurrency?.symbol ?? ''),
+      leading: _buildIcon(context, defaultCurrency?.symbol ?? ''),
       title: const Text(UserText.defaultCurrency),
-      subtitle: Text('jjhjh'), //Text(defaultCurrency?.name ?? ''),
+      subtitle: Text(defaultCurrency?.name ?? ''),
       onTap: () async => onTap(context, ref),
     );
   }
 
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
-    final currencyData = await showCurrencyPicker(context: context);
-    if (currencyData != null) {
-      // await ref
-      //   .read(currencyProvider.notifier)
-      // .changeDefaultCurrency(currencyData);
+    final currency = await showCurrencyPicker(context: context);
+    if (currency != null) {
+      await ref.read(defaultCurrencyProvider.notifier).changeCurrency(currency);
     }
   }
 
   Widget _buildIcon(BuildContext context, String symbol) {
     late final Text text;
     final symbols = symbol.split(',');
-
-    print(symbols);
 
     final textStyle = context.theme().textTheme.titleLarge;
 
@@ -112,5 +110,37 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
     }
 
     return SizedBox.square(dimension: 24, child: Center(child: text));
+  }
+}
+
+class _ManageCurrenciesListTile extends ConsumerWidget {
+  const _ManageCurrenciesListTile()
+      : super(key: const ValueKey('manageCurrenciesListTile'));
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final defaultCurrency = ref.watch(defaultCurrencyProvider).value;
+
+    return ListTile(
+      leading: SizedBox.square(
+        dimension: 24,
+        child: Center(
+          child: Text(
+            defaultCurrency?.code ?? '',
+            style: const TextStyle(fontSize: 10),
+          ),
+        ),
+      ),
+      title: const Text(UserText.manageCurrencies),
+      subtitle: Text(defaultCurrency?.name ?? ''),
+      //  onTap: () async => onTap(context, ref),
+    );
+  }
+
+  Future<void> onTap(BuildContext context, WidgetRef ref) async {
+    final currency = await showCurrencyPicker(context: context);
+    if (currency != null) {
+      await ref.read(defaultCurrencyProvider.notifier).changeCurrency(currency);
+    }
   }
 }

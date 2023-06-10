@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:money2/money2.dart';
 
 import '../gen/assets.gen.dart';
-import '../shared/drift_db.dart';
+import '../shared/local_db.dart';
 
 import 'currency_dao.dart';
 import 'currency_extensions.dart';

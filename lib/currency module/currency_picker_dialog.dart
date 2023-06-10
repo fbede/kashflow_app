@@ -9,10 +9,10 @@ import '../shared/responsive.dart';
 import '../shared/user_text.dart';
 import 'currency_provider.dart';
 
-Future<(Currency, bool)?> showCurrencyPicker({
+Future<Currency?> showCurrencyPicker({
   required BuildContext context,
 }) async {
-  (Currency, bool)? data;
+  Currency? data;
 
   await showDialog<Widget>(
     context: context,
@@ -32,7 +32,7 @@ Future<(Currency, bool)?> showCurrencyPicker({
 class CurrencyPickerDialog extends ConsumerStatefulWidget {
   const CurrencyPickerDialog({required this.onTap, super.key});
 
-  final ValueChanged<(Currency, bool)> onTap;
+  final ValueChanged<Currency> onTap;
 
   @override
   ConsumerState<CurrencyPickerDialog> createState() =>
@@ -80,13 +80,13 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
                     _CurrencyList(
                       dataProvider: ref
                           .watch(savedCurrencyProviderFamily.call(searchTerm)),
-                      onTap: (c) => widget.onTap((c, true)),
+                      onTap: widget.onTap,
                     ),
                     const _Subtitle(titleString: UserText.otherCurriences),
                     _CurrencyList(
                       dataProvider: ref
                           .watch(assetCurrencyProviderFamily.call(searchTerm)),
-                      onTap: (c) => widget.onTap((c, false)),
+                      onTap: widget.onTap,
                     ),
                   ],
                 ),

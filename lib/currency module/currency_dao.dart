@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:money2/money2.dart';
 
-import '../shared/drift_db.dart';
+import '../shared/local_db.dart';
 import '../shared/log_handler.dart';
 import 'currency_extensions.dart';
 
@@ -19,27 +19,18 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
         (tbl) => tbl.code.contains(searchTerm) | tbl.name.contains(searchTerm),
       );
 
-    yield* query.watch().map(
-          (event) =>
-              event.map(CurrencyUtil.currencyFromCurrencyTableData).toList(),
-        );
-  }
-
-  Future<List<Currency>> fetchAllCurrencies() async {
-    final result = await fetchAllCurrenciesData();
-    return result.map(CurrencyUtil.currencyFromCurrencyTableData).toList();
-  }
-
-  Future<List<CurrencyTableData>> fetchAllCurrenciesData() async {
     try {
-      return await select(currencyTable).get();
+      yield* query.watch().map(
+            (event) =>
+                event.map(CurrencyUtil.currencyFromCurrencyTableData).toList(),
+          );
     } on Exception catch (e, s) {
       Logger.instance.handle(e, s);
       rethrow;
     }
   }
 
-  Future<Currency?> fetchCurrencyByLocalId(int id) async {
+  Future<Currency?> getCurrencyById(int id) async {
     final query = select(currencyTable)..where((tbl) => tbl.id.equals(id));
 
     try {
@@ -55,11 +46,23 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
   }
 
   //CREATE/UPDATE METHODS
-  Future<Currency> saveCurrencyByData(CurrencyTableData data) async {
+  Future<int> saveCurrencyGetId(Currency c) async {
     try {
-      final primaryKey = await into(currencyTable).insertOnConflictUpdate(data);
-      final currency = await fetchCurrencyByLocalId(primaryKey);
-      return currency!;
+      final result = await into(currencyTable).insertReturning(
+        CurrencyTableCompanion.insert(
+          code: c.code,
+          scale: c.scale,
+          symbol: c.symbol,
+          invertSeparators: c.invertSeparators,
+          pattern: c.pattern,
+          country: c.country,
+          unit: c.unit,
+          name: c.name,
+        ),
+        onConflict: DoNothing(),
+      );
+
+      return result.id;
     } on Exception catch (e, s) {
       Logger.instance.handle(e, s);
       rethrow;

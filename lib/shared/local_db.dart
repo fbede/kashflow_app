@@ -7,19 +7,19 @@ import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:ulid4d/ulid4d.dart';
 
 import '../currency module/currency_dao.dart';
 
-part 'drift_db.g.dart';
+part 'local_db.g.dart';
 
-@DriftDatabase(
-  tables: [CurrencyTable],
-  daos: [LocalCurrencyDao],
-)
+@DriftDatabase(tables: [CurrencyTable], daos: [LocalCurrencyDao])
 class LocalDB extends _$LocalDB {
   static final instance = LocalDB();
 
   LocalDB() : super(_openConnection());
+
+  LocalDB.test(super.e);
 
   //* Increase this number whenever schema is changed
   @override
@@ -39,17 +39,11 @@ LazyDatabase _openConnection() => LazyDatabase(() async {
 class CurrencyTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get code => text().withLength(min: 3, max: 8).unique()();
-  IntColumn get scale => integer().withDefault(const Constant(4))();
+  IntColumn get scale => integer()();
   TextColumn get symbol => text()();
-  BoolColumn get invertSeparators =>
-      boolean().withDefault(const Constant(false))();
-  TextColumn get pattern =>
-      text().withLength(min: 2).withDefault(const Constant('S0.00'))();
+  BoolColumn get invertSeparators => boolean()();
+  TextColumn get pattern => text().withLength(min: 2)();
   TextColumn get country => text()();
   TextColumn get unit => text()();
   TextColumn get name => text()();
-  BoolColumn get lastModifiedByServer =>
-      boolean().withDefault(const Constant(false))();
-  DateTimeColumn get lastModified =>
-      dateTime().withDefault(Constant(DateTime.now()))();
 }

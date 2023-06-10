@@ -140,23 +140,23 @@ class _PurseTabBody extends StatelessWidget {
             child: Text(r' Cash Balance: $2,004.54'),
           ),
           const SizedBox(height: 8),
-          const Divider(height: 1),
+          // const Divider(height: 1),
           Material(
             child: ListTile(
-              leading: Icon(PhosphorIcons.regular.bank),
+              leading: CircleAvatar(child: Icon(PhosphorIcons.regular.bank)),
               title: Text('First Bank'),
-              trailing: Text(r'$2,004.54'),
+              subtitle: Text(r'$2,004.54'),
             ),
           ),
-          Divider(height: 1),
+          // Divider(height: 1),
           Material(
             child: ListTile(
-              leading: CircleAvatar(),
+              leading: CircleAvatar(child: Icon(PhosphorIcons.regular.wallet)),
               title: Text('First Bank'),
-              trailing: Text(r'$2,004.54'),
+              subtitle: Text(r'$2,004.54'),
             ),
           ),
-          Divider(height: 1),
+          // Divider(height: 1),
         ],
       );
 }
