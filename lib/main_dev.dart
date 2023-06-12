@@ -3,29 +3,16 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'config/env.dart';
 import 'shared/app.dart';
 
-const _environment = 'Development';
+//const _environment = 'Development';
 
 Future<void> main() async {
-  await SentryFlutter.init(
-    (options) {
-      options
-        ..dsn = kDebugMode ? '' : Env.sentryDsn
-        ..environment = _environment
-        ..tracesSampleRate = 0;
-    },
-    appRunner: _appRunner,
-  );
-}
+  WidgetsFlutterBinding.ensureInitialized();
 
-Future<void> _appRunner() async {
   await _setWindowSettings();
-
   runApp(const ProviderScope(child: MyApp()));
 }
 

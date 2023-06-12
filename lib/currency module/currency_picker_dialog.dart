@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../elements/elements.dart';
+import '../shared/custom_loading_indicator.dart';
 import '../shared/responsive.dart';
 import '../shared/user_text.dart';
 import 'currency_provider.dart';
@@ -23,8 +23,6 @@ Future<Currency?> showCurrencyPicker({
       },
     ),
   );
-
-  print(data);
 
   return data;
 }

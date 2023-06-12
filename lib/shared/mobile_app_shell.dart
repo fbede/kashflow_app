@@ -62,13 +62,10 @@ class MobileAppShell extends StatelessWidget {
     switch (index) {
       case 0:
         context.go(Routes.dashboard);
-        break;
       case 1:
         context.go(Routes.records);
-        break;
       case 2:
         context.go(Routes.other);
-        break;
     }
   }
 
