@@ -448,14 +448,330 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   }
 }
 
+class $TransactionCategoryTable extends TransactionCategory
+    with TableInfo<$TransactionCategoryTable, TransactionCategoryData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $TransactionCategoryTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _parentMeta = const VerificationMeta('parent');
+  @override
+  late final GeneratedColumn<int> parent = GeneratedColumn<int>(
+      'parent', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES transaction_category (id) ON UPDATE NO ACTION ON DELETE NO ACTION'));
+  static const VerificationMeta _childrenMeta =
+      const VerificationMeta('children');
+  @override
+  late final GeneratedColumn<int> children = GeneratedColumn<int>(
+      'children', aliasedName, true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'REFERENCES transaction_category (id) ON UPDATE NO ACTION ON DELETE CASCADE'));
+  @override
+  List<GeneratedColumn> get $columns =>
+      [id, name, description, parent, children];
+  @override
+  String get aliasedName => _alias ?? 'transaction_category';
+  @override
+  String get actualTableName => 'transaction_category';
+  @override
+  VerificationContext validateIntegrity(
+      Insertable<TransactionCategoryData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
+    }
+    if (data.containsKey('parent')) {
+      context.handle(_parentMeta,
+          parent.isAcceptableOrUnknown(data['parent']!, _parentMeta));
+    }
+    if (data.containsKey('children')) {
+      context.handle(_childrenMeta,
+          children.isAcceptableOrUnknown(data['children']!, _childrenMeta));
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  TransactionCategoryData map(Map<String, dynamic> data,
+      {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return TransactionCategoryData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
+      parent: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}parent']),
+      children: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}children']),
+    );
+  }
+
+  @override
+  $TransactionCategoryTable createAlias(String alias) {
+    return $TransactionCategoryTable(attachedDatabase, alias);
+  }
+}
+
+class TransactionCategoryData extends DataClass
+    implements Insertable<TransactionCategoryData> {
+  final int id;
+  final String name;
+  final String description;
+  final int? parent;
+  final int? children;
+  const TransactionCategoryData(
+      {required this.id,
+      required this.name,
+      required this.description,
+      this.parent,
+      this.children});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['description'] = Variable<String>(description);
+    if (!nullToAbsent || parent != null) {
+      map['parent'] = Variable<int>(parent);
+    }
+    if (!nullToAbsent || children != null) {
+      map['children'] = Variable<int>(children);
+    }
+    return map;
+  }
+
+  TransactionCategoryCompanion toCompanion(bool nullToAbsent) {
+    return TransactionCategoryCompanion(
+      id: Value(id),
+      name: Value(name),
+      description: Value(description),
+      parent:
+          parent == null && nullToAbsent ? const Value.absent() : Value(parent),
+      children: children == null && nullToAbsent
+          ? const Value.absent()
+          : Value(children),
+    );
+  }
+
+  factory TransactionCategoryData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return TransactionCategoryData(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      description: serializer.fromJson<String>(json['description']),
+      parent: serializer.fromJson<int?>(json['parent']),
+      children: serializer.fromJson<int?>(json['children']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'description': serializer.toJson<String>(description),
+      'parent': serializer.toJson<int?>(parent),
+      'children': serializer.toJson<int?>(children),
+    };
+  }
+
+  TransactionCategoryData copyWith(
+          {int? id,
+          String? name,
+          String? description,
+          Value<int?> parent = const Value.absent(),
+          Value<int?> children = const Value.absent()}) =>
+      TransactionCategoryData(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        description: description ?? this.description,
+        parent: parent.present ? parent.value : this.parent,
+        children: children.present ? children.value : this.children,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('TransactionCategoryData(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('parent: $parent, ')
+          ..write('children: $children')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, description, parent, children);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is TransactionCategoryData &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.description == this.description &&
+          other.parent == this.parent &&
+          other.children == this.children);
+}
+
+class TransactionCategoryCompanion
+    extends UpdateCompanion<TransactionCategoryData> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> description;
+  final Value<int?> parent;
+  final Value<int?> children;
+  const TransactionCategoryCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.description = const Value.absent(),
+    this.parent = const Value.absent(),
+    this.children = const Value.absent(),
+  });
+  TransactionCategoryCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String description,
+    this.parent = const Value.absent(),
+    this.children = const Value.absent(),
+  })  : name = Value(name),
+        description = Value(description);
+  static Insertable<TransactionCategoryData> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? description,
+    Expression<int>? parent,
+    Expression<int>? children,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (parent != null) 'parent': parent,
+      if (children != null) 'children': children,
+    });
+  }
+
+  TransactionCategoryCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? name,
+      Value<String>? description,
+      Value<int?>? parent,
+      Value<int?>? children}) {
+    return TransactionCategoryCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      parent: parent ?? this.parent,
+      children: children ?? this.children,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (parent.present) {
+      map['parent'] = Variable<int>(parent.value);
+    }
+    if (children.present) {
+      map['children'] = Variable<int>(children.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('TransactionCategoryCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('parent: $parent, ')
+          ..write('children: $children')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$LocalDB extends GeneratedDatabase {
   _$LocalDB(QueryExecutor e) : super(e);
   late final $CurrencyTableTable currencyTable = $CurrencyTableTable(this);
+  late final $TransactionCategoryTable transactionCategory =
+      $TransactionCategoryTable(this);
   late final LocalCurrencyDao localCurrencyDao =
       LocalCurrencyDao(this as LocalDB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [currencyTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [currencyTable, transactionCategory];
+  @override
+  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
+        [
+          WritePropagation(
+            on: TableUpdateQuery.onTableName('transaction_category',
+                limitUpdateKind: UpdateKind.delete),
+            result: [
+              TableUpdate('transaction_category', kind: UpdateKind.delete),
+            ],
+          ),
+        ],
+      );
 }

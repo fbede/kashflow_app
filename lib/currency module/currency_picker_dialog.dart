@@ -9,9 +9,7 @@ import '../shared/responsive.dart';
 import '../shared/user_text.dart';
 import 'currency_provider.dart';
 
-Future<Currency?> showCurrencyPicker({
-  required BuildContext context,
-}) async {
+Future<Currency?> showCurrencyPicker(BuildContext context) async {
   Currency? data;
 
   await showDialog<Widget>(
@@ -170,8 +168,11 @@ class _BottomSearchBar extends StatelessWidget {
               dimension: 48,
               child: FloatingActionButton(
                 elevation: 0,
-                child: Icon(PhosphorIcons.regular.plus),
                 onPressed: () {},
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8)),
+                ),
+                child: Icon(PhosphorIcons.regular.plus),
               ),
             )
           ],

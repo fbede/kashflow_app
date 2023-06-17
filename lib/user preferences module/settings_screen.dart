@@ -91,7 +91,7 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
   }
 
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
-    final currency = await showCurrencyPicker(context: context);
+    final currency = await showCurrencyPicker(context);
     if (currency != null) {
       await ref.read(defaultCurrencyProvider.notifier).changeCurrency(currency);
     }
@@ -138,7 +138,7 @@ class _ManageCurrenciesListTile extends ConsumerWidget {
   }
 
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
-    final currency = await showCurrencyPicker(context: context);
+    final currency = await showCurrencyPicker(context);
     if (currency != null) {
       await ref.read(defaultCurrencyProvider.notifier).changeCurrency(currency);
     }

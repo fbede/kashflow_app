@@ -43,13 +43,16 @@ class $AssetsSvgGen {
   SvgGenImage get dailyTransactions =>
       const SvgGenImage('assets/svg/daily_transactions.svg');
 
+  /// File path: assets/svg/empty.svg
+  SvgGenImage get empty => const SvgGenImage('assets/svg/empty.svg');
+
   /// File path: assets/svg/income_expense.svg
   SvgGenImage get incomeExpense =>
       const SvgGenImage('assets/svg/income_expense.svg');
 
   /// List of all assets
   List<SvgGenImage> get values =>
-      [assetsAndLiabilities, dailyTransactions, incomeExpense];
+      [assetsAndLiabilities, dailyTransactions, empty, incomeExpense];
 }
 
 class Assets {

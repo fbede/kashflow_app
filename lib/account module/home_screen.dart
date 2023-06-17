@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../shared/responsive.dart';
 import '../shared/themes.dart';
 import '../shared/user_text.dart';
 
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             SliverFillRemaining(
               child: TabBarView(
                 controller: _controller,
-                children: const [_PurseTabBody(), Text('2')],
+                children: const [_AccountsTabBody(), Text('2')],
               ),
             )
           ],
@@ -128,35 +129,41 @@ class _HomeAppBar extends StatelessWidget {
       );
 }
 
-class _PurseTabBody extends StatelessWidget {
-  const _PurseTabBody();
+class _AccountsTabBody extends StatelessWidget {
+  const _AccountsTabBody();
 
   @override
-  Widget build(BuildContext context) => ListView(
-        children: [
-          const SizedBox(height: 8),
-          const Padding(
-            padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
-            child: Text(r' Cash Balance: $2,004.54'),
-          ),
-          const SizedBox(height: 8),
-          // const Divider(height: 1),
-          Material(
-            child: ListTile(
-              leading: CircleAvatar(child: Icon(PhosphorIcons.regular.bank)),
-              title: Text('First Bank'),
-              subtitle: Text(r'$2,004.54'),
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        const SizedBox(height: 8),
+        const Padding(
+          padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
+          child: Text(r' Cash Balance: $2,004.54'),
+        ),
+        const SizedBox(height: 8),
+        // const Divider(height: 1),
+        Material(
+          child: ListTile(
+            leading: CircleAvatar(
+              child: Icon(PhosphorIcons.regular.bank),
+              backgroundColor: context.theme().colorScheme.secondaryContainer,
+              foregroundColor: context.theme().colorScheme.onSecondaryContainer,
             ),
+            title: Text('First Bank'),
+            subtitle: Text(r'$2,004.54'),
           ),
-          // Divider(height: 1),
-          Material(
-            child: ListTile(
-              leading: CircleAvatar(child: Icon(PhosphorIcons.regular.wallet)),
-              title: Text('First Bank'),
-              subtitle: Text(r'$2,004.54'),
-            ),
+        ),
+        // Divider(height: 1),
+        Material(
+          child: ListTile(
+            leading: CircleAvatar(child: Icon(PhosphorIcons.regular.wallet)),
+            title: Text('First Bank'),
+            subtitle: Text(r'$2,004.54'),
           ),
-          // Divider(height: 1),
-        ],
-      );
+        ),
+        // Divider(height: 1),
+      ],
+    );
+  }
 }

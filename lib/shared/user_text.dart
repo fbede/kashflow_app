@@ -1,4 +1,4 @@
-class UserText {
+abstract class UserText {
   //onboarding screen
   static const String onboardingPage1TitleText = 'Welcome To Kashflow';
   static const String onboardingPage1SubTitleText =
@@ -22,6 +22,7 @@ class UserText {
   static const String homeTabBarPortfoilo = 'Portfolio';
   static const String homeTabPocketMoney = 'POCKET MONEY';
   static const String homeTabNetWorth = 'NET WORTH';
+  static const String accountName = 'AccountName';
 
   //settings screen
   static const String makeThemeBackgroundBlack = 'Make Background Black';
@@ -38,8 +39,13 @@ class UserText {
   static const String appName = 'Kashflow';
   static const String delete = 'Delete';
   static const String save = 'Save';
+  static const String done = 'Done';
   static const String cancel = 'Cancel';
   static const String system = 'System';
   static const String otherCurriences = 'Other Currencies';
   static const String savedCurriences = 'Saved Currencies';
+  static const String currency = 'Currency';
+  static const String amount = 'Amount';
+  static const String description = 'Description';
+  static const String selectIcon = 'Select Icon';
 }
