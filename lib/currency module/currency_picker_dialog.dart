@@ -159,7 +159,7 @@ class _BottomSearchBar extends StatelessWidget {
                   filled: true,
                   contentPadding: EdgeInsetsDirectional.zero,
                   prefixIcon: Icon(PhosphorIcons.regular.magnifyingGlass),
-                  hintText: UserText.searchCurrencyNameOrCode,
+                  hintText: UserText.search,
                 ),
               ),
             ),

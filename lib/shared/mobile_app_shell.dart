@@ -93,9 +93,15 @@ class MobileAppShell extends StatelessWidget {
             iconData: PhosphorIcons.fill.listPlus,
             onTap: () async => showDialog(
               context: context,
-              // barrierDismissible: false,
-              builder: (context) =>
-                  const Dialog.fullscreen(child: CreateAccountView()),
+              builder: (context) {
+                if (context.isPhone()) {
+                  return const Dialog.fullscreen(child: CreateAccountView());
+                } else {
+                  return const Dialog(
+                    child: SizedBox(width: 400, child: CreateAccountView()),
+                  );
+                }
+              },
             ),
           ),
         ],

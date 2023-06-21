@@ -22,7 +22,8 @@ abstract class UserText {
   static const String homeTabBarPortfoilo = 'Portfolio';
   static const String homeTabPocketMoney = 'POCKET MONEY';
   static const String homeTabNetWorth = 'NET WORTH';
-  static const String accountName = 'AccountName';
+  static const String accountName = 'Account Name';
+  static const String addAnAccount = 'Add Account';
 
   //settings screen
   static const String makeThemeBackgroundBlack = 'Make Background Black';
@@ -32,7 +33,6 @@ abstract class UserText {
   static const String light = 'Light';
   static const String dark = 'Dark';
   static const String defaultCurrency = 'Default Currency';
-  static const String searchCurrencyNameOrCode = 'Search Currency Name or Code';
   static const String manageCurrencies = 'Manage Currencies';
 
   //general
@@ -42,10 +42,14 @@ abstract class UserText {
   static const String done = 'Done';
   static const String cancel = 'Cancel';
   static const String system = 'System';
+  static const String search = 'Search';
   static const String otherCurriences = 'Other Currencies';
   static const String savedCurriences = 'Saved Currencies';
   static const String currency = 'Currency';
   static const String amount = 'Amount';
   static const String description = 'Description';
   static const String selectIcon = 'Select Icon';
+  static const String selectColor = 'Select Color';
+  static const String shade = 'Shade';
+  static const String recent = 'Recent';
 }

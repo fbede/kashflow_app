@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_remix_icon/flutter_remix_icon.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:money2/money2.dart';
@@ -11,7 +10,9 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../currency module/currency_picker_dialog.dart';
 import '../currency module/default_currency_provider.dart';
 import '../shared/calculator.dart';
-import '../shared/icon_picker.dart';
+import '../shared/color_picker.dart';
+
+import '../shared/icon_picker/icon_picker.dart';
 import '../shared/responsive.dart';
 import '../shared/user_text.dart';
 
@@ -27,12 +28,15 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   final _currencyNameController = TextEditingController();
   final _amountController = TextEditingController(text: '0.0');
   final _descriptionController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
-  static const _defaultIconData = RemixIcon.coins_line;
+  static final _defaultIconData = PhosphorIcons.regular.coins;
 
   Currency? _currency;
   bool _loadedDefault = false;
   IconData _selectedIconData = _defaultIconData;
+  Color? _iconColor;
+  Color? _backgroundColor;
 
   @override
   void initState() {
@@ -55,15 +59,31 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     showDefaultCurrency();
 
     return Form(
+      key: _formKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: ListView(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        shrinkWrap: true,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         children: [
-          const SizedBox(height: 16),
-          const _Header(),
+          Text(
+            UserText.addAnAccount,
+            style: context.theme().textTheme.titleLarge,
+          ),
           const SizedBox(height: 16),
           _AvatarWidget(
+            backgroundColor: _backgroundColor ??
+                context.theme().colorScheme.primaryContainer,
+            iconColor:
+                _iconColor ?? context.theme().colorScheme.onPrimaryContainer,
             selectedIconData: _selectedIconData,
+            onBackgroundColorChanged: (color) {
+              _backgroundColor = color;
+              setState(() {});
+            },
+            onIconColorChanged: (color) {
+              _iconColor = color;
+              setState(() {});
+            },
             onIconChanged: (i) {
               _selectedIconData = i;
               setState(() {});
@@ -79,7 +99,9 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
           _DescriptionWidget(
             controller: _descriptionController,
             showSuffix: _descriptionController.text.isEmpty,
-          )
+          ),
+          const SizedBox(height: 8),
+          _Footer(onSave: _save, onCancel: context.pop),
         ],
       ),
     );
@@ -108,17 +130,61 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
     _currencyNameController.text = text.trim();
   }
+
+  void _save() {
+    if (_formKey.currentState!.validate()) {
+      //save
+    }
+  }
+}
+
+class _Footer extends StatelessWidget {
+  const _Footer({required this.onSave, required this.onCancel});
+
+  final void Function() onSave;
+  final void Function() onCancel;
+
+  @override
+  Widget build(BuildContext context) => Row(
+        children: [
+          Expanded(
+            child: OutlinedButton(
+              onPressed: onCancel,
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: context.theme().colorScheme.error),
+                foregroundColor: context.theme().colorScheme.error,
+              ),
+              child: const Text(UserText.cancel),
+            ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: FilledButton(
+              onPressed: onSave,
+              child: const Text(UserText.save),
+            ),
+          ),
+        ],
+      );
 }
 
 class _AvatarWidget extends StatelessWidget {
   const _AvatarWidget({
     required this.onIconChanged,
     required this.selectedIconData,
+    required this.onIconColorChanged,
+    required this.onBackgroundColorChanged,
+    required this.iconColor,
+    required this.backgroundColor,
   });
 
   final ValueChanged<IconData> onIconChanged;
+  final ValueChanged<Color> onIconColorChanged;
+  final ValueChanged<Color> onBackgroundColorChanged;
 
   final IconData selectedIconData;
+  final Color iconColor;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -127,15 +193,10 @@ class _AvatarWidget extends StatelessWidget {
             dimension: 128,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: context.theme().colorScheme.primaryContainer,
-                border: Border.all(),
+                color: backgroundColor,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
-                selectedIconData,
-                size: 100,
-                color: context.theme().colorScheme.onPrimaryContainer,
-              ),
+              child: Icon(selectedIconData, size: 100, color: iconColor),
             ),
           ),
           const SizedBox(width: 16),
@@ -152,15 +213,15 @@ class _AvatarWidget extends StatelessWidget {
                       onIconChanged(icon);
                     }
                   },
-                  icon: Icon(selectedIconData),
+                  icon: Icon(selectedIconData, color: iconColor),
                 ),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () async => _onIconColorChanged(context),
                   icon: Padding(
                     padding: const EdgeInsets.all(4),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: context.theme().colorScheme.onPrimaryContainer,
+                        color: iconColor,
                         shape: BoxShape.circle,
                       ),
                       child: const SizedBox.square(dimension: 16),
@@ -169,12 +230,12 @@ class _AvatarWidget extends StatelessWidget {
                   label: const Text('Change Icon Color'),
                 ),
                 TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () async => _onBackgroundColorChanged(context),
                   icon: Padding(
                     padding: const EdgeInsets.all(4),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: context.theme().colorScheme.primaryContainer,
+                        color: backgroundColor,
                         shape: BoxShape.circle,
                       ),
                       child: const SizedBox.square(dimension: 16),
@@ -187,6 +248,16 @@ class _AvatarWidget extends StatelessWidget {
           )
         ],
       );
+
+  Future<void> _onIconColorChanged(BuildContext context) async {
+    final color = await showColorPicker(context, iconColor);
+    onIconColorChanged(color);
+  }
+
+  Future<void> _onBackgroundColorChanged(BuildContext context) async {
+    final color = await showColorPicker(context, backgroundColor);
+    onBackgroundColorChanged(color);
+  }
 }
 
 class _DescriptionWidget extends StatelessWidget {
@@ -203,12 +274,12 @@ class _DescriptionWidget extends StatelessWidget {
         controller: controller,
         keyboardType: TextInputType.name,
         minLines: 1,
-        maxLines: 4,
+        maxLines: 5,
         maxLength: 100,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
           isDense: true,
-          prefixIcon: Icon(PhosphorIcons.regular.pencilSimpleLine),
+          prefixIcon: Icon(PhosphorIcons.regular.textAlignLeft),
           labelText: UserText.description,
           suffixIcon: showSuffix
               ? null
@@ -314,45 +385,4 @@ class _AccountNameWidget extends StatelessWidget {
     }
     return null;
   }
-}
-
-class _Header extends StatelessWidget {
-  const _Header();
-
-  @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Visibility(
-            visible: context.isPhone(),
-            child: IconButton(
-              icon: Icon(PhosphorIcons.regular.x),
-              iconSize: 24,
-              onPressed: () => context.pop(),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              'Add an Account',
-              style: context.theme().textTheme.titleLarge,
-            ),
-          ),
-          Visibility(
-            visible: !context.isPhone(),
-            child: IconButton(
-              icon: Icon(PhosphorIcons.regular.check),
-              iconSize: 24,
-              onPressed: () {},
-            ),
-          ),
-          Visibility(
-            visible: !context.isPhone(),
-            child: IconButton(
-              icon: Icon(PhosphorIcons.regular.x),
-              iconSize: 24,
-              onPressed: () {},
-            ),
-          ),
-        ],
-      );
 }
