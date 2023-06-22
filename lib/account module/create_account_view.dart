@@ -12,9 +12,13 @@ import '../currency module/default_currency_provider.dart';
 import '../shared/calculator.dart';
 import '../shared/color_picker.dart';
 
+import '../shared/custom_loading_indicator.dart';
 import '../shared/icon_picker/icon_picker.dart';
+import '../shared/models/shared_models.dart';
 import '../shared/responsive.dart';
 import '../shared/user_text.dart';
+import 'account_models.dart';
+import 'account_provider.dart';
 
 class CreateAccountView extends ConsumerStatefulWidget {
   const CreateAccountView({super.key});
@@ -30,13 +34,13 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  static final _defaultIconData = PhosphorIcons.regular.coins;
-
-  Currency? _currency;
   bool _loadedDefault = false;
-  IconData _selectedIconData = _defaultIconData;
   Color? _iconColor;
   Color? _backgroundColor;
+  Currency? _currency;
+  IconData _selectedIconData = PhosphorIcons.regular.coins;
+
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -44,7 +48,6 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     _descriptionController.addListener(() => setState(() {}));
   }
 
-  @override
   @override
   void dispose() {
     _accountNameController.dispose();
@@ -71,10 +74,10 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
           ),
           const SizedBox(height: 16),
           _AvatarWidget(
-            backgroundColor: _backgroundColor ??
-                context.theme().colorScheme.primaryContainer,
             iconColor:
                 _iconColor ?? context.theme().colorScheme.onPrimaryContainer,
+            backgroundColor: _backgroundColor ??
+                context.theme().colorScheme.primaryContainer,
             selectedIconData: _selectedIconData,
             onBackgroundColorChanged: (color) {
               _backgroundColor = color;
@@ -101,7 +104,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
             showSuffix: _descriptionController.text.isEmpty,
           ),
           const SizedBox(height: 8),
-          _Footer(onSave: _save, onCancel: context.pop),
+          _Footer(onSave: _save, onCancel: context.pop, isLoading: _isLoading),
         ],
       ),
     );
@@ -110,9 +113,15 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   void showDefaultCurrency() {
     ref.watch(defaultCurrencyProvider).whenData((value) {
       if (_loadedDefault) return;
-      {}
+
       _currency = value;
+
+      _iconColor = context.theme().colorScheme.onPrimaryContainer;
+
+      _backgroundColor = context.theme().colorScheme.primaryContainer;
+
       _loadedDefault = true;
+
       WidgetsBinding.instance
           .addPostFrameCallback((_) => _updateCurrencyController(_currency));
     });
@@ -131,18 +140,59 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     _currencyNameController.text = text.trim();
   }
 
-  void _save() {
-    if (_formKey.currentState!.validate()) {
-      //save
+  Future<void> _save() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    _isLoading = true;
+    setState(() {});
+
+    final openingBalance = Money.fromNumWithCurrency(
+      double.parse(_amountController.text),
+      _currency!,
+    );
+
+    final iconInfo = IconInfo(
+      iconData: _selectedIconData,
+      iconColor: _iconColor!,
+      backgroundColor: _backgroundColor!,
+    );
+
+    final accountInfo = AccountInfo(
+      name: _accountNameController.text,
+      description: _descriptionController.text,
+      openingBalance: openingBalance,
+      iconInfo: iconInfo,
+    );
+
+    final router = GoRouter.of(context);
+
+    try {
+      await ref.read(accountsProvider.notifier).createNewAccount(accountInfo);
+      router.pop();
+    } on Exception catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: context.theme().colorScheme.errorContainer,
+          content: Text(e.toString()),
+        ),
+      );
+    } finally {
+      _isLoading = false;
+      setState(() {});
     }
   }
 }
 
 class _Footer extends StatelessWidget {
-  const _Footer({required this.onSave, required this.onCancel});
+  const _Footer({
+    required this.onSave,
+    required this.onCancel,
+    required this.isLoading,
+  });
 
   final void Function() onSave;
   final void Function() onCancel;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) => Row(
@@ -161,7 +211,9 @@ class _Footer extends StatelessWidget {
           Expanded(
             child: FilledButton(
               onPressed: onSave,
-              child: const Text(UserText.save),
+              child: isLoading
+                  ? const CustomProgressIndicator()
+                  : const Text(UserText.save),
             ),
           ),
         ],

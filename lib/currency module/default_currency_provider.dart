@@ -17,18 +17,18 @@ class _DefaultCurrencyNotifier extends AutoDisposeAsyncNotifier<Currency> {
   @override
   Future<Currency> build() async {
     final prefs = await SharedPreferences.getInstance();
-    final currencyId = prefs.getInt(PrefKeys.defaultCurrencyId);
+    final currencyCode = prefs.getString(PrefKeys.defaultCurrencyId);
 
-    if (currencyId == null) return CommonCurrencies().usd;
+    if (currencyCode == null) return CommonCurrencies().usd;
 
-    return await dao.getCurrencyById(currencyId) ?? CommonCurrencies().usd;
+    return await dao.getCurrencyById(currencyCode) ?? CommonCurrencies().usd;
   }
 
   Future<void> changeCurrency(Currency currency) async {
     state = await AsyncValue.guard(() async {
-      final id = await dao.saveCurrencyGetId(currency);
+      final code = await dao.saveCurrencyGetCode(currency);
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(PrefKeys.defaultCurrencyId, id);
+      await prefs.setString(PrefKeys.defaultCurrencyId, code);
       return currency;
     });
   }

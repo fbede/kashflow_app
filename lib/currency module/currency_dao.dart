@@ -14,12 +14,13 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
 
   //READ METHODS
   Stream<List<Currency>> watchAllCurrencies([String searchTerm = '']) async* {
-    final query = select(currencyTable)
-      ..where(
-        (tbl) => tbl.code.contains(searchTerm) | tbl.name.contains(searchTerm),
-      );
-
     try {
+      final query = select(currencyTable)
+        ..where(
+          (tbl) =>
+              tbl.code.contains(searchTerm) | tbl.name.contains(searchTerm),
+        );
+
       yield* query.watch().map(
             (event) =>
                 event.map(CurrencyUtil.currencyFromCurrencyTableData).toList(),
@@ -30,8 +31,8 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
     }
   }
 
-  Future<Currency?> getCurrencyById(int id) async {
-    final query = select(currencyTable)..where((tbl) => tbl.id.equals(id));
+  Future<Currency?> getCurrencyById(String code) async {
+    final query = select(currencyTable)..where((tbl) => tbl.code.equals(code));
 
     try {
       final result = await query.getSingleOrNull();
@@ -46,23 +47,14 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
   }
 
   //CREATE/UPDATE METHODS
-  Future<int> saveCurrencyGetId(Currency c) async {
+  Future<String> saveCurrencyGetCode(Currency c) async {
     try {
       final result = await into(currencyTable).insertReturning(
-        CurrencyTableCompanion.insert(
-          code: c.code,
-          scale: c.scale,
-          symbol: c.symbol,
-          invertSeparators: c.invertSeparators,
-          pattern: c.pattern,
-          country: c.country,
-          unit: c.unit,
-          name: c.name,
-        ),
+        c.toTableCompanion(),
         onConflict: DoNothing(),
       );
 
-      return result.id;
+      return result.code;
     } on Exception catch (e, s) {
       Logger.instance.handle(e, s);
       rethrow;

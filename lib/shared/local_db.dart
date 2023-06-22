@@ -2,16 +2,18 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
+import '../account module/account_dao.dart';
 import '../currency module/currency_dao.dart';
 
 part 'local_db.g.dart';
 
 @DriftDatabase(
-  tables: [CurrencyTable, TransactionCategory],
-  daos: [LocalCurrencyDao],
+  tables: [CurrencyTable, Accounts, TransactionCategory],
+  daos: [LocalCurrencyDao, LocalAccountsDao],
 )
 class LocalDB extends _$LocalDB {
   static final instance = LocalDB();
@@ -35,16 +37,15 @@ class LocalDB extends _$LocalDB {
 LazyDatabase _openConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
-      /*if (kDebugMode & file.existsSync()) {
+      if (kDebugMode & file.existsSync()) {
         await file.delete(recursive: true);
         await file.create(recursive: true);
-      }*/
+      }
       return NativeDatabase.createInBackground(file);
     });
 
 class CurrencyTable extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get code => text().withLength(min: 3, max: 8).unique()();
+  TextColumn get code => text().withLength(min: 3, max: 10)();
   IntColumn get scale => integer()();
   TextColumn get symbol => text()();
   BoolColumn get invertSeparators => boolean()();
@@ -52,6 +53,31 @@ class CurrencyTable extends Table {
   TextColumn get country => text()();
   TextColumn get unit => text()();
   TextColumn get name => text()();
+
+  @override
+  Set<Column<Object>>? get primaryKey => {code};
+}
+
+class Accounts extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get name => text().unique()();
+  TextColumn get currency => text().references(CurrencyTable, #code)();
+  Int64Column get openingBalance => int64()();
+  //*Note: Generate from Transactions table
+  //Int64Column get currentBalance => int64().generatedAs();
+  Int64Column get closingBalance => int64().nullable()();
+  //BoolColumn get inSelection => boolean()();
+  //BoolColumn get isReported => boolean()();
+
+  TextColumn get description => text().withLength(max: 100)();
+
+  IntColumn get iconCodePoint => integer()();
+  TextColumn get iconFontFamily => text().nullable()();
+  TextColumn get iconFontPackage => text().nullable()();
+  BoolColumn get iconMatchesTextDirection => boolean()();
+
+  IntColumn get iconColorValue => integer()();
+  IntColumn get backgroundColorValue => integer()();
 }
 
 class TransactionCategory extends Table {
@@ -70,15 +96,4 @@ class TransactionCategory extends Table {
         onUpdate: KeyAction.noAction,
         onDelete: KeyAction.cascade,
       )();
-}
-
-class Account extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text().unique()();
-  IntColumn get currency => integer().references(CurrencyTable, #id)();
-  Int64Column get openingBalance => int64()();
-  Int64Column get currentBalance => int64()();
-  Int64Column get closingBalance => int64().nullable()();
-  BoolColumn get inSelection => boolean()();
-  BoolColumn get isReported => boolean()();
 }

@@ -18,7 +18,7 @@ void main() {
   });
 
   test('Tests that the currencydao methods are working', () async {
-    final currencyId = await dao.saveCurrencyGetId(CommonCurrencies().usd);
+    final currencyId = await dao.saveCurrencyGetCode(CommonCurrencies().usd);
     expect(currencyId, 1);
 
     final currency = await dao.getCurrencyById(currencyId);

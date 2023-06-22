@@ -22,4 +22,15 @@ extension CurrencyUtil on Currency {
         name: data.name,
         unit: data.unit,
       );
+
+  CurrencyTableCompanion toTableCompanion() => CurrencyTableCompanion.insert(
+        code: code,
+        scale: scale,
+        symbol: symbol,
+        invertSeparators: invertSeparators,
+        pattern: pattern,
+        country: country,
+        unit: unit,
+        name: name,
+      );
 }

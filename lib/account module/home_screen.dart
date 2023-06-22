@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../shared/responsive.dart';
+import '../shared/custom_loading_indicator.dart';
 import '../shared/themes.dart';
 import '../shared/user_text.dart';
+import 'account_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -129,41 +130,83 @@ class _HomeAppBar extends StatelessWidget {
       );
 }
 
-class _AccountsTabBody extends StatelessWidget {
+class _AccountsTabBody extends ConsumerWidget {
   const _AccountsTabBody();
 
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        const SizedBox(height: 8),
-        const Padding(
-          padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
-          child: Text(r' Cash Balance: $2,004.54'),
-        ),
-        const SizedBox(height: 8),
-        // const Divider(height: 1),
-        Material(
-          child: ListTile(
-            leading: CircleAvatar(
-              child: Icon(PhosphorIcons.regular.bank),
-              backgroundColor: context.theme().colorScheme.secondaryContainer,
-              foregroundColor: context.theme().colorScheme.onSecondaryContainer,
-            ),
-            title: Text('First Bank'),
-            subtitle: Text(r'$2,004.54'),
-          ),
-        ),
-        // Divider(height: 1),
-        Material(
-          child: ListTile(
-            leading: CircleAvatar(child: Icon(PhosphorIcons.regular.wallet)),
-            title: Text('First Bank'),
-            subtitle: Text(r'$2,004.54'),
-          ),
-        ),
-        // Divider(height: 1),
-      ],
-    );
-  }
+  Widget build(BuildContext context, WidgetRef ref) =>
+      ref.watch(accountsProvider).when(
+            loading: () => const CustomProgressIndicator(),
+            error: (e, _) => Center(child: Text(e.toString())),
+            data: (data) {
+              if (data.isEmpty) {
+                return Text('data is empty');
+              }
+
+              return ListView.builder(
+                itemCount: data.length,
+                itemBuilder: (_, index) {
+                  final accountData = data[index];
+
+                  print(accountData.rawData.data);
+
+                  return Text(accountData.rawData.data.toString());
+
+//final currencyData = accountData.
+
+                  /*   return ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Color(accountData.backgroundColorValue),
+                      foregroundColor: Color(accountData.iconColorValue),
+                      child: Icon(
+                        IconData(
+                          accountData.iconCodePoint,
+                          fontFamily: accountData.iconFontFamily,
+                          fontPackage: accountData.iconFontPackage,
+                          matchTextDirection:
+                              accountData.iconMatchesTextDirection,
+                        ),
+                      ),
+                    ),
+                    title: Text('First Bank'),
+                    subtitle: const Text(r'$2,004.54'),
+                  ); */
+                },
+              );
+            },
+            /*  ListView(
+              children: [
+                const SizedBox(height: 8),
+                const Padding(
+                  padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
+                  child: Text(r' Cash Balance: $2,004.54'),
+                ),
+                const SizedBox(height: 8),
+                // const Divider(height: 1),
+                Material(
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      child: Icon(PhosphorIcons.regular.bank),
+                      backgroundColor:
+                          context.theme().colorScheme.secondaryContainer,
+                      foregroundColor:
+                          context.theme().colorScheme.onSecondaryContainer,
+                    ),
+                    title: Text('First Bank'),
+                    subtitle: const Text(r'$2,004.54'),
+                  ),
+                ),
+                // Divider(height: 1),
+                Material(
+                  child: ListTile(
+                    leading:
+                        CircleAvatar(child: Icon(PhosphorIcons.regular.wallet)),
+                    title: Text('First Bank'),
+                    subtitle: Text(r'$2,004.54'),
+                  ),
+                ),
+                // Divider(height: 1),
+              ],
+            ), */
+          );
 }
