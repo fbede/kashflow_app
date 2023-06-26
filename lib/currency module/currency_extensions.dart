@@ -11,18 +11,6 @@ extension CurrencyUtil on Currency {
         symbol: json['symbol']! as String,
       );
 
-  static Currency currencyFromCurrencyTableData(CurrencyTableData data) =>
-      Currency.create(
-        data.code,
-        data.scale,
-        symbol: data.symbol,
-        pattern: data.pattern,
-        invertSeparators: data.invertSeparators,
-        country: data.country,
-        name: data.name,
-        unit: data.unit,
-      );
-
   CurrencyTableCompanion toTableCompanion() => CurrencyTableCompanion.insert(
         code: code,
         scale: scale,
@@ -32,5 +20,18 @@ extension CurrencyUtil on Currency {
         country: country,
         unit: unit,
         name: name,
+      );
+}
+
+extension CurrencyTableDataUtil on CurrencyTableData {
+  Currency toCurrency() => Currency.create(
+        code,
+        scale,
+        symbol: symbol,
+        pattern: pattern,
+        invertSeparators: invertSeparators,
+        country: country,
+        name: name,
+        unit: unit,
       );
 }

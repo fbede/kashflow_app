@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'shared/app.dart';
+import 'shared/components/app.dart';
 
 //const _environment = 'Development';
 

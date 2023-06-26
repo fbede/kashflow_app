@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../shared/custom_loading_indicator.dart';
+import '../shared/components/other_widgets.dart';
 import '../shared/responsive.dart';
 import '../shared/user_text.dart';
 import 'currency_provider.dart';

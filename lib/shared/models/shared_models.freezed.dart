@@ -111,11 +111,12 @@ class __$$_IconInfoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_IconInfo implements _IconInfo {
+class _$_IconInfo extends _IconInfo {
   const _$_IconInfo(
       {required this.iconData,
       required this.iconColor,
-      required this.backgroundColor});
+      required this.backgroundColor})
+      : super._();
 
   @override
   final IconData iconData;
@@ -153,11 +154,12 @@ class _$_IconInfo implements _IconInfo {
       __$$_IconInfoCopyWithImpl<_$_IconInfo>(this, _$identity);
 }
 
-abstract class _IconInfo implements IconInfo {
+abstract class _IconInfo extends IconInfo {
   const factory _IconInfo(
       {required final IconData iconData,
       required final Color iconColor,
       required final Color backgroundColor}) = _$_IconInfo;
+  const _IconInfo._() : super._();
 
   @override
   IconData get iconData;

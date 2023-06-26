@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -37,10 +37,10 @@ class LocalDB extends _$LocalDB {
 LazyDatabase _openConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
-      if (kDebugMode & file.existsSync()) {
+      /*if (kDebugMode & file.existsSync()) {
         await file.delete(recursive: true);
         await file.create(recursive: true);
-      }
+      }*/
       return NativeDatabase.createInBackground(file);
     });
 

@@ -22,8 +22,7 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
         );
 
       yield* query.watch().map(
-            (event) =>
-                event.map(CurrencyUtil.currencyFromCurrencyTableData).toList(),
+            (event) => event.map((e) => e.toCurrency()).toList(),
           );
     } on Exception catch (e, s) {
       Logger.instance.handle(e, s);
@@ -37,7 +36,7 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
     try {
       final result = await query.getSingleOrNull();
       if (result != null) {
-        return CurrencyUtil.currencyFromCurrencyTableData(result);
+        return result.toCurrency();
       }
       return null;
     } on Exception catch (e, s) {

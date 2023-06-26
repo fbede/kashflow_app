@@ -39,20 +39,32 @@ class $AssetsSvgGen {
   SvgGenImage get assetsAndLiabilities =>
       const SvgGenImage('assets/svg/assets_and_liabilities.svg');
 
+  /// File path: assets/svg/coming_soon.svg
+  SvgGenImage get comingSoon => const SvgGenImage('assets/svg/coming_soon.svg');
+
   /// File path: assets/svg/daily_transactions.svg
   SvgGenImage get dailyTransactions =>
       const SvgGenImage('assets/svg/daily_transactions.svg');
-
-  /// File path: assets/svg/empty.svg
-  SvgGenImage get empty => const SvgGenImage('assets/svg/empty.svg');
 
   /// File path: assets/svg/income_expense.svg
   SvgGenImage get incomeExpense =>
       const SvgGenImage('assets/svg/income_expense.svg');
 
+  /// File path: assets/svg/nothing.svg
+  SvgGenImage get nothing => const SvgGenImage('assets/svg/nothing.svg');
+
+  /// File path: assets/svg/spinner.svg
+  SvgGenImage get spinner => const SvgGenImage('assets/svg/spinner.svg');
+
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [assetsAndLiabilities, dailyTransactions, empty, incomeExpense];
+  List<SvgGenImage> get values => [
+        assetsAndLiabilities,
+        comingSoon,
+        dailyTransactions,
+        incomeExpense,
+        nothing,
+        spinner
+      ];
 }
 
 class Assets {

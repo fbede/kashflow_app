@@ -2,7 +2,6 @@ import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashflow/account%20module/account_dao.dart';
 import 'package:kashflow/shared/local_db.dart';
-import 'package:money2/money2.dart';
 
 void main() {
   late LocalDB db;

@@ -6,8 +6,8 @@ import '../account module/home_screen.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../onboarding/splashscreen.dart';
 import '../user preferences module/settings_screen.dart';
+import 'components/mobile_app_shell.dart';
 import 'log_handler.dart';
-import 'mobile_app_shell.dart';
 import 'route_names.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =

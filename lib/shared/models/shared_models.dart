@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,4 +12,12 @@ class IconInfo with _$IconInfo {
     required Color iconColor,
     required Color backgroundColor,
   }) = _IconInfo;
+
+  const IconInfo._();
+
+  CircleAvatar toAvatar() => CircleAvatar(
+        foregroundColor: iconColor,
+        backgroundColor: backgroundColor,
+        child: Icon(iconData),
+      );
 }

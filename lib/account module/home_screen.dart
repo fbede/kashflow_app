@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../shared/custom_loading_indicator.dart';
+import '../shared/components/other_widgets.dart';
 import '../shared/themes.dart';
 import '../shared/user_text.dart';
 import 'account_provider.dart';
@@ -49,7 +49,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             SliverFillRemaining(
               child: TabBarView(
                 controller: _controller,
-                children: const [_AccountsTabBody(), Text('2')],
+                children: const [
+                  _AccountsTabBody(),
+                  UnderConstructionWidget(),
+                ],
               ),
             )
           ],
@@ -136,77 +139,19 @@ class _AccountsTabBody extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
       ref.watch(accountsProvider).when(
-            loading: () => const CustomProgressIndicator(),
+            loading: () => const Center(child: CustomProgressIndicator()),
             error: (e, _) => Center(child: Text(e.toString())),
             data: (data) {
               if (data.isEmpty) {
-                return Text('data is empty');
+                return const NothingFoundWidget(
+                  text: UserText.noAccountsFound,
+                );
               }
 
               return ListView.builder(
                 itemCount: data.length,
-                itemBuilder: (_, index) {
-                  final accountData = data[index];
-
-                  print(accountData.rawData.data);
-
-                  return Text(accountData.rawData.data.toString());
-
-//final currencyData = accountData.
-
-                  /*   return ListTile(
-                    leading: CircleAvatar(
-                      backgroundColor: Color(accountData.backgroundColorValue),
-                      foregroundColor: Color(accountData.iconColorValue),
-                      child: Icon(
-                        IconData(
-                          accountData.iconCodePoint,
-                          fontFamily: accountData.iconFontFamily,
-                          fontPackage: accountData.iconFontPackage,
-                          matchTextDirection:
-                              accountData.iconMatchesTextDirection,
-                        ),
-                      ),
-                    ),
-                    title: Text('First Bank'),
-                    subtitle: const Text(r'$2,004.54'),
-                  ); */
-                },
+                itemBuilder: (_, index) => data[index].toListTile(),
               );
             },
-            /*  ListView(
-              children: [
-                const SizedBox(height: 8),
-                const Padding(
-                  padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
-                  child: Text(r' Cash Balance: $2,004.54'),
-                ),
-                const SizedBox(height: 8),
-                // const Divider(height: 1),
-                Material(
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      child: Icon(PhosphorIcons.regular.bank),
-                      backgroundColor:
-                          context.theme().colorScheme.secondaryContainer,
-                      foregroundColor:
-                          context.theme().colorScheme.onSecondaryContainer,
-                    ),
-                    title: Text('First Bank'),
-                    subtitle: const Text(r'$2,004.54'),
-                  ),
-                ),
-                // Divider(height: 1),
-                Material(
-                  child: ListTile(
-                    leading:
-                        CircleAvatar(child: Icon(PhosphorIcons.regular.wallet)),
-                    title: Text('First Bank'),
-                    subtitle: Text(r'$2,004.54'),
-                  ),
-                ),
-                // Divider(height: 1),
-              ],
-            ), */
           );
 }

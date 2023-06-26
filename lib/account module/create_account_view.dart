@@ -9,11 +9,10 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../currency module/currency_picker_dialog.dart';
 import '../currency module/default_currency_provider.dart';
-import '../shared/calculator.dart';
-import '../shared/color_picker.dart';
-
-import '../shared/custom_loading_indicator.dart';
-import '../shared/icon_picker/icon_picker.dart';
+import '../shared/components/calculator.dart';
+import '../shared/components/color_picker.dart';
+import '../shared/components/icon_picker.dart';
+import '../shared/components/other_widgets.dart';
 import '../shared/models/shared_models.dart';
 import '../shared/responsive.dart';
 import '../shared/user_text.dart';

@@ -4,7 +4,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 import 'config/env.dart';
-import 'shared/app.dart';
+import 'shared/components/app.dart';
 
 const _environment = 'Production';
 

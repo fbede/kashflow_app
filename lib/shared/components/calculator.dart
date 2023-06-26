@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_simple_calculator/flutter_simple_calculator.dart';
 import 'package:go_router/go_router.dart';
 
-import 'responsive.dart';
-import 'user_text.dart';
+import '../responsive.dart';
+import '../user_text.dart';
 
 Future<double> showCalculator(BuildContext context) async {
   double result = 0;
@@ -41,7 +41,7 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
               borderRadius: BorderRadius.circular(16),
             ),
             child: SizedBox(
-              width: 200,
+              width: 300,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -50,8 +50,8 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
                   const SizedBox(height: 8),
                   Text(text),
                   SizedBox(
-                    height: 200,
-                    width: 200,
+                    height: 300,
+                    width: 300,
                     child: SimpleCalculator(
                       hideSurroundingBorder: true,
                       hideExpression: true,
