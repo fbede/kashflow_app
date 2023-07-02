@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kashflow/shared/components/app.dart';
+import 'package:kashflow/shared/config/env.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-
-import 'config/env.dart';
-import 'shared/components/app.dart';
 
 const _environment = 'Production';
 

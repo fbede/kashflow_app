@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../shared/local_db.dart';
-import 'account_dao.dart';
-import 'account_models.dart';
+import 'package:kashflow/account%20module/account_dao.dart';
+import 'package:kashflow/account%20module/account_models.dart';
+import 'package:kashflow/shared/core/local_db.dart';
 
 final accountsProvider =
     AutoDisposeStreamNotifierProvider<AccountsNotifier, List<AccountInfo>>(
@@ -17,6 +16,9 @@ class AccountsNotifier extends AutoDisposeStreamNotifier<List<AccountInfo>> {
 
   Future<void> createNewAccount(AccountInfo accountInfo) async =>
       _dao.createNewAccount(accountInfo);
+
+  Future<void> updateAccount(AccountInfo accountInfo) async =>
+      _dao.updateAccount(accountInfo);
 
   Future<void> deleteAccount(int id) => _dao.deleteAccount(id);
 }

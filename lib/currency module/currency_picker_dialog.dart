@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kashflow/currency%20module/currency_provider.dart';
+import 'package:kashflow/shared/components/other_widgets.dart';
+import 'package:kashflow/shared/responsive.dart';
+import 'package:kashflow/shared/user_text.dart';
 import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../shared/components/other_widgets.dart';
-import '../shared/responsive.dart';
-import '../shared/user_text.dart';
-import 'currency_provider.dart';
 
 Future<Currency?> showCurrencyPicker(BuildContext context) async {
   Currency? data;

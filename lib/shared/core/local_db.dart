@@ -2,12 +2,11 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-//import 'package:flutter/foundation.dart';
+import 'package:kashflow/account%20module/account_dao.dart';
+import 'package:kashflow/currency%20module/currency_dao.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
-
-import '../account module/account_dao.dart';
-import '../currency module/currency_dao.dart';
 
 part 'local_db.g.dart';
 
@@ -60,7 +59,7 @@ class CurrencyTable extends Table {
 
 class Accounts extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text().unique()();
+  TextColumn get name => text().withLength(min: 3, max: 25).unique()();
   TextColumn get currency => text().references(CurrencyTable, #code)();
   Int64Column get openingBalance => int64()();
   //*Note: Generate from Transactions table

@@ -1,9 +1,8 @@
 import 'package:drift/drift.dart';
+import 'package:kashflow/currency%20module/currency_extensions.dart';
+import 'package:kashflow/shared/core/local_db.dart';
+import 'package:kashflow/shared/core/log_handler.dart';
 import 'package:money2/money2.dart';
-
-import '../shared/local_db.dart';
-import '../shared/log_handler.dart';
-import 'currency_extensions.dart';
 
 part 'currency_dao.g.dart';
 

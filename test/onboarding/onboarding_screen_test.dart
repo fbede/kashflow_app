@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashflow/account%20module/home_screen.dart';
-import 'package:kashflow/shared/keys.dart';
-import 'package:kashflow/shared/route_names.dart';
-import 'package:kashflow/shared/router.dart';
+import 'package:kashflow/shared/core/keys.dart';
+import 'package:kashflow/shared/core/route_names.dart';
+import 'package:kashflow/shared/core/router.dart';
+
 import 'package:kashflow/shared/themes.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';

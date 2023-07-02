@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_simple_calculator/flutter_simple_calculator.dart';
 import 'package:go_router/go_router.dart';
 
-import '../responsive.dart';
-import '../user_text.dart';
+import 'package:kashflow/shared/responsive.dart';
+import 'package:kashflow/shared/user_text.dart';
 
 Future<double> showCalculator(BuildContext context) async {
   double result = 0;

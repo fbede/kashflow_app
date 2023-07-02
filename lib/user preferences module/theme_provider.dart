@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kashflow/shared/core/keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../shared/keys.dart';
 
 final themesProvider =
     AutoDisposeAsyncNotifierProvider<_ThemeNotifier, _ThemeState>(

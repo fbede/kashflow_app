@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kashflow/currency%20module/currency_picker_dialog.dart';
+import 'package:kashflow/currency%20module/default_currency_provider.dart';
+import 'package:kashflow/shared/responsive.dart';
+import 'package:kashflow/shared/user_text.dart';
+import 'package:kashflow/user%20preferences%20module/settings_screen_components.dart';
+import 'package:kashflow/user%20preferences%20module/theme_provider.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../currency module/currency_picker_dialog.dart';
-import '../currency module/default_currency_provider.dart';
-import '../shared/responsive.dart';
-import '../shared/user_text.dart';
-import 'settings_screen_components.dart';
-import 'theme_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});

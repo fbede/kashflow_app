@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-
 import 'package:go_router/go_router.dart';
+import 'package:kashflow/gen/assets.gen.dart';
+import 'package:kashflow/shared/core/keys.dart';
+import 'package:kashflow/shared/core/local_db.dart';
+import 'package:kashflow/shared/core/log_handler.dart';
+import 'package:kashflow/shared/core/route_names.dart';
+import 'package:kashflow/shared/responsive.dart';
+import 'package:kashflow/shared/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../gen/assets.gen.dart';
-import '../shared/keys.dart';
-import '../shared/local_db.dart';
-import '../shared/log_handler.dart';
-import '../shared/responsive.dart';
-import '../shared/route_names.dart';
-import '../shared/themes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

@@ -2,16 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kashflow/gen/assets.gen.dart';
+import 'package:kashflow/gen/fonts.gen.dart';
+import 'package:kashflow/shared/core/keys.dart';
+import 'package:kashflow/shared/core/route_names.dart';
+import 'package:kashflow/shared/responsive.dart';
+import 'package:kashflow/shared/themes.dart';
+import 'package:kashflow/shared/user_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../gen/assets.gen.dart';
-import '../gen/fonts.gen.dart';
-import '../shared/keys.dart';
-import '../shared/responsive.dart';
-import '../shared/route_names.dart';
-import '../shared/themes.dart';
-import '../shared/user_text.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

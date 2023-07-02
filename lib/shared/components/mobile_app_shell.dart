@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kashflow/account%20module/create_account_view.dart';
+import 'package:kashflow/shared/core/route_names.dart';
+import 'package:kashflow/shared/responsive.dart';
+import 'package:kashflow/shared/user_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../../account module/create_account_view.dart';
-import '../responsive.dart';
-import '../route_names.dart';
-import '../user_text.dart';
 
 class MobileAppShell extends StatelessWidget {
   final Widget child;
@@ -95,10 +94,15 @@ class MobileAppShell extends StatelessWidget {
               context: context,
               builder: (context) {
                 if (context.isPhone()) {
-                  return const Dialog.fullscreen(child: CreateAccountView());
+                  return const Dialog.fullscreen(
+                    child: CreateAccountView(),
+                  );
                 } else {
                   return const Dialog(
-                    child: SizedBox(width: 400, child: CreateAccountView()),
+                    child: SizedBox(
+                      width: 400,
+                      child: CreateAccountView(),
+                    ),
                   );
                 }
               },

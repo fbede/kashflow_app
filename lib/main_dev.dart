@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kashflow/shared/components/app.dart';
 import 'package:window_manager/window_manager.dart';
-
-import 'shared/components/app.dart';
 
 //const _environment = 'Development';
 

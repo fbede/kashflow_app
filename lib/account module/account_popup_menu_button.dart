@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kashflow/account%20module/account_models.dart';
+import 'package:kashflow/account%20module/account_provider.dart';
+import 'package:kashflow/account%20module/edit_account_view.dart';
+import 'package:kashflow/shared/responsive.dart';
+import 'package:kashflow/shared/user_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
-
-import '../shared/components/other_widgets.dart';
-import '../shared/user_text.dart';
-import 'account_models.dart';
-import 'account_provider.dart';
 
 class AccountListTileMenuButton extends ConsumerStatefulWidget {
   const AccountListTileMenuButton({
@@ -38,6 +38,7 @@ class _AccountListTileMenuButtonState
         icon: icon,
         itemBuilder: (_) => [
           PopupMenuItem(
+            onTap: _onEdit,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -59,6 +60,28 @@ class _AccountListTileMenuButtonState
             ),
           ),
         ],
+      );
+
+  Future<void> _onEdit() async => showDialog(
+        context: context,
+        builder: (context) {
+          if (context.isPhone()) {
+            return Dialog.fullscreen(
+              child: EditAccountView(
+                accountInfo: widget.accountInfo,
+              ),
+            );
+          } else {
+            return Dialog(
+              child: SizedBox(
+                width: 400,
+                child: EditAccountView(
+                  accountInfo: widget.accountInfo,
+                ),
+              ),
+            );
+          }
+        },
       );
 
   Future<void> _delete() async {

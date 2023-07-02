@@ -7,7 +7,6 @@ import 'package:go_router/go_router.dart';
 import 'package:kashflow/account%20module/account_models.dart';
 import 'package:kashflow/account%20module/account_provider.dart';
 import 'package:kashflow/currency%20module/currency_picker_dialog.dart';
-import 'package:kashflow/currency%20module/default_currency_provider.dart';
 import 'package:kashflow/shared/components/calculator.dart';
 import 'package:kashflow/shared/components/color_picker.dart';
 import 'package:kashflow/shared/components/icon_picker.dart';
@@ -18,32 +17,48 @@ import 'package:kashflow/shared/user_text.dart';
 import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-class CreateAccountView extends ConsumerStatefulWidget {
-  const CreateAccountView({super.key});
+class EditAccountView extends ConsumerStatefulWidget {
+  const EditAccountView({required this.accountInfo, super.key});
+
+  final AccountInfo accountInfo;
 
   @override
-  ConsumerState<CreateAccountView> createState() => _CreateAccountViewState();
+  ConsumerState<EditAccountView> createState() => _EditAccountViewState();
 }
 
-class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
+class _EditAccountViewState extends ConsumerState<EditAccountView> {
   final _accountNameController = TextEditingController();
   final _currencyNameController = TextEditingController();
   final _amountController = TextEditingController(text: '0.0');
   final _descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  bool _loadedDefault = false;
-  Color? _iconColor;
-  Color? _backgroundColor;
-  Currency? _currency;
-  IconData _selectedIconData = PhosphorIcons.regular.coins;
+  late Color _iconColor;
+  late Color _backgroundColor;
+  late Currency _currency;
+  late IconData _selectedIconData;
 
   bool _isLoading = false;
 
   @override
   void initState() {
+    _accountNameController.text = widget.accountInfo.name;
+    _currency = widget.accountInfo.openingBalance.currency;
+    _currencyNameController.text = _currency.name;
+    _amountController.text = widget.accountInfo.openingBalance.amount
+        .toDecimal()
+        .toDouble()
+        .toString();
+
+    _descriptionController
+      ..text = widget.accountInfo.description
+      ..addListener(() => setState(() {}));
+
+    _iconColor = widget.accountInfo.iconInfo.iconColor;
+    _backgroundColor = widget.accountInfo.iconInfo.backgroundColor;
+    _selectedIconData = widget.accountInfo.iconInfo.iconData;
+
     super.initState();
-    _descriptionController.addListener(() => setState(() {}));
   }
 
   @override
@@ -56,91 +71,58 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    showDefaultCurrency();
-
-    return Form(
-      key: _formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          children: [
-            Text(
-              UserText.addAnAccount,
-              style: context.theme().textTheme.titleLarge,
-            ),
-            const SizedBox(height: 16),
-            _AvatarWidget(
-              iconColor:
-                  _iconColor ?? context.theme().colorScheme.onPrimaryContainer,
-              backgroundColor: _backgroundColor ??
-                  context.theme().colorScheme.primaryContainer,
-              selectedIconData: _selectedIconData,
-              onBackgroundColorChanged: (color) {
-                _backgroundColor = color;
-                setState(() {});
-              },
-              onIconColorChanged: (color) {
-                _iconColor = color;
-                setState(() {});
-              },
-              onIconChanged: (i) {
-                _selectedIconData = i;
-                setState(() {});
-              },
-            ),
-            const SizedBox(height: 16),
-            _AccountNameWidget(controller: _accountNameController),
-            const SizedBox(height: 8),
-            _CurrencyFieldWidget(controller: _currencyNameController),
-            const SizedBox(height: 16),
-            _AmountFieldWidget(controller: _amountController),
-            const SizedBox(height: 16),
-            _DescriptionWidget(
-              controller: _descriptionController,
-              showSuffix: _descriptionController.text.isEmpty,
-            ),
-            const SizedBox(height: 8),
-            _Footer(
-                onSave: _save, onCancel: context.pop, isLoading: _isLoading,),
-          ],
+  Widget build(BuildContext context) => Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: [
+              Text(
+                UserText.editAnAccount,
+                style: context.theme().textTheme.titleLarge,
+              ),
+              const SizedBox(height: 16),
+              _AvatarWidget(
+                iconColor: _iconColor,
+                backgroundColor: _backgroundColor,
+                selectedIconData: _selectedIconData,
+                onBackgroundColorChanged: (color) {
+                  _backgroundColor = color;
+                  setState(() {});
+                },
+                onIconColorChanged: (color) {
+                  _iconColor = color;
+                  setState(() {});
+                },
+                onIconChanged: (i) {
+                  _selectedIconData = i;
+                  setState(() {});
+                },
+              ),
+              const SizedBox(height: 16),
+              _AccountNameWidget(controller: _accountNameController),
+              const SizedBox(height: 8),
+              _CurrencyFieldWidget(controller: _currencyNameController),
+              const SizedBox(height: 16),
+              _AmountFieldWidget(controller: _amountController),
+              const SizedBox(height: 16),
+              _DescriptionWidget(
+                controller: _descriptionController,
+                showSuffix: _descriptionController.text.isEmpty,
+              ),
+              const SizedBox(height: 8),
+              _Footer(
+                onSave: _save,
+                onCancel: context.pop,
+                isLoading: _isLoading,
+              ),
+            ],
+          ),
         ),
-      ),
-    );
-  }
-
-  void showDefaultCurrency() {
-    ref.watch(defaultCurrencyProvider).whenData((value) {
-      if (_loadedDefault) return;
-
-      _currency = value;
-
-      _iconColor = context.theme().colorScheme.onPrimaryContainer;
-
-      _backgroundColor = context.theme().colorScheme.primaryContainer;
-
-      _loadedDefault = true;
-
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => _updateCurrencyController(_currency));
-    });
-  }
-
-  void _updateCurrencyController(Currency? c) {
-    _currency = c;
-    late String text;
-
-    if (c == null) {
-      text = '';
-    } else {
-      text = '${_currency?.name ?? ''} (${_currency?.code ?? ''})';
-    }
-
-    _currencyNameController.text = text.trim();
-  }
+      );
 
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
@@ -150,16 +132,17 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
     final openingBalance = Money.fromNumWithCurrency(
       double.parse(_amountController.text),
-      _currency!,
+      _currency,
     );
 
     final iconInfo = IconInfo(
       iconData: _selectedIconData,
-      iconColor: _iconColor!,
-      backgroundColor: _backgroundColor!,
+      iconColor: _iconColor,
+      backgroundColor: _backgroundColor,
     );
 
     final accountInfo = AccountInfo(
+      id: widget.accountInfo.id,
       name: _accountNameController.text,
       description: _descriptionController.text,
       openingBalance: openingBalance,
@@ -169,7 +152,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     final router = GoRouter.of(context);
 
     try {
-      await ref.read(accountsProvider.notifier).createNewAccount(accountInfo);
+      await ref.read(accountsProvider.notifier).updateAccount(accountInfo);
       router.pop();
     } on Exception catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
