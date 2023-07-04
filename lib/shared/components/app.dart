@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kashflow/shared/core/router.dart';
-import 'package:kashflow/shared/themes.dart';
-import 'package:kashflow/shared/user_text.dart';
+import 'package:kashflow/shared/elements/themes.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
 import 'package:kashflow/user%20preferences%20module/theme_provider.dart';
 
 class MyApp extends ConsumerWidget {

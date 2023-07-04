@@ -5,8 +5,7 @@ import 'package:kashflow/onboarding/onboarding_screen.dart';
 import 'package:kashflow/onboarding/splashscreen.dart';
 import 'package:kashflow/shared/core/keys.dart';
 import 'package:kashflow/shared/core/router.dart';
-
-import 'package:kashflow/shared/themes.dart';
+import 'package:kashflow/shared/elements/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

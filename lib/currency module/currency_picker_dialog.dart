@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow/currency%20module/currency_provider.dart';
 import 'package:kashflow/shared/components/other_widgets.dart';
-import 'package:kashflow/shared/responsive.dart';
-import 'package:kashflow/shared/user_text.dart';
+import 'package:kashflow/shared/core/responsive.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
+
 import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 

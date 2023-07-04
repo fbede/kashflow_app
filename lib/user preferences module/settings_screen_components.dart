@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:kashflow/shared/responsive.dart';
-import 'package:kashflow/shared/user_text.dart';
+import 'package:kashflow/shared/core/responsive.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
 import 'package:kashflow/user%20preferences%20module/theme_provider.dart';
 
 class ChangeThemeDialog extends ConsumerWidget {

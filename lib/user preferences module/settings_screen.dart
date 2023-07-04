@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kashflow/currency%20module/currency_picker_dialog.dart';
 import 'package:kashflow/currency%20module/default_currency_provider.dart';
-import 'package:kashflow/shared/responsive.dart';
-import 'package:kashflow/shared/user_text.dart';
+import 'package:kashflow/shared/core/responsive.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
 import 'package:kashflow/user%20preferences%20module/settings_screen_components.dart';
 import 'package:kashflow/user%20preferences%20module/theme_provider.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -92,7 +92,13 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
     final currency = await showCurrencyPicker(context);
     if (currency != null) {
-      await ref.read(defaultCurrencyProvider.notifier).changeCurrency(currency);
+      try {
+        await ref
+            .read(defaultCurrencyProvider.notifier)
+            .changeDefaultCurrency(currency);
+      } on Exception {
+        // TODO: Show Error Dialog or Snackbar
+      }
     }
   }
 
@@ -139,7 +145,9 @@ class _ManageCurrenciesListTile extends ConsumerWidget {
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
     final currency = await showCurrencyPicker(context);
     if (currency != null) {
-      await ref.read(defaultCurrencyProvider.notifier).changeCurrency(currency);
+      await ref
+          .read(defaultCurrencyProvider.notifier)
+          .changeDefaultCurrency(currency);
     }
   }
 }

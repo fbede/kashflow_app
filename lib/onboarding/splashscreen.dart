@@ -4,9 +4,9 @@ import 'package:kashflow/gen/assets.gen.dart';
 import 'package:kashflow/shared/core/keys.dart';
 import 'package:kashflow/shared/core/local_db.dart';
 import 'package:kashflow/shared/core/log_handler.dart';
+import 'package:kashflow/shared/core/responsive.dart';
 import 'package:kashflow/shared/core/route_names.dart';
-import 'package:kashflow/shared/responsive.dart';
-import 'package:kashflow/shared/themes.dart';
+import 'package:kashflow/shared/elements/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {

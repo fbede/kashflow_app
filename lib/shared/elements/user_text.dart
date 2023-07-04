@@ -60,4 +60,9 @@ Use the '+' button to create a new account.''';
 Sorry, this feature is still under construction 🚧🚧🚧.
 Check back again after the app has been updated.''';
   static const edit = 'Edit';
+  static const dismiss = 'Dismiss';
+
+  //error messages
+  static const accountExistErrorMsg =
+      'An account with this name already exists.';
 }

@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kashflow/account%20module/account_models.dart';
 import 'package:kashflow/account%20module/account_provider.dart';
 import 'package:kashflow/account%20module/edit_account_view.dart';
-import 'package:kashflow/shared/responsive.dart';
-import 'package:kashflow/shared/user_text.dart';
+import 'package:kashflow/shared/components/other_widgets.dart';
+import 'package:kashflow/shared/core/responsive.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
+
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class AccountListTileMenuButton extends ConsumerStatefulWidget {
@@ -88,6 +90,7 @@ class _AccountListTileMenuButtonState
     icon = loadingIcon;
     setState(() {});
 
+//TODO: Wrap with try catch
     await ref
         .read(accountsProvider.notifier)
         .deleteAccount(widget.accountInfo.id!);

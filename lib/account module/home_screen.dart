@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kashflow/account%20module/account_provider.dart';
 import 'package:kashflow/shared/components/other_widgets.dart';
-import 'package:kashflow/shared/themes.dart';
-import 'package:kashflow/shared/user_text.dart';
+import 'package:kashflow/shared/elements/themes.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

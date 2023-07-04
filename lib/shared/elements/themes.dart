@@ -16,7 +16,6 @@ ThemeData getLightTheme({bool isWhite = true}) => FlexThemeData.light(
       ),
       usedColors: 2,
       surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-      blendLevel: 7,
       lightIsWhite: isWhite,
       subThemesData: const FlexSubThemesData(
         useTextTheme: true,
@@ -57,7 +56,6 @@ ThemeData getDarkTheme({bool isBlack = true}) => FlexThemeData.dark(
       ),
       usedColors: 2,
       surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-      blendLevel: 13,
       darkIsTrueBlack: isBlack,
       subThemesData: const FlexSubThemesData(
         useTextTheme: true,

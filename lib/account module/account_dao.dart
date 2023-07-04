@@ -45,21 +45,16 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
   }
 
   Future<void> createNewAccount(AccountInfo accountInfo) async {
-    try {
-      final currency = accountInfo.openingBalance.currency;
+    final currency = accountInfo.openingBalance.currency;
 
-      await transaction(() async {
-        await into(currencyTable).insert(
-          currency.toTableCompanion(),
-          onConflict: DoNothing(),
-        );
+    await transaction(() async {
+      await into(currencyTable).insert(
+        currency.toTableCompanion(),
+        onConflict: DoNothing(),
+      );
 
-        await into(accounts).insert(accountInfo.toTableCompanion());
-      });
-    } on Exception catch (e, s) {
-      Logger.instance.handle(e, s);
-      rethrow;
-    }
+      await into(accounts).insert(accountInfo.toTableCompanion());
+    });
   }
 
   Future<void> updateAccount(AccountInfo accountInfo) async {
@@ -85,8 +80,7 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
       final query = delete(accounts)..where((tbl) => tbl.id.equals(id));
 
       await query.go();
-    } on Exception catch (e, s) {
-      Logger.instance.handle(e, s);
+    } on Exception {
       rethrow;
     }
   }

@@ -2,6 +2,7 @@ import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashflow/account%20module/account_dao.dart';
 import 'package:kashflow/shared/core/local_db.dart';
+import 'package:kashflow/shared/core/log_handler.dart';
 
 void main() {
   late LocalDB db;
@@ -18,10 +19,7 @@ void main() {
 
   test('', () async {
     await Future.delayed(const Duration(seconds: 2), () {
-      dao.watchAllAccounts().map(print);
+      dao.watchAllAccounts().map(Logger.instance.log);
     });
-
-    // dao.watchAllAccounts().map(print);
-    // await expectLater(dao.watchAllAccounts(), emits([CommonCurrencies().usd]));
   });
 }

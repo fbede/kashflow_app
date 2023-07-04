@@ -11,9 +11,12 @@ import 'package:kashflow/shared/components/calculator.dart';
 import 'package:kashflow/shared/components/color_picker.dart';
 import 'package:kashflow/shared/components/icon_picker.dart';
 import 'package:kashflow/shared/components/other_widgets.dart';
+import 'package:kashflow/shared/core/constants.dart';
+import 'package:kashflow/shared/core/exception_util.dart';
+import 'package:kashflow/shared/core/log_handler.dart';
+import 'package:kashflow/shared/core/responsive.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
 import 'package:kashflow/shared/models/shared_models.dart';
-import 'package:kashflow/shared/responsive.dart';
-import 'package:kashflow/shared/user_text.dart';
 import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -154,13 +157,12 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
     try {
       await ref.read(accountsProvider.notifier).updateAccount(accountInfo);
       router.pop();
-    } on Exception catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: context.theme().colorScheme.errorContainer,
-          content: Text(e.toString()),
-        ),
-      );
+    } on Exception catch (e, s) {
+      if (e.isSQLiteException) {
+        await _handleSQLiteException(e, s);
+      } else {
+        Logger.instance.handle(e, s);
+      }
     } finally {
       _isLoading = false;
       setState(() {});

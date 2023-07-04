@@ -10,11 +10,14 @@ import 'package:kashflow/currency%20module/currency_picker_dialog.dart';
 import 'package:kashflow/currency%20module/default_currency_provider.dart';
 import 'package:kashflow/shared/components/calculator.dart';
 import 'package:kashflow/shared/components/color_picker.dart';
+import 'package:kashflow/shared/components/dialog_shell.dart';
 import 'package:kashflow/shared/components/icon_picker.dart';
 import 'package:kashflow/shared/components/other_widgets.dart';
+import 'package:kashflow/shared/core/exception_util.dart';
+import 'package:kashflow/shared/core/log_handler.dart';
+import 'package:kashflow/shared/core/responsive.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
 import 'package:kashflow/shared/models/shared_models.dart';
-import 'package:kashflow/shared/responsive.dart';
-import 'package:kashflow/shared/user_text.dart';
 import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -59,54 +62,59 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   Widget build(BuildContext context) {
     showDefaultCurrency();
 
-    return Form(
-      key: _formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          children: [
-            Text(
-              UserText.addAnAccount,
-              style: context.theme().textTheme.titleLarge,
-            ),
-            const SizedBox(height: 16),
-            _AvatarWidget(
-              iconColor:
-                  _iconColor ?? context.theme().colorScheme.onPrimaryContainer,
-              backgroundColor: _backgroundColor ??
-                  context.theme().colorScheme.primaryContainer,
-              selectedIconData: _selectedIconData,
-              onBackgroundColorChanged: (color) {
-                _backgroundColor = color;
-                setState(() {});
-              },
-              onIconColorChanged: (color) {
-                _iconColor = color;
-                setState(() {});
-              },
-              onIconChanged: (i) {
-                _selectedIconData = i;
-                setState(() {});
-              },
-            ),
-            const SizedBox(height: 16),
-            _AccountNameWidget(controller: _accountNameController),
-            const SizedBox(height: 8),
-            _CurrencyFieldWidget(controller: _currencyNameController),
-            const SizedBox(height: 16),
-            _AmountFieldWidget(controller: _amountController),
-            const SizedBox(height: 16),
-            _DescriptionWidget(
-              controller: _descriptionController,
-              showSuffix: _descriptionController.text.isEmpty,
-            ),
-            const SizedBox(height: 8),
-            _Footer(
-                onSave: _save, onCancel: context.pop, isLoading: _isLoading,),
-          ],
+    return ResponsiveDialogShell(
+      child: Form(
+        key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            children: [
+              Text(
+                UserText.addAnAccount,
+                style: context.theme().textTheme.titleLarge,
+              ),
+              const SizedBox(height: 16),
+              _AvatarWidget(
+                iconColor: _iconColor ??
+                    context.theme().colorScheme.onPrimaryContainer,
+                backgroundColor: _backgroundColor ??
+                    context.theme().colorScheme.primaryContainer,
+                selectedIconData: _selectedIconData,
+                onBackgroundColorChanged: (color) {
+                  _backgroundColor = color;
+                  setState(() {});
+                },
+                onIconColorChanged: (color) {
+                  _iconColor = color;
+                  setState(() {});
+                },
+                onIconChanged: (i) {
+                  _selectedIconData = i;
+                  setState(() {});
+                },
+              ),
+              const SizedBox(height: 16),
+              _AccountNameWidget(controller: _accountNameController),
+              const SizedBox(height: 8),
+              _CurrencyFieldWidget(controller: _currencyNameController),
+              const SizedBox(height: 16),
+              _AmountFieldWidget(controller: _amountController),
+              const SizedBox(height: 16),
+              _DescriptionWidget(
+                controller: _descriptionController,
+                showSuffix: _descriptionController.text.isEmpty,
+              ),
+              const SizedBox(height: 8),
+              _Footer(
+                onSave: _save,
+                onCancel: context.pop,
+                isLoading: _isLoading,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -171,17 +179,29 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     try {
       await ref.read(accountsProvider.notifier).createNewAccount(accountInfo);
       router.pop();
-    } on Exception catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: context.theme().colorScheme.errorContainer,
-          content: Text(e.toString()),
-        ),
-      );
+    } on Exception catch (e, s) {
+      if (e.isSQLiteException) {
+        await _handleSQLiteException(e, s);
+      } else {
+        Logger.instance.handle(e, s);
+      }
     } finally {
       _isLoading = false;
       setState(() {});
     }
+  }
+
+  Future<void> _handleSQLiteException(Exception e, StackTrace s) async {
+    String errorMessage = '';
+
+    if (e.SQLiteErrorCode == uniqueConstraintFailed) {
+      errorMessage = UserText.accountExistErrorMsg;
+    }
+
+    await showDialog<Never>(
+      context: context,
+      builder: (context) => ErrorDialog(message: errorMessage),
+    );
   }
 }
 

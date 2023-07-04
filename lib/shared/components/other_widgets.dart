@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../gen/assets.gen.dart';
-import '../responsive.dart';
-import '../user_text.dart';
+import 'package:kashflow/gen/assets.gen.dart';
+import 'package:kashflow/shared/core/responsive.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
+
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class CustomProgressIndicator extends StatefulWidget {
   const CustomProgressIndicator({super.key});
@@ -95,5 +98,34 @@ class UnderConstructionWidget extends StatelessWidget {
             ],
           ),
         ),
+      );
+}
+
+class ErrorDialog extends StatelessWidget {
+  const ErrorDialog({
+    required this.message,
+    super.key,
+    this.titleText,
+  });
+
+  final String? titleText;
+  final String message;
+
+  @override
+  Widget build(BuildContext context) => AlertDialog(
+        backgroundColor: context.theme().colorScheme.errorContainer,
+        icon: Icon(PhosphorIcons.fill.warningCircle),
+        iconColor: context.theme().colorScheme.error,
+        title: titleText != null ? Text(titleText!) : null,
+        content: ConstrainedBox(
+          constraints: BoxConstraints.loose(const Size(400, 400)),
+          child: SingleChildScrollView(child: Text(message)),
+        ),
+        actions: [
+          TextButton(
+            onPressed: context.pop,
+            child: const Text(UserText.accountName),
+          )
+        ],
       );
 }

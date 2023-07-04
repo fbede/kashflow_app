@@ -67,14 +67,11 @@ class Accounts extends Table {
   Int64Column get closingBalance => int64().nullable()();
   //BoolColumn get inSelection => boolean()();
   //BoolColumn get isReported => boolean()();
-
   TextColumn get description => text().withLength(max: 100)();
-
   IntColumn get iconCodePoint => integer()();
   TextColumn get iconFontFamily => text().nullable()();
   TextColumn get iconFontPackage => text().nullable()();
   BoolColumn get iconMatchesTextDirection => boolean()();
-
   IntColumn get iconColorValue => integer()();
   IntColumn get backgroundColorValue => integer()();
 }
@@ -87,12 +84,7 @@ class TransactionCategory extends Table {
         TransactionCategory,
         #id,
         onUpdate: KeyAction.noAction,
-        onDelete: KeyAction.noAction,
-      )();
-  IntColumn get children => integer().nullable().references(
-        TransactionCategory,
-        #id,
-        onUpdate: KeyAction.noAction,
         onDelete: KeyAction.cascade,
       )();
+ 
 }

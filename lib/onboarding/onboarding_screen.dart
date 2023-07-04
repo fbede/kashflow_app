@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:kashflow/gen/assets.gen.dart';
 import 'package:kashflow/gen/fonts.gen.dart';
 import 'package:kashflow/shared/core/keys.dart';
+import 'package:kashflow/shared/core/responsive.dart';
 import 'package:kashflow/shared/core/route_names.dart';
-import 'package:kashflow/shared/responsive.dart';
-import 'package:kashflow/shared/themes.dart';
-import 'package:kashflow/shared/user_text.dart';
+import 'package:kashflow/shared/elements/themes.dart';
+import 'package:kashflow/shared/elements/user_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
