@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -40,4 +43,14 @@ List<String> _searchIconInList(String searchTerm, Iterable<String> iconNames) {
   }
 
   return result;
+}
+
+IconData getRandomIconData() {
+  final icons = [
+    ..._regularIconMap.values,
+    ..._filledIconMap.values,
+  ];
+
+  final index = Random().nextInt(icons.length);
+  return icons[index];
 }

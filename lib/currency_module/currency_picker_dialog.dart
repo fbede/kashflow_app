@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/currency%20module/currency_provider.dart';
-import 'package:kashflow/shared/components/other_widgets.dart';
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
-
 import 'package:money2/money2.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../shared/components/other_widgets.dart';
+import '../shared/core/responsive.dart';
+import '../shared/elements/user_text.dart';
+import 'currency_provider.dart';
 
 Future<Currency?> showCurrencyPicker(BuildContext context) async {
   Currency? data;
@@ -64,7 +64,7 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
               const SizedBox(height: 16),
               Text(
                 UserText.selectTheme,
-                style: context.theme().textTheme.headlineSmall,
+                style: context.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               const Divider(height: 1),
@@ -103,7 +103,7 @@ class _Subtitle extends StatelessWidget {
   Widget build(BuildContext context) => SliverToBoxAdapter(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8),
-          child: Text(titleString, style: context.theme().textTheme.titleSmall),
+          child: Text(titleString, style: context.textTheme.titleSmall),
         ),
       );
 }
@@ -164,15 +164,18 @@ class _BottomSearchBar extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            SizedBox.square(
-              dimension: 48,
-              child: FloatingActionButton(
-                elevation: 0,
-                onPressed: () {},
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
+            Visibility(
+              visible: false,
+              child: SizedBox.square(
+                dimension: 48,
+                child: FloatingActionButton(
+                  elevation: 0,
+                  onPressed: () {},
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  child: Icon(PhosphorIcons.regular.plus),
                 ),
-                child: Icon(PhosphorIcons.regular.plus),
               ),
             )
           ],

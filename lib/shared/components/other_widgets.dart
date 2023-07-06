@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:kashflow/gen/assets.gen.dart';
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
-
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../../gen/assets.gen.dart';
+import '../core/responsive.dart';
+import '../elements/user_text.dart';
 
 class CustomProgressIndicator extends StatefulWidget {
   const CustomProgressIndicator({super.key});
@@ -42,7 +41,7 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
           turns: _controller,
           child: Assets.svg.spinner.svg(
             theme: SvgTheme(
-              currentColor: context.theme().colorScheme.onBackground,
+              currentColor: context.colorScheme.onBackground,
             ),
           ),
         ),
@@ -61,7 +60,8 @@ class NothingFoundWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(child: Assets.svg.nothing.svg()),
+              const Spacer(),
+              Expanded(flex: 3, child: Assets.svg.nothing.svg()),
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -70,6 +70,7 @@ class NothingFoundWidget extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
+              const Spacer(),
             ],
           ),
         ),
@@ -88,12 +89,14 @@ class UnderConstructionWidget extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(child: Assets.svg.comingSoon.svg()),
+              const Spacer(),
+              Expanded(flex: 5, child: Assets.svg.comingSoon.svg()),
               const SizedBox(height: 16),
               Text(
                 text ?? UserText.underConstruction,
                 textAlign: TextAlign.center,
               ),
+              const Spacer(),
             ],
           ),
         ),
@@ -112,9 +115,9 @@ class ErrorDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AlertDialog(
-        backgroundColor: context.theme().colorScheme.errorContainer,
+        backgroundColor: context.colorScheme.errorContainer,
         icon: Icon(PhosphorIcons.fill.warningCircle),
-        iconColor: context.theme().colorScheme.error,
+        iconColor: context.colorScheme.error,
         title: titleText != null ? Text(titleText!) : null,
         content: ConstrainedBox(
           constraints: BoxConstraints.loose(const Size(400, 400)),
@@ -124,7 +127,7 @@ class ErrorDialog extends StatelessWidget {
           TextButton(
             onPressed: context.pop,
             style: TextButton.styleFrom(
-              foregroundColor: context.theme().colorScheme.error,
+              foregroundColor: context.colorScheme.error,
             ),
             child: const Text(UserText.dismiss),
           )

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/account%20module/home_screen.dart';
-import 'package:kashflow/onboarding/onboarding_screen.dart';
-import 'package:kashflow/onboarding/splashscreen.dart';
-import 'package:kashflow/shared/components/mobile_app_shell.dart';
-import 'package:kashflow/shared/core/log_handler.dart';
-import 'package:kashflow/shared/core/route_names.dart';
-import 'package:kashflow/user%20preferences%20module/categories_management_screen.dart';
-import 'package:kashflow/user%20preferences%20module/settings_screen.dart';
 import 'package:talker_flutter/talker_flutter.dart';
+
+import '../../account_module/home_screen.dart';
+import '../../onboarding/onboarding_screen.dart';
+import '../../onboarding/splashscreen.dart';
+import '../../user_preferences_module/categories_management_screen.dart';
+import '../../user_preferences_module/settings_screen.dart';
+import '../components/mobile_app_shell.dart';
+import 'log_handler.dart';
+import 'route_names.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');

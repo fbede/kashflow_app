@@ -1,5 +1,6 @@
-import 'package:kashflow/shared/core/local_db.dart';
 import 'package:money2/money2.dart';
+
+import '../shared/core/local_db.dart';
 
 extension CurrencyUtil on Currency {
   static Currency currencyFromJson(Map<String, Object?> json) =>

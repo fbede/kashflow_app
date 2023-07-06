@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/account%20module/create_account_view.dart';
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/core/route_names.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../../account_module/create_account_view.dart';
+import '../core/responsive.dart';
+import '../core/route_names.dart';
+import '../elements/user_text.dart';
 
 class MobileAppShell extends StatelessWidget {
   final Widget child;
@@ -13,32 +14,30 @@ class MobileAppShell extends StatelessWidget {
   const MobileAppShell({required this.child, super.key});
 
   @override
-  Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-          body: child,
-          floatingActionButton: _buildFAB(context),
-          bottomNavigationBar: NavigationBar(
-            animationDuration: const Duration(milliseconds: 500),
-            selectedIndex: _getSelectedIndex(context),
-            onDestinationSelected: (value) => _onItemTapped(value, context),
-            destinations: [
-              NavigationDestination(
-                icon: Icon(PhosphorIcons.light.house),
-                selectedIcon: Icon(PhosphorIcons.fill.house),
-                label: UserText.homeNavBarHome,
-              ),
-              NavigationDestination(
-                icon: Icon(PhosphorIcons.light.receipt),
-                selectedIcon: Icon(PhosphorIcons.fill.receipt),
-                label: UserText.homeNavBarRecords,
-              ),
-              NavigationDestination(
-                icon: Icon(PhosphorIcons.light.gearSix),
-                selectedIcon: Icon(PhosphorIcons.fill.gearSix),
-                label: UserText.homeNavBarSettings,
-              ),
-            ],
-          ),
+  Widget build(BuildContext context) => Scaffold(
+        body: child,
+        floatingActionButton: _buildFAB(context),
+        bottomNavigationBar: NavigationBar(
+          animationDuration: const Duration(milliseconds: 500),
+          selectedIndex: _getSelectedIndex(context),
+          onDestinationSelected: (value) => _onItemTapped(value, context),
+          destinations: [
+            NavigationDestination(
+              icon: Icon(PhosphorIcons.light.house),
+              selectedIcon: Icon(PhosphorIcons.fill.house),
+              label: UserText.homeNavBarHome,
+            ),
+            NavigationDestination(
+              icon: Icon(PhosphorIcons.light.receipt),
+              selectedIcon: Icon(PhosphorIcons.fill.receipt),
+              label: UserText.homeNavBarRecords,
+            ),
+            NavigationDestination(
+              icon: Icon(PhosphorIcons.light.gearSix),
+              selectedIcon: Icon(PhosphorIcons.fill.gearSix),
+              label: UserText.homeNavBarSettings,
+            ),
+          ],
         ),
       );
 
@@ -110,16 +109,16 @@ class MobileAppShell extends StatelessWidget {
   }) =>
       SpeedDialChild(
         key: key,
-        backgroundColor: context.theme().colorScheme.primaryContainer,
+        backgroundColor: context.colorScheme.primaryContainer,
         child: Icon(iconData),
         onTap: onTap,
         labelWidget: Padding(
           padding: const EdgeInsets.all(8),
           child: DecoratedBox(
-            decoration: context.theme().tooltipTheme.decoration!,
+            decoration: context.theme.tooltipTheme.decoration!,
             child: Padding(
               padding: const EdgeInsets.all(4),
-              child: Text(text, style: context.theme().tooltipTheme.textStyle),
+              child: Text(text, style: context.theme.tooltipTheme.textStyle),
             ),
           ),
         ),

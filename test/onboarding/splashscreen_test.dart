@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/account%20module/home_screen.dart';
+import 'package:kashflow/account_module/home_screen.dart';
 import 'package:kashflow/onboarding/onboarding_screen.dart';
 import 'package:kashflow/onboarding/splashscreen.dart';
 import 'package:kashflow/shared/core/keys.dart';

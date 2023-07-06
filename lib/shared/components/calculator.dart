@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_simple_calculator/flutter_simple_calculator.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
+import '../core/responsive.dart';
+import '../elements/user_text.dart';
 
 Future<double> showCalculator(BuildContext context) async {
   double result = 0;
@@ -103,15 +103,15 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
         expressionStyle: const TextStyle(fontSize: 14),
         operatorStyle: TextStyle(
           fontSize: 14,
-          color: context.theme().colorScheme.onPrimary,
+          color: context.colorScheme.onPrimary,
         ),
         commandStyle: TextStyle(
           fontSize: 14,
-          color: context.theme().colorScheme.onBackground,
+          color: context.colorScheme.onBackground,
         ),
         numStyle: TextStyle(
           fontSize: 14,
-          color: context.theme().colorScheme.onBackground,
+          color: context.colorScheme.onBackground,
         ),
       );
 }

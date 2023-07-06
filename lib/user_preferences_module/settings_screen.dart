@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/currency%20module/currency_picker_dialog.dart';
-import 'package:kashflow/currency%20module/default_currency_provider.dart';
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/core/route_names.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
-import 'package:kashflow/user%20preferences%20module/settings_screen_components.dart';
-import 'package:kashflow/user%20preferences%20module/theme_provider.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../currency_module/currency_picker_dialog.dart';
+import '../currency_module/default_currency_provider.dart';
+import '../shared/components/other_widgets.dart';
+import '../shared/core/log_handler.dart';
+import '../shared/core/responsive.dart';
+import '../shared/core/route_names.dart';
+import '../shared/elements/user_text.dart';
+import 'settings_screen_components.dart';
+import 'theme_provider.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -110,8 +113,14 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
         await ref
             .read(defaultCurrencyProvider.notifier)
             .changeDefaultCurrency(currency);
-      } on Exception {
-        // TODO: Show Error Dialog or Snackbar
+      } on Exception catch (e, s) {
+        Logger.instance.handle(e, s);
+        if (context.mounted) {
+          await showDialog<Never>(
+            context: context,
+            builder: (context) => ErrorDialog(message: e.toString()),
+          );
+        }
       }
     }
   }
@@ -120,7 +129,7 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
     late final Text text;
     final symbols = symbol.split(',');
 
-    final textStyle = context.theme().textTheme.titleLarge;
+    final textStyle = context.textTheme.titleLarge;
 
     if (symbols.isNotEmpty) {
       text = Text(symbols[0], style: textStyle);

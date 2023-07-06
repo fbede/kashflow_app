@@ -25,10 +25,12 @@ extension ResponsiveUtils on BuildContext {
 }
 
 extension ThemeUtils on BuildContext {
-  ThemeData theme() => Theme.of(this);
+  ThemeData get theme => Theme.of(this);
+  ColorScheme get colorScheme => Theme.of(this).colorScheme;
+  TextTheme get textTheme => Theme.of(this).textTheme;
 
   Color tooltipTextColor() {
-    if (theme().brightness == Brightness.light) {
+    if (colorScheme.brightness == Brightness.light) {
       return Colors.white;
     } else {
       return Colors.black;

@@ -55,6 +55,9 @@ Use the '+' button to create a new account.''';
   static const description = 'Description';
   static const selectIcon = 'Select Icon';
   static const selectColor = 'Select Color';
+  static const changeIcon = 'Change Icon';
+  static const changeIconColor = 'Change Icon Color';
+  static const changeBackgroundColor = 'Change Background Color';
   static const shade = 'Shade';
   static const recent = 'Recent';
   static const nothingFound = 'Noting Found';
@@ -63,8 +66,12 @@ Sorry, this feature is still under construction 🚧🚧🚧.
 Check back again after the app has been updated.''';
   static const edit = 'Edit';
   static const dismiss = 'Dismiss';
+  static const expenseCategories = 'Expense Categories';
+  static const incomeCategories = 'Income Categories';
 
   //error messages
   static const accountExistErrorMsg =
       'An account with this name already exists.';
+  static const cannotBeEmpty = 'Cannot be empty';
+  static const tooShort = 'Too short';
 }

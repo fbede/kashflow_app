@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/account%20module/home_screen.dart';
+import 'package:kashflow/account_module/home_screen.dart';
 import 'package:kashflow/shared/core/keys.dart';
 import 'package:kashflow/shared/core/route_names.dart';
 import 'package:kashflow/shared/core/router.dart';

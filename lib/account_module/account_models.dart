@@ -3,10 +3,11 @@
 import 'package:drift/drift.dart' hide JsonKey;
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:kashflow/account%20module/account_popup_menu_button.dart';
-import 'package:kashflow/shared/core/local_db.dart';
-import 'package:kashflow/shared/models/shared_models.dart';
 import 'package:money2/money2.dart';
+
+import '../shared/core/local_db.dart';
+import '../shared/models/shared_models.dart';
+import 'account_popup_menu_button.dart';
 
 part 'account_models.freezed.dart';
 

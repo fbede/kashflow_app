@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/shared/components/icon_picker_provider.dart';
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
-
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../../core/responsive.dart';
+import '../../elements/user_text.dart';
+import 'icon_picker_provider.dart';
 
 Future<IconData?> showIconPicker(BuildContext context) async {
   IconData? iconData;
@@ -63,7 +63,7 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
               const SizedBox(height: 16),
               Text(
                 UserText.selectIcon,
-                style: context.theme().textTheme.headlineSmall,
+                style: context.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               SegmentedButton<int>(

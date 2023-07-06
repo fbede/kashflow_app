@@ -19,6 +19,7 @@ linter:
   rules:
     always_put_control_body_on_new_line: false
     always_specify_types: false
+    always_use_package_imports: false
     avoid_field_initializers_in_const_classes: false
     avoid_final_parameters: false
     diagnostic_describe_all_properties: false
@@ -26,7 +27,6 @@ linter:
     omit_local_variable_types: false
     prefer_double_quotes: false
     prefer_final_parameters: false
-    prefer_relative_imports: false
     public_member_api_docs: false
     sort_constructors_first: false
     unnecessary_final: false

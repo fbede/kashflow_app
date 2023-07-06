@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kashflow/shared/components/other_widgets.dart';
-import 'package:kashflow/shared/core/log_handler.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
+
+import '../components/other_widgets.dart';
+import '../elements/user_text.dart';
+import 'log_handler.dart';
 
 class ExceptionHandler {
   final BuildContext context;

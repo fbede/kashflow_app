@@ -1,9 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kashflow/currency%20module/currency_dao.dart';
-import 'package:kashflow/shared/core/keys.dart';
-import 'package:kashflow/shared/core/local_db.dart';
 import 'package:money2/money2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../shared/core/keys.dart';
+import '../shared/core/local_db.dart';
+import 'currency_dao.dart';
 
 final defaultCurrencyProvider =
     AutoDisposeAsyncNotifierProvider<_DefaultCurrencyNotifier, Currency>(

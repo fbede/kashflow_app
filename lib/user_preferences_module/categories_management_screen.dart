@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
+import '../shared/elements/user_text.dart';
 
 class CategoriesManagementScreen extends ConsumerStatefulWidget {
   const CategoriesManagementScreen({super.key});
@@ -32,8 +34,8 @@ class _CategoriesManagementScreenState
             unselectedLabelStyle:
                 const TextStyle(fontWeight: FontWeight.w200, fontSize: 16),
             tabs: const [
-              Tab(text: UserText.homeTabBarPurse),
-              Tab(text: UserText.homeTabBarPortfoilo)
+              Tab(text: UserText.expenseCategories),
+              Tab(text: UserText.incomeCategories)
             ],
           ),
         ),
@@ -44,5 +46,36 @@ class _CategoriesManagementScreenState
             Text('2'),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(PhosphorIcons.regular.plus),
+          onPressed: () {},
+        ),
+
+        /*  SpeedDial(
+          activeIcon: PhosphorIcons.regular.x,
+          icon: PhosphorIcons.regular.plus,
+          overlayOpacity: 0,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          spaceBetweenChildren: 4,
+          spacing: 8,
+          children: [
+            _buildSpeedDialChild(
+              context,
+              text: 'Add A Record',
+              iconData: PhosphorIcons.fill.pencilSimple,
+            ),
+            _buildSpeedDialChild(
+              context,
+              text: 'Add An Account',
+              iconData: PhosphorIcons.fill.listPlus,
+              onTap: () async => showDialog(
+                context: context,
+                builder: (_) => const CreateAccountView(),
+              ),
+            ),
+          ],
+        ), */
       );
 }

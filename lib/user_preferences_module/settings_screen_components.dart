@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
-import 'package:kashflow/user%20preferences%20module/theme_provider.dart';
+import '../shared/core/responsive.dart';
+import '../shared/elements/user_text.dart';
+import 'theme_provider.dart';
 
 class ChangeThemeDialog extends ConsumerWidget {
   const ChangeThemeDialog({super.key});
@@ -22,7 +22,7 @@ class ChangeThemeDialog extends ConsumerWidget {
             children: [
               Text(
                 UserText.selectTheme,
-                style: context.theme().textTheme.headlineSmall,
+                style: context.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               const Divider(),
@@ -88,7 +88,7 @@ class ChangeThemeDialog extends ConsumerWidget {
   }
 
   String _getSwitchText(BuildContext context) {
-    if (context.theme().brightness == Brightness.light) {
+    if (context.colorScheme.brightness == Brightness.light) {
       return UserText.makeThemeBackgroundWhite;
     } else {
       return UserText.makeThemeBackgroundBlack;

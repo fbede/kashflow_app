@@ -1,11 +1,12 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
-import 'package:kashflow/account%20module/account_models.dart';
-import 'package:kashflow/currency%20module/currency_extensions.dart';
-import 'package:kashflow/shared/core/local_db.dart';
-import 'package:kashflow/shared/core/log_handler.dart';
-import 'package:kashflow/shared/models/shared_models.dart';
 import 'package:money2/money2.dart';
+
+import '../currency_module/currency_extensions.dart';
+import '../shared/core/local_db.dart';
+import '../shared/core/log_handler.dart';
+import '../shared/models/shared_models.dart';
+import 'account_models.dart';
 
 part 'account_dao.g.dart';
 part 'account_dao.helper.dart';

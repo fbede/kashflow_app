@@ -2,11 +2,12 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:kashflow/account%20module/account_dao.dart';
-import 'package:kashflow/currency%20module/currency_dao.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+
+import '../../account_module/account_dao.dart';
+import '../../currency_module/currency_dao.dart';
 
 part 'local_db.g.dart';
 

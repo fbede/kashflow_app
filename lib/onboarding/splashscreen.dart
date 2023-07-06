@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:kashflow/gen/assets.gen.dart';
-import 'package:kashflow/shared/core/keys.dart';
-import 'package:kashflow/shared/core/local_db.dart';
-import 'package:kashflow/shared/core/log_handler.dart';
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/core/route_names.dart';
-import 'package:kashflow/shared/elements/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../gen/assets.gen.dart';
+import '../shared/core/keys.dart';
+import '../shared/core/local_db.dart';
+import '../shared/core/log_handler.dart';
+import '../shared/core/responsive.dart';
+import '../shared/core/route_names.dart';
+import '../shared/elements/themes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -43,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) => ColoredBox(
-        color: context.theme().scaffoldBackgroundColor,
+        color: context.theme.scaffoldBackgroundColor,
         child: Center(
           child: FractionallySizedBox(
             heightFactor: 0.2,

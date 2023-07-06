@@ -1,7 +1,7 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
-import 'package:kashflow/gen/fonts.gen.dart';
+import '../../gen/fonts.gen.dart';
 
 ThemeData getLightTheme({bool isWhite = true}) => FlexThemeData.light(
       colors: const FlexSchemeColor(

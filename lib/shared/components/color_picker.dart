@@ -1,13 +1,13 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 
-import 'package:kashflow/shared/core/responsive.dart';
-import 'package:kashflow/shared/elements/user_text.dart';
+import '../core/responsive.dart';
+import '../elements/user_text.dart';
 
 Future<Color> showColorPicker(BuildContext context, [Color? color]) async =>
     showColorPickerDialog(
       context,
-      color ?? context.theme().primaryColor,
+      color ?? context.colorScheme.primary,
       pickersEnabled: {
         ColorPickerType.both: true,
         ColorPickerType.accent: false,

@@ -1,6 +1,6 @@
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/currency%20module/currency_dao.dart';
+import 'package:kashflow/currency_module/currency_dao.dart';
 import 'package:kashflow/shared/core/local_db.dart';
 import 'package:money2/money2.dart';
 
