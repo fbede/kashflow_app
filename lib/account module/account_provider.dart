@@ -20,5 +20,5 @@ class AccountsNotifier extends AutoDisposeStreamNotifier<List<AccountInfo>> {
   Future<void> updateAccount(AccountInfo accountInfo) async =>
       _dao.updateAccount(accountInfo);
 
-  Future<void> deleteAccount(int id) => _dao.deleteAccount(id);
+  Future<void> deleteAccount(String name) => _dao.deleteAccount(name);
 }

@@ -55,22 +55,23 @@ class NothingFoundWidget extends StatelessWidget {
   final String? text;
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox.square(
-              dimension: 250,
-              child: Assets.svg.nothing.svg(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                text ?? UserText.nothingFound,
-                textAlign: TextAlign.center,
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.all(16),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(child: Assets.svg.nothing.svg()),
+              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  text ?? UserText.nothingFound,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 }
@@ -82,15 +83,13 @@ class UnderConstructionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.all(16),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox.square(
-                dimension: 250,
-                child: Assets.svg.comingSoon.svg(),
-              ),
+              Expanded(child: Assets.svg.comingSoon.svg()),
+              const SizedBox(height: 16),
               Text(
                 text ?? UserText.underConstruction,
                 textAlign: TextAlign.center,
@@ -124,7 +123,10 @@ class ErrorDialog extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: context.pop,
-            child: const Text(UserText.accountName),
+            style: TextButton.styleFrom(
+              foregroundColor: context.theme().colorScheme.error,
+            ),
+            child: const Text(UserText.dismiss),
           )
         ],
       );

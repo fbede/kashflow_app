@@ -31,7 +31,6 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
               _getIconInfoFromResult(result: e, accountsTable: accounts);
 
           return AccountInfo(
-            id: e.read(accounts.id),
             name: e.read(accounts.name)!,
             openingBalance: money,
             iconInfo: iconInfo,
@@ -75,9 +74,9 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
     }
   }
 
-  Future<void> deleteAccount(int id) async {
+  Future<void> deleteAccount(String name) async {
     try {
-      final query = delete(accounts)..where((tbl) => tbl.id.equals(id));
+      final query = delete(accounts)..where((tbl) => tbl.name.equals(name));
 
       await query.go();
     } on Exception {

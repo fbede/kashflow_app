@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kashflow/currency%20module/currency_picker_dialog.dart';
 import 'package:kashflow/currency%20module/default_currency_provider.dart';
 import 'package:kashflow/shared/core/responsive.dart';
+import 'package:kashflow/shared/core/route_names.dart';
 import 'package:kashflow/shared/elements/user_text.dart';
 import 'package:kashflow/user%20preferences%20module/settings_screen_components.dart';
 import 'package:kashflow/user%20preferences%20module/theme_provider.dart';
@@ -19,6 +21,7 @@ class SettingsScreen extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(const [
                 _ThemeListTile(),
+                _CategoriesListTile(),
                 _DefaultCurrencyListTile(),
                 _ManageCurrenciesListTile(),
               ]),
@@ -71,6 +74,17 @@ class _ThemeListTile extends ConsumerWidget {
         return const Text(UserText.system);
     }
   }
+}
+
+class _CategoriesListTile extends ConsumerWidget {
+  const _CategoriesListTile();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) => ListTile(
+        leading: Icon(PhosphorIcons.regular.stack),
+        title: const Text(UserText.manageCategories),
+        onTap: () async => context.pushNamed(Routes.manageCategories),
+      );
 }
 
 class _DefaultCurrencyListTile extends ConsumerWidget {

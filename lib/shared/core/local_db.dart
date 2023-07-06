@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 part 'local_db.g.dart';
 
 @DriftDatabase(
-  tables: [CurrencyTable, Accounts, TransactionCategory],
+  tables: [CurrencyTable, Accounts],
   daos: [LocalCurrencyDao, LocalAccountsDao],
 )
 class LocalDB extends _$LocalDB {
@@ -58,8 +58,7 @@ class CurrencyTable extends Table {
 }
 
 class Accounts extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text().withLength(min: 3, max: 25).unique()();
+  TextColumn get name => text().withLength(min: 3, max: 25)();
   TextColumn get currency => text().references(CurrencyTable, #code)();
   Int64Column get openingBalance => int64()();
   //*Note: Generate from Transactions table
@@ -74,17 +73,48 @@ class Accounts extends Table {
   BoolColumn get iconMatchesTextDirection => boolean()();
   IntColumn get iconColorValue => integer()();
   IntColumn get backgroundColorValue => integer()();
+
+  @override
+  Set<Column<Object>>? get primaryKey => {name};
 }
 
-class TransactionCategory extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get name => text().unique()();
-  TextColumn get description => text()();
-  IntColumn get parent => integer().nullable().references(
-        TransactionCategory,
-        #id,
-        onUpdate: KeyAction.noAction,
-        onDelete: KeyAction.cascade,
-      )();
- 
+class IncomeCategory extends Table {
+  TextColumn get name => text().withLength(min: 3, max: 25)();
+  TextColumn get description => text().withLength(max: 100)();
+  TextColumn get parent => text().references(IncomeCategory, #name)();
+
+  IntColumn get iconCodePoint => integer()();
+  TextColumn get iconFontFamily => text().nullable()();
+  TextColumn get iconFontPackage => text().nullable()();
+  BoolColumn get iconMatchesTextDirection => boolean()();
+  IntColumn get iconColorValue => integer()();
+  IntColumn get backgroundColorValue => integer()();
+
+  @override
+  Set<Column<Object>>? get primaryKey => {name};
+}
+
+class ExpenseCategory extends Table {
+  TextColumn get name => text().withLength(min: 3, max: 25)();
+  TextColumn get description => text().withLength(max: 100)();
+  TextColumn get parent => text().references(ExpenseCategory, #name)();
+
+  IntColumn get iconCodePoint => integer()();
+  TextColumn get iconFontFamily => text().nullable()();
+  TextColumn get iconFontPackage => text().nullable()();
+  BoolColumn get iconMatchesTextDirection => boolean()();
+  IntColumn get iconColorValue => integer()();
+  IntColumn get backgroundColorValue => integer()();
+
+  @override
+  Set<Column<Object>>? get primaryKey => {name};
+}
+
+class Tags extends Table {
+  TextColumn get name => text().withLength(min: 3, max: 25)();
+  TextColumn get description => text().withLength(max: 100)();
+  IntColumn get colorValue => integer()();
+
+  @override
+  Set<Column<Object>>? get primaryKey => {name};
 }

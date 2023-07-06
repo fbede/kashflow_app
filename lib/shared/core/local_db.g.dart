@@ -428,15 +428,6 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $AccountsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
@@ -444,8 +435,7 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 3, maxTextLength: 25),
       type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
+      requiredDuringInsert: true);
   static const VerificationMeta _currencyMeta =
       const VerificationMeta('currency');
   @override
@@ -520,7 +510,6 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
       type: DriftSqlType.int, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
-        id,
         name,
         currency,
         openingBalance,
@@ -542,9 +531,6 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
     if (data.containsKey('name')) {
       context.handle(
           _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
@@ -628,13 +614,11 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {name};
   @override
   Account map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Account(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       currency: attachedDatabase.typeMapping
@@ -668,7 +652,6 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
 }
 
 class Account extends DataClass implements Insertable<Account> {
-  final int id;
   final String name;
   final String currency;
   final BigInt openingBalance;
@@ -681,8 +664,7 @@ class Account extends DataClass implements Insertable<Account> {
   final int iconColorValue;
   final int backgroundColorValue;
   const Account(
-      {required this.id,
-      required this.name,
+      {required this.name,
       required this.currency,
       required this.openingBalance,
       this.closingBalance,
@@ -696,7 +678,6 @@ class Account extends DataClass implements Insertable<Account> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
     map['name'] = Variable<String>(name);
     map['currency'] = Variable<String>(currency);
     map['opening_balance'] = Variable<BigInt>(openingBalance);
@@ -720,7 +701,6 @@ class Account extends DataClass implements Insertable<Account> {
 
   AccountsCompanion toCompanion(bool nullToAbsent) {
     return AccountsCompanion(
-      id: Value(id),
       name: Value(name),
       currency: Value(currency),
       openingBalance: Value(openingBalance),
@@ -745,7 +725,6 @@ class Account extends DataClass implements Insertable<Account> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Account(
-      id: serializer.fromJson<int>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       currency: serializer.fromJson<String>(json['currency']),
       openingBalance: serializer.fromJson<BigInt>(json['openingBalance']),
@@ -765,7 +744,6 @@ class Account extends DataClass implements Insertable<Account> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
       'name': serializer.toJson<String>(name),
       'currency': serializer.toJson<String>(currency),
       'openingBalance': serializer.toJson<BigInt>(openingBalance),
@@ -782,8 +760,7 @@ class Account extends DataClass implements Insertable<Account> {
   }
 
   Account copyWith(
-          {int? id,
-          String? name,
+          {String? name,
           String? currency,
           BigInt? openingBalance,
           Value<BigInt?> closingBalance = const Value.absent(),
@@ -795,7 +772,6 @@ class Account extends DataClass implements Insertable<Account> {
           int? iconColorValue,
           int? backgroundColorValue}) =>
       Account(
-        id: id ?? this.id,
         name: name ?? this.name,
         currency: currency ?? this.currency,
         openingBalance: openingBalance ?? this.openingBalance,
@@ -816,7 +792,6 @@ class Account extends DataClass implements Insertable<Account> {
   @override
   String toString() {
     return (StringBuffer('Account(')
-          ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('currency: $currency, ')
           ..write('openingBalance: $openingBalance, ')
@@ -834,7 +809,6 @@ class Account extends DataClass implements Insertable<Account> {
 
   @override
   int get hashCode => Object.hash(
-      id,
       name,
       currency,
       openingBalance,
@@ -850,7 +824,6 @@ class Account extends DataClass implements Insertable<Account> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is Account &&
-          other.id == this.id &&
           other.name == this.name &&
           other.currency == this.currency &&
           other.openingBalance == this.openingBalance &&
@@ -865,7 +838,6 @@ class Account extends DataClass implements Insertable<Account> {
 }
 
 class AccountsCompanion extends UpdateCompanion<Account> {
-  final Value<int> id;
   final Value<String> name;
   final Value<String> currency;
   final Value<BigInt> openingBalance;
@@ -877,8 +849,8 @@ class AccountsCompanion extends UpdateCompanion<Account> {
   final Value<bool> iconMatchesTextDirection;
   final Value<int> iconColorValue;
   final Value<int> backgroundColorValue;
+  final Value<int> rowid;
   const AccountsCompanion({
-    this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.currency = const Value.absent(),
     this.openingBalance = const Value.absent(),
@@ -890,9 +862,9 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     this.iconMatchesTextDirection = const Value.absent(),
     this.iconColorValue = const Value.absent(),
     this.backgroundColorValue = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   AccountsCompanion.insert({
-    this.id = const Value.absent(),
     required String name,
     required String currency,
     required BigInt openingBalance,
@@ -904,6 +876,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     required bool iconMatchesTextDirection,
     required int iconColorValue,
     required int backgroundColorValue,
+    this.rowid = const Value.absent(),
   })  : name = Value(name),
         currency = Value(currency),
         openingBalance = Value(openingBalance),
@@ -913,7 +886,6 @@ class AccountsCompanion extends UpdateCompanion<Account> {
         iconColorValue = Value(iconColorValue),
         backgroundColorValue = Value(backgroundColorValue);
   static Insertable<Account> custom({
-    Expression<int>? id,
     Expression<String>? name,
     Expression<String>? currency,
     Expression<BigInt>? openingBalance,
@@ -925,9 +897,9 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     Expression<bool>? iconMatchesTextDirection,
     Expression<int>? iconColorValue,
     Expression<int>? backgroundColorValue,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (currency != null) 'currency': currency,
       if (openingBalance != null) 'opening_balance': openingBalance,
@@ -941,12 +913,12 @@ class AccountsCompanion extends UpdateCompanion<Account> {
       if (iconColorValue != null) 'icon_color_value': iconColorValue,
       if (backgroundColorValue != null)
         'background_color_value': backgroundColorValue,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
   AccountsCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? name,
+      {Value<String>? name,
       Value<String>? currency,
       Value<BigInt>? openingBalance,
       Value<BigInt?>? closingBalance,
@@ -956,9 +928,9 @@ class AccountsCompanion extends UpdateCompanion<Account> {
       Value<String?>? iconFontPackage,
       Value<bool>? iconMatchesTextDirection,
       Value<int>? iconColorValue,
-      Value<int>? backgroundColorValue}) {
+      Value<int>? backgroundColorValue,
+      Value<int>? rowid}) {
     return AccountsCompanion(
-      id: id ?? this.id,
       name: name ?? this.name,
       currency: currency ?? this.currency,
       openingBalance: openingBalance ?? this.openingBalance,
@@ -971,15 +943,13 @@ class AccountsCompanion extends UpdateCompanion<Account> {
           iconMatchesTextDirection ?? this.iconMatchesTextDirection,
       iconColorValue: iconColorValue ?? this.iconColorValue,
       backgroundColorValue: backgroundColorValue ?? this.backgroundColorValue,
+      rowid: rowid ?? this.rowid,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
@@ -1014,13 +984,15 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     if (backgroundColorValue.present) {
       map['background_color_value'] = Variable<int>(backgroundColorValue.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
   @override
   String toString() {
     return (StringBuffer('AccountsCompanion(')
-          ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('currency: $currency, ')
           ..write('openingBalance: $openingBalance, ')
@@ -1031,308 +1003,8 @@ class AccountsCompanion extends UpdateCompanion<Account> {
           ..write('iconFontPackage: $iconFontPackage, ')
           ..write('iconMatchesTextDirection: $iconMatchesTextDirection, ')
           ..write('iconColorValue: $iconColorValue, ')
-          ..write('backgroundColorValue: $backgroundColorValue')
-          ..write(')'))
-        .toString();
-  }
-}
-
-class $TransactionCategoryTable extends TransactionCategory
-    with TableInfo<$TransactionCategoryTable, TransactionCategoryData> {
-  @override
-  final GeneratedDatabase attachedDatabase;
-  final String? _alias;
-  $TransactionCategoryTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _nameMeta = const VerificationMeta('name');
-  @override
-  late final GeneratedColumn<String> name = GeneratedColumn<String>(
-      'name', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: true,
-      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
-  @override
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _parentMeta = const VerificationMeta('parent');
-  @override
-  late final GeneratedColumn<int> parent = GeneratedColumn<int>(
-      'parent', aliasedName, true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES transaction_category (id) ON UPDATE NO ACTION ON DELETE NO ACTION'));
-  static const VerificationMeta _childrenMeta =
-      const VerificationMeta('children');
-  @override
-  late final GeneratedColumn<int> children = GeneratedColumn<int>(
-      'children', aliasedName, true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
-      defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'REFERENCES transaction_category (id) ON UPDATE NO ACTION ON DELETE CASCADE'));
-  @override
-  List<GeneratedColumn> get $columns =>
-      [id, name, description, parent, children];
-  @override
-  String get aliasedName => _alias ?? 'transaction_category';
-  @override
-  String get actualTableName => 'transaction_category';
-  @override
-  VerificationContext validateIntegrity(
-      Insertable<TransactionCategoryData> instance,
-      {bool isInserting = false}) {
-    final context = VerificationContext();
-    final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    }
-    if (data.containsKey('name')) {
-      context.handle(
-          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
-    } else if (isInserting) {
-      context.missing(_nameMeta);
-    }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
-    }
-    if (data.containsKey('parent')) {
-      context.handle(_parentMeta,
-          parent.isAcceptableOrUnknown(data['parent']!, _parentMeta));
-    }
-    if (data.containsKey('children')) {
-      context.handle(_childrenMeta,
-          children.isAcceptableOrUnknown(data['children']!, _childrenMeta));
-    }
-    return context;
-  }
-
-  @override
-  Set<GeneratedColumn> get $primaryKey => {id};
-  @override
-  TransactionCategoryData map(Map<String, dynamic> data,
-      {String? tablePrefix}) {
-    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return TransactionCategoryData(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      name: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
-      parent: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}parent']),
-      children: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}children']),
-    );
-  }
-
-  @override
-  $TransactionCategoryTable createAlias(String alias) {
-    return $TransactionCategoryTable(attachedDatabase, alias);
-  }
-}
-
-class TransactionCategoryData extends DataClass
-    implements Insertable<TransactionCategoryData> {
-  final int id;
-  final String name;
-  final String description;
-  final int? parent;
-  final int? children;
-  const TransactionCategoryData(
-      {required this.id,
-      required this.name,
-      required this.description,
-      this.parent,
-      this.children});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
-    map['name'] = Variable<String>(name);
-    map['description'] = Variable<String>(description);
-    if (!nullToAbsent || parent != null) {
-      map['parent'] = Variable<int>(parent);
-    }
-    if (!nullToAbsent || children != null) {
-      map['children'] = Variable<int>(children);
-    }
-    return map;
-  }
-
-  TransactionCategoryCompanion toCompanion(bool nullToAbsent) {
-    return TransactionCategoryCompanion(
-      id: Value(id),
-      name: Value(name),
-      description: Value(description),
-      parent:
-          parent == null && nullToAbsent ? const Value.absent() : Value(parent),
-      children: children == null && nullToAbsent
-          ? const Value.absent()
-          : Value(children),
-    );
-  }
-
-  factory TransactionCategoryData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return TransactionCategoryData(
-      id: serializer.fromJson<int>(json['id']),
-      name: serializer.fromJson<String>(json['name']),
-      description: serializer.fromJson<String>(json['description']),
-      parent: serializer.fromJson<int?>(json['parent']),
-      children: serializer.fromJson<int?>(json['children']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
-      'name': serializer.toJson<String>(name),
-      'description': serializer.toJson<String>(description),
-      'parent': serializer.toJson<int?>(parent),
-      'children': serializer.toJson<int?>(children),
-    };
-  }
-
-  TransactionCategoryData copyWith(
-          {int? id,
-          String? name,
-          String? description,
-          Value<int?> parent = const Value.absent(),
-          Value<int?> children = const Value.absent()}) =>
-      TransactionCategoryData(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        parent: parent.present ? parent.value : this.parent,
-        children: children.present ? children.value : this.children,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('TransactionCategoryData(')
-          ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('description: $description, ')
-          ..write('parent: $parent, ')
-          ..write('children: $children')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, name, description, parent, children);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is TransactionCategoryData &&
-          other.id == this.id &&
-          other.name == this.name &&
-          other.description == this.description &&
-          other.parent == this.parent &&
-          other.children == this.children);
-}
-
-class TransactionCategoryCompanion
-    extends UpdateCompanion<TransactionCategoryData> {
-  final Value<int> id;
-  final Value<String> name;
-  final Value<String> description;
-  final Value<int?> parent;
-  final Value<int?> children;
-  const TransactionCategoryCompanion({
-    this.id = const Value.absent(),
-    this.name = const Value.absent(),
-    this.description = const Value.absent(),
-    this.parent = const Value.absent(),
-    this.children = const Value.absent(),
-  });
-  TransactionCategoryCompanion.insert({
-    this.id = const Value.absent(),
-    required String name,
-    required String description,
-    this.parent = const Value.absent(),
-    this.children = const Value.absent(),
-  })  : name = Value(name),
-        description = Value(description);
-  static Insertable<TransactionCategoryData> custom({
-    Expression<int>? id,
-    Expression<String>? name,
-    Expression<String>? description,
-    Expression<int>? parent,
-    Expression<int>? children,
-  }) {
-    return RawValuesInsertable({
-      if (id != null) 'id': id,
-      if (name != null) 'name': name,
-      if (description != null) 'description': description,
-      if (parent != null) 'parent': parent,
-      if (children != null) 'children': children,
-    });
-  }
-
-  TransactionCategoryCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? name,
-      Value<String>? description,
-      Value<int?>? parent,
-      Value<int?>? children}) {
-    return TransactionCategoryCompanion(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      description: description ?? this.description,
-      parent: parent ?? this.parent,
-      children: children ?? this.children,
-    );
-  }
-
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
-    }
-    if (name.present) {
-      map['name'] = Variable<String>(name.value);
-    }
-    if (description.present) {
-      map['description'] = Variable<String>(description.value);
-    }
-    if (parent.present) {
-      map['parent'] = Variable<int>(parent.value);
-    }
-    if (children.present) {
-      map['children'] = Variable<int>(children.value);
-    }
-    return map;
-  }
-
-  @override
-  String toString() {
-    return (StringBuffer('TransactionCategoryCompanion(')
-          ..write('id: $id, ')
-          ..write('name: $name, ')
-          ..write('description: $description, ')
-          ..write('parent: $parent, ')
-          ..write('children: $children')
+          ..write('backgroundColorValue: $backgroundColorValue, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -1342,8 +1014,6 @@ abstract class _$LocalDB extends GeneratedDatabase {
   _$LocalDB(QueryExecutor e) : super(e);
   late final $CurrencyTableTable currencyTable = $CurrencyTableTable(this);
   late final $AccountsTable accounts = $AccountsTable(this);
-  late final $TransactionCategoryTable transactionCategory =
-      $TransactionCategoryTable(this);
   late final LocalCurrencyDao localCurrencyDao =
       LocalCurrencyDao(this as LocalDB);
   late final LocalAccountsDao localAccountsDao =
@@ -1352,18 +1022,5 @@ abstract class _$LocalDB extends GeneratedDatabase {
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [currencyTable, accounts, transactionCategory];
-  @override
-  StreamQueryUpdateRules get streamUpdateRules => const StreamQueryUpdateRules(
-        [
-          WritePropagation(
-            on: TableUpdateQuery.onTableName('transaction_category',
-                limitUpdateKind: UpdateKind.delete),
-            result: [
-              TableUpdate('transaction_category', kind: UpdateKind.delete),
-            ],
-          ),
-        ],
-      );
+  List<DatabaseSchemaEntity> get allSchemaEntities => [currencyTable, accounts];
 }

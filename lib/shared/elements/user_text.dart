@@ -37,6 +37,8 @@ Use the '+' button to create a new account.''';
   static const dark = 'Dark';
   static const defaultCurrency = 'Default Currency';
   static const manageCurrencies = 'Manage Currencies';
+  static const manageTags = 'Manage Tags';
+  static const manageCategories = 'Manage Categories';
 
   //general
   static const appName = 'Kashflow';

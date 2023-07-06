@@ -31,7 +31,7 @@ class ExceptionHandler {
 
   String get _firstTerm => exception.toString().split(' ')[0];
 
-  bool get _isSQLiteException {
+  bool get isSQLiteException {
     if (_firstTerm.contains('SqliteException')) {
       return true;
     } else {
@@ -41,7 +41,7 @@ class ExceptionHandler {
 
   // ignore: non_constant_identifier_names
   int get _SQLiteErrorCode {
-    if (_isSQLiteException) {
+    if (isSQLiteException) {
       return int.parse(_firstTerm.replaceAll(RegExp('[^0-9]'), ''));
     } else {
       return 2023;

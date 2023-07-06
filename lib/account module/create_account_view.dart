@@ -13,7 +13,7 @@ import 'package:kashflow/shared/components/color_picker.dart';
 import 'package:kashflow/shared/components/dialog_shell.dart';
 import 'package:kashflow/shared/components/icon_picker.dart';
 import 'package:kashflow/shared/components/other_widgets.dart';
-import 'package:kashflow/shared/core/exception_util.dart';
+import 'package:kashflow/shared/core/exception_handler.dart';
 import 'package:kashflow/shared/core/log_handler.dart';
 import 'package:kashflow/shared/core/responsive.dart';
 import 'package:kashflow/shared/elements/user_text.dart';
@@ -180,8 +180,13 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
       await ref.read(accountsProvider.notifier).createNewAccount(accountInfo);
       router.pop();
     } on Exception catch (e, s) {
-      if (e.isSQLiteException) {
-        await _handleSQLiteException(e, s);
+      final handler = ExceptionHandler(
+        context: context,
+        exception: e,
+        stacktrace: s,
+      );
+      if (handler.isSQLiteException) {
+        await handler.handleSQLiteException();
       } else {
         Logger.instance.handle(e, s);
       }
@@ -189,19 +194,6 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
       _isLoading = false;
       setState(() {});
     }
-  }
-
-  Future<void> _handleSQLiteException(Exception e, StackTrace s) async {
-    String errorMessage = '';
-
-    if (e.SQLiteErrorCode == uniqueConstraintFailed) {
-      errorMessage = UserText.accountExistErrorMsg;
-    }
-
-    await showDialog<Never>(
-      context: context,
-      builder: (context) => ErrorDialog(message: errorMessage),
-    );
   }
 }
 

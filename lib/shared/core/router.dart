@@ -6,6 +6,7 @@ import 'package:kashflow/onboarding/splashscreen.dart';
 import 'package:kashflow/shared/components/mobile_app_shell.dart';
 import 'package:kashflow/shared/core/log_handler.dart';
 import 'package:kashflow/shared/core/route_names.dart';
+import 'package:kashflow/user%20preferences%20module/categories_management_screen.dart';
 import 'package:kashflow/user%20preferences%20module/settings_screen.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
@@ -76,6 +77,16 @@ final _mainAppRoutes = <RouteBase>[
     path: Routes.other,
     name: Routes.other,
     parentNavigatorKey: _appNavBarNavigatorKey,
+    routes: _settingsRoutes,
     builder: (context, state) => const SettingsScreen(),
+  ),
+];
+
+final _settingsRoutes = <RouteBase>[
+  GoRoute(
+    path: Routes.manageCategories,
+    name: Routes.manageCategories,
+    parentNavigatorKey: _rootNavigatorKey,
+    builder: (_, __) => const CategoriesManagementScreen(),
   ),
 ];

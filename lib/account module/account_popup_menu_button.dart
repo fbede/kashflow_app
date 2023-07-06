@@ -93,6 +93,6 @@ class _AccountListTileMenuButtonState
 //TODO: Wrap with try catch
     await ref
         .read(accountsProvider.notifier)
-        .deleteAccount(widget.accountInfo.id!);
+        .deleteAccount(widget.accountInfo.name);
   }
 }

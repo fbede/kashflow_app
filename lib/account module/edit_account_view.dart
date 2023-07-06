@@ -11,8 +11,7 @@ import 'package:kashflow/shared/components/calculator.dart';
 import 'package:kashflow/shared/components/color_picker.dart';
 import 'package:kashflow/shared/components/icon_picker.dart';
 import 'package:kashflow/shared/components/other_widgets.dart';
-import 'package:kashflow/shared/core/constants.dart';
-import 'package:kashflow/shared/core/exception_util.dart';
+import 'package:kashflow/shared/core/exception_handler.dart';
 import 'package:kashflow/shared/core/log_handler.dart';
 import 'package:kashflow/shared/core/responsive.dart';
 import 'package:kashflow/shared/elements/user_text.dart';
@@ -158,8 +157,13 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
       await ref.read(accountsProvider.notifier).updateAccount(accountInfo);
       router.pop();
     } on Exception catch (e, s) {
-      if (e.isSQLiteException) {
-        await _handleSQLiteException(e, s);
+      final handler = ExceptionHandler(
+        context: context,
+        exception: e,
+        stacktrace: s,
+      );
+      if (handler.isSQLiteException) {
+        await handler.handleSQLiteException();
       } else {
         Logger.instance.handle(e, s);
       }

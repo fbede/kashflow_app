@@ -16,4 +16,5 @@ class Routes {
   static const chooseDefaultCurrency = '/chooseDefaultCurrency';
   static const editCurrency = '/editCurrency';
   static const createNewCurrency = '/createNewCurrency';
+  static const manageCategories = 'manageCategories';
 }

@@ -23,7 +23,6 @@ class AccountInfo with _$AccountInfo {
   const AccountInfo._();
 
   AccountsCompanion toTableCompanion() => AccountsCompanion.insert(
-        id: id == null ? const Value.absent() : Value(id!),
         name: name,
         description: description,
         currency: openingBalance.currency.code,
