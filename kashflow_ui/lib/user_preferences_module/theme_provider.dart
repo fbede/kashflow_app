@@ -9,7 +9,10 @@ final themesProvider =
   _ThemeNotifier.new,
 );
 
-typedef _ThemeState = ({ThemeMode themeMode, bool isBlackAndWhite});
+typedef _ThemeState = ({
+  ThemeMode themeMode,
+  bool isBlackAndWhite,
+});
 
 class _ThemeNotifier extends AutoDisposeAsyncNotifier<_ThemeState> {
   late ThemeMode _oldThemeMode;

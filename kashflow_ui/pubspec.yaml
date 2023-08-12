@@ -1,14 +1,14 @@
 name: kashflow
 description: This helps users track their finances
 publish_to: 'none'
-version: '0.0.1+0'
+version: 0.0.1
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   drift: ^2.4.2
-  envied: ^0.3.0+1
+  envied: ^0.3.0+3
   flex_color_picker: ^3.2.2
   flex_color_scheme: ^7.1.1
   flutter:
@@ -36,7 +36,7 @@ dev_dependencies:
   build_runner: ^2.3.3
   custom_lint: ^0.3.2
   drift_dev: ^2.4.1
-  envied_generator: ^0.3.0
+  envied_generator: ^0.3.0+3
   flutter_gen_runner: ^5.3.1
   flutter_native_splash: ^2.2.16
   flutter_test:
