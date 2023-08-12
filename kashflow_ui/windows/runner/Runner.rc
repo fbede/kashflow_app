@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "Kashflow" "\0"
+            VALUE "FileDescription", "kashflow_ui" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "Kashflow" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "kashflow.exe" "\0"
-            VALUE "ProductName", "Kashflow" "\0"
+            VALUE "InternalName", "kashflow_ui" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
+            VALUE "OriginalFilename", "kashflow_ui.exe" "\0"
+            VALUE "ProductName", "kashflow_ui" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

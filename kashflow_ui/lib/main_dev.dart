@@ -2,18 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kashflow_ui/main.dart';
 import 'package:window_manager/window_manager.dart';
-
-import 'shared/components/app.dart';
-
-//const _environment = 'Development';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await _setWindowSettings();
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const MainApp());
 }
 
 Future<void> _setWindowSettings() async {

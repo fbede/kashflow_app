@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
-import 'shared/components/app.dart';
-import 'shared/config/env.dart';
+import 'main.dart';
+import 'config/env.dart';
 
 const _environment = 'Testing';
 
@@ -27,7 +26,7 @@ Future<void> main() async {
         ..release = releaseInfo;
     },
     appRunner: () => runApp(
-      const ProviderScope(child: SentryScreenshotWidget(child: MyApp())),
+      const SentryScreenshotWidget(child: MainApp()),
     ),
   );
 }

@@ -1,6 +1,6 @@
 {
-    "name": "kashflow",
-    "short_name": "kashflow",
+    "name": "kashflow_ui",
+    "short_name": "kashflow_ui",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
