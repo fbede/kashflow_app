@@ -3,3 +3,4 @@
 library kashflow_core;
 
 export 'src/db/local_db.dart';
+//TODO: Implement logger
