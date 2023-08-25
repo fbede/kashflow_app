@@ -5,9 +5,10 @@ import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/services.dart';
 import 'package:money2/money2.dart';
-// import 'package:flutter/foundation.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
+import 'package:uuid/v7.dart';
 
 import '../../gen/assets.gen.dart';
 import '../currency_module/currency_extensions.dart';
@@ -19,7 +20,7 @@ part 'local_db.g.dart';
 part 'local_db.tables.dart';
 
 @DriftDatabase(
-  tables: [CurrencyTable, Accounts],
+  tables: [Accounts, CurrencyTable, IconTable],
 //  daos: [LocalCurrencyDao, LocalAccountsDao],
 )
 class LocalDB extends _$LocalDB {
@@ -52,10 +53,10 @@ class LocalDB extends _$LocalDB {
 LazyDatabase _openConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
-      /*if (kDebugMode & file.existsSync()) {
+      if (kDebugMode & file.existsSync()) {
         await file.delete(recursive: true);
         await file.create(recursive: true);
-      }*/
+      }
       return NativeDatabase.createInBackground(file);
     });
 

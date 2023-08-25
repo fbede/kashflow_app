@@ -1,15 +1,13 @@
 import 'package:drift/drift.dart';
-import 'package:flutter/material.dart';
 import 'package:money2/money2.dart';
 
 import '../currency_module/currency_extensions.dart';
-import '../shared/core/local_db.dart';
-import '../shared/core/log_handler.dart';
-import '../shared/models/shared_models.dart';
+import '../db/local_db.dart';
+import '../logger/log_handler.dart';
+import '../models/shared_models.dart';
 import 'account_models.dart';
 
 part 'account_dao.g.dart';
-part 'account_dao.helper.dart';
 
 @DriftAccessor(tables: [Accounts, CurrencyTable])
 class LocalAccountsDao extends DatabaseAccessor<LocalDB>
@@ -21,20 +19,20 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
       final stream = select(accounts).join([crossJoin(currencyTable)]).watch();
 
       await for (final List<TypedResult> event in stream) {
+        event.forEach((element) {
+          print(element.rawData.data);
+        });
         yield event.map<AccountInfo>((e) {
-          final money = _getMoneyFromResult(
-            result: e,
-            accountsTable: accounts,
-            currencyTable: currencyTable,
-          );
-
-          final iconInfo =
-              _getIconInfoFromResult(result: e, accountsTable: accounts);
+          final currency = e.readTable(currencyTable).currency;
+          final amount = e.read(accounts.openingBalance)!;
+          final money = Money.fromBigIntWithCurrency(amount, currency);
+          final iconTableData = e.readTable(iconTable);
 
           return AccountInfo(
+            id: e.read(accounts.id),
             name: e.read(accounts.name)!,
             openingBalance: money,
-            iconInfo: iconInfo,
+            iconInfo: IconInfo.fromTableData(iconTableData),
           );
         }).toList();
       }
@@ -48,12 +46,10 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
     final currency = accountInfo.openingBalance.currency;
 
     await transaction(() async {
-      await into(currencyTable).insert(
-        currency.toTableCompanion(),
-        onConflict: DoNothing(),
-      );
+      await into(currencyTable)
+          .insert(currency.companion, onConflict: DoNothing());
 
-      await into(accounts).insert(accountInfo.toTableCompanion());
+      await into(accounts).insert(accountInfo.companion);
     });
   }
 
@@ -62,12 +58,10 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
       final currency = accountInfo.openingBalance.currency;
 
       await transaction(() async {
-        await into(currencyTable).insert(
-          currency.toTableCompanion(),
-          onConflict: DoNothing(),
-        );
+        await into(currencyTable)
+            .insert(currency.companion, onConflict: DoNothing());
 
-        await update(accounts).replace(accountInfo.toTableCompanion());
+        await update(accounts).replace(accountInfo.companion);
       });
     } on Exception catch (e, s) {
       Logger.instance.handle(e, s);

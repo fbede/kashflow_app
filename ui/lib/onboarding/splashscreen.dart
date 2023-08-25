@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kashflow_core/kashflow_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../gen/assets.gen.dart';
 import '../shared/core/keys.dart';
-import '../shared/core/local_db.dart';
-import '../shared/core/log_handler.dart';
 import '../shared/core/responsive.dart';
 import '../shared/core/route_names.dart';
 import '../shared/elements/themes.dart';

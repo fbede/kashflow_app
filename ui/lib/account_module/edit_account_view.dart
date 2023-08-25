@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kashflow_core/kashflow_core.dart';
 import 'package:money2/money2.dart';
 
 import '../shared/components/color_picker.dart';
@@ -11,10 +12,8 @@ import '../shared/components/dialog_shell.dart';
 import '../shared/components/icon_picker/icon_picker.dart';
 import '../shared/components/icon_picker/icon_selector.dart';
 import '../shared/core/exception_handler.dart';
-import '../shared/core/log_handler.dart';
 import '../shared/core/responsive.dart';
 import '../shared/elements/user_text.dart';
-import 'account_models.dart';
 import 'account_provider.dart';
 
 class EditAccountView extends ConsumerStatefulWidget {

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kashflow_core/kashflow_core.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../currency_module/currency_picker_dialog.dart';
 import '../currency_module/default_currency_provider.dart';
 import '../shared/components/other_widgets.dart';
-import '../shared/core/log_handler.dart';
+
 import '../shared/core/responsive.dart';
 import '../shared/core/route_names.dart';
 import '../shared/elements/user_text.dart';
@@ -110,9 +111,9 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
     final currency = await showCurrencyPicker(context);
     if (currency != null) {
       try {
-        await ref
-            .read(defaultCurrencyProvider.notifier)
-            .changeDefaultCurrency(currency);
+        //    await ref
+        //      .read(defaultCurrencyProvider.notifier)
+        //    .changeDefaultCurrency(currency);
       } on Exception catch (e, s) {
         Logger.instance.handle(e, s);
         if (context.mounted) {
@@ -168,9 +169,9 @@ class _ManageCurrenciesListTile extends ConsumerWidget {
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
     final currency = await showCurrencyPicker(context);
     if (currency != null) {
-      await ref
-          .read(defaultCurrencyProvider.notifier)
-          .changeDefaultCurrency(currency);
+      //  await ref
+      //    .read(defaultCurrencyProvider.notifier)
+      //  .changeDefaultCurrency(currency);
     }
   }
 }

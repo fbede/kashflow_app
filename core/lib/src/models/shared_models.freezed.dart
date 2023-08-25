@@ -16,6 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$IconInfo {
+  String? get id => throw _privateConstructorUsedError;
   IconData get iconData => throw _privateConstructorUsedError;
   Color get iconColor => throw _privateConstructorUsedError;
   Color get backgroundColor => throw _privateConstructorUsedError;
@@ -30,7 +31,8 @@ abstract class $IconInfoCopyWith<$Res> {
   factory $IconInfoCopyWith(IconInfo value, $Res Function(IconInfo) then) =
       _$IconInfoCopyWithImpl<$Res, IconInfo>;
   @useResult
-  $Res call({IconData iconData, Color iconColor, Color backgroundColor});
+  $Res call(
+      {String? id, IconData iconData, Color iconColor, Color backgroundColor});
 }
 
 /// @nodoc
@@ -46,11 +48,16 @@ class _$IconInfoCopyWithImpl<$Res, $Val extends IconInfo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? iconData = null,
     Object? iconColor = null,
     Object? backgroundColor = null,
   }) {
     return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       iconData: null == iconData
           ? _value.iconData
           : iconData // ignore: cast_nullable_to_non_nullable
@@ -74,7 +81,8 @@ abstract class _$$_IconInfoCopyWith<$Res> implements $IconInfoCopyWith<$Res> {
       __$$_IconInfoCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({IconData iconData, Color iconColor, Color backgroundColor});
+  $Res call(
+      {String? id, IconData iconData, Color iconColor, Color backgroundColor});
 }
 
 /// @nodoc
@@ -88,11 +96,16 @@ class __$$_IconInfoCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = freezed,
     Object? iconData = null,
     Object? iconColor = null,
     Object? backgroundColor = null,
   }) {
     return _then(_$_IconInfo(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
       iconData: null == iconData
           ? _value.iconData
           : iconData // ignore: cast_nullable_to_non_nullable
@@ -113,11 +126,14 @@ class __$$_IconInfoCopyWithImpl<$Res>
 
 class _$_IconInfo extends _IconInfo {
   const _$_IconInfo(
-      {required this.iconData,
+      {required this.id,
+      required this.iconData,
       required this.iconColor,
       required this.backgroundColor})
       : super._();
 
+  @override
+  final String? id;
   @override
   final IconData iconData;
   @override
@@ -127,7 +143,7 @@ class _$_IconInfo extends _IconInfo {
 
   @override
   String toString() {
-    return 'IconInfo(iconData: $iconData, iconColor: $iconColor, backgroundColor: $backgroundColor)';
+    return 'IconInfo(id: $id, iconData: $iconData, iconColor: $iconColor, backgroundColor: $backgroundColor)';
   }
 
   @override
@@ -135,6 +151,7 @@ class _$_IconInfo extends _IconInfo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_IconInfo &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.iconData, iconData) ||
                 other.iconData == iconData) &&
             (identical(other.iconColor, iconColor) ||
@@ -145,7 +162,7 @@ class _$_IconInfo extends _IconInfo {
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, iconData, iconColor, backgroundColor);
+      Object.hash(runtimeType, id, iconData, iconColor, backgroundColor);
 
   @JsonKey(ignore: true)
   @override
@@ -156,11 +173,14 @@ class _$_IconInfo extends _IconInfo {
 
 abstract class _IconInfo extends IconInfo {
   const factory _IconInfo(
-      {required final IconData iconData,
+      {required final String? id,
+      required final IconData iconData,
       required final Color iconColor,
       required final Color backgroundColor}) = _$_IconInfo;
   const _IconInfo._() : super._();
 
+  @override
+  String? get id;
   @override
   IconData get iconData;
   @override

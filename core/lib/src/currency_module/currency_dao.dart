@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:money2/money2.dart';
 
 import '../db/local_db.dart';
-//import '../shared/core/log_handler.dart';
+import '../logger/log_handler.dart';
 import 'currency_extensions.dart';
 
 part 'currency_dao.g.dart';
@@ -25,13 +25,13 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
             (event) => event.map((e) => e.currency).toList(),
           );
     } on Exception catch (e, s) {
-      //    Logger.instance.handle(e, s);
+      Logger.instance.handle(e, s);
       rethrow;
     }
   }
 
-  Future<Currency?> getCurrencyById(String code) async {
-    final query = select(currencyTable)..where((tbl) => tbl.code.equals(code));
+  Future<Currency?> getCurrencyById(String id) async {
+    final query = select(currencyTable)..where((tbl) => tbl.id.equals(id));
 
     try {
       final result = await query.getSingleOrNull();
@@ -40,13 +40,13 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
       }
       return null;
     } on Exception catch (e, s) {
-      //  Logger.instance.handle(e, s);
+      Logger.instance.handle(e, s);
       rethrow;
     }
   }
 
   //CREATE/UPDATE METHODS
-  Future<String> saveCurrencyGetCode(Currency c) async {
+/*   Future<String> saveCurrencyGetCode(Currency c) async {
     try {
       final result = await into(currencyTable).insertReturning(
         c.companion,
@@ -55,8 +55,8 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
 
       return result.code;
     } on Exception catch (e, s) {
-      //Logger.instance.handle(e, s);
+      Logger.instance.handle(e, s);
       rethrow;
     }
-  }
+  } */
 }

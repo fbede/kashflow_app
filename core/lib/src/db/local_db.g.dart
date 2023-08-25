@@ -3,6 +3,401 @@
 part of 'local_db.dart';
 
 // ignore_for_file: type=lint
+class $IconTableTable extends IconTable
+    with TableInfo<$IconTableTable, IconTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $IconTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+      'id', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      clientDefault: () => _uuid.generate());
+  static const VerificationMeta _codePointMeta =
+      const VerificationMeta('codePoint');
+  @override
+  late final GeneratedColumn<int> codePoint = GeneratedColumn<int>(
+      'code_point', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _fontFamilyMeta =
+      const VerificationMeta('fontFamily');
+  @override
+  late final GeneratedColumn<String> fontFamily = GeneratedColumn<String>(
+      'font_family', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _fontPackageMeta =
+      const VerificationMeta('fontPackage');
+  @override
+  late final GeneratedColumn<String> fontPackage = GeneratedColumn<String>(
+      'font_package', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _matchTextDirectionMeta =
+      const VerificationMeta('matchTextDirection');
+  @override
+  late final GeneratedColumn<bool> matchTextDirection = GeneratedColumn<bool>(
+      'match_text_direction', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("match_text_direction" IN (0, 1))'));
+  static const VerificationMeta _colorValueMeta =
+      const VerificationMeta('colorValue');
+  @override
+  late final GeneratedColumn<int> colorValue = GeneratedColumn<int>(
+      'color_value', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _backgroundColorValueMeta =
+      const VerificationMeta('backgroundColorValue');
+  @override
+  late final GeneratedColumn<int> backgroundColorValue = GeneratedColumn<int>(
+      'background_color_value', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        codePoint,
+        fontFamily,
+        fontPackage,
+        matchTextDirection,
+        colorValue,
+        backgroundColorValue
+      ];
+  @override
+  String get aliasedName => _alias ?? 'icon_table';
+  @override
+  String get actualTableName => 'icon_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<IconTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('code_point')) {
+      context.handle(_codePointMeta,
+          codePoint.isAcceptableOrUnknown(data['code_point']!, _codePointMeta));
+    } else if (isInserting) {
+      context.missing(_codePointMeta);
+    }
+    if (data.containsKey('font_family')) {
+      context.handle(
+          _fontFamilyMeta,
+          fontFamily.isAcceptableOrUnknown(
+              data['font_family']!, _fontFamilyMeta));
+    }
+    if (data.containsKey('font_package')) {
+      context.handle(
+          _fontPackageMeta,
+          fontPackage.isAcceptableOrUnknown(
+              data['font_package']!, _fontPackageMeta));
+    }
+    if (data.containsKey('match_text_direction')) {
+      context.handle(
+          _matchTextDirectionMeta,
+          matchTextDirection.isAcceptableOrUnknown(
+              data['match_text_direction']!, _matchTextDirectionMeta));
+    } else if (isInserting) {
+      context.missing(_matchTextDirectionMeta);
+    }
+    if (data.containsKey('color_value')) {
+      context.handle(
+          _colorValueMeta,
+          colorValue.isAcceptableOrUnknown(
+              data['color_value']!, _colorValueMeta));
+    } else if (isInserting) {
+      context.missing(_colorValueMeta);
+    }
+    if (data.containsKey('background_color_value')) {
+      context.handle(
+          _backgroundColorValueMeta,
+          backgroundColorValue.isAcceptableOrUnknown(
+              data['background_color_value']!, _backgroundColorValueMeta));
+    } else if (isInserting) {
+      context.missing(_backgroundColorValueMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  IconTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return IconTableData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      codePoint: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}code_point'])!,
+      fontFamily: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}font_family']),
+      fontPackage: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}font_package']),
+      matchTextDirection: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}match_text_direction'])!,
+      colorValue: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}color_value'])!,
+      backgroundColorValue: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}background_color_value'])!,
+    );
+  }
+
+  @override
+  $IconTableTable createAlias(String alias) {
+    return $IconTableTable(attachedDatabase, alias);
+  }
+}
+
+class IconTableData extends DataClass implements Insertable<IconTableData> {
+  final String id;
+  final int codePoint;
+  final String? fontFamily;
+  final String? fontPackage;
+  final bool matchTextDirection;
+  final int colorValue;
+  final int backgroundColorValue;
+  const IconTableData(
+      {required this.id,
+      required this.codePoint,
+      this.fontFamily,
+      this.fontPackage,
+      required this.matchTextDirection,
+      required this.colorValue,
+      required this.backgroundColorValue});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['code_point'] = Variable<int>(codePoint);
+    if (!nullToAbsent || fontFamily != null) {
+      map['font_family'] = Variable<String>(fontFamily);
+    }
+    if (!nullToAbsent || fontPackage != null) {
+      map['font_package'] = Variable<String>(fontPackage);
+    }
+    map['match_text_direction'] = Variable<bool>(matchTextDirection);
+    map['color_value'] = Variable<int>(colorValue);
+    map['background_color_value'] = Variable<int>(backgroundColorValue);
+    return map;
+  }
+
+  IconTableCompanion toCompanion(bool nullToAbsent) {
+    return IconTableCompanion(
+      id: Value(id),
+      codePoint: Value(codePoint),
+      fontFamily: fontFamily == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fontFamily),
+      fontPackage: fontPackage == null && nullToAbsent
+          ? const Value.absent()
+          : Value(fontPackage),
+      matchTextDirection: Value(matchTextDirection),
+      colorValue: Value(colorValue),
+      backgroundColorValue: Value(backgroundColorValue),
+    );
+  }
+
+  factory IconTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return IconTableData(
+      id: serializer.fromJson<String>(json['id']),
+      codePoint: serializer.fromJson<int>(json['codePoint']),
+      fontFamily: serializer.fromJson<String?>(json['fontFamily']),
+      fontPackage: serializer.fromJson<String?>(json['fontPackage']),
+      matchTextDirection: serializer.fromJson<bool>(json['matchTextDirection']),
+      colorValue: serializer.fromJson<int>(json['colorValue']),
+      backgroundColorValue:
+          serializer.fromJson<int>(json['backgroundColorValue']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'codePoint': serializer.toJson<int>(codePoint),
+      'fontFamily': serializer.toJson<String?>(fontFamily),
+      'fontPackage': serializer.toJson<String?>(fontPackage),
+      'matchTextDirection': serializer.toJson<bool>(matchTextDirection),
+      'colorValue': serializer.toJson<int>(colorValue),
+      'backgroundColorValue': serializer.toJson<int>(backgroundColorValue),
+    };
+  }
+
+  IconTableData copyWith(
+          {String? id,
+          int? codePoint,
+          Value<String?> fontFamily = const Value.absent(),
+          Value<String?> fontPackage = const Value.absent(),
+          bool? matchTextDirection,
+          int? colorValue,
+          int? backgroundColorValue}) =>
+      IconTableData(
+        id: id ?? this.id,
+        codePoint: codePoint ?? this.codePoint,
+        fontFamily: fontFamily.present ? fontFamily.value : this.fontFamily,
+        fontPackage: fontPackage.present ? fontPackage.value : this.fontPackage,
+        matchTextDirection: matchTextDirection ?? this.matchTextDirection,
+        colorValue: colorValue ?? this.colorValue,
+        backgroundColorValue: backgroundColorValue ?? this.backgroundColorValue,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('IconTableData(')
+          ..write('id: $id, ')
+          ..write('codePoint: $codePoint, ')
+          ..write('fontFamily: $fontFamily, ')
+          ..write('fontPackage: $fontPackage, ')
+          ..write('matchTextDirection: $matchTextDirection, ')
+          ..write('colorValue: $colorValue, ')
+          ..write('backgroundColorValue: $backgroundColorValue')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, codePoint, fontFamily, fontPackage,
+      matchTextDirection, colorValue, backgroundColorValue);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is IconTableData &&
+          other.id == this.id &&
+          other.codePoint == this.codePoint &&
+          other.fontFamily == this.fontFamily &&
+          other.fontPackage == this.fontPackage &&
+          other.matchTextDirection == this.matchTextDirection &&
+          other.colorValue == this.colorValue &&
+          other.backgroundColorValue == this.backgroundColorValue);
+}
+
+class IconTableCompanion extends UpdateCompanion<IconTableData> {
+  final Value<String> id;
+  final Value<int> codePoint;
+  final Value<String?> fontFamily;
+  final Value<String?> fontPackage;
+  final Value<bool> matchTextDirection;
+  final Value<int> colorValue;
+  final Value<int> backgroundColorValue;
+  final Value<int> rowid;
+  const IconTableCompanion({
+    this.id = const Value.absent(),
+    this.codePoint = const Value.absent(),
+    this.fontFamily = const Value.absent(),
+    this.fontPackage = const Value.absent(),
+    this.matchTextDirection = const Value.absent(),
+    this.colorValue = const Value.absent(),
+    this.backgroundColorValue = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  IconTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int codePoint,
+    this.fontFamily = const Value.absent(),
+    this.fontPackage = const Value.absent(),
+    required bool matchTextDirection,
+    required int colorValue,
+    required int backgroundColorValue,
+    this.rowid = const Value.absent(),
+  })  : codePoint = Value(codePoint),
+        matchTextDirection = Value(matchTextDirection),
+        colorValue = Value(colorValue),
+        backgroundColorValue = Value(backgroundColorValue);
+  static Insertable<IconTableData> custom({
+    Expression<String>? id,
+    Expression<int>? codePoint,
+    Expression<String>? fontFamily,
+    Expression<String>? fontPackage,
+    Expression<bool>? matchTextDirection,
+    Expression<int>? colorValue,
+    Expression<int>? backgroundColorValue,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (codePoint != null) 'code_point': codePoint,
+      if (fontFamily != null) 'font_family': fontFamily,
+      if (fontPackage != null) 'font_package': fontPackage,
+      if (matchTextDirection != null)
+        'match_text_direction': matchTextDirection,
+      if (colorValue != null) 'color_value': colorValue,
+      if (backgroundColorValue != null)
+        'background_color_value': backgroundColorValue,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  IconTableCompanion copyWith(
+      {Value<String>? id,
+      Value<int>? codePoint,
+      Value<String?>? fontFamily,
+      Value<String?>? fontPackage,
+      Value<bool>? matchTextDirection,
+      Value<int>? colorValue,
+      Value<int>? backgroundColorValue,
+      Value<int>? rowid}) {
+    return IconTableCompanion(
+      id: id ?? this.id,
+      codePoint: codePoint ?? this.codePoint,
+      fontFamily: fontFamily ?? this.fontFamily,
+      fontPackage: fontPackage ?? this.fontPackage,
+      matchTextDirection: matchTextDirection ?? this.matchTextDirection,
+      colorValue: colorValue ?? this.colorValue,
+      backgroundColorValue: backgroundColorValue ?? this.backgroundColorValue,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (codePoint.present) {
+      map['code_point'] = Variable<int>(codePoint.value);
+    }
+    if (fontFamily.present) {
+      map['font_family'] = Variable<String>(fontFamily.value);
+    }
+    if (fontPackage.present) {
+      map['font_package'] = Variable<String>(fontPackage.value);
+    }
+    if (matchTextDirection.present) {
+      map['match_text_direction'] = Variable<bool>(matchTextDirection.value);
+    }
+    if (colorValue.present) {
+      map['color_value'] = Variable<int>(colorValue.value);
+    }
+    if (backgroundColorValue.present) {
+      map['background_color_value'] = Variable<int>(backgroundColorValue.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('IconTableCompanion(')
+          ..write('id: $id, ')
+          ..write('codePoint: $codePoint, ')
+          ..write('fontFamily: $fontFamily, ')
+          ..write('fontPackage: $fontPackage, ')
+          ..write('matchTextDirection: $matchTextDirection, ')
+          ..write('colorValue: $colorValue, ')
+          ..write('backgroundColorValue: $backgroundColorValue, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $CurrencyTableTable extends CurrencyTable
     with TableInfo<$CurrencyTableTable, CurrencyTableData> {
   @override
@@ -11,13 +406,11 @@ class $CurrencyTableTable extends CurrencyTable
   $CurrencyTableTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
+      type: DriftSqlType.string,
       requiredDuringInsert: false,
-      defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+      clientDefault: () => _uuid.generate());
   static const VerificationMeta _codeMeta = const VerificationMeta('code');
   @override
   late final GeneratedColumn<String> code = GeneratedColumn<String>(
@@ -35,7 +428,9 @@ class $CurrencyTableTable extends CurrencyTable
   @override
   late final GeneratedColumn<String> symbol = GeneratedColumn<String>(
       'symbol', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 10),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
   static const VerificationMeta _invertSeparatorsMeta =
       const VerificationMeta('invertSeparators');
   @override
@@ -146,7 +541,7 @@ class $CurrencyTableTable extends CurrencyTable
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CurrencyTableData(
       id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       code: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
       scale: attachedDatabase.typeMapping
@@ -174,7 +569,7 @@ class $CurrencyTableTable extends CurrencyTable
 
 class CurrencyTableData extends DataClass
     implements Insertable<CurrencyTableData> {
-  final int id;
+  final String id;
   final String code;
   final int scale;
   final String symbol;
@@ -196,7 +591,7 @@ class CurrencyTableData extends DataClass
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['id'] = Variable<String>(id);
     map['code'] = Variable<String>(code);
     map['scale'] = Variable<int>(scale);
     map['symbol'] = Variable<String>(symbol);
@@ -226,7 +621,7 @@ class CurrencyTableData extends DataClass
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CurrencyTableData(
-      id: serializer.fromJson<int>(json['id']),
+      id: serializer.fromJson<String>(json['id']),
       code: serializer.fromJson<String>(json['code']),
       scale: serializer.fromJson<int>(json['scale']),
       symbol: serializer.fromJson<String>(json['symbol']),
@@ -241,7 +636,7 @@ class CurrencyTableData extends DataClass
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'id': serializer.toJson<String>(id),
       'code': serializer.toJson<String>(code),
       'scale': serializer.toJson<int>(scale),
       'symbol': serializer.toJson<String>(symbol),
@@ -254,7 +649,7 @@ class CurrencyTableData extends DataClass
   }
 
   CurrencyTableData copyWith(
-          {int? id,
+          {String? id,
           String? code,
           int? scale,
           String? symbol,
@@ -309,7 +704,7 @@ class CurrencyTableData extends DataClass
 }
 
 class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
-  final Value<int> id;
+  final Value<String> id;
   final Value<String> code;
   final Value<int> scale;
   final Value<String> symbol;
@@ -318,6 +713,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   final Value<String> country;
   final Value<String> unit;
   final Value<String> name;
+  final Value<int> rowid;
   const CurrencyTableCompanion({
     this.id = const Value.absent(),
     this.code = const Value.absent(),
@@ -328,6 +724,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
     this.country = const Value.absent(),
     this.unit = const Value.absent(),
     this.name = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   CurrencyTableCompanion.insert({
     this.id = const Value.absent(),
@@ -339,6 +736,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
     required String country,
     required String unit,
     required String name,
+    this.rowid = const Value.absent(),
   })  : code = Value(code),
         scale = Value(scale),
         symbol = Value(symbol),
@@ -348,7 +746,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
         unit = Value(unit),
         name = Value(name);
   static Insertable<CurrencyTableData> custom({
-    Expression<int>? id,
+    Expression<String>? id,
     Expression<String>? code,
     Expression<int>? scale,
     Expression<String>? symbol,
@@ -357,6 +755,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
     Expression<String>? country,
     Expression<String>? unit,
     Expression<String>? name,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
@@ -368,11 +767,12 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
       if (country != null) 'country': country,
       if (unit != null) 'unit': unit,
       if (name != null) 'name': name,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
   CurrencyTableCompanion copyWith(
-      {Value<int>? id,
+      {Value<String>? id,
       Value<String>? code,
       Value<int>? scale,
       Value<String>? symbol,
@@ -380,7 +780,8 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
       Value<String>? pattern,
       Value<String>? country,
       Value<String>? unit,
-      Value<String>? name}) {
+      Value<String>? name,
+      Value<int>? rowid}) {
     return CurrencyTableCompanion(
       id: id ?? this.id,
       code: code ?? this.code,
@@ -391,6 +792,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
       country: country ?? this.country,
       unit: unit ?? this.unit,
       name: name ?? this.name,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -398,7 +800,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (code.present) {
       map['code'] = Variable<String>(code.value);
@@ -424,6 +826,9 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
     if (name.present) {
       map['name'] = Variable<String>(name.value);
     }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
     return map;
   }
 
@@ -438,7 +843,8 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
           ..write('pattern: $pattern, ')
           ..write('country: $country, ')
           ..write('unit: $unit, ')
-          ..write('name: $name')
+          ..write('name: $name, ')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -451,13 +857,12 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
   $AccountsTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      hasAutoIncrement: true,
-      type: DriftSqlType.int,
-      requiredDuringInsert: false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: true,
       defaultConstraints:
-          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+          GeneratedColumn.constraintIsAlways('REFERENCES icon_table (id)'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
@@ -475,6 +880,14 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
       requiredDuringInsert: true,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('REFERENCES currency_table (id)'));
+  static const VerificationMeta _descriptionMeta =
+      const VerificationMeta('description');
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+      'description', aliasedName, false,
+      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 100),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
   static const VerificationMeta _openingBalanceMeta =
       const VerificationMeta('openingBalance');
   @override
@@ -487,69 +900,9 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
   late final GeneratedColumn<BigInt> closingBalance = GeneratedColumn<BigInt>(
       'closing_balance', aliasedName, true,
       type: DriftSqlType.bigInt, requiredDuringInsert: false);
-  static const VerificationMeta _descriptionMeta =
-      const VerificationMeta('description');
   @override
-  late final GeneratedColumn<String> description = GeneratedColumn<String>(
-      'description', aliasedName, false,
-      additionalChecks: GeneratedColumn.checkTextLength(maxTextLength: 100),
-      type: DriftSqlType.string,
-      requiredDuringInsert: true);
-  static const VerificationMeta _iconCodePointMeta =
-      const VerificationMeta('iconCodePoint');
-  @override
-  late final GeneratedColumn<int> iconCodePoint = GeneratedColumn<int>(
-      'icon_code_point', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _iconFontFamilyMeta =
-      const VerificationMeta('iconFontFamily');
-  @override
-  late final GeneratedColumn<String> iconFontFamily = GeneratedColumn<String>(
-      'icon_font_family', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _iconFontPackageMeta =
-      const VerificationMeta('iconFontPackage');
-  @override
-  late final GeneratedColumn<String> iconFontPackage = GeneratedColumn<String>(
-      'icon_font_package', aliasedName, true,
-      type: DriftSqlType.string, requiredDuringInsert: false);
-  static const VerificationMeta _iconMatchesTextDirectionMeta =
-      const VerificationMeta('iconMatchesTextDirection');
-  @override
-  late final GeneratedColumn<bool> iconMatchesTextDirection =
-      GeneratedColumn<bool>(
-          'icon_matches_text_direction', aliasedName, false,
-          type: DriftSqlType.bool,
-          requiredDuringInsert: true,
-          defaultConstraints: GeneratedColumn.constraintIsAlways(
-              'CHECK ("icon_matches_text_direction" IN (0, 1))'));
-  static const VerificationMeta _iconColorValueMeta =
-      const VerificationMeta('iconColorValue');
-  @override
-  late final GeneratedColumn<int> iconColorValue = GeneratedColumn<int>(
-      'icon_color_value', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _backgroundColorValueMeta =
-      const VerificationMeta('backgroundColorValue');
-  @override
-  late final GeneratedColumn<int> backgroundColorValue = GeneratedColumn<int>(
-      'background_color_value', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  @override
-  List<GeneratedColumn> get $columns => [
-        id,
-        name,
-        currency,
-        openingBalance,
-        closingBalance,
-        description,
-        iconCodePoint,
-        iconFontFamily,
-        iconFontPackage,
-        iconMatchesTextDirection,
-        iconColorValue,
-        backgroundColorValue
-      ];
+  List<GeneratedColumn> get $columns =>
+      [id, name, currency, description, openingBalance, closingBalance];
   @override
   String get aliasedName => _alias ?? 'accounts';
   @override
@@ -561,6 +914,8 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
     }
     if (data.containsKey('name')) {
       context.handle(
@@ -573,6 +928,14 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
           currency.isAcceptableOrUnknown(data['currency']!, _currencyMeta));
     } else if (isInserting) {
       context.missing(_currencyMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+          _descriptionMeta,
+          description.isAcceptableOrUnknown(
+              data['description']!, _descriptionMeta));
+    } else if (isInserting) {
+      context.missing(_descriptionMeta);
     }
     if (data.containsKey('opening_balance')) {
       context.handle(
@@ -588,59 +951,6 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
           closingBalance.isAcceptableOrUnknown(
               data['closing_balance']!, _closingBalanceMeta));
     }
-    if (data.containsKey('description')) {
-      context.handle(
-          _descriptionMeta,
-          description.isAcceptableOrUnknown(
-              data['description']!, _descriptionMeta));
-    } else if (isInserting) {
-      context.missing(_descriptionMeta);
-    }
-    if (data.containsKey('icon_code_point')) {
-      context.handle(
-          _iconCodePointMeta,
-          iconCodePoint.isAcceptableOrUnknown(
-              data['icon_code_point']!, _iconCodePointMeta));
-    } else if (isInserting) {
-      context.missing(_iconCodePointMeta);
-    }
-    if (data.containsKey('icon_font_family')) {
-      context.handle(
-          _iconFontFamilyMeta,
-          iconFontFamily.isAcceptableOrUnknown(
-              data['icon_font_family']!, _iconFontFamilyMeta));
-    }
-    if (data.containsKey('icon_font_package')) {
-      context.handle(
-          _iconFontPackageMeta,
-          iconFontPackage.isAcceptableOrUnknown(
-              data['icon_font_package']!, _iconFontPackageMeta));
-    }
-    if (data.containsKey('icon_matches_text_direction')) {
-      context.handle(
-          _iconMatchesTextDirectionMeta,
-          iconMatchesTextDirection.isAcceptableOrUnknown(
-              data['icon_matches_text_direction']!,
-              _iconMatchesTextDirectionMeta));
-    } else if (isInserting) {
-      context.missing(_iconMatchesTextDirectionMeta);
-    }
-    if (data.containsKey('icon_color_value')) {
-      context.handle(
-          _iconColorValueMeta,
-          iconColorValue.isAcceptableOrUnknown(
-              data['icon_color_value']!, _iconColorValueMeta));
-    } else if (isInserting) {
-      context.missing(_iconColorValueMeta);
-    }
-    if (data.containsKey('background_color_value')) {
-      context.handle(
-          _backgroundColorValueMeta,
-          backgroundColorValue.isAcceptableOrUnknown(
-              data['background_color_value']!, _backgroundColorValueMeta));
-    } else if (isInserting) {
-      context.missing(_backgroundColorValueMeta);
-    }
     return context;
   }
 
@@ -651,30 +961,17 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return Account(
       id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       currency: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}currency'])!,
+      description: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
       openingBalance: attachedDatabase.typeMapping.read(
           DriftSqlType.bigInt, data['${effectivePrefix}opening_balance'])!,
       closingBalance: attachedDatabase.typeMapping
           .read(DriftSqlType.bigInt, data['${effectivePrefix}closing_balance']),
-      description: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}description'])!,
-      iconCodePoint: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}icon_code_point'])!,
-      iconFontFamily: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}icon_font_family']),
-      iconFontPackage: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}icon_font_package']),
-      iconMatchesTextDirection: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool,
-          data['${effectivePrefix}icon_matches_text_direction'])!,
-      iconColorValue: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}icon_color_value'])!,
-      backgroundColorValue: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}background_color_value'])!,
     );
   }
 
@@ -685,53 +982,30 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
 }
 
 class Account extends DataClass implements Insertable<Account> {
-  final int id;
+  final String id;
   final String name;
   final String currency;
+  final String description;
   final BigInt openingBalance;
   final BigInt? closingBalance;
-  final String description;
-  final int iconCodePoint;
-  final String? iconFontFamily;
-  final String? iconFontPackage;
-  final bool iconMatchesTextDirection;
-  final int iconColorValue;
-  final int backgroundColorValue;
   const Account(
       {required this.id,
       required this.name,
       required this.currency,
-      required this.openingBalance,
-      this.closingBalance,
       required this.description,
-      required this.iconCodePoint,
-      this.iconFontFamily,
-      this.iconFontPackage,
-      required this.iconMatchesTextDirection,
-      required this.iconColorValue,
-      required this.backgroundColorValue});
+      required this.openingBalance,
+      this.closingBalance});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['id'] = Variable<String>(id);
     map['name'] = Variable<String>(name);
     map['currency'] = Variable<String>(currency);
+    map['description'] = Variable<String>(description);
     map['opening_balance'] = Variable<BigInt>(openingBalance);
     if (!nullToAbsent || closingBalance != null) {
       map['closing_balance'] = Variable<BigInt>(closingBalance);
     }
-    map['description'] = Variable<String>(description);
-    map['icon_code_point'] = Variable<int>(iconCodePoint);
-    if (!nullToAbsent || iconFontFamily != null) {
-      map['icon_font_family'] = Variable<String>(iconFontFamily);
-    }
-    if (!nullToAbsent || iconFontPackage != null) {
-      map['icon_font_package'] = Variable<String>(iconFontPackage);
-    }
-    map['icon_matches_text_direction'] =
-        Variable<bool>(iconMatchesTextDirection);
-    map['icon_color_value'] = Variable<int>(iconColorValue);
-    map['background_color_value'] = Variable<int>(backgroundColorValue);
     return map;
   }
 
@@ -740,21 +1014,11 @@ class Account extends DataClass implements Insertable<Account> {
       id: Value(id),
       name: Value(name),
       currency: Value(currency),
+      description: Value(description),
       openingBalance: Value(openingBalance),
       closingBalance: closingBalance == null && nullToAbsent
           ? const Value.absent()
           : Value(closingBalance),
-      description: Value(description),
-      iconCodePoint: Value(iconCodePoint),
-      iconFontFamily: iconFontFamily == null && nullToAbsent
-          ? const Value.absent()
-          : Value(iconFontFamily),
-      iconFontPackage: iconFontPackage == null && nullToAbsent
-          ? const Value.absent()
-          : Value(iconFontPackage),
-      iconMatchesTextDirection: Value(iconMatchesTextDirection),
-      iconColorValue: Value(iconColorValue),
-      backgroundColorValue: Value(backgroundColorValue),
     );
   }
 
@@ -762,73 +1026,42 @@ class Account extends DataClass implements Insertable<Account> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return Account(
-      id: serializer.fromJson<int>(json['id']),
+      id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       currency: serializer.fromJson<String>(json['currency']),
+      description: serializer.fromJson<String>(json['description']),
       openingBalance: serializer.fromJson<BigInt>(json['openingBalance']),
       closingBalance: serializer.fromJson<BigInt?>(json['closingBalance']),
-      description: serializer.fromJson<String>(json['description']),
-      iconCodePoint: serializer.fromJson<int>(json['iconCodePoint']),
-      iconFontFamily: serializer.fromJson<String?>(json['iconFontFamily']),
-      iconFontPackage: serializer.fromJson<String?>(json['iconFontPackage']),
-      iconMatchesTextDirection:
-          serializer.fromJson<bool>(json['iconMatchesTextDirection']),
-      iconColorValue: serializer.fromJson<int>(json['iconColorValue']),
-      backgroundColorValue:
-          serializer.fromJson<int>(json['backgroundColorValue']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'id': serializer.toJson<String>(id),
       'name': serializer.toJson<String>(name),
       'currency': serializer.toJson<String>(currency),
+      'description': serializer.toJson<String>(description),
       'openingBalance': serializer.toJson<BigInt>(openingBalance),
       'closingBalance': serializer.toJson<BigInt?>(closingBalance),
-      'description': serializer.toJson<String>(description),
-      'iconCodePoint': serializer.toJson<int>(iconCodePoint),
-      'iconFontFamily': serializer.toJson<String?>(iconFontFamily),
-      'iconFontPackage': serializer.toJson<String?>(iconFontPackage),
-      'iconMatchesTextDirection':
-          serializer.toJson<bool>(iconMatchesTextDirection),
-      'iconColorValue': serializer.toJson<int>(iconColorValue),
-      'backgroundColorValue': serializer.toJson<int>(backgroundColorValue),
     };
   }
 
   Account copyWith(
-          {int? id,
+          {String? id,
           String? name,
           String? currency,
-          BigInt? openingBalance,
-          Value<BigInt?> closingBalance = const Value.absent(),
           String? description,
-          int? iconCodePoint,
-          Value<String?> iconFontFamily = const Value.absent(),
-          Value<String?> iconFontPackage = const Value.absent(),
-          bool? iconMatchesTextDirection,
-          int? iconColorValue,
-          int? backgroundColorValue}) =>
+          BigInt? openingBalance,
+          Value<BigInt?> closingBalance = const Value.absent()}) =>
       Account(
         id: id ?? this.id,
         name: name ?? this.name,
         currency: currency ?? this.currency,
+        description: description ?? this.description,
         openingBalance: openingBalance ?? this.openingBalance,
         closingBalance:
             closingBalance.present ? closingBalance.value : this.closingBalance,
-        description: description ?? this.description,
-        iconCodePoint: iconCodePoint ?? this.iconCodePoint,
-        iconFontFamily:
-            iconFontFamily.present ? iconFontFamily.value : this.iconFontFamily,
-        iconFontPackage: iconFontPackage.present
-            ? iconFontPackage.value
-            : this.iconFontPackage,
-        iconMatchesTextDirection:
-            iconMatchesTextDirection ?? this.iconMatchesTextDirection,
-        iconColorValue: iconColorValue ?? this.iconColorValue,
-        backgroundColorValue: backgroundColorValue ?? this.backgroundColorValue,
       );
   @override
   String toString() {
@@ -836,33 +1069,16 @@ class Account extends DataClass implements Insertable<Account> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('currency: $currency, ')
-          ..write('openingBalance: $openingBalance, ')
-          ..write('closingBalance: $closingBalance, ')
           ..write('description: $description, ')
-          ..write('iconCodePoint: $iconCodePoint, ')
-          ..write('iconFontFamily: $iconFontFamily, ')
-          ..write('iconFontPackage: $iconFontPackage, ')
-          ..write('iconMatchesTextDirection: $iconMatchesTextDirection, ')
-          ..write('iconColorValue: $iconColorValue, ')
-          ..write('backgroundColorValue: $backgroundColorValue')
+          ..write('openingBalance: $openingBalance, ')
+          ..write('closingBalance: $closingBalance')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode => Object.hash(
-      id,
-      name,
-      currency,
-      openingBalance,
-      closingBalance,
-      description,
-      iconCodePoint,
-      iconFontFamily,
-      iconFontPackage,
-      iconMatchesTextDirection,
-      iconColorValue,
-      backgroundColorValue);
+      id, name, currency, description, openingBalance, closingBalance);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -870,124 +1086,77 @@ class Account extends DataClass implements Insertable<Account> {
           other.id == this.id &&
           other.name == this.name &&
           other.currency == this.currency &&
-          other.openingBalance == this.openingBalance &&
-          other.closingBalance == this.closingBalance &&
           other.description == this.description &&
-          other.iconCodePoint == this.iconCodePoint &&
-          other.iconFontFamily == this.iconFontFamily &&
-          other.iconFontPackage == this.iconFontPackage &&
-          other.iconMatchesTextDirection == this.iconMatchesTextDirection &&
-          other.iconColorValue == this.iconColorValue &&
-          other.backgroundColorValue == this.backgroundColorValue);
+          other.openingBalance == this.openingBalance &&
+          other.closingBalance == this.closingBalance);
 }
 
 class AccountsCompanion extends UpdateCompanion<Account> {
-  final Value<int> id;
+  final Value<String> id;
   final Value<String> name;
   final Value<String> currency;
+  final Value<String> description;
   final Value<BigInt> openingBalance;
   final Value<BigInt?> closingBalance;
-  final Value<String> description;
-  final Value<int> iconCodePoint;
-  final Value<String?> iconFontFamily;
-  final Value<String?> iconFontPackage;
-  final Value<bool> iconMatchesTextDirection;
-  final Value<int> iconColorValue;
-  final Value<int> backgroundColorValue;
+  final Value<int> rowid;
   const AccountsCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.currency = const Value.absent(),
+    this.description = const Value.absent(),
     this.openingBalance = const Value.absent(),
     this.closingBalance = const Value.absent(),
-    this.description = const Value.absent(),
-    this.iconCodePoint = const Value.absent(),
-    this.iconFontFamily = const Value.absent(),
-    this.iconFontPackage = const Value.absent(),
-    this.iconMatchesTextDirection = const Value.absent(),
-    this.iconColorValue = const Value.absent(),
-    this.backgroundColorValue = const Value.absent(),
+    this.rowid = const Value.absent(),
   });
   AccountsCompanion.insert({
-    this.id = const Value.absent(),
+    required String id,
     required String name,
     required String currency,
+    required String description,
     required BigInt openingBalance,
     this.closingBalance = const Value.absent(),
-    required String description,
-    required int iconCodePoint,
-    this.iconFontFamily = const Value.absent(),
-    this.iconFontPackage = const Value.absent(),
-    required bool iconMatchesTextDirection,
-    required int iconColorValue,
-    required int backgroundColorValue,
-  })  : name = Value(name),
+    this.rowid = const Value.absent(),
+  })  : id = Value(id),
+        name = Value(name),
         currency = Value(currency),
-        openingBalance = Value(openingBalance),
         description = Value(description),
-        iconCodePoint = Value(iconCodePoint),
-        iconMatchesTextDirection = Value(iconMatchesTextDirection),
-        iconColorValue = Value(iconColorValue),
-        backgroundColorValue = Value(backgroundColorValue);
+        openingBalance = Value(openingBalance);
   static Insertable<Account> custom({
-    Expression<int>? id,
+    Expression<String>? id,
     Expression<String>? name,
     Expression<String>? currency,
+    Expression<String>? description,
     Expression<BigInt>? openingBalance,
     Expression<BigInt>? closingBalance,
-    Expression<String>? description,
-    Expression<int>? iconCodePoint,
-    Expression<String>? iconFontFamily,
-    Expression<String>? iconFontPackage,
-    Expression<bool>? iconMatchesTextDirection,
-    Expression<int>? iconColorValue,
-    Expression<int>? backgroundColorValue,
+    Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (name != null) 'name': name,
       if (currency != null) 'currency': currency,
+      if (description != null) 'description': description,
       if (openingBalance != null) 'opening_balance': openingBalance,
       if (closingBalance != null) 'closing_balance': closingBalance,
-      if (description != null) 'description': description,
-      if (iconCodePoint != null) 'icon_code_point': iconCodePoint,
-      if (iconFontFamily != null) 'icon_font_family': iconFontFamily,
-      if (iconFontPackage != null) 'icon_font_package': iconFontPackage,
-      if (iconMatchesTextDirection != null)
-        'icon_matches_text_direction': iconMatchesTextDirection,
-      if (iconColorValue != null) 'icon_color_value': iconColorValue,
-      if (backgroundColorValue != null)
-        'background_color_value': backgroundColorValue,
+      if (rowid != null) 'rowid': rowid,
     });
   }
 
   AccountsCompanion copyWith(
-      {Value<int>? id,
+      {Value<String>? id,
       Value<String>? name,
       Value<String>? currency,
+      Value<String>? description,
       Value<BigInt>? openingBalance,
       Value<BigInt?>? closingBalance,
-      Value<String>? description,
-      Value<int>? iconCodePoint,
-      Value<String?>? iconFontFamily,
-      Value<String?>? iconFontPackage,
-      Value<bool>? iconMatchesTextDirection,
-      Value<int>? iconColorValue,
-      Value<int>? backgroundColorValue}) {
+      Value<int>? rowid}) {
     return AccountsCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       currency: currency ?? this.currency,
+      description: description ?? this.description,
       openingBalance: openingBalance ?? this.openingBalance,
       closingBalance: closingBalance ?? this.closingBalance,
-      description: description ?? this.description,
-      iconCodePoint: iconCodePoint ?? this.iconCodePoint,
-      iconFontFamily: iconFontFamily ?? this.iconFontFamily,
-      iconFontPackage: iconFontPackage ?? this.iconFontPackage,
-      iconMatchesTextDirection:
-          iconMatchesTextDirection ?? this.iconMatchesTextDirection,
-      iconColorValue: iconColorValue ?? this.iconColorValue,
-      backgroundColorValue: backgroundColorValue ?? this.backgroundColorValue,
+      rowid: rowid ?? this.rowid,
     );
   }
 
@@ -995,7 +1164,7 @@ class AccountsCompanion extends UpdateCompanion<Account> {
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     if (id.present) {
-      map['id'] = Variable<int>(id.value);
+      map['id'] = Variable<String>(id.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
@@ -1003,33 +1172,17 @@ class AccountsCompanion extends UpdateCompanion<Account> {
     if (currency.present) {
       map['currency'] = Variable<String>(currency.value);
     }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
     if (openingBalance.present) {
       map['opening_balance'] = Variable<BigInt>(openingBalance.value);
     }
     if (closingBalance.present) {
       map['closing_balance'] = Variable<BigInt>(closingBalance.value);
     }
-    if (description.present) {
-      map['description'] = Variable<String>(description.value);
-    }
-    if (iconCodePoint.present) {
-      map['icon_code_point'] = Variable<int>(iconCodePoint.value);
-    }
-    if (iconFontFamily.present) {
-      map['icon_font_family'] = Variable<String>(iconFontFamily.value);
-    }
-    if (iconFontPackage.present) {
-      map['icon_font_package'] = Variable<String>(iconFontPackage.value);
-    }
-    if (iconMatchesTextDirection.present) {
-      map['icon_matches_text_direction'] =
-          Variable<bool>(iconMatchesTextDirection.value);
-    }
-    if (iconColorValue.present) {
-      map['icon_color_value'] = Variable<int>(iconColorValue.value);
-    }
-    if (backgroundColorValue.present) {
-      map['background_color_value'] = Variable<int>(backgroundColorValue.value);
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
     }
     return map;
   }
@@ -1040,15 +1193,10 @@ class AccountsCompanion extends UpdateCompanion<Account> {
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('currency: $currency, ')
+          ..write('description: $description, ')
           ..write('openingBalance: $openingBalance, ')
           ..write('closingBalance: $closingBalance, ')
-          ..write('description: $description, ')
-          ..write('iconCodePoint: $iconCodePoint, ')
-          ..write('iconFontFamily: $iconFontFamily, ')
-          ..write('iconFontPackage: $iconFontPackage, ')
-          ..write('iconMatchesTextDirection: $iconMatchesTextDirection, ')
-          ..write('iconColorValue: $iconColorValue, ')
-          ..write('backgroundColorValue: $backgroundColorValue')
+          ..write('rowid: $rowid')
           ..write(')'))
         .toString();
   }
@@ -1056,11 +1204,13 @@ class AccountsCompanion extends UpdateCompanion<Account> {
 
 abstract class _$LocalDB extends GeneratedDatabase {
   _$LocalDB(QueryExecutor e) : super(e);
+  late final $IconTableTable iconTable = $IconTableTable(this);
   late final $CurrencyTableTable currencyTable = $CurrencyTableTable(this);
   late final $AccountsTable accounts = $AccountsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [currencyTable, accounts];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [iconTable, currencyTable, accounts];
 }

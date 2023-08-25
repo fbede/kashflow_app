@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../shared/components/other_widgets.dart';
 import '../shared/elements/themes.dart';
 import '../shared/elements/user_text.dart';
+import 'account_models.dart';
 import 'account_provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -150,7 +151,7 @@ class _AccountsTabBody extends ConsumerWidget {
 
               return ListView.builder(
                 itemCount: data.length,
-                itemBuilder: (_, index) => data[index].toListTile(),
+                itemBuilder: (_, index) => data[index].listTile,
               );
             },
           );

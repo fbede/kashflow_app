@@ -2,12 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kashflow_core/kashflow_core.dart';
 import 'package:money2/money2.dart';
 
 import '../gen/assets.gen.dart';
-import '../shared/core/local_db.dart';
-import 'currency_dao.dart';
-import 'currency_extensions.dart';
 
 final savedCurrencyProviderFamily =
     AutoDisposeStreamProviderFamily<List<Currency>, String>(

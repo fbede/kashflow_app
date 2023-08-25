@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kashflow_core/kashflow_core.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../shared/components/other_widgets.dart';
 import '../shared/core/responsive.dart';
 import '../shared/elements/user_text.dart';
-import 'account_models.dart';
 import 'account_provider.dart';
 import 'edit_account_view.dart';
 

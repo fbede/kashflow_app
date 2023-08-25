@@ -1,8 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../shared/core/local_db.dart';
-import 'account_dao.dart';
-import 'account_models.dart';
+import 'package:kashflow_core/kashflow_core.dart';
 
 final accountsProvider =
     AutoDisposeStreamNotifierProvider<AccountsNotifier, List<AccountInfo>>(

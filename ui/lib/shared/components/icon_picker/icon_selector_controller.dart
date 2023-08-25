@@ -19,6 +19,7 @@ class IconSelectorController extends ChangeNotifier {
   Color backgroundColor;
 
   IconInfo get iconInfo => IconInfo(
+        id: null,
         iconData: selectedIconData,
         iconColor: iconColor,
         backgroundColor: backgroundColor,
