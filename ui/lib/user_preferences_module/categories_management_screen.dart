@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../shared/elements/user_text.dart';
+import '../ui_elements/user_text.dart';
 
 class CategoriesManagementScreen extends ConsumerStatefulWidget {
   const CategoriesManagementScreen({super.key});

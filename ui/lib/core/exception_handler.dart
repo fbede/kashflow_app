@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kashflow_core/kashflow_core.dart';
 
 import '../components/other_widgets.dart';
-import '../elements/user_text.dart';
+import '../ui_elements/user_text.dart';
 
 class ExceptionHandler {
   final BuildContext context;

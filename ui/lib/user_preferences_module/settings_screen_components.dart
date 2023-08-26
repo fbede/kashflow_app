@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../shared/core/responsive.dart';
-import '../shared/elements/user_text.dart';
+import '../core/responsive.dart';
+import '../ui_elements/user_text.dart';
 import 'theme_provider.dart';
 
 class ChangeThemeDialog extends ConsumerWidget {
@@ -28,19 +28,19 @@ class ChangeThemeDialog extends ConsumerWidget {
               const Divider(),
               RadioListTile<int>(
                 title: const Text(UserText.light),
-                value: themeNotifier.lightModeInt,
+                value: ThemeMode.light.index,
                 groupValue: themeNotifier.themeModeInt,
                 onChanged: (i) => themeNotifier.changeThemeMode(i!),
               ),
               RadioListTile<int>(
                 title: const Text(UserText.dark),
-                value: themeNotifier.darkModeInt,
+                value: ThemeMode.dark.index,
                 groupValue: themeNotifier.themeModeInt,
                 onChanged: (i) => themeNotifier.changeThemeMode(i!),
               ),
               RadioListTile<int>(
                 title: const Text(UserText.system),
-                value: themeNotifier.systemModeInt,
+                value: ThemeMode.system.index,
                 groupValue: themeNotifier.themeModeInt,
                 onChanged: (i) => themeNotifier.changeThemeMode(i!),
               ),

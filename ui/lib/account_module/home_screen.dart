@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../shared/components/other_widgets.dart';
-import '../shared/elements/themes.dart';
-import '../shared/elements/user_text.dart';
+import '../components/other_widgets.dart';
+import '../ui_elements/themes.dart';
+import '../ui_elements/user_text.dart';
 import 'account_models.dart';
 import 'account_provider.dart';
 
@@ -141,7 +141,8 @@ class _AccountsTabBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) =>
       ref.watch(accountsProvider).when(
             loading: () => const Center(child: CustomProgressIndicator()),
-            error: (e, _) => Center(child: Text(e.toString())),
+            error: (e, s) => Center(child: Text('''$e
+            $s''')),
             data: (data) {
               if (data.isEmpty) {
                 return const NothingFoundWidget(

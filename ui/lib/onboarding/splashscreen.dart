@@ -3,11 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:kashflow_core/kashflow_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/keys.dart';
+import '../core/responsive.dart';
+import '../core/route_names.dart';
 import '../gen/assets.gen.dart';
-import '../shared/core/keys.dart';
-import '../shared/core/responsive.dart';
-import '../shared/core/route_names.dart';
-import '../shared/elements/themes.dart';
+import '../ui_elements/themes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen>
     final router = GoRouter.of(context);
 
     try {
-      await LocalDB.instance
+      await LocalDB.instance //.table updates()
           .doWhenOpened((e) => Logger.instance.log('Database Opened'));
 
       await Future.delayed(slowGlobalAnimationDuration, () {});

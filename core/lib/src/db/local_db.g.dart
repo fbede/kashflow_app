@@ -418,7 +418,8 @@ class $CurrencyTableTable extends CurrencyTable
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 3, maxTextLength: 10),
       type: DriftSqlType.string,
-      requiredDuringInsert: true);
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _scaleMeta = const VerificationMeta('scale');
   @override
   late final GeneratedColumn<int> scale = GeneratedColumn<int>(
@@ -1207,6 +1208,10 @@ abstract class _$LocalDB extends GeneratedDatabase {
   late final $IconTableTable iconTable = $IconTableTable(this);
   late final $CurrencyTableTable currencyTable = $CurrencyTableTable(this);
   late final $AccountsTable accounts = $AccountsTable(this);
+  late final LocalCurrencyDao localCurrencyDao =
+      LocalCurrencyDao(this as LocalDB);
+  late final LocalAccountsDao localAccountsDao =
+      LocalAccountsDao(this as LocalDB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();

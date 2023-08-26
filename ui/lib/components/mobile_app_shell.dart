@@ -6,7 +6,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../account_module/create_account_view.dart';
 import '../core/responsive.dart';
 import '../core/route_names.dart';
-import '../elements/user_text.dart';
+import '../ui_elements/user_text.dart';
 
 class MobileAppShell extends StatelessWidget {
   final Widget child;

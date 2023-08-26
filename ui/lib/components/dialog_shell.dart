@@ -1,46 +1,29 @@
 import 'package:flutter/material.dart';
 
 import '../core/responsive.dart';
-import '../elements/user_text.dart';
+import '../ui_elements/user_text.dart';
 import 'other_widgets.dart';
 
-class ResponsiveDialogShell extends StatelessWidget {
+class ResponsiveDialogShell extends _Shell {
   const ResponsiveDialogShell({
-    required this.child,
-    required this.onSave,
-    required this.onCancel,
-    required this.isLoading,
+    required super.child,
+    required super.onSave,
+    required super.onCancel,
+    required super.saveIsLoading,
+    required super.cancelIsLoading,
+    super.onSaveText = UserText.save,
+    super.onCancelText = UserText.cancel,
     super.key,
   });
-
-  final void Function() onSave;
-  final void Function() onCancel;
-  final bool isLoading;
-  final Widget child;
 
   @override
   Widget build(BuildContext context) {
     if (context.isPhone()) {
-      return Dialog.fullscreen(
-        child: _Shell(
-          onSave: onSave,
-          onCancel: onCancel,
-          isLoading: isLoading,
-          child: child,
-        ),
-      );
+      return Dialog.fullscreen(child: super.build(context));
     }
     return Dialog(
       insetPadding: EdgeInsets.zero,
-      child: SizedBox(
-        width: 400,
-        child: _Shell(
-          onSave: onSave,
-          onCancel: onCancel,
-          isLoading: isLoading,
-          child: child,
-        ),
-      ),
+      child: SizedBox(width: 400, child: super.build(context)),
     );
   }
 }
@@ -49,13 +32,20 @@ class _Shell extends StatelessWidget {
   const _Shell({
     required this.onSave,
     required this.onCancel,
-    required this.isLoading,
+    required this.saveIsLoading,
+    required this.cancelIsLoading,
     required this.child,
+    required this.onSaveText,
+    required this.onCancelText,
+    super.key,
   });
 
   final void Function() onSave;
   final void Function() onCancel;
-  final bool isLoading;
+  final String onSaveText;
+  final String onCancelText;
+  final bool saveIsLoading;
+  final bool cancelIsLoading;
   final Widget child;
 
   @override
@@ -74,16 +64,18 @@ class _Shell extends StatelessWidget {
                       side: BorderSide(color: context.colorScheme.error),
                       foregroundColor: context.colorScheme.error,
                     ),
-                    child: const Text(UserText.cancel),
+                    child: cancelIsLoading
+                        ? const CustomProgressIndicator()
+                        : Text(onCancelText),
                   ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: FilledButton(
                     onPressed: onSave,
-                    child: isLoading
+                    child: saveIsLoading
                         ? const CustomProgressIndicator()
-                        : const Text(UserText.save),
+                        : Text(onSaveText),
                   ),
                 ),
               ],

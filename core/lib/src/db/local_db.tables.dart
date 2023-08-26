@@ -4,7 +4,7 @@ const _uuid = UuidV7();
 
 class CurrencyTable extends Table {
   TextColumn get id => text().clientDefault(() => _uuid.generate())();
-  TextColumn get code => text().withLength(min: 3, max: 10)();
+  TextColumn get code => text().withLength(min: 3, max: 10).unique()();
   IntColumn get scale => integer()();
   TextColumn get symbol => text().withLength(max: 10)();
   BoolColumn get invertSeparators => boolean()();

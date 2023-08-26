@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashflow/account_module/home_screen.dart';
+import 'package:kashflow/core/keys.dart';
+import 'package:kashflow/core/router.dart';
 import 'package:kashflow/onboarding/onboarding_screen.dart';
 import 'package:kashflow/onboarding/splashscreen.dart';
-import 'package:kashflow/shared/core/keys.dart';
-import 'package:kashflow/shared/core/router.dart';
-import 'package:kashflow/shared/elements/themes.dart';
+import 'package:kashflow/ui_elements/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

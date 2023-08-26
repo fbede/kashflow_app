@@ -1,7 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:money2/money2.dart';
 
-import '../currency_module/currency_extensions.dart';
 import '../db/local_db.dart';
 import '../logger/log_handler.dart';
 import '../models/shared_models.dart';
@@ -16,23 +14,26 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
 
   Stream<List<AccountInfo>> watchAllAccounts() async* {
     try {
-      final stream = select(accounts).join([crossJoin(currencyTable)]).watch();
+      final stream = select(accounts).join([
+        leftOuterJoin(
+          currencyTable,
+          currencyTable.id.equalsExp(accounts.currency),
+        ),
+        leftOuterJoin(iconTable, iconTable.id.equalsExp(accounts.id)),
+      ]).watch();
 
       await for (final List<TypedResult> event in stream) {
-        event.forEach((element) {
-          print(element.rawData.data);
-        });
+        Logger.instance.log(event.first.rawData.data);
         yield event.map<AccountInfo>((e) {
-          final currency = e.readTable(currencyTable).currency;
-          final amount = e.read(accounts.openingBalance)!;
-          final money = Money.fromBigIntWithCurrency(amount, currency);
           final iconTableData = e.readTable(iconTable);
+          final accountTableData = e.readTable(accounts);
 
           return AccountInfo(
-            id: e.read(accounts.id),
-            name: e.read(accounts.name)!,
-            openingBalance: money,
+            id: accountTableData.id,
+            name: accountTableData.name,
+            openingBalance: accountTableData.openingBalance,
             iconInfo: IconInfo.fromTableData(iconTableData),
+            currencyData: e.readTable(currencyTable),
           );
         }).toList();
       }
@@ -43,24 +44,26 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
   }
 
   Future<void> createNewAccount(AccountInfo accountInfo) async {
-    final currency = accountInfo.openingBalance.currency;
+    final icon = accountInfo.iconInfo;
 
     await transaction(() async {
-      await into(currencyTable)
-          .insert(currency.companion, onConflict: DoNothing());
+      final iconData = await into(iconTable).insertReturning(
+        icon.companion,
+        mode: InsertMode.insert,
+      );
 
-      await into(accounts).insert(accountInfo.companion);
+      final newAccountInfo = accountInfo.copyWith(id: iconData.id);
+
+      await into(accounts).insert(newAccountInfo.companion);
     });
   }
 
   Future<void> updateAccount(AccountInfo accountInfo) async {
     try {
-      final currency = accountInfo.openingBalance.currency;
+      final icon = accountInfo.iconInfo;
 
       await transaction(() async {
-        await into(currencyTable)
-            .insert(currency.companion, onConflict: DoNothing());
-
+        await update(iconTable).replace(icon.companion);
         await update(accounts).replace(accountInfo.companion);
       });
     } on Exception catch (e, s) {

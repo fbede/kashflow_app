@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'shared/components/app.dart';
+import 'components/app.dart';
 
 //const _environment = 'Development';
 
@@ -37,4 +38,8 @@ Future<void> _setWindowSettings() async {
       await windowManager.focus();
     },
   );
+}
+
+void printInfo() {
+  while (true) {}
 }

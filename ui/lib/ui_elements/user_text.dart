@@ -53,6 +53,7 @@ Use the '+' button to create a new account.''';
   static const currency = 'Currency';
   static const amount = 'Amount';
   static const description = 'Description';
+  static const selectCurrency = 'Select Currency';
   static const selectIcon = 'Select Icon';
   static const selectColor = 'Select Color';
   static const changeIcon = 'Change Icon';

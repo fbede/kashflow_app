@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow_core/kashflow_core.dart';
 
-import '../../account_module/home_screen.dart';
-import '../../onboarding/onboarding_screen.dart';
-import '../../onboarding/splashscreen.dart';
-import '../../user_preferences_module/categories_management_screen.dart';
-import '../../user_preferences_module/settings_screen.dart';
+import '../account_module/home_screen.dart';
 import '../components/mobile_app_shell.dart';
+import '../onboarding/onboarding_screen.dart';
+import '../onboarding/splashscreen.dart';
+import '../user_preferences_module/categories_management_screen.dart';
+import '../user_preferences_module/settings_screen.dart';
 
 import 'route_names.dart';
 

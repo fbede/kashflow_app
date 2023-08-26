@@ -5,13 +5,13 @@ import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../core/keys.dart';
+import '../core/responsive.dart';
+import '../core/route_names.dart';
 import '../gen/assets.gen.dart';
 import '../gen/fonts.gen.dart';
-import '../shared/core/keys.dart';
-import '../shared/core/responsive.dart';
-import '../shared/core/route_names.dart';
-import '../shared/elements/themes.dart';
-import '../shared/elements/user_text.dart';
+import '../ui_elements/themes.dart';
+import '../ui_elements/user_text.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

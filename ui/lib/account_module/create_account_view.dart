@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow_core/kashflow_core.dart';
-import 'package:money2/money2.dart';
 
+import '../components/custom_text_fields.dart';
+import '../components/dialog_shell.dart';
+import '../components/icon_picker/icon_selector.dart';
+import '../core/exception_handler.dart';
+import '../core/responsive.dart';
 import '../currency_module/default_currency_provider.dart';
-import '../shared/components/custom_text_fields.dart';
-import '../shared/components/dialog_shell.dart';
-import '../shared/components/icon_picker/icon_selector.dart';
-import '../shared/core/exception_handler.dart';
-
-import '../shared/core/responsive.dart';
-import '../shared/elements/user_text.dart';
+import '../ui_elements/user_text.dart';
 import 'account_provider.dart';
 
 class CreateAccountView extends ConsumerStatefulWidget {
@@ -33,16 +31,12 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
   bool _isLoading = false;
   bool _loadedDefault = false;
-  Currency? _currency;
+  CurrencyTableData? _currencyData;
 
   @override
   void initState() {
-    _iconSelectorController = IconSelectorController(
-      iconColor: context.colorScheme.onPrimaryContainer,
-      backgroundColor: context.colorScheme.primaryContainer,
-    );
-    super.initState();
     _descriptionController.addListener(() => setState(() {}));
+    super.initState();
   }
 
   @override
@@ -57,12 +51,13 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
   @override
   Widget build(BuildContext context) {
-    showDefaultCurrency();
+    _showDefaultCurrency();
 
     return ResponsiveDialogShell(
       onSave: _save,
       onCancel: context.pop,
-      isLoading: _isLoading,
+      saveIsLoading: _isLoading,
+      cancelIsLoading: false,
       child: Form(
         key: _formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -96,26 +91,31 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     );
   }
 
-  void showDefaultCurrency() {
+  void _showDefaultCurrency() {
     ref.watch(defaultCurrencyProvider).whenData((value) {
       if (_loadedDefault) return;
 
-      _currency = value;
+      _currencyData = value;
       _loadedDefault = true;
 
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => _updateCurrencyController(_currency));
+      _iconSelectorController = IconSelectorController(
+        iconColor: context.colorScheme.onPrimaryContainer,
+        backgroundColor: context.colorScheme.primaryContainer,
+      );
+
+      WidgetsBinding.instance.addPostFrameCallback(
+          (_) => _updateCurrencyController(_currencyData));
     });
   }
 
-  void _updateCurrencyController(Currency? c) {
-    _currency = c;
+  void _updateCurrencyController(CurrencyTableData? c) {
+    _currencyData = c;
     late String text;
 
     if (c == null) {
       text = '';
     } else {
-      text = '${_currency?.name ?? ''} (${_currency?.code ?? ''})';
+      text = '${_currencyData?.name ?? ''} (${_currencyData?.code ?? ''})';
     }
 
     _currencyNameController.text = text.trim();
@@ -127,15 +127,15 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     _isLoading = true;
     setState(() {});
 
-    final openingBalance = Money.fromNumWithCurrency(
+    final openingBalance = BigInt.from(
       double.parse(_amountController.text),
-      _currency!,
     );
 
     final accountInfo = AccountInfo(
       id: null,
       name: _accountNameController.text,
       description: _descriptionController.text,
+      currencyData: _currencyData!,
       openingBalance: openingBalance,
       iconInfo: _iconSelectorController.iconInfo,
     );

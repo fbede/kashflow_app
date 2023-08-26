@@ -18,7 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AccountInfo {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  Money get openingBalance => throw _privateConstructorUsedError;
+  CurrencyTableData get currencyInfo => throw _privateConstructorUsedError;
+  BigInt get openingBalance => throw _privateConstructorUsedError;
   IconInfo get iconInfo => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
@@ -36,7 +37,8 @@ abstract class $AccountInfoCopyWith<$Res> {
   $Res call(
       {String? id,
       String name,
-      Money openingBalance,
+      CurrencyTableData currencyInfo,
+      BigInt openingBalance,
       IconInfo iconInfo,
       String description});
 
@@ -58,6 +60,7 @@ class _$AccountInfoCopyWithImpl<$Res, $Val extends AccountInfo>
   $Res call({
     Object? id = freezed,
     Object? name = null,
+    Object? currencyInfo = freezed,
     Object? openingBalance = null,
     Object? iconInfo = null,
     Object? description = null,
@@ -71,10 +74,14 @@ class _$AccountInfoCopyWithImpl<$Res, $Val extends AccountInfo>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      currencyInfo: freezed == currencyInfo
+          ? _value.currencyInfo
+          : currencyInfo // ignore: cast_nullable_to_non_nullable
+              as CurrencyTableData,
       openingBalance: null == openingBalance
           ? _value.openingBalance
           : openingBalance // ignore: cast_nullable_to_non_nullable
-              as Money,
+              as BigInt,
       iconInfo: null == iconInfo
           ? _value.iconInfo
           : iconInfo // ignore: cast_nullable_to_non_nullable
@@ -106,7 +113,8 @@ abstract class _$$_AccountInfoCopyWith<$Res>
   $Res call(
       {String? id,
       String name,
-      Money openingBalance,
+      CurrencyTableData currencyInfo,
+      BigInt openingBalance,
       IconInfo iconInfo,
       String description});
 
@@ -127,6 +135,7 @@ class __$$_AccountInfoCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = null,
+    Object? currencyInfo = freezed,
     Object? openingBalance = null,
     Object? iconInfo = null,
     Object? description = null,
@@ -140,10 +149,14 @@ class __$$_AccountInfoCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      currencyInfo: freezed == currencyInfo
+          ? _value.currencyInfo
+          : currencyInfo // ignore: cast_nullable_to_non_nullable
+              as CurrencyTableData,
       openingBalance: null == openingBalance
           ? _value.openingBalance
           : openingBalance // ignore: cast_nullable_to_non_nullable
-              as Money,
+              as BigInt,
       iconInfo: null == iconInfo
           ? _value.iconInfo
           : iconInfo // ignore: cast_nullable_to_non_nullable
@@ -162,6 +175,7 @@ class _$_AccountInfo extends _AccountInfo {
   const _$_AccountInfo(
       {required this.id,
       required this.name,
+      required this.currencyInfo,
       required this.openingBalance,
       required this.iconInfo,
       this.description = ''})
@@ -172,7 +186,9 @@ class _$_AccountInfo extends _AccountInfo {
   @override
   final String name;
   @override
-  final Money openingBalance;
+  final CurrencyTableData currencyInfo;
+  @override
+  final BigInt openingBalance;
   @override
   final IconInfo iconInfo;
   @override
@@ -181,7 +197,7 @@ class _$_AccountInfo extends _AccountInfo {
 
   @override
   String toString() {
-    return 'AccountInfo._internal(id: $id, name: $name, openingBalance: $openingBalance, iconInfo: $iconInfo, description: $description)';
+    return 'AccountInfo._internal(id: $id, name: $name, currencyInfo: $currencyInfo, openingBalance: $openingBalance, iconInfo: $iconInfo, description: $description)';
   }
 
   @override
@@ -191,6 +207,8 @@ class _$_AccountInfo extends _AccountInfo {
             other is _$_AccountInfo &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality()
+                .equals(other.currencyInfo, currencyInfo) &&
             (identical(other.openingBalance, openingBalance) ||
                 other.openingBalance == openingBalance) &&
             (identical(other.iconInfo, iconInfo) ||
@@ -200,8 +218,14 @@ class _$_AccountInfo extends _AccountInfo {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, openingBalance, iconInfo, description);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      const DeepCollectionEquality().hash(currencyInfo),
+      openingBalance,
+      iconInfo,
+      description);
 
   @JsonKey(ignore: true)
   @override
@@ -214,7 +238,8 @@ abstract class _AccountInfo extends AccountInfo {
   const factory _AccountInfo(
       {required final String? id,
       required final String name,
-      required final Money openingBalance,
+      required final CurrencyTableData currencyInfo,
+      required final BigInt openingBalance,
       required final IconInfo iconInfo,
       final String description}) = _$_AccountInfo;
   const _AccountInfo._() : super._();
@@ -224,7 +249,9 @@ abstract class _AccountInfo extends AccountInfo {
   @override
   String get name;
   @override
-  Money get openingBalance;
+  CurrencyTableData get currencyInfo;
+  @override
+  BigInt get openingBalance;
   @override
   IconInfo get iconInfo;
   @override

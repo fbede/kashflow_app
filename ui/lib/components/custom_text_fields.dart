@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../currency_module/currency_picker_dialog.dart';
-import '../elements/user_text.dart';
+import '../ui_elements/user_text.dart';
 import 'calculator.dart';
 
 class DescriptionFormField extends StatelessWidget {

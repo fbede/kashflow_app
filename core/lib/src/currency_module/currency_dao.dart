@@ -1,9 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:money2/money2.dart';
 
 import '../db/local_db.dart';
 import '../logger/log_handler.dart';
-import 'currency_extensions.dart';
 
 part 'currency_dao.g.dart';
 
@@ -13,7 +11,9 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
   LocalCurrencyDao(super.attachedDatabase);
 
   //READ METHODS
-  Stream<List<Currency>> watchAllCurrencies([String searchTerm = '']) async* {
+  Stream<List<CurrencyTableData>> watchAllCurrencies([
+    String searchTerm = '',
+  ]) async* {
     try {
       final query = select(currencyTable)
         ..where(
@@ -21,24 +21,29 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
               tbl.code.contains(searchTerm) | tbl.name.contains(searchTerm),
         );
 
-      yield* query.watch().map(
-            (event) => event.map((e) => e.currency).toList(),
-          );
+      yield* query.watch();
     } on Exception catch (e, s) {
       Logger.instance.handle(e, s);
       rethrow;
     }
   }
 
-  Future<Currency?> getCurrencyById(String id) async {
+  Future<CurrencyTableData> getCurrencyById(String id) async {
     final query = select(currencyTable)..where((tbl) => tbl.id.equals(id));
 
     try {
-      final result = await query.getSingleOrNull();
-      if (result != null) {
-        return result.currency;
-      }
-      return null;
+      return await query.getSingle();
+    } on Exception catch (e, s) {
+      Logger.instance.handle(e, s);
+      rethrow;
+    }
+  }
+
+  Future<CurrencyTableData> getCurrencyByCode(String code) async {
+    final query = select(currencyTable)..where((tbl) => tbl.code.equals(code));
+
+    try {
+      return await query.getSingle();
     } on Exception catch (e, s) {
       Logger.instance.handle(e, s);
       rethrow;

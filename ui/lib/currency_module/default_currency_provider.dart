@@ -1,26 +1,26 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kashflow_core/kashflow_core.dart';
-import 'package:money2/money2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../shared/core/keys.dart';
+import '../core/keys.dart';
 
-final defaultCurrencyProvider =
-    AutoDisposeAsyncNotifierProvider<_DefaultCurrencyNotifier, Currency>(
+final defaultCurrencyProvider = AutoDisposeAsyncNotifierProvider<
+    _DefaultCurrencyNotifier, CurrencyTableData>(
   _DefaultCurrencyNotifier.new,
 );
 
-class _DefaultCurrencyNotifier extends AutoDisposeAsyncNotifier<Currency> {
+class _DefaultCurrencyNotifier
+    extends AutoDisposeAsyncNotifier<CurrencyTableData> {
   final dao = LocalCurrencyDao(LocalDB.instance);
 
   @override
-  Future<Currency> build() async {
+  Future<CurrencyTableData> build() async {
     final prefs = await SharedPreferences.getInstance();
-    final currencyCode = prefs.getString(PrefKeys.defaultCurrencyId);
+    final currencyId = prefs.getString(PrefKeys.defaultCurrencyId);
 
-    if (currencyCode == null) return CommonCurrencies().usd;
+    if (currencyId == null) return dao.getCurrencyByCode('USD');
 
-    return await dao.getCurrencyById(currencyCode) ?? CommonCurrencies().usd;
+    return dao.getCurrencyById(currencyId);
   }
 
   /*  Future<void> changeDefaultCurrency(Currency currency) async {

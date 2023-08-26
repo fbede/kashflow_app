@@ -13,16 +13,16 @@ import '../core/responsive.dart';
 import '../ui_elements/user_text.dart';
 import 'account_provider.dart';
 
-class EditAccountView extends ConsumerStatefulWidget {
-  const EditAccountView({required this.accountInfo, super.key});
+class OldAccountView extends ConsumerStatefulWidget {
+  const OldAccountView({required this.accountInfo, super.key});
 
   final AccountInfo accountInfo;
 
   @override
-  ConsumerState<EditAccountView> createState() => _EditAccountViewState();
+  ConsumerState<OldAccountView> createState() => _AccountViewState();
 }
 
-class _EditAccountViewState extends ConsumerState<EditAccountView> {
+class _AccountViewState extends ConsumerState<OldAccountView> {
   final _accountNameController = TextEditingController();
   final _currencyNameController = TextEditingController();
   final _amountController = TextEditingController(text: '0.0');
@@ -70,31 +70,35 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
         child: Form(
           key: _formKey,
           autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              Text(
-                UserText.editAnAccount,
-                style: context.textTheme.titleLarge,
-              ),
-              const SizedBox(height: 16),
-              IconSelector(controller: _iconSelectorController),
-              const SizedBox(height: 16),
-              NameFormField(
-                label: UserText.accountName,
-                controller: _accountNameController,
-              ),
-              const SizedBox(height: 8),
-              CurrencyFormField(controller: _currencyNameController),
-              const SizedBox(height: 16),
-              MoneyAmountFormField(controller: _amountController),
-              const SizedBox(height: 16),
-              DescriptionFormField(
-                controller: _descriptionController,
-                showSuffix: _descriptionController.text.isEmpty,
-              ),
-              const SizedBox(height: 8),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: ListView(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              children: [
+                Text(
+                  UserText.editAnAccount,
+                  style: context.textTheme.titleLarge,
+                ),
+                const SizedBox(height: 16),
+                IconSelector(controller: _iconSelectorController),
+                const SizedBox(height: 16),
+                NameFormField(
+                  label: UserText.accountName,
+                  controller: _accountNameController,
+                ),
+                const SizedBox(height: 8),
+                CurrencyFormField(controller: _currencyNameController),
+                const SizedBox(height: 16),
+                MoneyAmountFormField(controller: _amountController),
+                const SizedBox(height: 16),
+                DescriptionFormField(
+                  controller: _descriptionController,
+                  showSuffix: _descriptionController.text.isEmpty,
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
           ),
         ),
       );

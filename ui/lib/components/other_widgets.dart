@@ -5,7 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../gen/assets.gen.dart';
 import '../core/responsive.dart';
-import '../elements/user_text.dart';
+import '../ui_elements/user_text.dart';
 
 class CustomProgressIndicator extends StatefulWidget {
   const CustomProgressIndicator({super.key});

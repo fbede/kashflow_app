@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kashflow_core/kashflow_core.dart';
 
-import '../../elements/user_text.dart';
+import '../../ui_elements/user_text.dart';
 import '../color_picker.dart';
 import 'icon_picker.dart';
 import 'icon_picker_provider.dart';

@@ -4,13 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:kashflow_core/kashflow_core.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../components/other_widgets.dart';
 import '../currency_module/currency_picker_dialog.dart';
 import '../currency_module/default_currency_provider.dart';
-import '../shared/components/other_widgets.dart';
 
-import '../shared/core/responsive.dart';
-import '../shared/core/route_names.dart';
-import '../shared/elements/user_text.dart';
+import '../core/responsive.dart';
+import '../core/route_names.dart';
+import '../ui_elements/user_text.dart';
 import 'settings_screen_components.dart';
 import 'theme_provider.dart';
 
