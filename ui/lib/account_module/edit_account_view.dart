@@ -130,7 +130,7 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
       if (handler.isSQLiteException) {
         await handler.handleSQLiteException();
       } else {
-        Logger.instance.handle(e, s);
+        logger.handle(e, s);
       }
     } finally {
       _isLoading = false;

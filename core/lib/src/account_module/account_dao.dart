@@ -23,7 +23,6 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
       ]).watch();
 
       await for (final List<TypedResult> event in stream) {
-        Logger.instance.log(event.first.rawData.data);
         yield event.map<AccountInfo>((e) {
           final iconTableData = e.readTable(iconTable);
           final accountTableData = e.readTable(accounts);
@@ -38,7 +37,7 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
         }).toList();
       }
     } on Exception catch (e, s) {
-      Logger.instance.handle(e, s);
+      logger.handle(e, s);
       rethrow;
     }
   }
@@ -67,7 +66,7 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
         await update(accounts).replace(accountInfo.companion);
       });
     } on Exception catch (e, s) {
-      Logger.instance.handle(e, s);
+      logger.handle(e, s);
       rethrow;
     }
   }

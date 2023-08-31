@@ -32,7 +32,7 @@ class IconTable extends Table {
 
 class Accounts extends Table {
   TextColumn get id => text().references(IconTable, #id)();
-  TextColumn get name => text().withLength(min: 3, max: 25)();
+  TextColumn get name => text().withLength(min: 3, max: 25).unique()();
   TextColumn get currency => text().references(CurrencyTable, #id)();
   TextColumn get description => text().withLength(max: 100)();
   Int64Column get openingBalance => int64()();

@@ -141,8 +141,7 @@ class _AccountsTabBody extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) =>
       ref.watch(accountsProvider).when(
             loading: () => const Center(child: CustomProgressIndicator()),
-            error: (e, s) => Center(child: Text('''$e
-            $s''')),
+            error: (e, s) => Center(child: Text('$e\n$s')),
             data: (data) {
               if (data.isEmpty) {
                 return const NothingFoundWidget(

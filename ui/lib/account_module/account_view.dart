@@ -134,7 +134,7 @@ class _AccountViewState extends ConsumerState<OldAccountView> {
       if (handler.isSQLiteException) {
         await handler.handleSQLiteException();
       } else {
-        Logger.instance.handle(e, s);
+        logger.handle(e, s);
       }
     } finally {
       _isLoading = false;

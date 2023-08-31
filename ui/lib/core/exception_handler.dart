@@ -21,7 +21,7 @@ class ExceptionHandler {
     if (_SQLiteErrorCode == _uniqueConstraintFailed) {
       errorMessage = UserText.accountExistErrorMsg;
     } else {
-      Logger.instance.handle(exception, stacktrace);
+      logger.handle(exception, stacktrace);
     }
 
     await showDialog<Never>(

@@ -5,11 +5,10 @@ import 'package:kashflow_core/kashflow_core.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
-import '../currency_module/currency_picker_dialog.dart';
-import '../currency_module/default_currency_provider.dart';
-
 import '../core/responsive.dart';
 import '../core/route_names.dart';
+import '../currency_module/currency_picker_dialog.dart';
+import '../currency_module/default_currency_provider.dart';
 import '../ui_elements/user_text.dart';
 import 'settings_screen_components.dart';
 import 'theme_provider.dart';
@@ -115,7 +114,7 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
         //      .read(defaultCurrencyProvider.notifier)
         //    .changeDefaultCurrency(currency);
       } on Exception catch (e, s) {
-        Logger.instance.handle(e, s);
+        logger.handle(e, s);
         if (context.mounted) {
           await showDialog<Never>(
             context: context,

@@ -4,17 +4,19 @@ import 'package:kashflow_core/kashflow_core.dart';
 
 import 'components/app.dart';
 import 'config/env.dart';
+import 'core/start_up.dart';
 
 const _environment = 'Testing';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final packageInfo = await PackageInfo.fromPlatform();
-  final appName = packageInfo.appName;
-  final version = packageInfo.version;
-  final String buildNumber = packageInfo.buildNumber;
-  final releaseInfo = '$appName $version+$buildNumber';
+  final [releaseInfo as String, _] = await Future.wait([
+    getReleaseInfo(),
+    registerSingletons(),
+  ]);
+
+  logger.log(releaseInfo);
 
   await SentryFlutter.init(
     (options) {

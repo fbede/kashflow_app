@@ -104,7 +104,8 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
       );
 
       WidgetsBinding.instance.addPostFrameCallback(
-          (_) => _updateCurrencyController(_currencyData));
+        (_) => _updateCurrencyController(_currencyData),
+      );
     });
   }
 
@@ -154,7 +155,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
       if (handler.isSQLiteException) {
         await handler.handleSQLiteException();
       } else {
-        Logger.instance.handle(e, s);
+        logger.handle(e, s);
       }
     } finally {
       _isLoading = false;

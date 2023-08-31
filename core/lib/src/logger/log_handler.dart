@@ -1,8 +1,10 @@
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-extension Logger on Talker {
-  static Talker instance = TalkerFlutter.init(observer: _LogHandler());
+final logger = _Logger.instance;
+
+extension _Logger on Talker {
+  static final Talker instance = TalkerFlutter.init(observer: _LogHandler());
 }
 
 class _LogHandler implements TalkerObserver {

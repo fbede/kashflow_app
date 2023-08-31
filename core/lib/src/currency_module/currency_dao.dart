@@ -23,7 +23,7 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
 
       yield* query.watch();
     } on Exception catch (e, s) {
-      Logger.instance.handle(e, s);
+      logger.handle(e, s);
       rethrow;
     }
   }
@@ -34,7 +34,7 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
     try {
       return await query.getSingle();
     } on Exception catch (e, s) {
-      Logger.instance.handle(e, s);
+      logger.handle(e, s);
       rethrow;
     }
   }
@@ -45,7 +45,7 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
     try {
       return await query.getSingle();
     } on Exception catch (e, s) {
-      Logger.instance.handle(e, s);
+      logger.handle(e, s);
       rethrow;
     }
   }

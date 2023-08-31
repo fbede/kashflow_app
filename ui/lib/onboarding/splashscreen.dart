@@ -60,9 +60,9 @@ class _SplashScreenState extends State<SplashScreen>
 
     try {
       await LocalDB.instance //.table updates()
-          .doWhenOpened((e) => Logger.instance.log('Database Opened'));
+          .doWhenOpened((e) => logger.log('Database Opened'));
 
-      await Future.delayed(slowGlobalAnimationDuration, () {});
+      //await Future.delayed(slowGlobalAnimationDuration, () {});
       final prefs = await SharedPreferences.getInstance();
       final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
 
@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen>
 
       router.goNamed(Routes.onboarding);
     } on Exception catch (e, s) {
-      Logger.instance.handle(e, s);
+      logger.handle(e, s);
       rethrow;
     }
   }

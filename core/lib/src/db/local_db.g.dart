@@ -871,7 +871,8 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
       additionalChecks:
           GeneratedColumn.checkTextLength(minTextLength: 3, maxTextLength: 25),
       type: DriftSqlType.string,
-      requiredDuringInsert: true);
+      requiredDuringInsert: true,
+      defaultConstraints: GeneratedColumn.constraintIsAlways('UNIQUE'));
   static const VerificationMeta _currencyMeta =
       const VerificationMeta('currency');
   @override
