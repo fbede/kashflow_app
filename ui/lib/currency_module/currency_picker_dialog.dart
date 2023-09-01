@@ -79,6 +79,12 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
                           .watch(savedCurrencyProviderFamily.call(searchTerm)),
                       onTap: widget.onTap,
                     ),
+                    const _Subtitle(titleString: UserText.otherCurriences),
+                    _CurrencyList(
+                      dataProvider: ref
+                          .watch(otherCurrencyProviderFamily.call(searchTerm)),
+                      onTap: widget.onTap,
+                    ),
                   ],
                 ),
               ),

@@ -27,7 +27,7 @@ void main() {
   test('Tests that the watchAllCurrencies method is working', () async {
     final assetCurrencies = await _getAssetCurrencies();
 
-    await expectLater(dao.watchAllCurrencies(), emits(assetCurrencies));
+    await expectLater(dao.watchOtherCurrencies(), emits(assetCurrencies));
   });
 }
 

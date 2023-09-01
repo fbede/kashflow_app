@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/keys.dart';
 
-final themesProvider =
-    AutoDisposeAsyncNotifierProvider<_ThemeNotifier, _ThemeState>(
+final themesProvider = AutoDisposeNotifierProvider<_ThemeNotifier, _ThemeState>(
   _ThemeNotifier.new,
 );
 
@@ -14,18 +14,18 @@ typedef _ThemeState = ({
   bool useDeepBlacks,
 });
 
-class _ThemeNotifier extends AutoDisposeAsyncNotifier<_ThemeState> {
+class _ThemeNotifier extends AutoDisposeNotifier<_ThemeState> {
+  final prefs = GetIt.I<SharedPreferences>();
   late ThemeMode _oldThemeMode;
   late bool _oldUseDeepBlacksValue;
   late int themeModeInt;
   late bool currentBlackAndWhiteValue;
 
   @override
-  Future<_ThemeState> build() async {
-    final prefs = await SharedPreferences.getInstance();
-
+  _ThemeState build() {
     themeModeInt =
         prefs.getInt(PrefKeys.themeModeInt) ?? ThemeMode.system.index;
+
     currentBlackAndWhiteValue =
         prefs.getBool(PrefKeys.isBlackOrWhiteBackground) ?? false;
 
@@ -40,33 +40,25 @@ class _ThemeNotifier extends AutoDisposeAsyncNotifier<_ThemeState> {
 
   void changeThemeMode(int i) {
     themeModeInt = i;
-    state = AsyncValue.data(
-      (
-        themeMode: ThemeMode.values[i],
-        useDeepBlacks: state.requireValue.useDeepBlacks,
-      ),
+    state = (
+      themeMode: ThemeMode.values[i],
+      useDeepBlacks: state.useDeepBlacks,
     );
   }
 
   void makeBackgroundWhiteOrBlack() {
     currentBlackAndWhiteValue = true;
-    state = AsyncValue.data(
-      (themeMode: state.requireValue.themeMode, useDeepBlacks: true),
-    );
+    state = (themeMode: state.themeMode, useDeepBlacks: true);
   }
 
   void doNotmakeBackgroundWhiteOrBlack() {
     currentBlackAndWhiteValue = false;
-    state = AsyncValue.data(
-      (themeMode: state.requireValue.themeMode, useDeepBlacks: false),
-    );
+    state = (themeMode: state.themeMode, useDeepBlacks: false);
   }
 
   Future<void> saveTheme() async {
-    _oldThemeMode = state.requireValue.themeMode;
-    _oldUseDeepBlacksValue = state.requireValue.useDeepBlacks;
-
-    final prefs = await SharedPreferences.getInstance();
+    _oldThemeMode = state.themeMode;
+    _oldUseDeepBlacksValue = state.useDeepBlacks;
 
     await Future.wait([
       prefs.setInt(
@@ -80,7 +72,6 @@ class _ThemeNotifier extends AutoDisposeAsyncNotifier<_ThemeState> {
     ]);
   }
 
-  void cancelThemeChange() => state = AsyncValue.data(
-        (themeMode: _oldThemeMode, useDeepBlacks: _oldUseDeepBlacksValue),
-      );
+  void cancelThemeChange() =>
+      state = (themeMode: _oldThemeMode, useDeepBlacks: _oldUseDeepBlacksValue);
 }

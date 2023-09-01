@@ -11,15 +11,15 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themesProvider).asData?.value.themeMode;
-    final useDeepBlacks = ref.watch(themesProvider).asData?.value.useDeepBlacks;
+    final themeMode = ref.watch(themesProvider).themeMode;
+    final useDeepBlacks = ref.watch(themesProvider).useDeepBlacks;
 
     return TooltipVisibility(
       visible: false,
       child: MaterialApp.router(
         title: UserText.appName,
-        theme: getLightTheme(isWhite: useDeepBlacks ?? true),
-        darkTheme: getDarkTheme(isBlack: useDeepBlacks ?? true),
+        theme: getLightTheme(isWhite: useDeepBlacks),
+        darkTheme: getDarkTheme(isBlack: useDeepBlacks),
         themeMode: themeMode,
         routerConfig: router,
       ),

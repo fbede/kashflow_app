@@ -23,10 +23,16 @@ part 'local_db.tables.dart';
   daos: [LocalCurrencyDao, LocalAccountsDao],
 )
 class LocalDB extends _$LocalDB {
-  static final instance = LocalDB();
+  static late final LocalDB _instance;
+  static bool isInit = false;
 
-  LocalDB() : super(_openConnection());
+  factory LocalDB({bool resetDB = false}) {
+    if (isInit) return _instance;
+    isInit = true;
+    return _instance = LocalDB._(resetDB);
+  }
 
+  LocalDB._([bool resetDB = false]) : super(_openConnection(resetDB));
   LocalDB.test(super.e);
 
   //* Increase this number whenever schema is changed
@@ -49,11 +55,11 @@ class LocalDB extends _$LocalDB {
       );
 }
 
-LazyDatabase _openConnection() => LazyDatabase(() async {
+LazyDatabase _openConnection([bool resetDB = false]) => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
 
-      if (kDebugMode & file.existsSync()) {
+      if (resetDB & kDebugMode & file.existsSync()) {
         await file.delete(recursive: true);
         await file.create(recursive: true);
       }

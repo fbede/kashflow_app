@@ -7,7 +7,7 @@ final accountsProvider =
 );
 
 class AccountsNotifier extends AutoDisposeStreamNotifier<List<AccountInfo>> {
-  final _dao = LocalAccountsDao(LocalDB.instance);
+  final _dao = LocalAccountsDao(LocalDB());
 
   @override
   Stream<List<AccountInfo>> build() => _dao.watchAllAccounts();

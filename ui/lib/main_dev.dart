@@ -11,6 +11,8 @@ import 'core/start_up.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  //resetDB = true;
+
   await Future.wait([setWindowSettings(), registerSingletons()]);
 
   runApp(const ProviderScope(child: MyApp()));

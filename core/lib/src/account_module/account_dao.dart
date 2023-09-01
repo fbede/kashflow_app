@@ -7,7 +7,7 @@ import 'account_models.dart';
 
 part 'account_dao.g.dart';
 
-@DriftAccessor(tables: [Accounts, CurrencyTable])
+@DriftAccessor(tables: [Accounts, CurrencyTable, IconTable])
 class LocalAccountsDao extends DatabaseAccessor<LocalDB>
     with _$LocalAccountsDaoMixin {
   LocalAccountsDao(super.attachedDatabase);
@@ -44,8 +44,15 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
 
   Future<void> createNewAccount(AccountInfo accountInfo) async {
     final icon = accountInfo.iconInfo;
+    var currencyInfo = accountInfo.currencyInfo;
+    final currencyHasBeenUsed = currencyInfo.hasBeenUsed;
 
     await transaction(() async {
+      if (!currencyHasBeenUsed) {
+        currencyInfo = currencyInfo.copyWith(hasBeenUsed: true);
+        await update(currencyTable).replace(currencyInfo);
+      }
+
       final iconData = await into(iconTable).insertReturning(
         icon.companion,
         mode: InsertMode.insert,

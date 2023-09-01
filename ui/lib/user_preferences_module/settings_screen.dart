@@ -8,7 +8,8 @@ import '../components/other_widgets.dart';
 import '../core/responsive.dart';
 import '../core/route_names.dart';
 import '../currency_module/currency_picker_dialog.dart';
-import '../currency_module/default_currency_provider.dart';
+
+import '../currency_module/currency_provider.dart';
 import '../ui_elements/user_text.dart';
 import 'settings_screen_components.dart';
 import 'theme_provider.dart';
@@ -49,7 +50,7 @@ class _ThemeListTile extends ConsumerWidget {
       );
 
   Icon _buildIcon(WidgetRef ref) {
-    final themeMode = ref.watch(themesProvider).requireValue.themeMode;
+    final themeMode = ref.watch(themesProvider).themeMode;
 
     switch (themeMode) {
       case ThemeMode.light:
@@ -64,7 +65,7 @@ class _ThemeListTile extends ConsumerWidget {
   }
 
   Text _buildSubTitle(WidgetRef ref) {
-    final themeMode = ref.watch(themesProvider).requireValue.themeMode;
+    final themeMode = ref.watch(themesProvider).themeMode;
 
     switch (themeMode) {
       case ThemeMode.light:

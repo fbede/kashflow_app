@@ -411,6 +411,16 @@ class $CurrencyTableTable extends CurrencyTable
       type: DriftSqlType.string,
       requiredDuringInsert: false,
       clientDefault: () => _uuid.generate());
+  static const VerificationMeta _hasBeenUsedMeta =
+      const VerificationMeta('hasBeenUsed');
+  @override
+  late final GeneratedColumn<bool> hasBeenUsed = GeneratedColumn<bool>(
+      'has_been_used', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("has_been_used" IN (0, 1))'),
+      defaultValue: const Constant(false));
   static const VerificationMeta _codeMeta = const VerificationMeta('code');
   @override
   late final GeneratedColumn<String> code = GeneratedColumn<String>(
@@ -468,8 +478,18 @@ class $CurrencyTableTable extends CurrencyTable
       'name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns =>
-      [id, code, scale, symbol, invertSeparators, pattern, country, unit, name];
+  List<GeneratedColumn> get $columns => [
+        id,
+        hasBeenUsed,
+        code,
+        scale,
+        symbol,
+        invertSeparators,
+        pattern,
+        country,
+        unit,
+        name
+      ];
   @override
   String get aliasedName => _alias ?? 'currency_table';
   @override
@@ -481,6 +501,12 @@ class $CurrencyTableTable extends CurrencyTable
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('has_been_used')) {
+      context.handle(
+          _hasBeenUsedMeta,
+          hasBeenUsed.isAcceptableOrUnknown(
+              data['has_been_used']!, _hasBeenUsedMeta));
     }
     if (data.containsKey('code')) {
       context.handle(
@@ -543,6 +569,8 @@ class $CurrencyTableTable extends CurrencyTable
     return CurrencyTableData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      hasBeenUsed: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}has_been_used'])!,
       code: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
       scale: attachedDatabase.typeMapping
@@ -571,6 +599,7 @@ class $CurrencyTableTable extends CurrencyTable
 class CurrencyTableData extends DataClass
     implements Insertable<CurrencyTableData> {
   final String id;
+  final bool hasBeenUsed;
   final String code;
   final int scale;
   final String symbol;
@@ -581,6 +610,7 @@ class CurrencyTableData extends DataClass
   final String name;
   const CurrencyTableData(
       {required this.id,
+      required this.hasBeenUsed,
       required this.code,
       required this.scale,
       required this.symbol,
@@ -593,6 +623,7 @@ class CurrencyTableData extends DataClass
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
+    map['has_been_used'] = Variable<bool>(hasBeenUsed);
     map['code'] = Variable<String>(code);
     map['scale'] = Variable<int>(scale);
     map['symbol'] = Variable<String>(symbol);
@@ -607,6 +638,7 @@ class CurrencyTableData extends DataClass
   CurrencyTableCompanion toCompanion(bool nullToAbsent) {
     return CurrencyTableCompanion(
       id: Value(id),
+      hasBeenUsed: Value(hasBeenUsed),
       code: Value(code),
       scale: Value(scale),
       symbol: Value(symbol),
@@ -623,6 +655,7 @@ class CurrencyTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CurrencyTableData(
       id: serializer.fromJson<String>(json['id']),
+      hasBeenUsed: serializer.fromJson<bool>(json['hasBeenUsed']),
       code: serializer.fromJson<String>(json['code']),
       scale: serializer.fromJson<int>(json['scale']),
       symbol: serializer.fromJson<String>(json['symbol']),
@@ -638,6 +671,7 @@ class CurrencyTableData extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
+      'hasBeenUsed': serializer.toJson<bool>(hasBeenUsed),
       'code': serializer.toJson<String>(code),
       'scale': serializer.toJson<int>(scale),
       'symbol': serializer.toJson<String>(symbol),
@@ -651,6 +685,7 @@ class CurrencyTableData extends DataClass
 
   CurrencyTableData copyWith(
           {String? id,
+          bool? hasBeenUsed,
           String? code,
           int? scale,
           String? symbol,
@@ -661,6 +696,7 @@ class CurrencyTableData extends DataClass
           String? name}) =>
       CurrencyTableData(
         id: id ?? this.id,
+        hasBeenUsed: hasBeenUsed ?? this.hasBeenUsed,
         code: code ?? this.code,
         scale: scale ?? this.scale,
         symbol: symbol ?? this.symbol,
@@ -674,6 +710,7 @@ class CurrencyTableData extends DataClass
   String toString() {
     return (StringBuffer('CurrencyTableData(')
           ..write('id: $id, ')
+          ..write('hasBeenUsed: $hasBeenUsed, ')
           ..write('code: $code, ')
           ..write('scale: $scale, ')
           ..write('symbol: $symbol, ')
@@ -687,13 +724,14 @@ class CurrencyTableData extends DataClass
   }
 
   @override
-  int get hashCode => Object.hash(
-      id, code, scale, symbol, invertSeparators, pattern, country, unit, name);
+  int get hashCode => Object.hash(id, hasBeenUsed, code, scale, symbol,
+      invertSeparators, pattern, country, unit, name);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CurrencyTableData &&
           other.id == this.id &&
+          other.hasBeenUsed == this.hasBeenUsed &&
           other.code == this.code &&
           other.scale == this.scale &&
           other.symbol == this.symbol &&
@@ -706,6 +744,7 @@ class CurrencyTableData extends DataClass
 
 class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   final Value<String> id;
+  final Value<bool> hasBeenUsed;
   final Value<String> code;
   final Value<int> scale;
   final Value<String> symbol;
@@ -717,6 +756,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   final Value<int> rowid;
   const CurrencyTableCompanion({
     this.id = const Value.absent(),
+    this.hasBeenUsed = const Value.absent(),
     this.code = const Value.absent(),
     this.scale = const Value.absent(),
     this.symbol = const Value.absent(),
@@ -729,6 +769,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   });
   CurrencyTableCompanion.insert({
     this.id = const Value.absent(),
+    this.hasBeenUsed = const Value.absent(),
     required String code,
     required int scale,
     required String symbol,
@@ -748,6 +789,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
         name = Value(name);
   static Insertable<CurrencyTableData> custom({
     Expression<String>? id,
+    Expression<bool>? hasBeenUsed,
     Expression<String>? code,
     Expression<int>? scale,
     Expression<String>? symbol,
@@ -760,6 +802,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (hasBeenUsed != null) 'has_been_used': hasBeenUsed,
       if (code != null) 'code': code,
       if (scale != null) 'scale': scale,
       if (symbol != null) 'symbol': symbol,
@@ -774,6 +817,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
 
   CurrencyTableCompanion copyWith(
       {Value<String>? id,
+      Value<bool>? hasBeenUsed,
       Value<String>? code,
       Value<int>? scale,
       Value<String>? symbol,
@@ -785,6 +829,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
       Value<int>? rowid}) {
     return CurrencyTableCompanion(
       id: id ?? this.id,
+      hasBeenUsed: hasBeenUsed ?? this.hasBeenUsed,
       code: code ?? this.code,
       scale: scale ?? this.scale,
       symbol: symbol ?? this.symbol,
@@ -802,6 +847,9 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
     final map = <String, Expression>{};
     if (id.present) {
       map['id'] = Variable<String>(id.value);
+    }
+    if (hasBeenUsed.present) {
+      map['has_been_used'] = Variable<bool>(hasBeenUsed.value);
     }
     if (code.present) {
       map['code'] = Variable<String>(code.value);
@@ -837,6 +885,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
   String toString() {
     return (StringBuffer('CurrencyTableCompanion(')
           ..write('id: $id, ')
+          ..write('hasBeenUsed: $hasBeenUsed, ')
           ..write('code: $code, ')
           ..write('scale: $scale, ')
           ..write('symbol: $symbol, ')

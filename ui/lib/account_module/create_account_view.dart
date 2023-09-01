@@ -10,7 +10,8 @@ import '../components/dialog_shell.dart';
 import '../components/icon_picker/icon_selector.dart';
 import '../core/exception_handler.dart';
 import '../core/responsive.dart';
-import '../currency_module/default_currency_provider.dart';
+
+import '../currency_module/currency_provider.dart';
 import '../ui_elements/user_text.dart';
 import 'account_provider.dart';
 

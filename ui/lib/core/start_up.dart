@@ -7,6 +7,8 @@ import 'package:kashflow_core/kashflow_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 
+bool resetDB = false;
+
 Future<String> getReleaseInfo() async {
   final packageInfo = await PackageInfo.fromPlatform();
   final appName = packageInfo.appName;
