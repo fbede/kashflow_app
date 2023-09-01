@@ -5,6 +5,7 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../currency_module/currency_picker_dialog.dart';
 import '../ui_elements/user_text.dart';
 import 'calculator.dart';
+import 'custom_controllers.dart';
 
 class DescriptionFormField extends StatelessWidget {
   const DescriptionFormField({
@@ -85,7 +86,7 @@ class MoneyAmountFormField extends StatelessWidget {
 class CurrencyFormField extends StatelessWidget {
   const CurrencyFormField({required this.controller, super.key});
 
-  final TextEditingController controller;
+  final CurrencyFieldController controller;
 
   @override
   Widget build(BuildContext context) => TextFormField(
@@ -109,15 +110,9 @@ class CurrencyFormField extends StatelessWidget {
 
   Future<void> _onCurrencyTap(BuildContext context) async {
     final result = await showCurrencyPicker(context);
-    late String text;
-
-    if (result == null) {
-      text = '';
-    } else {
-      text = '${result.name} (${result.code})';
+    if (result != null) {
+      controller.currencyData = result;
     }
-
-    controller.text = text.trim();
   }
 }
 

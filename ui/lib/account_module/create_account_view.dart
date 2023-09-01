@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow_core/kashflow_core.dart';
 
+import '../components/custom_controllers.dart';
 import '../components/custom_text_fields.dart';
 import '../components/dialog_shell.dart';
 import '../components/icon_picker/icon_selector.dart';
@@ -24,9 +25,10 @@ class CreateAccountView extends ConsumerStatefulWidget {
 
 class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   final _accountNameController = TextEditingController();
-  final _currencyNameController = TextEditingController();
   final _amountController = TextEditingController(text: '0.0');
   final _descriptionController = TextEditingController();
+
+  late final CurrencyFieldController _currencyNameController;
   late final IconSelectorController _iconSelectorController;
   final _formKey = GlobalKey<FormState>();
 
@@ -105,22 +107,9 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
       );
 
       WidgetsBinding.instance.addPostFrameCallback(
-        (_) => _updateCurrencyController(_currencyData),
+        (_) => _currencyNameController.currencyData = _currencyData!,
       );
     });
-  }
-
-  void _updateCurrencyController(CurrencyTableData? c) {
-    _currencyData = c;
-    late String text;
-
-    if (c == null) {
-      text = '';
-    } else {
-      text = '${_currencyData?.name ?? ''} (${_currencyData?.code ?? ''})';
-    }
-
-    _currencyNameController.text = text.trim();
   }
 
   Future<void> _save() async {

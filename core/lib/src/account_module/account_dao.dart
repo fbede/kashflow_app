@@ -67,10 +67,14 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
   Future<void> updateAccount(AccountInfo accountInfo) async {
     try {
       final icon = accountInfo.iconInfo;
+      final currencyInfo = accountInfo.currencyInfo.copyWith(hasBeenUsed: true);
 
       await transaction(() async {
-        await update(iconTable).replace(icon.companion);
-        await update(accounts).replace(accountInfo.companion);
+        await Future.wait([
+          update(currencyTable).replace(currencyInfo),
+          update(iconTable).replace(icon.companion),
+          update(accounts).replace(accountInfo.companion),
+        ]);
       });
     } on Exception catch (e, s) {
       logger.handle(e, s);

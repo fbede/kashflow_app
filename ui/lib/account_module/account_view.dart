@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow_core/kashflow_core.dart';
 
+import '../components/custom_controllers.dart';
 import '../components/custom_text_fields.dart';
 import '../components/dialog_shell.dart';
 import '../components/icon_picker/icon_selector.dart';
@@ -24,9 +25,10 @@ class OldAccountView extends ConsumerStatefulWidget {
 
 class _AccountViewState extends ConsumerState<OldAccountView> {
   final _accountNameController = TextEditingController();
-  final _currencyNameController = TextEditingController();
   final _amountController = TextEditingController(text: '0.0');
   final _descriptionController = TextEditingController();
+
+  late final CurrencyFieldController _currencyNameController;
   late final IconSelectorController _iconSelectorController;
 
   final _formKey = GlobalKey<FormState>();
@@ -37,7 +39,8 @@ class _AccountViewState extends ConsumerState<OldAccountView> {
   void initState() {
     _accountNameController.text = widget.accountInfo.name;
     _currencyInfo = widget.accountInfo.currencyInfo;
-    _currencyNameController.text = _currencyInfo.name;
+    _currencyNameController =
+        CurrencyFieldController(widget.accountInfo.currencyInfo);
     _amountController.text =
         widget.accountInfo.openingBalance.toDouble().toString();
 
