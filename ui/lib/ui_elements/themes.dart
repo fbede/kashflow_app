@@ -53,13 +53,6 @@ final flexDarkTheme = FlexThemeData.dark(
 const _subThemesData = FlexSubThemesData(
   sliderValueTinted: true,
   inputDecoratorUnfocusedBorderIsColored: false,
-  navigationBarSelectedLabelSize: 14,
-  navigationBarUnselectedLabelSize: 12,
-  navigationBarSelectedLabelSchemeColor: SchemeColor.onSurface,
-  navigationBarMutedUnselectedLabel: false,
-  navigationBarSelectedIconSchemeColor: SchemeColor.onPrimary,
-  navigationBarMutedUnselectedIcon: false,
-  navigationBarIndicatorOpacity: 1,
 );
 
 const _textTheme = TextTheme(
