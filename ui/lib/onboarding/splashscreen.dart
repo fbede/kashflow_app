@@ -7,6 +7,7 @@ import '../core/keys.dart';
 import '../core/responsive.dart';
 import '../core/route_names.dart';
 import '../gen/assets.gen.dart';
+import '../gen/dart_define.dart';
 import '../ui_elements/themes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -59,17 +60,19 @@ class _SplashScreenState extends State<SplashScreen>
     final router = GoRouter.of(context);
 
     try {
-      await LocalDB() //.table updates()
+      await LocalDB(
+        devMode: DartDefine.flavor == Flavor.development,
+      ) //.table updates()
           .doWhenOpened((e) => logger.log('Database Opened'));
 
       //await Future.delayed(slowGlobalAnimationDuration, () {});
       final prefs = await SharedPreferences.getInstance();
       final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
 
-      if (hasOnboarded) {
-        router.goNamed(Routes.home);
-        return;
-      }
+      //  if (hasOnboarded) {
+      //  router.goNamed(Routes.home);
+      //    return;
+      //  }
 
       router.goNamed(Routes.onboarding);
     } on Exception catch (e, s) {

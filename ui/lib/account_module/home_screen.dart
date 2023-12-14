@@ -88,7 +88,9 @@ class _HomeAppBar extends StatelessWidget {
           child: Text(
             title,
             key: ValueKey(randomInt),
-            style: const TextStyle(fontSize: 16, height: 1),
+            style: Theme.of(context)
+                .textTheme
+                .headlineSmall, // const TextStyle(fontSize: 16, height: 1),
           ),
         ),
         flexibleSpace: FlexibleSpaceBar(
@@ -101,11 +103,13 @@ class _HomeAppBar extends StatelessWidget {
                 child: Text(
                   balanceAmount,
                   key: ValueKey(randomInt),
-                  style: const TextStyle(
+                  style: Theme.of(context)
+                      .textTheme
+                      .displaySmall, /* const TextStyle(
                     height: 1,
                     fontSize: 32,
                     fontWeight: FontWeight.w600,
-                  ),
+                  ), */
                 ),
               ),
               const SizedBox(height: 16),

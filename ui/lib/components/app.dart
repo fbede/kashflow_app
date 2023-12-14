@@ -18,10 +18,9 @@ class MyApp extends ConsumerWidget {
       visible: false,
       child: MaterialApp.router(
         title: UserText.appName,
-        theme: getLightTheme(isWhite: useDeepBlacks),
-        darkTheme: getDarkTheme(isBlack: useDeepBlacks),
+        theme: lightTheme,
+        darkTheme: flexDarkTheme,
         themeMode: themeMode,
-      
         routerConfig: router,
       ),
     );

@@ -34,6 +34,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.3.2
+
   icons_launcher: ^2.1.0
   riverpod_lint: ^2.3.7
 
@@ -43,31 +44,24 @@ flutter:
     - assets/json/
     - assets/svg/
   fonts:
-    - family: Nunito
+    - family: Poppins
       fonts:
-        - asset: assets/fonts/Nunito/Nunito-ExtraLight.ttf
-        - asset: assets/fonts/Nunito/Nunito-Light.ttf
-        - asset: assets/fonts/Nunito/Nunito-Regular.ttf
-        - asset: assets/fonts/Nunito/Nunito-Medium.ttf
-        - asset: assets/fonts/Nunito/Nunito-SemiBold.ttf
-        - asset: assets/fonts/Nunito/Nunito-Bold.ttf
-        - asset: assets/fonts/Nunito/Nunito-ExtraBold.ttf
-        - asset: assets/fonts/Nunito/Nunito-Black.ttf
-        - asset: assets/fonts/Nunito/Nunito-ExtraLightItalic.ttf
-        - asset: assets/fonts/Nunito/Nunito-LightItalic.ttf
-        - asset: assets/fonts/Nunito/Nunito-Italic.ttf
-        - asset: assets/fonts/Nunito/Nunito-MediumItalic.ttf
-        - asset: assets/fonts/Nunito/Nunito-SemiBoldItalic.ttf
-        - asset: assets/fonts/Nunito/Nunito-BoldItalic.ttf
-        - asset: assets/fonts/Nunito/Nunito-ExtraBoldItalic.ttf
-        - asset: assets/fonts/Nunito/Nunito-BlackItalic.ttf
-
-    - family: DancingScript
-      fonts:
-        - asset: assets/fonts/Dancing_Script/DancingScript-Bold.ttf
-        - asset: assets/fonts/Dancing_Script/DancingScript-Medium.ttf
-        - asset: assets/fonts/Dancing_Script/DancingScript-Regular.ttf
-        - asset: assets/fonts/Dancing_Script/DancingScript-SemiBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-Thin.ttf
+        - asset: assets/fonts/Poppins/Poppins-Light.ttf
+        - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins/Poppins-ExtraBold.ttf
+        - asset: assets/fonts/Poppins/Poppins-Black.ttf
+        - asset: assets/fonts/Poppins/Poppins-ThinItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-LightItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-Italic.ttf
+        - asset: assets/fonts/Poppins/Poppins-MediumItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-SemiBoldItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-BoldItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf
+        - asset: assets/fonts/Poppins/Poppins-BlackItalic.ttf
 
   uses-material-design: true
 

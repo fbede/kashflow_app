@@ -9,7 +9,6 @@ import '../core/keys.dart';
 import '../core/responsive.dart';
 import '../core/route_names.dart';
 import '../gen/assets.gen.dart';
-import '../gen/fonts.gen.dart';
 import '../ui_elements/themes.dart';
 import '../ui_elements/user_text.dart';
 
@@ -80,7 +79,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ],
             ),
             _buildIndicators(),
-            _buildNavButtons()
+            _buildNavButtons(),
           ],
         ),
       );
@@ -138,14 +137,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 duration: _duration,
                 child: FloatingActionButton(
                   heroTag: null,
-                  onPressed: () async => _gotoPage(currentIndex - 1),
+                  onPressed: () async =>
+                      _gotoPage(_controller.page!.toInt() - 1),
                   child: const Icon(PhosphorIconsRegular.caretLeft),
                 ),
               ),
               const Spacer(),
               FloatingActionButton(
                 heroTag: null,
-                onPressed: () async => _gotoPage(currentIndex + 1),
+                onPressed: () async => _gotoPage(_controller.page!.toInt() + 1),
                 child: AnimatedSwitcher(
                   duration: _duration,
                   transitionBuilder: (child, animation) =>
@@ -179,7 +179,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
 
     await _controller.animateToPage(page, duration: _duration, curve: _curve);
-    currentIndex = page;
+    // currentIndex = page;
     setState(() {});
   }
 
@@ -217,7 +217,9 @@ class _WelcomeScreenPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               subtitle,
-              style: _onboardingSubtitleTextStyle,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge, //_onboardingSubtitleTextStyle,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 112),
@@ -226,11 +228,14 @@ class _WelcomeScreenPage extends StatelessWidget {
       );
 }
 
-TextStyle _getOnboardingTitleTextStyle(BuildContext context) => TextStyle(
+TextStyle _getOnboardingTitleTextStyle(BuildContext context) => Theme.of(
+        context)
+    .textTheme
+    .displaySmall!; /* TextStyle(
       fontSize: 45,
-      fontWeight: FontWeight.w100,
-      fontFamily: FontFamily.dancingScript,
+      fontWeight: FontWeight.w900,
+      // fontFamily: GoogleFonts. FontFamily.dancingScript,
       color: context.colorScheme.secondary,
-    );
+    ); */
 
 const _onboardingSubtitleTextStyle = TextStyle(fontSize: 16);
