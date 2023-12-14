@@ -139,7 +139,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 child: FloatingActionButton(
                   heroTag: null,
                   onPressed: () async => _gotoPage(currentIndex - 1),
-                  child: Icon(PhosphorIcons.regular.caretLeft),
+                  child: const Icon(PhosphorIconsRegular.caretLeft),
                 ),
               ),
               const Spacer(),
@@ -151,13 +151,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   transitionBuilder: (child, animation) =>
                       RotationTransition(turns: animation, child: child),
                   child: currentIndex != _maxIndex
-                      ? Icon(
-                          PhosphorIcons.regular.caretRight,
-                          key: const ValueKey(0),
+                      ? const Icon(
+                          PhosphorIconsRegular.caretRight,
+                          key: ValueKey(0),
                         )
-                      : Icon(
-                          PhosphorIcons.regular.check,
-                          key: const ValueKey(1),
+                      : const Icon(
+                          PhosphorIconsRegular.check,
+                          key: ValueKey(1),
                         ),
                 ),
               ),

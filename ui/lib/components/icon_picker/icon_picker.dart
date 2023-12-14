@@ -90,10 +90,10 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
                 keyboardType: TextInputType.text,
                 autocorrect: false,
                 controller: _controller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   filled: true,
                   contentPadding: EdgeInsetsDirectional.zero,
-                  prefixIcon: Icon(PhosphorIcons.regular.magnifyingGlass),
+                  prefixIcon: Icon(PhosphorIconsRegular.magnifyingGlass),
                   hintText: UserText.search,
                 ),
               ),

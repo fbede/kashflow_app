@@ -47,13 +47,13 @@ class _CategoriesManagementScreenState
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(PhosphorIcons.regular.plus),
+          child: const Icon(PhosphorIconsRegular.plus),
           onPressed: () {},
         ),
 
         /*  SpeedDial(
-          activeIcon: PhosphorIcons.regular.x,
-          icon: PhosphorIcons.regular.plus,
+          activeIcon: PhosphorIconsRegular.x,
+          icon: PhosphorIconsRegular.plus,
           overlayOpacity: 0,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(16)),

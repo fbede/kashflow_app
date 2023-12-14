@@ -116,7 +116,7 @@ class ErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AlertDialog(
         backgroundColor: context.colorScheme.errorContainer,
-        icon: Icon(PhosphorIcons.fill.warningCircle),
+        icon: const Icon(PhosphorIconsFill.warningCircle),
         iconColor: context.colorScheme.error,
         title: titleText != null ? Text(titleText!) : null,
         content: ConstrainedBox(

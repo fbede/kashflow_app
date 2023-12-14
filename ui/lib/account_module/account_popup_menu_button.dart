@@ -25,7 +25,7 @@ class AccountListTileMenuButton extends ConsumerStatefulWidget {
 class _AccountListTileMenuButtonState
     extends ConsumerState<AccountListTileMenuButton> {
   final loadingIcon = const CustomProgressIndicator();
-  final notLoadingIcon = Icon(PhosphorIcons.regular.dotsThreeVertical);
+  final notLoadingIcon = const Icon(PhosphorIconsRegular.dotsThreeVertical);
 
   late Widget icon;
 
@@ -41,23 +41,23 @@ class _AccountListTileMenuButtonState
         itemBuilder: (_) => [
           PopupMenuItem(
             onTap: _onEdit,
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(PhosphorIcons.regular.pencilSimpleLine),
-                const SizedBox(width: 8),
-                const Text(UserText.edit)
+                Icon(PhosphorIconsRegular.pencilSimpleLine),
+                SizedBox(width: 8),
+                Text(UserText.edit),
               ],
             ),
           ),
           PopupMenuItem(
             onTap: _delete,
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(PhosphorIcons.regular.trashSimple),
-                const SizedBox(width: 8),
-                const Text(UserText.delete)
+                Icon(PhosphorIconsRegular.trashSimple),
+                SizedBox(width: 8),
+                Text(UserText.delete),
               ],
             ),
           ),

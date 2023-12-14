@@ -6,7 +6,6 @@ analyzer:
     strict-inference: true
     strict-raw-types: true
 
- 
   exclude:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
@@ -14,6 +13,7 @@ analyzer:
     - "bin/cache/**"
     - "lib/generated_plugin_registrant.dart"
     - "analysis_options.yaml"
+    - "lib/gen/**"
 
 linter:
   rules:
@@ -31,4 +31,3 @@ linter:
     sort_constructors_first: false
     unnecessary_final: false
     unrelated_type_equality_checks: false
-    

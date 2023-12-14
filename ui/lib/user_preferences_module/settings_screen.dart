@@ -21,7 +21,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
         body: CustomScrollView(
           slivers: [
-            SliverAppBar.large(title: const Text(UserText.homeNavBarSettings)),
+            const SliverAppBar.large(title: Text(UserText.homeNavBarSettings)),
             SliverList(
               delegate: SliverChildListDelegate(const [
                 _ThemeListTile(),
@@ -54,13 +54,13 @@ class _ThemeListTile extends ConsumerWidget {
 
     switch (themeMode) {
       case ThemeMode.light:
-        return Icon(PhosphorIcons.fill.lightbulb);
+        return const Icon(PhosphorIconsRegular.lightbulb);
 
       case ThemeMode.dark:
-        return Icon(PhosphorIcons.fill.moon);
+        return const Icon(PhosphorIconsRegular.moon);
 
       case ThemeMode.system:
-        return Icon(PhosphorIcons.fill.devices);
+        return const Icon(PhosphorIconsRegular.devices);
     }
   }
 
@@ -85,7 +85,7 @@ class _CategoriesListTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => ListTile(
-        leading: Icon(PhosphorIcons.regular.stack),
+        leading: const Icon(PhosphorIconsRegular.stack),
         title: const Text(UserText.manageCategories),
         onTap: () async => context.pushNamed(Routes.manageCategories),
       );

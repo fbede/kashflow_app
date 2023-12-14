@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../core/keys.dart';
 import '../core/responsive.dart';
 import '../core/route_names.dart';
-import '../core/start_up.dart';
 import '../gen/assets.gen.dart';
 import '../ui_elements/themes.dart';
 
@@ -60,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen>
     final router = GoRouter.of(context);
 
     try {
-      await LocalDB(resetDB: resetDB) //.table updates()
+      await LocalDB() //.table updates()
           .doWhenOpened((e) => logger.log('Database Opened'));
 
       //await Future.delayed(slowGlobalAnimationDuration, () {});

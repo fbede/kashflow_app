@@ -1,0 +1,18 @@
+dart_define:
+  json_path: config/prod.json
+
+  dart_path: lib/gen/dart_define.dart
+
+  variables:
+    - name: SENTRY_DSN
+      description: Sentry API key
+      default: 2874fac4ef1511ed84605ed2c5eba5c9
+      required: false
+
+  flavors:
+    - name: production
+      description: The production flavor
+    - name: testing
+      description: The testing flavor
+    - name: development
+      description: The development flavor

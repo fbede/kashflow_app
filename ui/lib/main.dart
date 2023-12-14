@@ -5,13 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'components/app.dart';
 import 'core/start_up.dart';
-
-//const _environment = 'Development';
+import 'gen/dart_define.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  //resetDB = true;
+  print(DartDefine.flavor);
+
+  resetDB = true;
 
   await Future.wait([setWindowSettings(), registerSingletons()]);
 

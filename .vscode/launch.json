@@ -25,10 +25,34 @@
             "flutterMode": "release"
         },
         {
-            "name": "ui",
+            "name": "ui dev",
             "cwd": "ui",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "toolArgs": [
+                "--dart-define-from-file",
+                "config/dev.json"
+            ]
+        },
+        {
+            "name": "ui test",
+            "cwd": "ui",
+            "request": "launch",
+            "type": "dart",
+            "toolArgs": [
+                "--dart-define-from-file",
+                "config/test.json"
+            ]
+        },
+        {
+            "name": "ui prod",
+            "cwd": "ui",
+            "request": "launch",
+            "type": "dart",
+            "toolArgs": [
+                "--dart-define-from-file",
+                "config/prod.json"
+            ]
         },
         {
             "name": "ui (profile mode)",

@@ -21,6 +21,7 @@ class MyApp extends ConsumerWidget {
         theme: getLightTheme(isWhite: useDeepBlacks),
         darkTheme: getDarkTheme(isBlack: useDeepBlacks),
         themeMode: themeMode,
+      
         routerConfig: router,
       ),
     );

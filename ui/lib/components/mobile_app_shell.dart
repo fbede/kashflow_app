@@ -21,20 +21,20 @@ class MobileAppShell extends StatelessWidget {
           animationDuration: const Duration(milliseconds: 500),
           selectedIndex: _getSelectedIndex(context),
           onDestinationSelected: (value) => _onItemTapped(value, context),
-          destinations: [
+          destinations: const [
             NavigationDestination(
-              icon: Icon(PhosphorIcons.light.house),
-              selectedIcon: Icon(PhosphorIcons.fill.house),
+              icon: Icon(PhosphorIconsThin.house),
+              selectedIcon: Icon(PhosphorIconsFill.house),
               label: UserText.homeNavBarHome,
             ),
             NavigationDestination(
-              icon: Icon(PhosphorIcons.light.receipt),
-              selectedIcon: Icon(PhosphorIcons.fill.receipt),
+              icon: Icon(PhosphorIconsThin.receipt),
+              selectedIcon: Icon(PhosphorIconsFill.receipt),
               label: UserText.homeNavBarRecords,
             ),
             NavigationDestination(
-              icon: Icon(PhosphorIcons.light.gearSix),
-              selectedIcon: Icon(PhosphorIcons.fill.gearSix),
+              icon: Icon(PhosphorIconsThin.gearSix),
+              selectedIcon: Icon(PhosphorIconsFill.gearSix),
               label: UserText.homeNavBarSettings,
             ),
           ],
@@ -42,7 +42,7 @@ class MobileAppShell extends StatelessWidget {
       );
 
   static int _getSelectedIndex(BuildContext context) {
-    final String location = GoRouterState.of(context).location;
+    final String location = GoRouterState.of(context).matchedLocation;
     if (location.contains(Routes.dashboard)) {
       return 0;
     }
@@ -71,8 +71,8 @@ class MobileAppShell extends StatelessWidget {
     final index = _getSelectedIndex(context);
     if (index < 2) {
       return SpeedDial(
-        activeIcon: PhosphorIcons.regular.x,
-        icon: PhosphorIcons.regular.plus,
+        activeIcon: PhosphorIconsRegular.x,
+        icon: PhosphorIconsRegular.plus,
         overlayOpacity: 0,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -83,12 +83,12 @@ class MobileAppShell extends StatelessWidget {
           _buildSpeedDialChild(
             context,
             text: 'Add A Record',
-            iconData: PhosphorIcons.fill.pencilSimple,
+            iconData: PhosphorIconsFill.pencilSimple,
           ),
           _buildSpeedDialChild(
             context,
             text: 'Add An Account',
-            iconData: PhosphorIcons.fill.listPlus,
+            iconData: PhosphorIconsFill.listPlus,
             onTap: () async => showDialog(
               context: context,
               builder: (_) => const CreateAccountView(),

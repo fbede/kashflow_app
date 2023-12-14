@@ -27,11 +27,11 @@ void main() {
       expect(find.byKey(const ValueKey('page1')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIcons.regular.caretLeft).hitTestable(),
+        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
         findsNothing,
       );
 
-      expect(find.byIcon(PhosphorIcons.regular.caretRight), findsOneWidget);
+      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -74,17 +74,17 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const ValueKey('page2')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIcons.regular.caretLeft).hitTestable(),
+        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIcons.regular.caretRight), findsOneWidget);
+      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -127,19 +127,19 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const ValueKey('page3')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIcons.regular.caretLeft).hitTestable(),
+        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIcons.regular.caretRight), findsOneWidget);
+      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -182,21 +182,21 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const ValueKey('page4')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIcons.regular.caretLeft).hitTestable(),
+        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIcons.regular.check), findsOneWidget);
+      expect(find.byIcon(PhosphorIconsRegular.check), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -243,13 +243,13 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.caretRight));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIcons.regular.check));
+      await tester.tap(find.byIcon(PhosphorIconsRegular.check));
       await tester.pumpAndSettle();
 
       expect(find.byType(HomeScreen), findsOneWidget);
@@ -279,11 +279,11 @@ void main() {
       expect(find.byKey(const ValueKey('page2')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIcons.regular.caretLeft).hitTestable(),
+        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIcons.regular.caretRight), findsOneWidget);
+      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -334,11 +334,11 @@ void main() {
       expect(find.byKey(const ValueKey('page3')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIcons.regular.caretLeft).hitTestable(),
+        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIcons.regular.caretRight), findsOneWidget);
+      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -391,11 +391,11 @@ void main() {
       expect(find.byKey(const ValueKey('page4')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIcons.regular.caretLeft).hitTestable(),
+        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIcons.regular.check), findsOneWidget);
+      expect(find.byIcon(PhosphorIconsRegular.check), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {

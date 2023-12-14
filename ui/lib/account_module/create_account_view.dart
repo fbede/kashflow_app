@@ -9,6 +9,7 @@ import '../components/custom_controllers.dart';
 import '../components/custom_text_fields.dart';
 import '../components/dialog_shell.dart';
 import '../components/icon_picker/icon_selector.dart';
+import '../components/other_widgets.dart';
 import '../core/exception_handler.dart';
 import '../core/responsive.dart';
 
@@ -53,46 +54,55 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    _showDefaultCurrency();
+  Widget build(BuildContext context) => ref.watch(defaultCurrencyProvider).when(
+        error: (_, __) => CustomProgressIndicator(),
+        loading: () => CustomProgressIndicator(),
+        data: (data) {
+          _currencyData = data;
+          _currencyNameController = CurrencyFieldController(data);
+          _iconSelectorController = IconSelectorController(
+            iconColor: context.colorScheme.onPrimaryContainer,
+            backgroundColor: context.colorScheme.primaryContainer,
+          );
 
-    return ResponsiveDialogShell(
-      onSave: _save,
-      onCancel: context.pop,
-      saveIsLoading: _isLoading,
-      cancelIsLoading: false,
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            Text(
-              UserText.addAnAccount,
-              style: context.textTheme.titleLarge,
+          return ResponsiveDialogShell(
+            onSave: _save,
+            onCancel: context.pop,
+            saveIsLoading: _isLoading,
+            cancelIsLoading: false,
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  Text(
+                    UserText.addAnAccount,
+                    style: context.textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 16),
+                  IconSelector(controller: _iconSelectorController),
+                  const SizedBox(height: 16),
+                  NameFormField(
+                    label: UserText.accountName,
+                    controller: _accountNameController,
+                  ),
+                  const SizedBox(height: 8),
+                  CurrencyFormField(controller: _currencyNameController),
+                  const SizedBox(height: 16),
+                  MoneyAmountFormField(controller: _amountController),
+                  const SizedBox(height: 16),
+                  DescriptionFormField(
+                    controller: _descriptionController,
+                    showSuffix: _descriptionController.text.isEmpty,
+                  ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             ),
-            const SizedBox(height: 16),
-            IconSelector(controller: _iconSelectorController),
-            const SizedBox(height: 16),
-            NameFormField(
-              label: UserText.accountName,
-              controller: _accountNameController,
-            ),
-            const SizedBox(height: 8),
-            CurrencyFormField(controller: _currencyNameController),
-            const SizedBox(height: 16),
-            MoneyAmountFormField(controller: _amountController),
-            const SizedBox(height: 16),
-            DescriptionFormField(
-              controller: _descriptionController,
-              showSuffix: _descriptionController.text.isEmpty,
-            ),
-            const SizedBox(height: 8),
-          ],
-        ),
-      ),
-    );
-  }
+          );
+        },
+      );
 
   void _showDefaultCurrency() {
     ref.watch(defaultCurrencyProvider).whenData((value) {
@@ -100,11 +110,6 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
       _currencyData = value;
       _loadedDefault = true;
-
-      _iconSelectorController = IconSelectorController(
-        iconColor: context.colorScheme.onPrimaryContainer,
-        backgroundColor: context.colorScheme.primaryContainer,
-      );
 
       WidgetsBinding.instance.addPostFrameCallback(
         (_) => _currencyNameController.currencyData = _currencyData!,

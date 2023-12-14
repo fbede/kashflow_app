@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:money2/money2.dart';
 import 'package:path/path.dart' as p;
@@ -26,13 +25,16 @@ class LocalDB extends _$LocalDB {
   static late final LocalDB _instance;
   static bool isInit = false;
 
-  factory LocalDB({bool resetDB = false}) {
+  factory LocalDB({bool devMode = false}) {
     if (isInit) return _instance;
     isInit = true;
-    return _instance = LocalDB._(resetDB);
+    if (devMode) {
+      return _instance = LocalDB.test(NativeDatabase.memory());
+    }
+    return _instance = LocalDB._();
   }
 
-  LocalDB._([bool resetDB = false]) : super(_openConnection(resetDB));
+  LocalDB._() : super(_openConnection());
   LocalDB.test(super.e);
 
   //* Increase this number whenever schema is changed
@@ -43,11 +45,16 @@ class LocalDB extends _$LocalDB {
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (m) async {
           await m.createAll();
-          final assetCurrencies = await _loadCurrenciesFromAsset();
+          final assetCurrenciesCompanion =
+              (await _loadCurrenciesFromAsset()).map((e) => e.companion);
 
-          for (final e in assetCurrencies) {
-            await into(currencyTable).insert(e.companion);
-          }
+          await batch((batch) {
+            batch.insertAll(currencyTable, assetCurrenciesCompanion);
+          });
+
+          //for (final e in assetCurrencies) {
+          // await into(currencyTable).insert(e.companion);
+          //}
         },
         beforeOpen: (details) async {
           await customStatement('PRAGMA foreign_keys = ON');
@@ -55,14 +62,9 @@ class LocalDB extends _$LocalDB {
       );
 }
 
-LazyDatabase _openConnection([bool resetDB = false]) => LazyDatabase(() async {
+LazyDatabase _openConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
-
-      if (resetDB & kDebugMode & file.existsSync()) {
-        await file.delete(recursive: true);
-        await file.create(recursive: true);
-      }
       return NativeDatabase.createInBackground(file);
     });
 

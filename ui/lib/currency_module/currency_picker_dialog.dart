@@ -156,10 +156,10 @@ class _BottomSearchBar extends StatelessWidget {
                 keyboardType: TextInputType.text,
                 autocorrect: false,
                 controller: controller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   filled: true,
                   contentPadding: EdgeInsetsDirectional.zero,
-                  prefixIcon: Icon(PhosphorIcons.regular.magnifyingGlass),
+                  prefixIcon: Icon(PhosphorIconsRegular.magnifyingGlass),
                   hintText: UserText.search,
                 ),
               ),
@@ -175,10 +175,10 @@ class _BottomSearchBar extends StatelessWidget {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
-                  child: Icon(PhosphorIcons.regular.plus),
+                  child: const Icon(PhosphorIconsRegular.plus),
                 ),
               ),
-            )
+            ),
           ],
         ),
       );

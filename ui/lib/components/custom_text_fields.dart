@@ -28,13 +28,13 @@ class DescriptionFormField extends StatelessWidget {
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
           isDense: true,
-          prefixIcon: Icon(PhosphorIcons.regular.textAlignLeft),
+          prefixIcon: const Icon(PhosphorIconsRegular.textAlignLeft),
           labelText: UserText.description,
           suffixIcon: showSuffix
               ? null
               : IconButton(
                   onPressed: controller.clear,
-                  icon: Icon(PhosphorIcons.fill.xCircle),
+                  icon: const Icon(PhosphorIconsFill.xCircle),
                 ),
         ),
       );
@@ -57,9 +57,9 @@ class MoneyAmountFormField extends StatelessWidget {
         decoration: InputDecoration(
           isDense: true,
           labelText: UserText.amount,
-          prefixIcon: Icon(PhosphorIcons.regular.coins),
+          prefixIcon: const Icon(PhosphorIconsRegular.coins),
           suffixIcon: IconButton(
-            icon: Icon(PhosphorIcons.regular.calculator),
+            icon: const Icon(PhosphorIconsRegular.calculator),
             onPressed: () async => _onAmountTap(context),
           ),
         ),
@@ -93,10 +93,10 @@ class CurrencyFormField extends StatelessWidget {
         controller: controller,
         showCursor: false,
         onTap: () async => _onCurrencyTap(context),
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           isDense: true,
           labelText: UserText.currency,
-          prefixIcon: Icon(PhosphorIcons.regular.money),
+          prefixIcon: Icon(PhosphorIconsRegular.money),
         ),
         validator: _validator,
       );
@@ -135,7 +135,7 @@ class NameFormField extends StatelessWidget {
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
           isDense: true,
-          prefixIcon: Icon(PhosphorIcons.regular.pencilSimpleLine),
+          prefixIcon: const Icon(PhosphorIconsRegular.pencilSimpleLine),
           labelText: label,
         ),
         validator: _validator,

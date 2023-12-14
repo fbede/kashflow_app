@@ -1,0 +1,4 @@
+build_config:
+  - dart_define generate --yaml_path=config/prod.yaml --json_path=config/prod.json --FLAVOR=production
+  - dart_define generate --yaml_path=config/test.yaml --json_path=config/test.json --FLAVOR=testing
+  - dart_define generate --yaml_path=config/dev.yaml --json_path=config/dev.json --FLAVOR=development
