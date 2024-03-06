@@ -7,6 +7,7 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  auto_size_text: ^3.0.0
   flex_color_picker: ^3.2.2
   flex_color_scheme: ^7.1.1
   flutter:
@@ -16,7 +17,7 @@ dependencies:
   flutter_speed_dial: ^7.0.0
   flutter_svg: ^2.0.5
   get_it: ^7.6.0
-  go_router: ^12.1.3
+  go_router: ^13.2.0
   kashflow_core:
     path: ../core
   phosphor_flutter: ^2.0.0
@@ -26,7 +27,7 @@ dependencies:
 dev_dependencies:
   all_lint_rules_community: ^0.0.31
   build_runner: ^2.3.3
-  custom_lint: ^0.5.7
+  custom_lint: ^0.6.2
   dart_define: ^2.1.1
   derry: ^1.5.0
   flutter_gen_runner: ^5.3.1
@@ -87,7 +88,7 @@ icons_launcher:
   image_path: "assets/images/app_logo.png"
   platforms:
     android:
-      adaptive_monochrome_image: "assets/images/app_logo.png"
+      adaptive_monochrome_image: "assets/images/app_logo_mono.png"
       enable: true
     ios:
       enable: true

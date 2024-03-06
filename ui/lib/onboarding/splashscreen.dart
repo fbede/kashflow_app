@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
         color: context.theme.scaffoldBackgroundColor,
         child: Center(
           child: FractionallySizedBox(
-            heightFactor: 0.2,
+            heightFactor: 0.4,
             child: FadeTransition(
               opacity: _animation,
               child: Assets.images.appLogo.image(),
@@ -62,13 +62,12 @@ class _SplashScreenState extends State<SplashScreen>
     try {
       await LocalDB(
         devMode: DartDefine.flavor == Flavor.development,
-      ) //.table updates()
-          .doWhenOpened((e) => logger.log('Database Opened'));
+      ).doWhenOpened((e) => logger.log('Database Opened'));
 
-      //await Future.delayed(slowGlobalAnimationDuration, () {});
-      final prefs = await SharedPreferences.getInstance();
-      final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
+      //final prefs = await SharedPreferences.getInstance();
+      //final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
 
+      //TODO: Go home if onboarding is complete
       //  if (hasOnboarded) {
       //  router.goNamed(Routes.home);
       //    return;

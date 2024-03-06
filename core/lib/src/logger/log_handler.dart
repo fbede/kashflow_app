@@ -17,5 +17,5 @@ class _LogHandler implements TalkerObserver {
       Sentry.captureException(err.exception, stackTrace: err.stackTrace);
 
   @override
-  void onLog(TalkerDataInterface log) {}
+  void onLog(TalkerData log) {}
 }

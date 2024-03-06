@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -8,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../core/keys.dart';
 import '../core/responsive.dart';
 import '../core/route_names.dart';
+import '../currency_module/currency_picker_dialog.dart';
 import '../gen/assets.gen.dart';
 import '../ui_elements/themes.dart';
 import '../ui_elements/user_text.dart';
@@ -168,12 +170,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       );
 
   Future<void> _gotoPage(int page) async {
-    if (page < _minIndex) return;
+    if (page < _minIndex) {
+      return;
+    }
 
     if (page > _maxIndex) {
-      context.goNamed(Routes.home);
+      final defaultCurrency = await showCurrencyPicker(context);
+      // await showDialog(
+      //   context: context,
+      //   //TODO: Activate
+      //   //barrierDismissible: false,
+      //   builder: (_) => const AlertDialog(
+      //     icon: PhosphorIcon(PhosphorIconsFill.currencyCircleDollar),
+      //     title: Text('Select Default Currency'),
+      //   ),
+      // );
+      // context.goNamed(Routes.home);
 
-      unawaited(_savePreferences());
+      // unawaited(_savePreferences());
 
       return;
     }
@@ -205,37 +219,36 @@ class _WelcomeScreenPage extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 96),
-            Expanded(child: content),
-            const SizedBox(height: 32),
-            Text(
-              title,
-              style: _getOnboardingTitleTextStyle(context),
-              textAlign: TextAlign.center,
+            const Flexible(child: SizedBox(height: 32)),
+            Flexible(
+              fit: FlexFit.tight,
+              flex: 10,
+              child: content,
             ),
-            const SizedBox(height: 16),
-            Text(
-              subtitle,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge, //_onboardingSubtitleTextStyle,
-              textAlign: TextAlign.center,
+            const Flexible(child: SizedBox(height: 32)),
+            Flexible(
+              flex: 2,
+              child: AutoSizeText(
+                title,
+                style: context.textTheme.displaySmall,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+              ),
+            ),
+            const Flexible(child: SizedBox(height: 16)),
+            Flexible(
+              flex: 3,
+              child: AutoSizeText(
+                subtitle,
+                style: context.textTheme.bodyLarge,
+                textAlign: TextAlign.center,
+                maxLines: 3,
+              ),
             ),
             const SizedBox(height: 112),
           ],
         ),
       );
 }
-
-TextStyle _getOnboardingTitleTextStyle(BuildContext context) => Theme.of(
-        context)
-    .textTheme
-    .displaySmall!; /* TextStyle(
-      fontSize: 45,
-      fontWeight: FontWeight.w900,
-      // fontFamily: GoogleFonts. FontFamily.dancingScript,
-      color: context.colorScheme.secondary,
-    ); */
-
-const _onboardingSubtitleTextStyle = TextStyle(fontSize: 16);
