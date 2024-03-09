@@ -10,8 +10,8 @@ import '../components/custom_text_fields.dart';
 import '../components/dialog_shell.dart';
 import '../components/icon_picker/icon_selector.dart';
 import '../components/other_widgets.dart';
-import '../core/exception_handler.dart';
-import '../core/responsive.dart';
+import '../shared/exception_handler.dart';
+import '../shared/responsive.dart';
 
 import '../currency_module/currency_provider.dart';
 import '../ui_elements/user_text.dart';
@@ -35,7 +35,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
   bool _isLoading = false;
   bool _loadedDefault = false;
-  CurrencyTableData? _currencyData;
+  Currency? _currencyData;
 
   @override
   void initState() {
@@ -58,8 +58,8 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
         error: (_, __) => CustomProgressIndicator(),
         loading: () => CustomProgressIndicator(),
         data: (data) {
-          _currencyData = data;
-          _currencyNameController = CurrencyFieldController(data);
+          _currencyData = data as Currency?;
+          _currencyNameController = CurrencyFieldController(data!);
           _iconSelectorController = IconSelectorController(
             iconColor: context.colorScheme.onPrimaryContainer,
             backgroundColor: context.colorScheme.primaryContainer,
@@ -108,7 +108,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     ref.watch(defaultCurrencyProvider).whenData((value) {
       if (_loadedDefault) return;
 
-      _currencyData = value;
+      _currencyData = value as Currency?;
       _loadedDefault = true;
 
       WidgetsBinding.instance.addPostFrameCallback(

@@ -21,13 +21,14 @@ dependencies:
   kashflow_core:
     path: ../core
   phosphor_flutter: ^2.0.0
+  riverpod_annotation: ^2.3.4
   shared_preferences: ^2.0.15
   window_manager: ^0.3.0
 
 dev_dependencies:
   all_lint_rules_community: ^0.0.31
-  build_runner: ^2.3.3
-  custom_lint: ^0.6.2
+  build_runner:
+  custom_lint:
   dart_define: ^2.1.1
   derry: ^1.5.0
   flutter_gen_runner: ^5.3.1
@@ -35,9 +36,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^2.3.2
-
   icons_launcher: ^2.1.0
-  riverpod_lint: ^2.3.7
+  riverpod_generator: ^2.3.11
+  riverpod_lint: ^2.3.9
 
 flutter:
   assets:
@@ -63,6 +64,11 @@ flutter:
         - asset: assets/fonts/Poppins/Poppins-BoldItalic.ttf
         - asset: assets/fonts/Poppins/Poppins-ExtraBoldItalic.ttf
         - asset: assets/fonts/Poppins/Poppins-BlackItalic.ttf
+    - family: Noto Sans
+      fonts:
+        - asset: assets/fonts/Noto_Sans/NotoSans-Italic-VariableFont_wdth,wght.ttf
+        - asset: assets/fonts/Noto_Sans/NotoSans-VariableFont_wdth,wght.ttf
+
 
   uses-material-design: true
 
@@ -85,10 +91,9 @@ flutter_native_splash:
   web: true
 
 icons_launcher:
-  image_path: "assets/images/app_logo.png"
+  image_path: "assets/images/launcher_icon.png"
   platforms:
     android:
-      adaptive_monochrome_image: "assets/images/app_logo_mono.png"
       enable: true
     ios:
       enable: true

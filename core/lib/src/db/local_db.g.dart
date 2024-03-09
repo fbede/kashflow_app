@@ -66,9 +66,10 @@ class $IconTableTable extends IconTable
         backgroundColorValue
       ];
   @override
-  String get aliasedName => _alias ?? 'icon_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'icon_table';
+  String get actualTableName => $name;
+  static const String $name = 'icon_table';
   @override
   VerificationContext validateIntegrity(Insertable<IconTableData> instance,
       {bool isInserting = false}) {
@@ -399,7 +400,7 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
 }
 
 class $CurrencyTableTable extends CurrencyTable
-    with TableInfo<$CurrencyTableTable, CurrencyTableData> {
+    with TableInfo<$CurrencyTableTable, Currency> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -408,19 +409,16 @@ class $CurrencyTableTable extends CurrencyTable
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      clientDefault: () => _uuid.generate());
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _hasBeenUsedMeta =
       const VerificationMeta('hasBeenUsed');
   @override
   late final GeneratedColumn<bool> hasBeenUsed = GeneratedColumn<bool>(
       'has_been_used', aliasedName, false,
       type: DriftSqlType.bool,
-      requiredDuringInsert: false,
+      requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("has_been_used" IN (0, 1))'),
-      defaultValue: const Constant(false));
+          'CHECK ("has_been_used" IN (0, 1))'));
   static const VerificationMeta _codeMeta = const VerificationMeta('code');
   @override
   late final GeneratedColumn<String> code = GeneratedColumn<String>(
@@ -491,22 +489,27 @@ class $CurrencyTableTable extends CurrencyTable
         name
       ];
   @override
-  String get aliasedName => _alias ?? 'currency_table';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'currency_table';
+  String get actualTableName => $name;
+  static const String $name = 'currency_table';
   @override
-  VerificationContext validateIntegrity(Insertable<CurrencyTableData> instance,
+  VerificationContext validateIntegrity(Insertable<Currency> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
     }
     if (data.containsKey('has_been_used')) {
       context.handle(
           _hasBeenUsedMeta,
           hasBeenUsed.isAcceptableOrUnknown(
               data['has_been_used']!, _hasBeenUsedMeta));
+    } else if (isInserting) {
+      context.missing(_hasBeenUsedMeta);
     }
     if (data.containsKey('code')) {
       context.handle(
@@ -564,13 +567,11 @@ class $CurrencyTableTable extends CurrencyTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  CurrencyTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  Currency map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return CurrencyTableData(
+    return Currency(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
-      hasBeenUsed: attachedDatabase.typeMapping
-          .read(DriftSqlType.bool, data['${effectivePrefix}has_been_used'])!,
       code: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}code'])!,
       scale: attachedDatabase.typeMapping
@@ -579,14 +580,16 @@ class $CurrencyTableTable extends CurrencyTable
           .read(DriftSqlType.string, data['${effectivePrefix}symbol'])!,
       invertSeparators: attachedDatabase.typeMapping.read(
           DriftSqlType.bool, data['${effectivePrefix}invert_separators'])!,
-      pattern: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}pattern'])!,
+      hasBeenUsed: attachedDatabase.typeMapping
+          .read(DriftSqlType.bool, data['${effectivePrefix}has_been_used'])!,
       country: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}country'])!,
-      unit: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}unit'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      pattern: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}pattern'])!,
+      unit: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}unit'])!,
     );
   }
 
@@ -596,153 +599,7 @@ class $CurrencyTableTable extends CurrencyTable
   }
 }
 
-class CurrencyTableData extends DataClass
-    implements Insertable<CurrencyTableData> {
-  final String id;
-  final bool hasBeenUsed;
-  final String code;
-  final int scale;
-  final String symbol;
-  final bool invertSeparators;
-  final String pattern;
-  final String country;
-  final String unit;
-  final String name;
-  const CurrencyTableData(
-      {required this.id,
-      required this.hasBeenUsed,
-      required this.code,
-      required this.scale,
-      required this.symbol,
-      required this.invertSeparators,
-      required this.pattern,
-      required this.country,
-      required this.unit,
-      required this.name});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
-    map['has_been_used'] = Variable<bool>(hasBeenUsed);
-    map['code'] = Variable<String>(code);
-    map['scale'] = Variable<int>(scale);
-    map['symbol'] = Variable<String>(symbol);
-    map['invert_separators'] = Variable<bool>(invertSeparators);
-    map['pattern'] = Variable<String>(pattern);
-    map['country'] = Variable<String>(country);
-    map['unit'] = Variable<String>(unit);
-    map['name'] = Variable<String>(name);
-    return map;
-  }
-
-  CurrencyTableCompanion toCompanion(bool nullToAbsent) {
-    return CurrencyTableCompanion(
-      id: Value(id),
-      hasBeenUsed: Value(hasBeenUsed),
-      code: Value(code),
-      scale: Value(scale),
-      symbol: Value(symbol),
-      invertSeparators: Value(invertSeparators),
-      pattern: Value(pattern),
-      country: Value(country),
-      unit: Value(unit),
-      name: Value(name),
-    );
-  }
-
-  factory CurrencyTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return CurrencyTableData(
-      id: serializer.fromJson<String>(json['id']),
-      hasBeenUsed: serializer.fromJson<bool>(json['hasBeenUsed']),
-      code: serializer.fromJson<String>(json['code']),
-      scale: serializer.fromJson<int>(json['scale']),
-      symbol: serializer.fromJson<String>(json['symbol']),
-      invertSeparators: serializer.fromJson<bool>(json['invertSeparators']),
-      pattern: serializer.fromJson<String>(json['pattern']),
-      country: serializer.fromJson<String>(json['country']),
-      unit: serializer.fromJson<String>(json['unit']),
-      name: serializer.fromJson<String>(json['name']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'hasBeenUsed': serializer.toJson<bool>(hasBeenUsed),
-      'code': serializer.toJson<String>(code),
-      'scale': serializer.toJson<int>(scale),
-      'symbol': serializer.toJson<String>(symbol),
-      'invertSeparators': serializer.toJson<bool>(invertSeparators),
-      'pattern': serializer.toJson<String>(pattern),
-      'country': serializer.toJson<String>(country),
-      'unit': serializer.toJson<String>(unit),
-      'name': serializer.toJson<String>(name),
-    };
-  }
-
-  CurrencyTableData copyWith(
-          {String? id,
-          bool? hasBeenUsed,
-          String? code,
-          int? scale,
-          String? symbol,
-          bool? invertSeparators,
-          String? pattern,
-          String? country,
-          String? unit,
-          String? name}) =>
-      CurrencyTableData(
-        id: id ?? this.id,
-        hasBeenUsed: hasBeenUsed ?? this.hasBeenUsed,
-        code: code ?? this.code,
-        scale: scale ?? this.scale,
-        symbol: symbol ?? this.symbol,
-        invertSeparators: invertSeparators ?? this.invertSeparators,
-        pattern: pattern ?? this.pattern,
-        country: country ?? this.country,
-        unit: unit ?? this.unit,
-        name: name ?? this.name,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('CurrencyTableData(')
-          ..write('id: $id, ')
-          ..write('hasBeenUsed: $hasBeenUsed, ')
-          ..write('code: $code, ')
-          ..write('scale: $scale, ')
-          ..write('symbol: $symbol, ')
-          ..write('invertSeparators: $invertSeparators, ')
-          ..write('pattern: $pattern, ')
-          ..write('country: $country, ')
-          ..write('unit: $unit, ')
-          ..write('name: $name')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, hasBeenUsed, code, scale, symbol,
-      invertSeparators, pattern, country, unit, name);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is CurrencyTableData &&
-          other.id == this.id &&
-          other.hasBeenUsed == this.hasBeenUsed &&
-          other.code == this.code &&
-          other.scale == this.scale &&
-          other.symbol == this.symbol &&
-          other.invertSeparators == this.invertSeparators &&
-          other.pattern == this.pattern &&
-          other.country == this.country &&
-          other.unit == this.unit &&
-          other.name == this.name);
-}
-
-class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
+class CurrencyTableCompanion extends UpdateCompanion<Currency> {
   final Value<String> id;
   final Value<bool> hasBeenUsed;
   final Value<String> code;
@@ -768,8 +625,8 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
     this.rowid = const Value.absent(),
   });
   CurrencyTableCompanion.insert({
-    this.id = const Value.absent(),
-    this.hasBeenUsed = const Value.absent(),
+    required String id,
+    required bool hasBeenUsed,
     required String code,
     required int scale,
     required String symbol,
@@ -779,7 +636,9 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
     required String unit,
     required String name,
     this.rowid = const Value.absent(),
-  })  : code = Value(code),
+  })  : id = Value(id),
+        hasBeenUsed = Value(hasBeenUsed),
+        code = Value(code),
         scale = Value(scale),
         symbol = Value(symbol),
         invertSeparators = Value(invertSeparators),
@@ -787,7 +646,7 @@ class CurrencyTableCompanion extends UpdateCompanion<CurrencyTableData> {
         country = Value(country),
         unit = Value(unit),
         name = Value(name);
-  static Insertable<CurrencyTableData> custom({
+  static Insertable<Currency> custom({
     Expression<String>? id,
     Expression<bool>? hasBeenUsed,
     Expression<String>? code,
@@ -955,9 +814,10 @@ class $AccountsTable extends Accounts with TableInfo<$AccountsTable, Account> {
   List<GeneratedColumn> get $columns =>
       [id, name, currency, description, openingBalance, closingBalance];
   @override
-  String get aliasedName => _alias ?? 'accounts';
+  String get aliasedName => _alias ?? actualTableName;
   @override
-  String get actualTableName => 'accounts';
+  String get actualTableName => $name;
+  static const String $name = 'accounts';
   @override
   VerificationContext validateIntegrity(Insertable<Account> instance,
       {bool isInserting = false}) {

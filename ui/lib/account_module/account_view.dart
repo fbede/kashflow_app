@@ -9,8 +9,8 @@ import '../components/custom_controllers.dart';
 import '../components/custom_text_fields.dart';
 import '../components/dialog_shell.dart';
 import '../components/icon_picker/icon_selector.dart';
-import '../core/exception_handler.dart';
-import '../core/responsive.dart';
+import '../shared/exception_handler.dart';
+import '../shared/responsive.dart';
 import '../ui_elements/user_text.dart';
 import 'account_provider.dart';
 
@@ -32,7 +32,7 @@ class _AccountViewState extends ConsumerState<OldAccountView> {
   late final IconSelectorController _iconSelectorController;
 
   final _formKey = GlobalKey<FormState>();
-  late CurrencyTableData _currencyInfo;
+  late Currency _currencyInfo;
   bool _isLoading = false;
 
   @override

@@ -37,7 +37,7 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
         }).toList();
       }
     } on Exception catch (e, s) {
-      logger.handle(e, s);
+      Logger.I.handle(e, s);
       rethrow;
     }
   }
@@ -49,8 +49,8 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
 
     await transaction(() async {
       if (!currencyHasBeenUsed) {
-        currencyInfo = currencyInfo.copyWith(hasBeenUsed: true);
-        await update(currencyTable).replace(currencyInfo);
+        //  currencyInfo = currencyInfo.copyWith(hasBeenUsed: false);
+        //  await update(currencyTable).replace(currencyInfo);
       }
 
       final iconData = await into(iconTable).insertReturning(
@@ -67,17 +67,17 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
   Future<void> updateAccount(AccountInfo accountInfo) async {
     try {
       final icon = accountInfo.iconInfo;
-      final currencyInfo = accountInfo.currencyInfo.copyWith(hasBeenUsed: true);
+      // final currencyInfo = accountInfo.currencyInfo.copyWith(hasBeenUsed: true);
 
       await transaction(() async {
         await Future.wait([
-          update(currencyTable).replace(currencyInfo),
+          update(currencyTable).replace(accountInfo.currencyInfo.companion),
           update(iconTable).replace(icon.companion),
           update(accounts).replace(accountInfo.companion),
         ]);
       });
     } on Exception catch (e, s) {
-      logger.handle(e, s);
+      Logger.I.handle(e, s);
       rethrow;
     }
   }

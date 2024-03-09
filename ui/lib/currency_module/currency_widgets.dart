@@ -4,8 +4,8 @@ import 'package:kashflow_core/kashflow_core.dart';
 class CurrencyCardTile extends StatelessWidget {
   const CurrencyCardTile({required this.item, required this.onTap, super.key});
 
-  final CurrencyTableData item;
-  final void Function(CurrencyTableData c) onTap;
+  final Currency item;
+  final void Function(Currency c) onTap;
 
   @override
   Widget build(BuildContext context) => Card(

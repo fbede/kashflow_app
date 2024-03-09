@@ -1,7 +1,7 @@
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 
-import '../core/responsive.dart';
+import '../shared/responsive.dart';
 import '../ui_elements/user_text.dart';
 
 Future<Color> showColorPicker(BuildContext context, [Color? color]) async =>

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../core/responsive.dart';
+import '../shared/responsive.dart';
 import '../ui_elements/user_text.dart';
 import 'theme_provider.dart';
 
@@ -10,7 +10,7 @@ class ChangeThemeDialog extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeNotifier = ref.watch(themesProvider.notifier);
+    final themeNotifier = ref.watch(themeProvider.notifier);
 
     return Dialog(
       child: SizedBox(

@@ -12,13 +12,13 @@ part of 'account_models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AccountInfo {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  CurrencyTableData get currencyInfo => throw _privateConstructorUsedError;
+  Currency get currencyInfo => throw _privateConstructorUsedError;
   BigInt get openingBalance => throw _privateConstructorUsedError;
   IconInfo get iconInfo => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -37,7 +37,7 @@ abstract class $AccountInfoCopyWith<$Res> {
   $Res call(
       {String? id,
       String name,
-      CurrencyTableData currencyInfo,
+      Currency currencyInfo,
       BigInt openingBalance,
       IconInfo iconInfo,
       String description});
@@ -60,7 +60,7 @@ class _$AccountInfoCopyWithImpl<$Res, $Val extends AccountInfo>
   $Res call({
     Object? id = freezed,
     Object? name = null,
-    Object? currencyInfo = freezed,
+    Object? currencyInfo = null,
     Object? openingBalance = null,
     Object? iconInfo = null,
     Object? description = null,
@@ -74,10 +74,10 @@ class _$AccountInfoCopyWithImpl<$Res, $Val extends AccountInfo>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      currencyInfo: freezed == currencyInfo
+      currencyInfo: null == currencyInfo
           ? _value.currencyInfo
           : currencyInfo // ignore: cast_nullable_to_non_nullable
-              as CurrencyTableData,
+              as Currency,
       openingBalance: null == openingBalance
           ? _value.openingBalance
           : openingBalance // ignore: cast_nullable_to_non_nullable
@@ -103,17 +103,17 @@ class _$AccountInfoCopyWithImpl<$Res, $Val extends AccountInfo>
 }
 
 /// @nodoc
-abstract class _$$_AccountInfoCopyWith<$Res>
+abstract class _$$AccountInfoImplCopyWith<$Res>
     implements $AccountInfoCopyWith<$Res> {
-  factory _$$_AccountInfoCopyWith(
-          _$_AccountInfo value, $Res Function(_$_AccountInfo) then) =
-      __$$_AccountInfoCopyWithImpl<$Res>;
+  factory _$$AccountInfoImplCopyWith(
+          _$AccountInfoImpl value, $Res Function(_$AccountInfoImpl) then) =
+      __$$AccountInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String? id,
       String name,
-      CurrencyTableData currencyInfo,
+      Currency currencyInfo,
       BigInt openingBalance,
       IconInfo iconInfo,
       String description});
@@ -123,11 +123,11 @@ abstract class _$$_AccountInfoCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_AccountInfoCopyWithImpl<$Res>
-    extends _$AccountInfoCopyWithImpl<$Res, _$_AccountInfo>
-    implements _$$_AccountInfoCopyWith<$Res> {
-  __$$_AccountInfoCopyWithImpl(
-      _$_AccountInfo _value, $Res Function(_$_AccountInfo) _then)
+class __$$AccountInfoImplCopyWithImpl<$Res>
+    extends _$AccountInfoCopyWithImpl<$Res, _$AccountInfoImpl>
+    implements _$$AccountInfoImplCopyWith<$Res> {
+  __$$AccountInfoImplCopyWithImpl(
+      _$AccountInfoImpl _value, $Res Function(_$AccountInfoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -135,12 +135,12 @@ class __$$_AccountInfoCopyWithImpl<$Res>
   $Res call({
     Object? id = freezed,
     Object? name = null,
-    Object? currencyInfo = freezed,
+    Object? currencyInfo = null,
     Object? openingBalance = null,
     Object? iconInfo = null,
     Object? description = null,
   }) {
-    return _then(_$_AccountInfo(
+    return _then(_$AccountInfoImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -149,10 +149,10 @@ class __$$_AccountInfoCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      currencyInfo: freezed == currencyInfo
+      currencyInfo: null == currencyInfo
           ? _value.currencyInfo
           : currencyInfo // ignore: cast_nullable_to_non_nullable
-              as CurrencyTableData,
+              as Currency,
       openingBalance: null == openingBalance
           ? _value.openingBalance
           : openingBalance // ignore: cast_nullable_to_non_nullable
@@ -171,8 +171,8 @@ class __$$_AccountInfoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AccountInfo extends _AccountInfo {
-  const _$_AccountInfo(
+class _$AccountInfoImpl extends _AccountInfo {
+  const _$AccountInfoImpl(
       {required this.id,
       required this.name,
       required this.currencyInfo,
@@ -186,7 +186,7 @@ class _$_AccountInfo extends _AccountInfo {
   @override
   final String name;
   @override
-  final CurrencyTableData currencyInfo;
+  final Currency currencyInfo;
   @override
   final BigInt openingBalance;
   @override
@@ -201,14 +201,14 @@ class _$_AccountInfo extends _AccountInfo {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AccountInfo &&
+            other is _$AccountInfoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality()
-                .equals(other.currencyInfo, currencyInfo) &&
+            (identical(other.currencyInfo, currencyInfo) ||
+                other.currencyInfo == currencyInfo) &&
             (identical(other.openingBalance, openingBalance) ||
                 other.openingBalance == openingBalance) &&
             (identical(other.iconInfo, iconInfo) ||
@@ -218,30 +218,24 @@ class _$_AccountInfo extends _AccountInfo {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      const DeepCollectionEquality().hash(currencyInfo),
-      openingBalance,
-      iconInfo,
-      description);
+  int get hashCode => Object.hash(runtimeType, id, name, currencyInfo,
+      openingBalance, iconInfo, description);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AccountInfoCopyWith<_$_AccountInfo> get copyWith =>
-      __$$_AccountInfoCopyWithImpl<_$_AccountInfo>(this, _$identity);
+  _$$AccountInfoImplCopyWith<_$AccountInfoImpl> get copyWith =>
+      __$$AccountInfoImplCopyWithImpl<_$AccountInfoImpl>(this, _$identity);
 }
 
 abstract class _AccountInfo extends AccountInfo {
   const factory _AccountInfo(
       {required final String? id,
       required final String name,
-      required final CurrencyTableData currencyInfo,
+      required final Currency currencyInfo,
       required final BigInt openingBalance,
       required final IconInfo iconInfo,
-      final String description}) = _$_AccountInfo;
+      final String description}) = _$AccountInfoImpl;
   const _AccountInfo._() : super._();
 
   @override
@@ -249,7 +243,7 @@ abstract class _AccountInfo extends AccountInfo {
   @override
   String get name;
   @override
-  CurrencyTableData get currencyInfo;
+  Currency get currencyInfo;
   @override
   BigInt get openingBalance;
   @override
@@ -258,6 +252,6 @@ abstract class _AccountInfo extends AccountInfo {
   String get description;
   @override
   @JsonKey(ignore: true)
-  _$$_AccountInfoCopyWith<_$_AccountInfo> get copyWith =>
+  _$$AccountInfoImplCopyWith<_$AccountInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../core/responsive.dart';
+import '../../shared/responsive.dart';
 import '../../ui_elements/user_text.dart';
 import 'icon_picker_provider.dart';
 

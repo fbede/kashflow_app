@@ -22,6 +22,7 @@ ThemeData lightTheme({required bool useDeepBlacks}) => FlexThemeData.light(
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       useMaterial3: true,
       fontFamily: FontFamily.poppins,
+      fontFamilyFallback: [FontFamily.notoSans],
       primaryTextTheme: _textTheme,
       textTheme: _textTheme,
     );
@@ -46,6 +47,7 @@ ThemeData darkTheme({required bool useDeepBlacks}) => FlexThemeData.dark(
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       useMaterial3: true,
       fontFamily: FontFamily.poppins,
+      fontFamilyFallback: [FontFamily.notoSans],
       primaryTextTheme: _textTheme,
       textTheme: _textTheme,
     );

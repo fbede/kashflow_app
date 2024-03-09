@@ -4,15 +4,14 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/services.dart';
-import 'package:money2/money2.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:uuid/v7.dart';
 
 import '../../gen/assets.gen.dart';
 import '../account_module/account_dao.dart';
+import '../currency_module/currency.dart';
 import '../currency_module/currency_dao.dart';
-import '../currency_module/currency_extensions.dart';
 
 part 'local_db.g.dart';
 part 'local_db.tables.dart';
@@ -51,10 +50,6 @@ class LocalDB extends _$LocalDB {
           await batch((batch) {
             batch.insertAll(currencyTable, assetCurrenciesCompanion);
           });
-
-          //for (final e in assetCurrencies) {
-          // await into(currencyTable).insert(e.companion);
-          //}
         },
         beforeOpen: (details) async {
           await customStatement('PRAGMA foreign_keys = ON');
@@ -72,7 +67,7 @@ Future<List<Currency>> _loadCurrenciesFromAsset() async {
   final String json = await rootBundle.loadString(Assets.json.loadedCurrencies);
   final data = jsonDecode(json) as List;
   final List<Currency> currenciesData = data
-      .map((e) => CurrencyUtil.currencyFromJson(e as Map<String, Object?>))
+      .map((e) => Currency.currencyFromJson(e as Map<String, Object?>))
       .toList();
 
   return currenciesData;

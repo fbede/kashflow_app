@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../core/responsive.dart';
+import '../shared/responsive.dart';
 import '../ui_elements/user_text.dart';
 import 'other_widgets.dart';
 

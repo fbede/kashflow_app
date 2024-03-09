@@ -2,26 +2,30 @@ import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../core/keys.dart';
-import '../core/responsive.dart';
-import '../core/route_names.dart';
+import '../shared/keys.dart';
+import '../shared/responsive.dart';
+import '../shared/route_names.dart';
 import '../currency_module/currency_picker_dialog.dart';
+import '../currency_module/currency_provider.dart';
 import '../gen/assets.gen.dart';
 import '../ui_elements/themes.dart';
 import '../ui_elements/user_text.dart';
 
-class OnboardingScreen extends StatefulWidget {
+// FIX: Use GetIt for Shared Preferences
+
+class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  ConsumerState<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   late final PageController _controller;
 
   final _duration = fastGlobalAnimationDuration;
@@ -29,14 +33,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final _maxIndex = 3;
   final _minIndex = 0;
 
-  int currentIndex = 0;
+  int _currentIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _controller = PageController();
     _controller.addListener(() {
-      currentIndex = _controller.page!.toInt();
+      _currentIndex = _controller.page!.toInt();
       setState(() {});
     });
   }
@@ -58,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   key: const ValueKey('page1'),
                   title: UserText.onboardingPage1TitleText,
                   subtitle: UserText.onboardingPage1SubTitleText,
-                  content: Assets.images.appLogo.image(height: 128, width: 128),
+                  content: Assets.images.appLogo.image(),
                 ),
                 _WelcomeScreenPage(
                   key: const ValueKey('page2'),
@@ -104,10 +108,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _listGenerator(int i) {
     final index = i ~/ 2;
-    final size = currentIndex == index ? 16.0 : 8.0;
+    final size = _currentIndex == index ? 16.0 : 8.0;
     final normalColor = context.colorScheme.primaryContainer;
     final selectedColor = context.colorScheme.secondary;
-    final color = currentIndex == index ? selectedColor : normalColor;
+    final color = _currentIndex == index ? selectedColor : normalColor;
 
     if (i.isEven) {
       return GestureDetector(
@@ -135,7 +139,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: [
               const SizedBox(width: 16),
               AnimatedScale(
-                scale: currentIndex != _minIndex ? 1 : 0,
+                scale: _currentIndex != _minIndex ? 1 : 0,
                 duration: _duration,
                 child: FloatingActionButton(
                   heroTag: null,
@@ -152,7 +156,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   duration: _duration,
                   transitionBuilder: (child, animation) =>
                       RotationTransition(turns: animation, child: child),
-                  child: currentIndex != _maxIndex
+                  child: _currentIndex != _maxIndex
                       ? const Icon(
                           PhosphorIconsRegular.caretRight,
                           key: ValueKey(0),
@@ -175,25 +179,26 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
 
     if (page > _maxIndex) {
-      final defaultCurrency = await showCurrencyPicker(context);
-      // await showDialog(
-      //   context: context,
-      //   //TODO: Activate
-      //   //barrierDismissible: false,
-      //   builder: (_) => const AlertDialog(
-      //     icon: PhosphorIcon(PhosphorIconsFill.currencyCircleDollar),
-      //     title: Text('Select Default Currency'),
-      //   ),
-      // );
-      // context.goNamed(Routes.home);
+      final router = GoRouter.of(context);
+      final defaultCurrency =
+          await showCurrencyPicker(context, barrierDismissible: false);
 
-      // unawaited(_savePreferences());
+      if (defaultCurrency == null) {
+        return;
+      }
+
+      await ref
+          .read(defaultCurrencyProvider.notifier)
+          .setDefaultCurrency(defaultCurrency.id);
+
+      unawaited(_savePreferences());
+
+      router.goNamed(Routes.home);
 
       return;
     }
 
     await _controller.animateToPage(page, duration: _duration, curve: _curve);
-    // currentIndex = page;
     setState(() {});
   }
 

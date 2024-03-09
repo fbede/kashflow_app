@@ -5,16 +5,20 @@ import 'package:kashflow_core/kashflow_core.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
-import '../core/responsive.dart';
+import '../shared/responsive.dart';
 import '../ui_elements/user_text.dart';
 import 'currency_models.dart';
 import 'currency_provider.dart';
 
-Future<CurrencyTableData?> showCurrencyPicker(BuildContext context) async {
-  CurrencyTableData? data;
+Future<Currency?> showCurrencyPicker(
+  BuildContext context, {
+  bool barrierDismissible = true,
+}) async {
+  Currency? data;
 
   await showDialog<Widget>(
     context: context,
+    barrierDismissible: barrierDismissible,
     builder: (_) => CurrencyPickerDialog(
       onTap: (c) {
         data = c;
@@ -29,7 +33,7 @@ Future<CurrencyTableData?> showCurrencyPicker(BuildContext context) async {
 class CurrencyPickerDialog extends ConsumerStatefulWidget {
   const CurrencyPickerDialog({required this.onTap, super.key});
 
-  final ValueChanged<CurrencyTableData> onTap;
+  final ValueChanged<Currency> onTap;
 
   @override
   ConsumerState<CurrencyPickerDialog> createState() =>
@@ -75,14 +79,14 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
                   slivers: [
                     const _Subtitle(titleString: UserText.savedCurriences),
                     _CurrencyList(
-                      dataProvider: ref
-                          .watch(savedCurrencyProviderFamily.call(searchTerm)),
+                      dataProvider:
+                          ref.watch(savedCurrenciesProvider.call(searchTerm)),
                       onTap: widget.onTap,
                     ),
                     const _Subtitle(titleString: UserText.otherCurriences),
                     _CurrencyList(
-                      dataProvider: ref
-                          .watch(otherCurrencyProviderFamily.call(searchTerm)),
+                      dataProvider:
+                          ref.watch(otherCurrenciesProvider.call(searchTerm)),
                       onTap: widget.onTap,
                     ),
                   ],
@@ -112,8 +116,8 @@ class _Subtitle extends StatelessWidget {
 class _CurrencyList extends StatelessWidget {
   const _CurrencyList({required this.onTap, required this.dataProvider});
 
-  final ValueChanged<CurrencyTableData> onTap;
-  final AsyncValue<List<CurrencyTableData>> dataProvider;
+  final ValueChanged<Currency> onTap;
+  final AsyncValue<List<Currency>> dataProvider;
 
   @override
   Widget build(BuildContext context) => dataProvider.when(
@@ -122,21 +126,24 @@ class _CurrencyList extends StatelessWidget {
         ),
         loading: () =>
             const SliverToBoxAdapter(child: CustomProgressIndicator()),
-        data: (data) => SliverGrid.builder(
-          itemCount: data.length,
-          itemBuilder: (_, index) {
-            if (index == data.length) {
-              return const CustomProgressIndicator();
-            }
-            return data[index].buildCardTile(onTap: onTap);
-          },
-          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            maxCrossAxisExtent: 550,
-            mainAxisExtent: 48,
-          ),
-        ),
+        data: (data) {
+          Logger.I.log(data.toString());
+          return SliverGrid.builder(
+            itemCount: data.length,
+            itemBuilder: (_, index) {
+              if (index == data.length) {
+                return const CustomProgressIndicator();
+              }
+              return data[index].buildCardTile(onTap: onTap);
+            },
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              mainAxisSpacing: 8,
+              crossAxisSpacing: 8,
+              maxCrossAxisExtent: 550,
+              mainAxisExtent: 48,
+            ),
+          );
+        },
       );
 }
 

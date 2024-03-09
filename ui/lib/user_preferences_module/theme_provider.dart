@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../core/keys.dart';
+import '../shared/keys.dart';
 
-final themesProvider = AutoDisposeNotifierProvider<_ThemeNotifier, _ThemeState>(
-  _ThemeNotifier.new,
-);
+part 'theme_provider.g.dart';
 
-typedef _ThemeState = ({
+typedef ThemeState = ({
   ThemeMode themeMode,
   bool useDeepBlacks,
 });
 
-class _ThemeNotifier extends AutoDisposeNotifier<_ThemeState> {
+@riverpod
+class Theme extends _$Theme {
   final prefs = GetIt.I<SharedPreferences>();
   late ThemeMode _oldThemeMode;
   late bool _oldUseDeepBlacksValue;
@@ -22,7 +21,7 @@ class _ThemeNotifier extends AutoDisposeNotifier<_ThemeState> {
   late bool currentBlackAndWhiteValue;
 
   @override
-  _ThemeState build() {
+  ThemeState build() {
     themeModeInt =
         prefs.getInt(PrefKeys.themeModeInt) ?? ThemeMode.system.index;
 

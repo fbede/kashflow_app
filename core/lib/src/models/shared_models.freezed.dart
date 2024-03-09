@@ -12,7 +12,7 @@ part of 'shared_models.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$IconInfo {
@@ -75,10 +75,11 @@ class _$IconInfoCopyWithImpl<$Res, $Val extends IconInfo>
 }
 
 /// @nodoc
-abstract class _$$_IconInfoCopyWith<$Res> implements $IconInfoCopyWith<$Res> {
-  factory _$$_IconInfoCopyWith(
-          _$_IconInfo value, $Res Function(_$_IconInfo) then) =
-      __$$_IconInfoCopyWithImpl<$Res>;
+abstract class _$$IconInfoImplCopyWith<$Res>
+    implements $IconInfoCopyWith<$Res> {
+  factory _$$IconInfoImplCopyWith(
+          _$IconInfoImpl value, $Res Function(_$IconInfoImpl) then) =
+      __$$IconInfoImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -86,11 +87,11 @@ abstract class _$$_IconInfoCopyWith<$Res> implements $IconInfoCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_IconInfoCopyWithImpl<$Res>
-    extends _$IconInfoCopyWithImpl<$Res, _$_IconInfo>
-    implements _$$_IconInfoCopyWith<$Res> {
-  __$$_IconInfoCopyWithImpl(
-      _$_IconInfo _value, $Res Function(_$_IconInfo) _then)
+class __$$IconInfoImplCopyWithImpl<$Res>
+    extends _$IconInfoCopyWithImpl<$Res, _$IconInfoImpl>
+    implements _$$IconInfoImplCopyWith<$Res> {
+  __$$IconInfoImplCopyWithImpl(
+      _$IconInfoImpl _value, $Res Function(_$IconInfoImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -101,7 +102,7 @@ class __$$_IconInfoCopyWithImpl<$Res>
     Object? iconColor = null,
     Object? backgroundColor = null,
   }) {
-    return _then(_$_IconInfo(
+    return _then(_$IconInfoImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -124,8 +125,8 @@ class __$$_IconInfoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_IconInfo extends _IconInfo {
-  const _$_IconInfo(
+class _$IconInfoImpl extends _IconInfo {
+  const _$IconInfoImpl(
       {required this.id,
       required this.iconData,
       required this.iconColor,
@@ -147,10 +148,10 @@ class _$_IconInfo extends _IconInfo {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_IconInfo &&
+            other is _$IconInfoImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.iconData, iconData) ||
                 other.iconData == iconData) &&
@@ -167,8 +168,8 @@ class _$_IconInfo extends _IconInfo {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_IconInfoCopyWith<_$_IconInfo> get copyWith =>
-      __$$_IconInfoCopyWithImpl<_$_IconInfo>(this, _$identity);
+  _$$IconInfoImplCopyWith<_$IconInfoImpl> get copyWith =>
+      __$$IconInfoImplCopyWithImpl<_$IconInfoImpl>(this, _$identity);
 }
 
 abstract class _IconInfo extends IconInfo {
@@ -176,7 +177,7 @@ abstract class _IconInfo extends IconInfo {
       {required final String? id,
       required final IconData iconData,
       required final Color iconColor,
-      required final Color backgroundColor}) = _$_IconInfo;
+      required final Color backgroundColor}) = _$IconInfoImpl;
   const _IconInfo._() : super._();
 
   @override
@@ -189,6 +190,6 @@ abstract class _IconInfo extends IconInfo {
   Color get backgroundColor;
   @override
   @JsonKey(ignore: true)
-  _$$_IconInfoCopyWith<_$_IconInfo> get copyWith =>
+  _$$IconInfoImplCopyWith<_$IconInfoImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

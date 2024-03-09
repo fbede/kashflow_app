@@ -5,8 +5,8 @@ import 'package:kashflow_core/kashflow_core.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
-import '../core/responsive.dart';
-import '../core/route_names.dart';
+import '../shared/responsive.dart';
+import '../shared/route_names.dart';
 import '../currency_module/currency_picker_dialog.dart';
 
 import '../currency_module/currency_provider.dart';
@@ -50,7 +50,7 @@ class _ThemeListTile extends ConsumerWidget {
       );
 
   Icon _buildIcon(WidgetRef ref) {
-    final themeMode = ref.watch(themesProvider).themeMode;
+    final themeMode = ref.watch(themeProvider).themeMode;
 
     switch (themeMode) {
       case ThemeMode.light:
@@ -65,7 +65,7 @@ class _ThemeListTile extends ConsumerWidget {
   }
 
   Text _buildSubTitle(WidgetRef ref) {
-    final themeMode = ref.watch(themesProvider).themeMode;
+    final themeMode = ref.watch(themeProvider).themeMode;
 
     switch (themeMode) {
       case ThemeMode.light:

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:kashflow_core/kashflow_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../core/keys.dart';
-import '../core/responsive.dart';
-import '../core/route_names.dart';
 import '../gen/assets.gen.dart';
 import '../gen/dart_define.dart';
+import '../shared/keys.dart';
+import '../shared/responsive.dart';
+import '../shared/route_names.dart';
 import '../ui_elements/themes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -64,14 +65,13 @@ class _SplashScreenState extends State<SplashScreen>
         devMode: DartDefine.flavor == Flavor.development,
       ).doWhenOpened((e) => logger.log('Database Opened'));
 
-      //final prefs = await SharedPreferences.getInstance();
-      //final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
+      final prefs = GetIt.I<SharedPreferences>();
+      final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;
 
-      //TODO: Go home if onboarding is complete
-      //  if (hasOnboarded) {
-      //  router.goNamed(Routes.home);
-      //    return;
-      //  }
+      if (hasOnboarded) {
+        router.goNamed(Routes.home);
+        return;
+      }
 
       router.goNamed(Routes.onboarding);
     } on Exception catch (e, s) {

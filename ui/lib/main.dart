@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'core/router.dart';
-import 'core/start_up.dart';
+import 'shared/provider_observer.dart';
+import 'shared/router.dart';
+import 'shared/start_up.dart';
 import 'ui_elements/themes.dart';
 import 'ui_elements/user_text.dart';
 import 'user_preferences_module/theme_provider.dart';
@@ -14,7 +15,11 @@ Future<void> main() async {
 
   await Future.wait([setWindowSettings(), registerSingletons()]);
 
-  runApp(const ProviderScope(child: MyApp()));
+  registerFontLicenses();
+
+  runApp(
+    ProviderScope(observers: [AppProviderObserver()], child: const MyApp()),
+  );
 }
 
 class MyApp extends ConsumerWidget {
@@ -22,8 +27,8 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themesProvider).themeMode;
-    final useDeepBlacks = ref.watch(themesProvider).useDeepBlacks;
+    final themeMode = ref.watch(themeProvider).themeMode;
+    final useDeepBlacks = ref.watch(themeProvider).useDeepBlacks;
 
     return TooltipVisibility(
       visible: false,

@@ -4,7 +4,7 @@ import 'package:kashflow_core/kashflow_core.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
-import '../core/responsive.dart';
+import '../shared/responsive.dart';
 import '../ui_elements/user_text.dart';
 import 'account_provider.dart';
 import 'edit_account_view.dart';

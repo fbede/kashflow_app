@@ -2,8 +2,11 @@ import 'package:drift/drift.dart';
 
 import '../db/local_db.dart';
 import '../logger/log_handler.dart';
+import 'currency.dart';
 
 part 'currency_dao.g.dart';
+
+final logger = Logger.I;
 
 @DriftAccessor(tables: [CurrencyTable])
 class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
@@ -11,19 +14,19 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
   LocalCurrencyDao(super.attachedDatabase);
 
   //READ METHODS
-  Stream<List<CurrencyTableData>> watchSavedCurrencies([
+  Stream<List<Currency>> watchSavedCurrencies([
     String searchTerm = '',
   ]) =>
-      _watchCurrencies(hasBeenUsed: true);
+      _watchCurrencies(searchTerm, hasBeenUsed: true);
 
-  Stream<List<CurrencyTableData>> watchOtherCurrencies([
+  Stream<List<Currency>> watchOtherCurrencies([
     String searchTerm = '',
   ]) =>
-      _watchCurrencies(hasBeenUsed: false);
+      _watchCurrencies(searchTerm, hasBeenUsed: false);
 
-  Stream<List<CurrencyTableData>> _watchCurrencies({
+  Stream<List<Currency>> _watchCurrencies(
+    String searchTerm, {
     required bool hasBeenUsed,
-    String searchTerm = '',
   }) async* {
     try {
       final query = select(currencyTable)
@@ -40,9 +43,8 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
     }
   }
 
-  Future<CurrencyTableData> getCurrencyById(String id) async {
+  Future<Currency> getCurrencyById(String id) async {
     final query = select(currencyTable)..where((tbl) => tbl.id.equals(id));
-
     try {
       return await query.getSingle();
     } on Exception catch (e, s) {
@@ -51,9 +53,8 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
     }
   }
 
-  Future<CurrencyTableData> getCurrencyByCode(String code) async {
+  Future<Currency> getCurrencyByCode(String code) async {
     final query = select(currencyTable)..where((tbl) => tbl.code.equals(code));
-
     try {
       return await query.getSingle();
     } on Exception catch (e, s) {
