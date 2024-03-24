@@ -14,17 +14,17 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
   LocalCurrencyDao(super.attachedDatabase);
 
   //READ METHODS
-  Stream<List<Currency>> watchSavedCurrencies([
+  Stream<List<AppCurrency>> watchSavedCurrencies([
     String searchTerm = '',
   ]) =>
       _watchCurrencies(searchTerm, hasBeenUsed: true);
 
-  Stream<List<Currency>> watchOtherCurrencies([
+  Stream<List<AppCurrency>> watchOtherCurrencies([
     String searchTerm = '',
   ]) =>
       _watchCurrencies(searchTerm, hasBeenUsed: false);
 
-  Stream<List<Currency>> _watchCurrencies(
+  Stream<List<AppCurrency>> _watchCurrencies(
     String searchTerm, {
     required bool hasBeenUsed,
   }) async* {
@@ -43,7 +43,7 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
     }
   }
 
-  Future<Currency> getCurrencyById(String id) async {
+  Future<AppCurrency> getCurrencyById(String id) async {
     final query = select(currencyTable)..where((tbl) => tbl.id.equals(id));
     try {
       return await query.getSingle();
@@ -53,7 +53,7 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
     }
   }
 
-  Future<Currency> getCurrencyByCode(String code) async {
+  Future<AppCurrency> getCurrencyByCode(String code) async {
     final query = select(currencyTable)..where((tbl) => tbl.code.equals(code));
     try {
       return await query.getSingle();

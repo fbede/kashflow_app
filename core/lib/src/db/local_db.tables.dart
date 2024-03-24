@@ -2,7 +2,7 @@ part of 'local_db.dart';
 
 const _uuid = UuidV7();
 
-@UseRowClass(Currency)
+@UseRowClass(AppCurrency)
 class CurrencyTable extends Table {
   TextColumn get id => text()();
   BoolColumn get hasBeenUsed => boolean()();
@@ -19,14 +19,17 @@ class CurrencyTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+@UseRowClass(AppIconData)
 class IconTable extends Table {
-  TextColumn get id => text().clientDefault(() => _uuid.generate())();
+  TextColumn get id => text()();
   IntColumn get codePoint => integer()();
   TextColumn get fontFamily => text().nullable()();
   TextColumn get fontPackage => text().nullable()();
   BoolColumn get matchTextDirection => boolean()();
-  IntColumn get colorValue => integer()();
-  IntColumn get backgroundColorValue => integer()();
+  IntColumn get iconColor => integer().nullable()();
+  IntColumn get backgroundColor => integer().nullable()();
+  TextColumn get fontFamilyFallback =>
+      text().map(StringListTypeConverter()).nullable()();
 
   @override
   Set<Column> get primaryKey => {id};

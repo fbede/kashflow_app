@@ -32,7 +32,7 @@ class _AccountViewState extends ConsumerState<OldAccountView> {
   late final IconSelectorController _iconSelectorController;
 
   final _formKey = GlobalKey<FormState>();
-  late Currency _currencyInfo;
+  late AppCurrency _currencyInfo;
   bool _isLoading = false;
 
   @override

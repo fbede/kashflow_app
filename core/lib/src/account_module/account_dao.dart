@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 
 import '../db/local_db.dart';
 import '../logger/log_handler.dart';
-import '../models/shared_models.dart';
 import 'account_models.dart';
 
 part 'account_dao.g.dart';

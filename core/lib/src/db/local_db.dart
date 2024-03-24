@@ -12,6 +12,8 @@ import '../../gen/assets.gen.dart';
 import '../account_module/account_dao.dart';
 import '../currency_module/currency.dart';
 import '../currency_module/currency_dao.dart';
+import '../shared/app_icon_data.dart';
+import '../shared/type_converters.dart';
 
 part 'local_db.g.dart';
 part 'local_db.tables.dart';
@@ -63,11 +65,11 @@ LazyDatabase _openConnection() => LazyDatabase(() async {
       return NativeDatabase.createInBackground(file);
     });
 
-Future<List<Currency>> _loadCurrenciesFromAsset() async {
+Future<List<AppCurrency>> _loadCurrenciesFromAsset() async {
   final String json = await rootBundle.loadString(Assets.json.loadedCurrencies);
   final data = jsonDecode(json) as List;
-  final List<Currency> currenciesData = data
-      .map((e) => Currency.currencyFromJson(e as Map<String, Object?>))
+  final List<AppCurrency> currenciesData = data
+      .map((e) => AppCurrency.currencyFromJson(e as Map<String, Object?>))
       .toList();
 
   return currenciesData;

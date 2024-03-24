@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AccountInfo {
   String? get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  Currency get currencyInfo => throw _privateConstructorUsedError;
+  AppCurrency get currencyInfo => throw _privateConstructorUsedError;
   BigInt get openingBalance => throw _privateConstructorUsedError;
   IconInfo get iconInfo => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -37,12 +37,10 @@ abstract class $AccountInfoCopyWith<$Res> {
   $Res call(
       {String? id,
       String name,
-      Currency currencyInfo,
+      AppCurrency currencyInfo,
       BigInt openingBalance,
       IconInfo iconInfo,
       String description});
-
-  $IconInfoCopyWith<$Res> get iconInfo;
 }
 
 /// @nodoc
@@ -62,7 +60,7 @@ class _$AccountInfoCopyWithImpl<$Res, $Val extends AccountInfo>
     Object? name = null,
     Object? currencyInfo = null,
     Object? openingBalance = null,
-    Object? iconInfo = null,
+    Object? iconInfo = freezed,
     Object? description = null,
   }) {
     return _then(_value.copyWith(
@@ -77,12 +75,12 @@ class _$AccountInfoCopyWithImpl<$Res, $Val extends AccountInfo>
       currencyInfo: null == currencyInfo
           ? _value.currencyInfo
           : currencyInfo // ignore: cast_nullable_to_non_nullable
-              as Currency,
+              as AppCurrency,
       openingBalance: null == openingBalance
           ? _value.openingBalance
           : openingBalance // ignore: cast_nullable_to_non_nullable
               as BigInt,
-      iconInfo: null == iconInfo
+      iconInfo: freezed == iconInfo
           ? _value.iconInfo
           : iconInfo // ignore: cast_nullable_to_non_nullable
               as IconInfo,
@@ -91,14 +89,6 @@ class _$AccountInfoCopyWithImpl<$Res, $Val extends AccountInfo>
           : description // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $IconInfoCopyWith<$Res> get iconInfo {
-    return $IconInfoCopyWith<$Res>(_value.iconInfo, (value) {
-      return _then(_value.copyWith(iconInfo: value) as $Val);
-    });
   }
 }
 
@@ -113,13 +103,10 @@ abstract class _$$AccountInfoImplCopyWith<$Res>
   $Res call(
       {String? id,
       String name,
-      Currency currencyInfo,
+      AppCurrency currencyInfo,
       BigInt openingBalance,
       IconInfo iconInfo,
       String description});
-
-  @override
-  $IconInfoCopyWith<$Res> get iconInfo;
 }
 
 /// @nodoc
@@ -137,7 +124,7 @@ class __$$AccountInfoImplCopyWithImpl<$Res>
     Object? name = null,
     Object? currencyInfo = null,
     Object? openingBalance = null,
-    Object? iconInfo = null,
+    Object? iconInfo = freezed,
     Object? description = null,
   }) {
     return _then(_$AccountInfoImpl(
@@ -152,12 +139,12 @@ class __$$AccountInfoImplCopyWithImpl<$Res>
       currencyInfo: null == currencyInfo
           ? _value.currencyInfo
           : currencyInfo // ignore: cast_nullable_to_non_nullable
-              as Currency,
+              as AppCurrency,
       openingBalance: null == openingBalance
           ? _value.openingBalance
           : openingBalance // ignore: cast_nullable_to_non_nullable
               as BigInt,
-      iconInfo: null == iconInfo
+      iconInfo: freezed == iconInfo
           ? _value.iconInfo
           : iconInfo // ignore: cast_nullable_to_non_nullable
               as IconInfo,
@@ -186,7 +173,7 @@ class _$AccountInfoImpl extends _AccountInfo {
   @override
   final String name;
   @override
-  final Currency currencyInfo;
+  final AppCurrency currencyInfo;
   @override
   final BigInt openingBalance;
   @override
@@ -211,15 +198,20 @@ class _$AccountInfoImpl extends _AccountInfo {
                 other.currencyInfo == currencyInfo) &&
             (identical(other.openingBalance, openingBalance) ||
                 other.openingBalance == openingBalance) &&
-            (identical(other.iconInfo, iconInfo) ||
-                other.iconInfo == iconInfo) &&
+            const DeepCollectionEquality().equals(other.iconInfo, iconInfo) &&
             (identical(other.description, description) ||
                 other.description == description));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, currencyInfo,
-      openingBalance, iconInfo, description);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      currencyInfo,
+      openingBalance,
+      const DeepCollectionEquality().hash(iconInfo),
+      description);
 
   @JsonKey(ignore: true)
   @override
@@ -232,7 +224,7 @@ abstract class _AccountInfo extends AccountInfo {
   const factory _AccountInfo(
       {required final String? id,
       required final String name,
-      required final Currency currencyInfo,
+      required final AppCurrency currencyInfo,
       required final BigInt openingBalance,
       required final IconInfo iconInfo,
       final String description}) = _$AccountInfoImpl;
@@ -243,7 +235,7 @@ abstract class _AccountInfo extends AccountInfo {
   @override
   String get name;
   @override
-  Currency get currencyInfo;
+  AppCurrency get currencyInfo;
   @override
   BigInt get openingBalance;
   @override

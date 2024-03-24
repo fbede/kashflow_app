@@ -3,9 +3,9 @@ import 'package:kashflow_core/kashflow_core.dart';
 
 import 'currency_widgets.dart';
 
-extension CurrencyWidgetsExtension on Currency {
+extension CurrencyWidgetsExtension on AppCurrency {
   CurrencyCardTile buildCardTile({
-    required ValueChanged<Currency> onTap,
+    required ValueChanged<AppCurrency> onTap,
   }) =>
       CurrencyCardTile(item: this, onTap: onTap);
 }

@@ -1,10 +1,8 @@
-// ignore_for_file: unused_element
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../currency_module/currency.dart';
 import '../db/local_db.dart';
-import '../models/shared_models.dart';
+import '../shared/app_icon_data.dart';
 
 part 'account_models.freezed.dart';
 
@@ -14,27 +12,25 @@ class AccountInfo with _$AccountInfo {
     required String? id,
     required String name,
     required BigInt openingBalance,
-    required Currency currencyData,
-    required IconInfo iconInfo,
+    required AppCurrency currencyData,
+    required AppIconData iconData,
     String description = '',
-  }) {
-    final icon = iconInfo.copyWith(id: id);
-    return AccountInfo._internal(
-      id: id,
-      name: name,
-      currencyInfo: currencyData,
-      openingBalance: openingBalance,
-      iconInfo: icon,
-      description: description,
-    );
-  }
+  }) =>
+      AccountInfo._internal(
+        id: id,
+        name: name,
+        currencyInfo: currencyData,
+        openingBalance: openingBalance,
+        iconInfo: iconData,
+        description: description,
+      );
 
   const factory AccountInfo._internal({
     required String? id,
     required String name,
-    required Currency currencyInfo,
+    required AppCurrency currencyInfo,
     required BigInt openingBalance,
-    required IconInfo iconInfo,
+    required AppIconData iconInfo,
     @Default('') String description,
   }) = _AccountInfo;
 

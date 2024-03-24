@@ -35,7 +35,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
   bool _isLoading = false;
   bool _loadedDefault = false;
-  Currency? _currencyData;
+  AppCurrency? _currencyData;
 
   @override
   void initState() {
@@ -58,7 +58,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
         error: (_, __) => CustomProgressIndicator(),
         loading: () => CustomProgressIndicator(),
         data: (data) {
-          _currencyData = data as Currency?;
+          _currencyData = data as AppCurrency?;
           _currencyNameController = CurrencyFieldController(data!);
           _iconSelectorController = IconSelectorController(
             iconColor: context.colorScheme.onPrimaryContainer,
@@ -108,7 +108,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     ref.watch(defaultCurrencyProvider).whenData((value) {
       if (_loadedDefault) return;
 
-      _currencyData = value as Currency?;
+      _currencyData = value as AppCurrency?;
       _loadedDefault = true;
 
       WidgetsBinding.instance.addPostFrameCallback(

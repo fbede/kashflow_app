@@ -4,7 +4,7 @@ part of 'local_db.dart';
 
 // ignore_for_file: type=lint
 class $IconTableTable extends IconTable
-    with TableInfo<$IconTableTable, IconTableData> {
+    with TableInfo<$IconTableTable, AppIconData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -13,9 +13,7 @@ class $IconTableTable extends IconTable
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.string,
-      requiredDuringInsert: false,
-      clientDefault: () => _uuid.generate());
+      type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _codePointMeta =
       const VerificationMeta('codePoint');
   @override
@@ -43,18 +41,27 @@ class $IconTableTable extends IconTable
       requiredDuringInsert: true,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
           'CHECK ("match_text_direction" IN (0, 1))'));
-  static const VerificationMeta _colorValueMeta =
-      const VerificationMeta('colorValue');
+  static const VerificationMeta _iconColorMeta =
+      const VerificationMeta('iconColor');
   @override
-  late final GeneratedColumn<int> colorValue = GeneratedColumn<int>(
-      'color_value', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _backgroundColorValueMeta =
-      const VerificationMeta('backgroundColorValue');
+  late final GeneratedColumn<int> iconColor = GeneratedColumn<int>(
+      'icon_color', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _backgroundColorMeta =
+      const VerificationMeta('backgroundColor');
   @override
-  late final GeneratedColumn<int> backgroundColorValue = GeneratedColumn<int>(
-      'background_color_value', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: true);
+  late final GeneratedColumn<int> backgroundColor = GeneratedColumn<int>(
+      'background_color', aliasedName, true,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _fontFamilyFallbackMeta =
+      const VerificationMeta('fontFamilyFallback');
+  @override
+  late final GeneratedColumnWithTypeConverter<List<String>?, String>
+      fontFamilyFallback = GeneratedColumn<String>(
+              'font_family_fallback', aliasedName, true,
+              type: DriftSqlType.string, requiredDuringInsert: false)
+          .withConverter<List<String>?>(
+              $IconTableTable.$converterfontFamilyFallback);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -62,8 +69,9 @@ class $IconTableTable extends IconTable
         fontFamily,
         fontPackage,
         matchTextDirection,
-        colorValue,
-        backgroundColorValue
+        iconColor,
+        backgroundColor,
+        fontFamilyFallback
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -71,12 +79,14 @@ class $IconTableTable extends IconTable
   String get actualTableName => $name;
   static const String $name = 'icon_table';
   @override
-  VerificationContext validateIntegrity(Insertable<IconTableData> instance,
+  VerificationContext validateIntegrity(Insertable<AppIconData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
     }
     if (data.containsKey('code_point')) {
       context.handle(_codePointMeta,
@@ -104,33 +114,32 @@ class $IconTableTable extends IconTable
     } else if (isInserting) {
       context.missing(_matchTextDirectionMeta);
     }
-    if (data.containsKey('color_value')) {
-      context.handle(
-          _colorValueMeta,
-          colorValue.isAcceptableOrUnknown(
-              data['color_value']!, _colorValueMeta));
-    } else if (isInserting) {
-      context.missing(_colorValueMeta);
+    if (data.containsKey('icon_color')) {
+      context.handle(_iconColorMeta,
+          iconColor.isAcceptableOrUnknown(data['icon_color']!, _iconColorMeta));
     }
-    if (data.containsKey('background_color_value')) {
+    if (data.containsKey('background_color')) {
       context.handle(
-          _backgroundColorValueMeta,
-          backgroundColorValue.isAcceptableOrUnknown(
-              data['background_color_value']!, _backgroundColorValueMeta));
-    } else if (isInserting) {
-      context.missing(_backgroundColorValueMeta);
+          _backgroundColorMeta,
+          backgroundColor.isAcceptableOrUnknown(
+              data['background_color']!, _backgroundColorMeta));
     }
+    context.handle(_fontFamilyFallbackMeta, const VerificationResult.success());
     return context;
   }
 
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  IconTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  AppIconData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return IconTableData(
+    return AppIconData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
+      iconColor: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}icon_color']),
+      backgroundColor: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}background_color']),
       codePoint: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}code_point'])!,
       fontFamily: attachedDatabase.typeMapping
@@ -139,10 +148,9 @@ class $IconTableTable extends IconTable
           .read(DriftSqlType.string, data['${effectivePrefix}font_package']),
       matchTextDirection: attachedDatabase.typeMapping.read(
           DriftSqlType.bool, data['${effectivePrefix}match_text_direction'])!,
-      colorValue: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}color_value'])!,
-      backgroundColorValue: attachedDatabase.typeMapping.read(
-          DriftSqlType.int, data['${effectivePrefix}background_color_value'])!,
+      fontFamilyFallback: $IconTableTable.$converterfontFamilyFallback.fromSql(
+          attachedDatabase.typeMapping.read(DriftSqlType.string,
+              data['${effectivePrefix}font_family_fallback'])),
     );
   }
 
@@ -150,140 +158,20 @@ class $IconTableTable extends IconTable
   $IconTableTable createAlias(String alias) {
     return $IconTableTable(attachedDatabase, alias);
   }
+
+  static TypeConverter<List<String>?, String?> $converterfontFamilyFallback =
+      StringListTypeConverter();
 }
 
-class IconTableData extends DataClass implements Insertable<IconTableData> {
-  final String id;
-  final int codePoint;
-  final String? fontFamily;
-  final String? fontPackage;
-  final bool matchTextDirection;
-  final int colorValue;
-  final int backgroundColorValue;
-  const IconTableData(
-      {required this.id,
-      required this.codePoint,
-      this.fontFamily,
-      this.fontPackage,
-      required this.matchTextDirection,
-      required this.colorValue,
-      required this.backgroundColorValue});
-  @override
-  Map<String, Expression> toColumns(bool nullToAbsent) {
-    final map = <String, Expression>{};
-    map['id'] = Variable<String>(id);
-    map['code_point'] = Variable<int>(codePoint);
-    if (!nullToAbsent || fontFamily != null) {
-      map['font_family'] = Variable<String>(fontFamily);
-    }
-    if (!nullToAbsent || fontPackage != null) {
-      map['font_package'] = Variable<String>(fontPackage);
-    }
-    map['match_text_direction'] = Variable<bool>(matchTextDirection);
-    map['color_value'] = Variable<int>(colorValue);
-    map['background_color_value'] = Variable<int>(backgroundColorValue);
-    return map;
-  }
-
-  IconTableCompanion toCompanion(bool nullToAbsent) {
-    return IconTableCompanion(
-      id: Value(id),
-      codePoint: Value(codePoint),
-      fontFamily: fontFamily == null && nullToAbsent
-          ? const Value.absent()
-          : Value(fontFamily),
-      fontPackage: fontPackage == null && nullToAbsent
-          ? const Value.absent()
-          : Value(fontPackage),
-      matchTextDirection: Value(matchTextDirection),
-      colorValue: Value(colorValue),
-      backgroundColorValue: Value(backgroundColorValue),
-    );
-  }
-
-  factory IconTableData.fromJson(Map<String, dynamic> json,
-      {ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return IconTableData(
-      id: serializer.fromJson<String>(json['id']),
-      codePoint: serializer.fromJson<int>(json['codePoint']),
-      fontFamily: serializer.fromJson<String?>(json['fontFamily']),
-      fontPackage: serializer.fromJson<String?>(json['fontPackage']),
-      matchTextDirection: serializer.fromJson<bool>(json['matchTextDirection']),
-      colorValue: serializer.fromJson<int>(json['colorValue']),
-      backgroundColorValue:
-          serializer.fromJson<int>(json['backgroundColorValue']),
-    );
-  }
-  @override
-  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
-    serializer ??= driftRuntimeOptions.defaultSerializer;
-    return <String, dynamic>{
-      'id': serializer.toJson<String>(id),
-      'codePoint': serializer.toJson<int>(codePoint),
-      'fontFamily': serializer.toJson<String?>(fontFamily),
-      'fontPackage': serializer.toJson<String?>(fontPackage),
-      'matchTextDirection': serializer.toJson<bool>(matchTextDirection),
-      'colorValue': serializer.toJson<int>(colorValue),
-      'backgroundColorValue': serializer.toJson<int>(backgroundColorValue),
-    };
-  }
-
-  IconTableData copyWith(
-          {String? id,
-          int? codePoint,
-          Value<String?> fontFamily = const Value.absent(),
-          Value<String?> fontPackage = const Value.absent(),
-          bool? matchTextDirection,
-          int? colorValue,
-          int? backgroundColorValue}) =>
-      IconTableData(
-        id: id ?? this.id,
-        codePoint: codePoint ?? this.codePoint,
-        fontFamily: fontFamily.present ? fontFamily.value : this.fontFamily,
-        fontPackage: fontPackage.present ? fontPackage.value : this.fontPackage,
-        matchTextDirection: matchTextDirection ?? this.matchTextDirection,
-        colorValue: colorValue ?? this.colorValue,
-        backgroundColorValue: backgroundColorValue ?? this.backgroundColorValue,
-      );
-  @override
-  String toString() {
-    return (StringBuffer('IconTableData(')
-          ..write('id: $id, ')
-          ..write('codePoint: $codePoint, ')
-          ..write('fontFamily: $fontFamily, ')
-          ..write('fontPackage: $fontPackage, ')
-          ..write('matchTextDirection: $matchTextDirection, ')
-          ..write('colorValue: $colorValue, ')
-          ..write('backgroundColorValue: $backgroundColorValue')
-          ..write(')'))
-        .toString();
-  }
-
-  @override
-  int get hashCode => Object.hash(id, codePoint, fontFamily, fontPackage,
-      matchTextDirection, colorValue, backgroundColorValue);
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      (other is IconTableData &&
-          other.id == this.id &&
-          other.codePoint == this.codePoint &&
-          other.fontFamily == this.fontFamily &&
-          other.fontPackage == this.fontPackage &&
-          other.matchTextDirection == this.matchTextDirection &&
-          other.colorValue == this.colorValue &&
-          other.backgroundColorValue == this.backgroundColorValue);
-}
-
-class IconTableCompanion extends UpdateCompanion<IconTableData> {
+class IconTableCompanion extends UpdateCompanion<AppIconData> {
   final Value<String> id;
   final Value<int> codePoint;
   final Value<String?> fontFamily;
   final Value<String?> fontPackage;
   final Value<bool> matchTextDirection;
-  final Value<int> colorValue;
-  final Value<int> backgroundColorValue;
+  final Value<int?> iconColor;
+  final Value<int?> backgroundColor;
+  final Value<List<String>?> fontFamilyFallback;
   final Value<int> rowid;
   const IconTableCompanion({
     this.id = const Value.absent(),
@@ -291,31 +179,33 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
     this.fontFamily = const Value.absent(),
     this.fontPackage = const Value.absent(),
     this.matchTextDirection = const Value.absent(),
-    this.colorValue = const Value.absent(),
-    this.backgroundColorValue = const Value.absent(),
+    this.iconColor = const Value.absent(),
+    this.backgroundColor = const Value.absent(),
+    this.fontFamilyFallback = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   IconTableCompanion.insert({
-    this.id = const Value.absent(),
+    required String id,
     required int codePoint,
     this.fontFamily = const Value.absent(),
     this.fontPackage = const Value.absent(),
     required bool matchTextDirection,
-    required int colorValue,
-    required int backgroundColorValue,
+    this.iconColor = const Value.absent(),
+    this.backgroundColor = const Value.absent(),
+    this.fontFamilyFallback = const Value.absent(),
     this.rowid = const Value.absent(),
-  })  : codePoint = Value(codePoint),
-        matchTextDirection = Value(matchTextDirection),
-        colorValue = Value(colorValue),
-        backgroundColorValue = Value(backgroundColorValue);
-  static Insertable<IconTableData> custom({
+  })  : id = Value(id),
+        codePoint = Value(codePoint),
+        matchTextDirection = Value(matchTextDirection);
+  static Insertable<AppIconData> custom({
     Expression<String>? id,
     Expression<int>? codePoint,
     Expression<String>? fontFamily,
     Expression<String>? fontPackage,
     Expression<bool>? matchTextDirection,
-    Expression<int>? colorValue,
-    Expression<int>? backgroundColorValue,
+    Expression<int>? iconColor,
+    Expression<int>? backgroundColor,
+    Expression<String>? fontFamilyFallback,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -325,9 +215,10 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
       if (fontPackage != null) 'font_package': fontPackage,
       if (matchTextDirection != null)
         'match_text_direction': matchTextDirection,
-      if (colorValue != null) 'color_value': colorValue,
-      if (backgroundColorValue != null)
-        'background_color_value': backgroundColorValue,
+      if (iconColor != null) 'icon_color': iconColor,
+      if (backgroundColor != null) 'background_color': backgroundColor,
+      if (fontFamilyFallback != null)
+        'font_family_fallback': fontFamilyFallback,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -338,8 +229,9 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
       Value<String?>? fontFamily,
       Value<String?>? fontPackage,
       Value<bool>? matchTextDirection,
-      Value<int>? colorValue,
-      Value<int>? backgroundColorValue,
+      Value<int?>? iconColor,
+      Value<int?>? backgroundColor,
+      Value<List<String>?>? fontFamilyFallback,
       Value<int>? rowid}) {
     return IconTableCompanion(
       id: id ?? this.id,
@@ -347,8 +239,9 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
       fontFamily: fontFamily ?? this.fontFamily,
       fontPackage: fontPackage ?? this.fontPackage,
       matchTextDirection: matchTextDirection ?? this.matchTextDirection,
-      colorValue: colorValue ?? this.colorValue,
-      backgroundColorValue: backgroundColorValue ?? this.backgroundColorValue,
+      iconColor: iconColor ?? this.iconColor,
+      backgroundColor: backgroundColor ?? this.backgroundColor,
+      fontFamilyFallback: fontFamilyFallback ?? this.fontFamilyFallback,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -371,11 +264,16 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
     if (matchTextDirection.present) {
       map['match_text_direction'] = Variable<bool>(matchTextDirection.value);
     }
-    if (colorValue.present) {
-      map['color_value'] = Variable<int>(colorValue.value);
+    if (iconColor.present) {
+      map['icon_color'] = Variable<int>(iconColor.value);
     }
-    if (backgroundColorValue.present) {
-      map['background_color_value'] = Variable<int>(backgroundColorValue.value);
+    if (backgroundColor.present) {
+      map['background_color'] = Variable<int>(backgroundColor.value);
+    }
+    if (fontFamilyFallback.present) {
+      map['font_family_fallback'] = Variable<String>($IconTableTable
+          .$converterfontFamilyFallback
+          .toSql(fontFamilyFallback.value));
     }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
@@ -391,8 +289,9 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
           ..write('fontFamily: $fontFamily, ')
           ..write('fontPackage: $fontPackage, ')
           ..write('matchTextDirection: $matchTextDirection, ')
-          ..write('colorValue: $colorValue, ')
-          ..write('backgroundColorValue: $backgroundColorValue, ')
+          ..write('iconColor: $iconColor, ')
+          ..write('backgroundColor: $backgroundColor, ')
+          ..write('fontFamilyFallback: $fontFamilyFallback, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -400,7 +299,7 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
 }
 
 class $CurrencyTableTable extends CurrencyTable
-    with TableInfo<$CurrencyTableTable, Currency> {
+    with TableInfo<$CurrencyTableTable, AppCurrency> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
@@ -494,7 +393,7 @@ class $CurrencyTableTable extends CurrencyTable
   String get actualTableName => $name;
   static const String $name = 'currency_table';
   @override
-  VerificationContext validateIntegrity(Insertable<Currency> instance,
+  VerificationContext validateIntegrity(Insertable<AppCurrency> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -567,9 +466,9 @@ class $CurrencyTableTable extends CurrencyTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  Currency map(Map<String, dynamic> data, {String? tablePrefix}) {
+  AppCurrency map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return Currency(
+    return AppCurrency(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       code: attachedDatabase.typeMapping
@@ -599,7 +498,7 @@ class $CurrencyTableTable extends CurrencyTable
   }
 }
 
-class CurrencyTableCompanion extends UpdateCompanion<Currency> {
+class CurrencyTableCompanion extends UpdateCompanion<AppCurrency> {
   final Value<String> id;
   final Value<bool> hasBeenUsed;
   final Value<String> code;
@@ -646,7 +545,7 @@ class CurrencyTableCompanion extends UpdateCompanion<Currency> {
         country = Value(country),
         unit = Value(unit),
         name = Value(name);
-  static Insertable<Currency> custom({
+  static Insertable<AppCurrency> custom({
     Expression<String>? id,
     Expression<bool>? hasBeenUsed,
     Expression<String>? code,

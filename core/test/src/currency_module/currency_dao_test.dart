@@ -30,10 +30,10 @@ void main() {
   });
 }
 
-Future<List<Currency>> _getAssetCurrencies() async {
+Future<List<AppCurrency>> _getAssetCurrencies() async {
   final String json = await rootBundle.loadString(Assets.json.loadedCurrencies);
   final data = jsonDecode(json) as List;
   return data
-      .map((e) => Currency.currencyFromJson(e as Map<String, Object?>))
+      .map((e) => AppCurrency.currencyFromJson(e as Map<String, Object?>))
       .toList();
 }

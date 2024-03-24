@@ -1,15 +1,15 @@
-import 'package:money2/money2.dart' as money2;
+import 'package:money2/money2.dart';
 import 'package:uuid/v7.dart';
 
 import '../db/local_db.dart';
 
 const _uuid = UuidV7();
 
-class Currency extends money2.Currency {
+class AppCurrency extends Currency {
   final String id;
   final bool hasBeenUsed;
 
-  Currency({
+  AppCurrency({
     required String id,
     required String code,
     required int scale,
@@ -33,7 +33,7 @@ class Currency extends money2.Currency {
           unit: unit,
         );
 
-  Currency.create(
+  AppCurrency.create(
     super.code,
     super.scale, {
     required this.hasBeenUsed,
@@ -47,8 +47,8 @@ class Currency extends money2.Currency {
   })  : id = id ?? _uuid.generate(),
         super.create();
 
-  factory Currency.currencyFromJson(Map<String, Object?> json) =>
-      Currency.create(
+  factory AppCurrency.currencyFromJson(Map<String, Object?> json) =>
+      AppCurrency.create(
         json['code']! as String,
         2,
         name: json['name']! as String,

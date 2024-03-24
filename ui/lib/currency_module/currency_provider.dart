@@ -8,7 +8,7 @@ import '../shared/keys.dart';
 part 'currency_provider.g.dart';
 
 @riverpod
-Stream<List<Currency>> savedCurrencies(
+Stream<List<AppCurrency>> savedCurrencies(
   SavedCurrenciesRef ref,
   String searchTerm,
 ) async* {
@@ -17,7 +17,7 @@ Stream<List<Currency>> savedCurrencies(
 }
 
 @riverpod
-Stream<List<Currency>> otherCurrencies(
+Stream<List<AppCurrency>> otherCurrencies(
   OtherCurrenciesRef ref,
   String searchTerm,
 ) async* {
@@ -31,7 +31,7 @@ class DefaultCurrency extends _$DefaultCurrency {
   final _prefs = GetIt.I<SharedPreferences>();
 
   @override
-  Future<Currency> build() async {
+  Future<AppCurrency> build() async {
     final currencyId = _prefs.getString(PrefKeys.defaultCurrencyId);
     if (currencyId == null) {
       return _dao.getCurrencyByCode('USD');

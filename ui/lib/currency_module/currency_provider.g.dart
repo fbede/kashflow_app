@@ -6,7 +6,7 @@ part of 'currency_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$savedCurrenciesHash() => r'd6b38ee01649014f4781792a9ccda90ddae989e9';
+String _$savedCurrenciesHash() => r'c6565ba143f2e8a9bc4c0efb9e3052686a576e44';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -34,7 +34,7 @@ class _SystemHash {
 const savedCurrenciesProvider = SavedCurrenciesFamily();
 
 /// See also [savedCurrencies].
-class SavedCurrenciesFamily extends Family<AsyncValue<List<Currency>>> {
+class SavedCurrenciesFamily extends Family<AsyncValue<List<AppCurrency>>> {
   /// See also [savedCurrencies].
   const SavedCurrenciesFamily();
 
@@ -73,7 +73,7 @@ class SavedCurrenciesFamily extends Family<AsyncValue<List<Currency>>> {
 
 /// See also [savedCurrencies].
 class SavedCurrenciesProvider
-    extends AutoDisposeStreamProvider<List<Currency>> {
+    extends AutoDisposeStreamProvider<List<AppCurrency>> {
   /// See also [savedCurrencies].
   SavedCurrenciesProvider(
     String searchTerm,
@@ -108,7 +108,7 @@ class SavedCurrenciesProvider
 
   @override
   Override overrideWith(
-    Stream<List<Currency>> Function(SavedCurrenciesRef provider) create,
+    Stream<List<AppCurrency>> Function(SavedCurrenciesRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -125,7 +125,7 @@ class SavedCurrenciesProvider
   }
 
   @override
-  AutoDisposeStreamProviderElement<List<Currency>> createElement() {
+  AutoDisposeStreamProviderElement<List<AppCurrency>> createElement() {
     return _SavedCurrenciesProviderElement(this);
   }
 
@@ -143,13 +143,13 @@ class SavedCurrenciesProvider
   }
 }
 
-mixin SavedCurrenciesRef on AutoDisposeStreamProviderRef<List<Currency>> {
+mixin SavedCurrenciesRef on AutoDisposeStreamProviderRef<List<AppCurrency>> {
   /// The parameter `searchTerm` of this provider.
   String get searchTerm;
 }
 
 class _SavedCurrenciesProviderElement
-    extends AutoDisposeStreamProviderElement<List<Currency>>
+    extends AutoDisposeStreamProviderElement<List<AppCurrency>>
     with SavedCurrenciesRef {
   _SavedCurrenciesProviderElement(super.provider);
 
@@ -157,14 +157,14 @@ class _SavedCurrenciesProviderElement
   String get searchTerm => (origin as SavedCurrenciesProvider).searchTerm;
 }
 
-String _$otherCurrenciesHash() => r'804ed92d736a93072687e87e28f46a32242c0656';
+String _$otherCurrenciesHash() => r'2214163f4a588fc87021d1d065850265043f2129';
 
 /// See also [otherCurrencies].
 @ProviderFor(otherCurrencies)
 const otherCurrenciesProvider = OtherCurrenciesFamily();
 
 /// See also [otherCurrencies].
-class OtherCurrenciesFamily extends Family<AsyncValue<List<Currency>>> {
+class OtherCurrenciesFamily extends Family<AsyncValue<List<AppCurrency>>> {
   /// See also [otherCurrencies].
   const OtherCurrenciesFamily();
 
@@ -203,7 +203,7 @@ class OtherCurrenciesFamily extends Family<AsyncValue<List<Currency>>> {
 
 /// See also [otherCurrencies].
 class OtherCurrenciesProvider
-    extends AutoDisposeStreamProvider<List<Currency>> {
+    extends AutoDisposeStreamProvider<List<AppCurrency>> {
   /// See also [otherCurrencies].
   OtherCurrenciesProvider(
     String searchTerm,
@@ -238,7 +238,7 @@ class OtherCurrenciesProvider
 
   @override
   Override overrideWith(
-    Stream<List<Currency>> Function(OtherCurrenciesRef provider) create,
+    Stream<List<AppCurrency>> Function(OtherCurrenciesRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -255,7 +255,7 @@ class OtherCurrenciesProvider
   }
 
   @override
-  AutoDisposeStreamProviderElement<List<Currency>> createElement() {
+  AutoDisposeStreamProviderElement<List<AppCurrency>> createElement() {
     return _OtherCurrenciesProviderElement(this);
   }
 
@@ -273,13 +273,13 @@ class OtherCurrenciesProvider
   }
 }
 
-mixin OtherCurrenciesRef on AutoDisposeStreamProviderRef<List<Currency>> {
+mixin OtherCurrenciesRef on AutoDisposeStreamProviderRef<List<AppCurrency>> {
   /// The parameter `searchTerm` of this provider.
   String get searchTerm;
 }
 
 class _OtherCurrenciesProviderElement
-    extends AutoDisposeStreamProviderElement<List<Currency>>
+    extends AutoDisposeStreamProviderElement<List<AppCurrency>>
     with OtherCurrenciesRef {
   _OtherCurrenciesProviderElement(super.provider);
 
@@ -287,12 +287,12 @@ class _OtherCurrenciesProviderElement
   String get searchTerm => (origin as OtherCurrenciesProvider).searchTerm;
 }
 
-String _$defaultCurrencyHash() => r'237c81c61ae1c56685bba3310c99e381c4f6c756';
+String _$defaultCurrencyHash() => r'0f0c7c249254459a2ab9ec6bfea2918105e9a467';
 
 /// See also [DefaultCurrency].
 @ProviderFor(DefaultCurrency)
 final defaultCurrencyProvider =
-    AutoDisposeAsyncNotifierProvider<DefaultCurrency, Currency>.internal(
+    AutoDisposeAsyncNotifierProvider<DefaultCurrency, AppCurrency>.internal(
   DefaultCurrency.new,
   name: r'defaultCurrencyProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -302,6 +302,6 @@ final defaultCurrencyProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$DefaultCurrency = AutoDisposeAsyncNotifier<Currency>;
+typedef _$DefaultCurrency = AutoDisposeAsyncNotifier<AppCurrency>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -10,11 +10,11 @@ import '../ui_elements/user_text.dart';
 import 'currency_models.dart';
 import 'currency_provider.dart';
 
-Future<Currency?> showCurrencyPicker(
+Future<AppCurrency?> showCurrencyPicker(
   BuildContext context, {
   bool barrierDismissible = true,
 }) async {
-  Currency? data;
+  AppCurrency? data;
 
   await showDialog<Widget>(
     context: context,
@@ -33,7 +33,7 @@ Future<Currency?> showCurrencyPicker(
 class CurrencyPickerDialog extends ConsumerStatefulWidget {
   const CurrencyPickerDialog({required this.onTap, super.key});
 
-  final ValueChanged<Currency> onTap;
+  final ValueChanged<AppCurrency> onTap;
 
   @override
   ConsumerState<CurrencyPickerDialog> createState() =>
@@ -116,8 +116,8 @@ class _Subtitle extends StatelessWidget {
 class _CurrencyList extends StatelessWidget {
   const _CurrencyList({required this.onTap, required this.dataProvider});
 
-  final ValueChanged<Currency> onTap;
-  final AsyncValue<List<Currency>> dataProvider;
+  final ValueChanged<AppCurrency> onTap;
+  final AsyncValue<List<AppCurrency>> dataProvider;
 
   @override
   Widget build(BuildContext context) => dataProvider.when(
