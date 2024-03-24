@@ -1,6 +1,6 @@
 build:
-  dev:
-    apk: flutter build apk --dart-define-from-file=config/dev.json --no-tree-shake-icons
+  test:
+    apk: flutter build apk --dart-define-from-file=config/test.json --no-tree-shake-icons
 
 build_config:
   - dart_define generate --yaml_path=../../special/kashflow/config/prod.yaml --json_path=config/prod.json --FLAVOR=production
