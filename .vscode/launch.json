@@ -25,8 +25,7 @@
             "flutterMode": "release"
         },
         {
-            "name": "ui dev",
-            "cwd": "ui",
+            "name": "dev",
             "request": "launch",
             "type": "dart",
             "toolArgs": [
@@ -35,8 +34,7 @@
             ]
         },
         {
-            "name": "ui test",
-            "cwd": "ui",
+            "name": "test",
             "request": "launch",
             "type": "dart",
             "toolArgs": [
@@ -45,8 +43,7 @@
             ]
         },
         {
-            "name": "ui prod",
-            "cwd": "ui",
+            "name": "prod",
             "request": "launch",
             "type": "dart",
             "toolArgs": [
