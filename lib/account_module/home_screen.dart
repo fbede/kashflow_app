@@ -142,7 +142,7 @@ class _AccountsTabBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(accountsProvider).when(
+      ref.watch(accountProvider).when(
             loading: () => const Center(child: CustomProgressIndicator()),
             error: (e, s) => Center(child: Text('$e\n$s')),
             data: (data) {
@@ -154,7 +154,7 @@ class _AccountsTabBody extends ConsumerWidget {
 
               return ListView.builder(
                 itemCount: data.length,
-                itemBuilder: (_, index) => data[index].listTile,
+                itemBuilder: (ctx, index) => data[index].buildListTile(ctx),
               );
             },
           );

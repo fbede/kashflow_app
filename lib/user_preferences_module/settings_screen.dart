@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
+import '../currency_module/currency.dart';
 import '../currency_module/currency_picker_dialog.dart';
 import '../currency_module/currency_provider.dart';
 import '../shared/logger/log_handler.dart';
@@ -95,16 +96,17 @@ class _DefaultCurrencyListTile extends ConsumerWidget {
       : super(key: const ValueKey('defaultCurrencyListTile'));
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final defaultCurrency = ref.watch(defaultCurrencyProvider).value;
-
-    return ListTile(
-      leading: _buildIcon(context, defaultCurrency?.symbol ?? ''),
-      title: const Text(UserText.defaultCurrency),
-      subtitle: Text(defaultCurrency?.name ?? ''),
-      onTap: () async => onTap(context, ref),
-    );
-  }
+  Widget build(BuildContext context, WidgetRef ref) =>
+      ref.watch(defaultCurrencyProvider).when(
+            loading: () => const SizedBox.shrink(),
+            data: (data) => ListTile(
+              leading: _buildIcon(context, data.symbol),
+              title: const Text(UserText.defaultCurrency),
+              subtitle: Text(data.name),
+              onTap: () async => onTap(context, ref),
+            ),
+            error: (_, __) => const SizedBox.shrink(),
+          );
 
   Future<void> onTap(BuildContext context, WidgetRef ref) async {
     final currency = await showCurrencyPicker(context);

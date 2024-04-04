@@ -3,7 +3,6 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../account_module/create_account_view.dart.old';
 import '../shared/responsive.dart';
 import '../shared/route_names.dart';
 import '../ui_elements/user_text.dart';
@@ -90,9 +89,9 @@ class MobileAppShell extends StatelessWidget {
             text: 'Add An Account',
             iconData: PhosphorIconsFill.listPlus,
             onTap: () async => showDialog(
-              context: context,
-              builder: (_) => const CreateAccountView(),
-            ),
+                context: context,
+                builder: (_) => const SizedBox() //CreateAccountView(),
+                ),
           ),
         ],
       );
