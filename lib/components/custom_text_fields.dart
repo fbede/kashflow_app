@@ -75,7 +75,9 @@ class MoneyAmountFormField extends StatelessWidget {
         TextInputFormatter.withFunction((oldValue, newValue) {
           try {
             final text = newValue.text;
-            if (text.isNotEmpty) double.parse(text);
+            if (text.isNotEmpty) {
+              double.parse(text);
+            }
             return newValue;
           } on Exception catch (_) {}
           return oldValue;
@@ -84,13 +86,21 @@ class MoneyAmountFormField extends StatelessWidget {
 }
 
 class CurrencyFormField extends StatelessWidget {
-  const CurrencyFormField({required this.controller, super.key});
+  const CurrencyFormField({
+    required this.appCurrencyController,
+    required this.textController,
+    super.key,
+  });
 
-  final CurrencyFieldController controller;
+  final AppCurrencyController appCurrencyController;
+  final TextEditingController textController;
+
+  //TODO: Add Option to Create New Currency
 
   @override
   Widget build(BuildContext context) => TextFormField(
-        controller: controller,
+        readOnly: true,
+        controller: textController,
         showCursor: false,
         onTap: () async => _onCurrencyTap(context),
         decoration: const InputDecoration(
@@ -111,7 +121,7 @@ class CurrencyFormField extends StatelessWidget {
   Future<void> _onCurrencyTap(BuildContext context) async {
     final result = await showCurrencyPicker(context);
     if (result != null) {
-      controller.currencyData = result;
+      appCurrencyController.currency = result;
     }
   }
 }

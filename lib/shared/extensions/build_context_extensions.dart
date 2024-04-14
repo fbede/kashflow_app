@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
 
 extension ResponsiveUtils on BuildContext {
+  EdgeInsets get viewInsets => MediaQuery.of(this).viewInsets;
   double getScreenWidth() => MediaQuery.of(this).size.width;
 
-  bool isPhone() => MediaQuery.of(this).size.width < 500;
+  bool get isPhone => MediaQuery.of(this).size.width < 500;
 
-  bool isTablet() =>
+  bool get isTablet =>
       MediaQuery.of(this).size.width > 500 &&
       MediaQuery.of(this).size.width < 1100;
 
-  bool isDesktop() => MediaQuery.of(this).size.width > 1100;
+  bool get isDesktop => MediaQuery.of(this).size.width > 1100;
 
   Widget buildResponsiveScreen({
     required Widget mobileScreen,
     required Widget desktopScreen,
     Widget? tabletScreen,
   }) {
-    if (isPhone()) return mobileScreen;
+    if (isPhone) {
+      return mobileScreen;
+    }
 
-    if (isTablet() && tabletScreen != null) return tabletScreen;
+    if (isTablet && tabletScreen != null) {
+      return tabletScreen;
+    }
 
     return desktopScreen;
   }
@@ -28,14 +33,6 @@ extension ThemeUtils on BuildContext {
   ThemeData get theme => Theme.of(this);
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
   TextTheme get textTheme => Theme.of(this).textTheme;
-
-  Color tooltipTextColor() {
-    if (colorScheme.brightness == Brightness.light) {
-      return Colors.white;
-    } else {
-      return Colors.black;
-    }
-  }
 }
 
 extension OtherUtils on BuildContext {

@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../gen/assets.gen.dart';
-import '../shared/responsive.dart';
+import '../shared/extensions/build_context_extensions.dart';
 import '../ui_elements/user_text.dart';
 
 class CustomProgressIndicator extends StatefulWidget {

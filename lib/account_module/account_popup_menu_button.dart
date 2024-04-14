@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
-import '../shared/responsive.dart';
+import '../shared/extensions/build_context_extensions.dart';
 import '../ui_elements/user_text.dart';
 import 'account.dart';
 import 'account_provider.dart' hide Account;
@@ -67,7 +67,7 @@ class _AccountListTileMenuButtonState
   Future<void> _onEdit() async => showDialog(
         context: context,
         builder: (context) {
-          if (context.isPhone()) {
+          if (context.isPhone) {
             return Dialog.fullscreen(
                 child:
                     SizedBox() /*  EditAccountView(
@@ -92,6 +92,8 @@ class _AccountListTileMenuButtonState
     setState(() {});
 
 //TODO: Wrap with try catch
-    await ref.read(accountProvider.notifier).deleteAccount(widget.account.name);
+    await ref
+        .watch(accountProvider.notifier)
+        .deleteAccount(widget.account.name);
   }
 }

@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_simple_calculator/flutter_simple_calculator.dart';
 import 'package:go_router/go_router.dart';
-import '../shared/responsive.dart';
+import '../shared/extensions/build_context_extensions.dart';
 import '../ui_elements/user_text.dart';
 
 Future<double> showCalculator(BuildContext context) async {
   double result = 0;
 
-  await showGeneralDialog<Widget>(
+  await showModalBottomSheet<Widget>(
     context: context,
-    pageBuilder: (context, _, __) => _CalculatorWidget(
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(),
+    builder: (_) => _CalculatorWidget(
       onChanged: (value) => result = value,
     ),
   );
@@ -34,36 +36,26 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
   @override
   Widget build(BuildContext context) => Material(
         color: Colors.transparent,
-        child: Center(
-          child: Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: SizedBox(
-              width: 300,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const SizedBox(height: 16),
-                  Text('Result: $answer'),
-                  const SizedBox(height: 8),
-                  Text(text),
-                  SizedBox(
-                    height: 300,
-                    width: 300,
-                    child: SimpleCalculator(
-                      hideSurroundingBorder: true,
-                      hideExpression: true,
-                      onChanged: _onChanged,
-                      theme: getCalculatorTheme(context),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildFooter(),
-                  const SizedBox(height: 8),
-                ],
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AspectRatio(
+                aspectRatio: 1,
+                child: SimpleCalculator(
+                  hideSurroundingBorder: true,
+                  maximumDigits: 20,
+                  onChanged: _onChanged,
+                  theme: getCalculatorTheme(context),
+                ),
               ),
-            ),
+              const SizedBox(height: 8),
+              _buildFooter(),
+              const SizedBox(height: 8),
+            ],
           ),
         ),
       );
@@ -97,23 +89,17 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
         ),
       );
 
-  CalculatorThemeData getCalculatorTheme(BuildContext context) =>
-      CalculatorThemeData(
-        displayStyle: const TextStyle(fontSize: 14),
-        expressionStyle: const TextStyle(fontSize: 14),
-        operatorStyle: TextStyle(
-          fontSize: 14,
-          color: context.colorScheme.onPrimary,
-        ),
-        commandStyle: TextStyle(
-          fontSize: 14,
-          color: context.colorScheme.onBackground,
-        ),
-        numStyle: TextStyle(
-          fontSize: 14,
-          color: context.colorScheme.onBackground,
-        ),
-      );
+  CalculatorThemeData getCalculatorTheme(BuildContext context) {
+    final bodyStyle = context.textTheme.titleLarge;
+    return CalculatorThemeData(
+      displayStyle: context.textTheme.displaySmall,
+      expressionStyle: bodyStyle,
+      operatorStyle: bodyStyle?.copyWith(color: context.colorScheme.onPrimary),
+      numStyle: bodyStyle?.copyWith(color: context.colorScheme.onBackground),
+      commandStyle:
+          bodyStyle?.copyWith(color: context.colorScheme.onBackground),
+    );
+  }
 }
 
 final amountFieldFormatters = [
@@ -121,7 +107,9 @@ final amountFieldFormatters = [
   TextInputFormatter.withFunction((oldValue, newValue) {
     try {
       final text = newValue.text;
-      if (text.isNotEmpty) double.parse(text);
+      if (text.isNotEmpty) {
+        double.parse(text);
+      }
       return newValue;
     } on Exception catch (_) {}
     return oldValue;

@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../shared/responsive.dart';
-import '../../ui_elements/user_text.dart';
+import '../shared/extensions/build_context_extensions.dart';
+import '../ui_elements/user_text.dart';
 import 'icon_picker_provider.dart';
 
 Future<IconData?> showIconPicker(BuildContext context) async {
@@ -36,7 +36,6 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
   final _controller = TextEditingController();
 
   String searchTerm = '';
-  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -66,23 +65,11 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
                 style: context.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
-              SegmentedButton<int>(
-                selected: {_selectedIndex},
-                segments: const [
-                  ButtonSegment(value: 0, label: Text('Regular')),
-                  ButtonSegment(value: 1, label: Text('Filled')),
-                ],
-                onSelectionChanged: (v) {
-                  _selectedIndex = v.first;
-                  setState(() {});
-                },
-              ),
-              const SizedBox(height: 8),
+              const Divider(height: 1),
               Expanded(
                 child: _IconGrid(
                   onTap: widget.onTap,
                   searchTerm: searchTerm,
-                  tabId: _selectedIndex,
                 ),
               ),
               const SizedBox(height: 8),
@@ -108,16 +95,14 @@ class _IconGrid extends ConsumerWidget {
   const _IconGrid({
     required this.onTap,
     required this.searchTerm,
-    required this.tabId,
   });
 
   final ValueChanged<IconData> onTap;
   final String searchTerm;
-  final int tabId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final icons = ref.watch(iconPickerProviderFamily.call((tabId, searchTerm)));
+    final icons = ref.watch(iconPickerProvider.call(searchTerm));
     return GridView.builder(
       padding: const EdgeInsets.symmetric(vertical: 8),
       itemCount: icons.length,
@@ -134,7 +119,10 @@ class _IconGrid extends ConsumerWidget {
 }
 
 class _ItemWidget extends StatelessWidget {
-  const _ItemWidget({required this.item, required this.onTap});
+  const _ItemWidget({
+    required this.item,
+    required this.onTap,
+  });
 
   final IconData item;
   final ValueChanged<IconData> onTap;
@@ -145,9 +133,7 @@ class _ItemWidget extends StatelessWidget {
         child: Card(
           margin: EdgeInsets.zero,
           shadowColor: Colors.transparent,
-          child: GridTile(
-            child: Icon(item),
-          ),
+          child: GridTile(child: Icon(item)),
         ),
       );
 }

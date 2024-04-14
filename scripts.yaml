@@ -8,3 +8,4 @@ build_config:
   - dart_define generate --yaml_path=../../special/kashflow/config/dev.yaml --json_path=config/dev.json --FLAVOR=development
 
 build_runner: dart run build_runner build
+watch_runner: dart run build_runner watch

@@ -1,6 +1,6 @@
-part of 'icon_picker_provider.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-final _filledIconMap = {
+final filledIconMap = {
   'addressBook': PhosphorIconsFill.addressBook,
   'airTrafficControl': PhosphorIconsFill.airTrafficControl,
   'airplane': PhosphorIconsFill.airplane,
@@ -1251,7 +1251,7 @@ final _filledIconMap = {
   'youtubeLogo': PhosphorIconsFill.youtubeLogo,
 };
 
-final _regularIconMap = {
+final regularIconMap = {
   'addressBook': PhosphorIconsRegular.addressBook,
   'airTrafficControl': PhosphorIconsRegular.airTrafficControl,
   'airplane': PhosphorIconsRegular.airplane,

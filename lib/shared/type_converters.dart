@@ -9,5 +9,6 @@ class StringListTypeConverter extends TypeConverter<List<String>?, String?> {
       : List<String>.from(json.decode(fromDb) as Iterable);
 
   @override
-  String toSql(List<String>? value) => json.encode(value);
+  String? toSql(List<String>? value) =>
+      value == null ? null : json.encode(value);
 }

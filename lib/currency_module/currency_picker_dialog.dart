@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
+import '../shared/extensions/build_context_extensions.dart';
 import '../shared/logger/log_handler.dart';
-import '../shared/responsive.dart';
 import '../ui_elements/user_text.dart';
 import 'currency.dart';
 import 'currency_provider.dart';
@@ -19,6 +19,7 @@ Future<AppCurrency?> showCurrencyPicker(
   await showDialog<Widget>(
     context: context,
     barrierDismissible: barrierDismissible,
+    useRootNavigator: false,
     builder: (_) => CurrencyPickerDialog(
       onTap: (c) {
         data = c;

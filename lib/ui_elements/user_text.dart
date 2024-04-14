@@ -22,6 +22,7 @@ abstract class UserText {
   static const homeTabPocketMoney = 'POCKET MONEY';
   static const homeTabNetWorth = 'NET WORTH';
   static const accountName = 'Account Name';
+  static const addNewAccount = 'Add New Account';
   static const addAnAccount = 'Add Account';
   static const editAnAccount = 'Edit Account';
   static const noAccountsFound = '''
@@ -57,6 +58,7 @@ Use the '+' button to create a new account.''';
   static const selectIcon = 'Select Icon';
   static const selectColor = 'Select Color';
   static const changeIcon = 'Change Icon';
+  static const resetColors = 'Reset Colors';
   static const changeIconColor = 'Change Icon Color';
   static const changeBackgroundColor = 'Change Background Color';
   static const shade = 'Shade';
@@ -69,6 +71,9 @@ Check back again after the app has been updated.''';
   static const dismiss = 'Dismiss';
   static const expenseCategories = 'Expense Categories';
   static const incomeCategories = 'Income Categories';
+  static const recommended = 'Recommended';
+  static const blackAndWhite = 'Black & White';
+  static const any = 'Any';
 
   //error messages
   static const accountExistErrorMsg =

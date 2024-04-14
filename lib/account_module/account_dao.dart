@@ -49,6 +49,7 @@ class LocalAccountsDao extends DatabaseAccessor<LocalDB>
   }
 
   Future<void> createNewAccount(Account account) async {
+    talker.log(account);
     try {
       await transaction(() async {
         await into(iconTable).insertReturning(

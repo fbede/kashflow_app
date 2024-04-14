@@ -1,5 +1,4 @@
 {
-  "dart.flutterSdkPath": "C:\\Users\\FAVOUR\\Documents\\programming tools\\flutter_sdks\\3.10.0",
   // Remove .fvm files from search
   "search.exclude": {
     "**/.fvm": true

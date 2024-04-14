@@ -4,11 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../gen/assets.gen.dart';
-import '../gen/dart_define.dart';
 import '../shared/db/local_db.dart';
+import '../shared/extensions/build_context_extensions.dart';
 import '../shared/keys.dart';
 import '../shared/logger/log_handler.dart';
-import '../shared/responsive.dart';
 import '../shared/route_names.dart';
 import '../ui_elements/themes.dart';
 
@@ -62,9 +61,7 @@ class _SplashScreenState extends State<SplashScreen>
     final router = GoRouter.of(context);
 
     try {
-      await LocalDB(
-        devMode: DartDefine.flavor == Flavor.development,
-      ).doWhenOpened((e) => talker.log('Database Opened'));
+      await LocalDB().doWhenOpened((e) => talker.log('Database Opened'));
 
       final prefs = GetIt.I<SharedPreferences>();
       final hasOnboarded = prefs.getBool(PrefKeys.hasOnboarded) ?? false;

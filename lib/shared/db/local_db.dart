@@ -27,7 +27,7 @@ class LocalDB extends _$LocalDB {
   static late final LocalDB _instance;
   static bool isInit = false;
 
-  factory LocalDB({bool devMode = false}) {
+  factory LocalDB() {
     if (isInit) {
       return _instance;
     }

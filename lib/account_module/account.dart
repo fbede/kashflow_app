@@ -61,4 +61,13 @@ class Account {
         trailing: AccountListTileMenuButton(account: this),
         onTap: () {},
       );
+
+  @override
+  String toString() => '''
+
+Account:
+  id:$id
+  name: $name
+  currencyId: $currencyId
+  openingBalance: $openingBalance''';
 }

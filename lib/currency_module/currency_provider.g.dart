@@ -287,7 +287,7 @@ class _OtherCurrenciesProviderElement
   String get searchTerm => (origin as OtherCurrenciesProvider).searchTerm;
 }
 
-String _$defaultCurrencyHash() => r'0f0c7c249254459a2ab9ec6bfea2918105e9a467';
+String _$defaultCurrencyHash() => r'44652ae56651e8534f41642f761bc8d604fa4e7f';
 
 /// See also [DefaultCurrency].
 @ProviderFor(DefaultCurrency)

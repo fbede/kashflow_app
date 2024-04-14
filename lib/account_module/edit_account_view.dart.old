@@ -123,7 +123,7 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
     final router = GoRouter.of(context);
 
     try {
-      await ref.read(accountsProvider.notifier).updateAccount(accountInfo);
+      await ref.watch(accountsProvider.notifier).updateAccount(accountInfo);
       router.pop();
     } on Exception catch (e, s) {
       final handler = ExceptionHandler(

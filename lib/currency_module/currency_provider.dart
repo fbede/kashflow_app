@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../gen/dart_define.dart';
 import '../shared/db/local_db.dart';
 import '../shared/keys.dart';
 import 'currency.dart';
@@ -34,6 +35,9 @@ class DefaultCurrency extends _$DefaultCurrency {
 
   @override
   Future<AppCurrency> build() async {
+    if (DartDefine.flavor == Flavor.development) {
+      await _prefs.clear();
+    }
     final currencyId = _prefs.getString(PrefKeys.defaultCurrencyId);
     if (currencyId == null) {
       return _dao.getCurrencyByCode('USD');

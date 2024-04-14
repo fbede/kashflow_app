@@ -71,4 +71,10 @@ void registerFontLicenses() {
         await rootBundle.loadString('assets/fonts/Noto_Sans/OFL.txt');
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
+
+  LicenseRegistry.addLicense(() async* {
+    final license =
+        await rootBundle.loadString('assets/fonts/RemixIcons/License.txt');
+    yield LicenseEntryWithLineBreaks(['RemixIcon'], license);
+  });
 }

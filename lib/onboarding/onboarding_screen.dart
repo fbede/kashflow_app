@@ -11,7 +11,7 @@ import '../currency_module/currency_picker_dialog.dart';
 import '../currency_module/currency_provider.dart';
 import '../gen/assets.gen.dart';
 import '../shared/keys.dart';
-import '../shared/responsive.dart';
+import '../shared/extensions/build_context_extensions.dart';
 import '../shared/route_names.dart';
 import '../ui_elements/themes.dart';
 import '../ui_elements/user_text.dart';
@@ -189,7 +189,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
       await ref
           .read(defaultCurrencyProvider.notifier)
-          .setDefaultCurrency(defaultCurrency.code);
+          .setDefaultCurrency(defaultCurrency.id);
 
       unawaited(_savePreferences());
 

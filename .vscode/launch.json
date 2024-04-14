@@ -5,29 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "core",
-            "cwd": "core",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "core (profile mode)",
-            "cwd": "core",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "core (release mode)",
-            "cwd": "core",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        },
-        {
             "name": "dev",
             "request": "launch",
             "type": "dart",
+            "flutterMode": "debug",
             "toolArgs": [
                 "--dart-define-from-file",
                 "config/dev.json"
@@ -46,24 +27,11 @@
             "name": "prod",
             "request": "launch",
             "type": "dart",
+            "flutterMode": "release",
             "toolArgs": [
                 "--dart-define-from-file",
                 "config/prod.json"
             ]
         },
-        {
-            "name": "ui (profile mode)",
-            "cwd": "ui",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "ui (release mode)",
-            "cwd": "ui",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
     ]
 }
