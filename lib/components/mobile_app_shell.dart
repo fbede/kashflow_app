@@ -86,10 +86,11 @@ class _MobileAppShellFAB extends ConsumerWidget {
               if (data.isEmpty) {
                 return const SizedBox.shrink();
               }
-              return FloatingActionButton(
+              return FloatingActionButton.extended(
                 ///TODO: Add Create Transaction Here
                 onPressed: () {},
-                child: const Icon(RemixIcons.edit_2_line),
+                label: const Text(UserText.newRecord),
+                icon: const Icon(RemixIcons.edit_2_line),
               );
             },
           );

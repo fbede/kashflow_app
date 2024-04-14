@@ -45,7 +45,7 @@ class _AccountListTileMenuButtonState
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(RemixIcons.pencil_line),
+                Icon(RemixIcons.edit_2_line),
                 SizedBox(width: 8),
                 Text(UserText.edit),
               ],

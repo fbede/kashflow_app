@@ -25,6 +25,7 @@ abstract class UserText {
   static const addNewAccount = 'Add New Account';
   static const addAnAccount = 'Add Account';
   static const editAnAccount = 'Edit Account';
+  static const newRecord = 'New Record';
   static const noAccountsFound = '''
 No Accounts Found.
 Use the '+' button to create a new account.''';

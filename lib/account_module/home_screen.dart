@@ -124,17 +124,41 @@ class _HomeAppBar extends StatelessWidget {
         ),
         bottom: TabBar(
           controller: tabController,
-          labelStyle: const TextStyle(fontSize: 16),
-          unselectedLabelStyle: const TextStyle(fontSize: 16),
-          tabs: const [
-            Tab(text: UserText.homeTabBarPurse),
-            Tab(text: UserText.homeTabBarPortfoilo),
+          labelStyle: context.textTheme.bodyLarge,
+          unselectedLabelStyle: context.textTheme.bodyLarge,
+          tabs: [
+            Tab(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (tabController.index == 0)
+                    const Icon(RemixIcons.wallet_fill)
+                  else
+                    const Icon(RemixIcons.wallet_line),
+                  const SizedBox(width: 8),
+                  const Text(UserText.homeTabBarPurse),
+                ],
+              ),
+            ),
+            Tab(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (tabController.index == 1)
+                    const Icon(RemixIcons.pie_chart_fill)
+                  else
+                    const Icon(RemixIcons.pie_chart_line),
+                  const SizedBox(width: 8),
+                  const Text(UserText.homeTabBarPortfoilo),
+                ],
+              ),
+            ),
           ],
         ),
       );
 }
 
-//TODO: Decide on this design later
+//TODO: Decide on text design and backgroud height later
 
 class _AppBarBackgroudText extends StatelessWidget {
   const _AppBarBackgroudText({
