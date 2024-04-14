@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../currency_module/currency_picker_dialog.dart';
+import '../icons_module/icons.dart';
 import '../ui_elements/user_text.dart';
 import 'calculator.dart';
 import 'custom_controllers.dart';
@@ -28,13 +28,13 @@ class DescriptionFormField extends StatelessWidget {
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
           isDense: true,
-          prefixIcon: const Icon(PhosphorIconsRegular.textAlignLeft),
+          prefixIcon: const Icon(RemixIcons.align_justify),
           labelText: UserText.description,
           suffixIcon: showSuffix
               ? null
               : IconButton(
                   onPressed: controller.clear,
-                  icon: const Icon(PhosphorIconsFill.xCircle),
+                  icon: const Icon(RemixIcons.close_circle_fill),
                 ),
         ),
       );
@@ -57,9 +57,9 @@ class MoneyAmountFormField extends StatelessWidget {
         decoration: InputDecoration(
           isDense: true,
           labelText: UserText.amount,
-          prefixIcon: const Icon(PhosphorIconsRegular.coins),
+          prefixIcon: const Icon(RemixIcons.coin_line),
           suffixIcon: IconButton(
-            icon: const Icon(PhosphorIconsRegular.calculator),
+            icon: const Icon(RemixIcons.calculator_line),
             onPressed: () async => _onAmountTap(context),
           ),
         ),
@@ -106,7 +106,7 @@ class CurrencyFormField extends StatelessWidget {
         decoration: const InputDecoration(
           isDense: true,
           labelText: UserText.currency,
-          prefixIcon: Icon(PhosphorIconsRegular.money),
+          prefixIcon: Icon(RemixIcons.cash_line),
         ),
         validator: _validator,
       );
@@ -145,7 +145,7 @@ class NameFormField extends StatelessWidget {
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         decoration: InputDecoration(
           isDense: true,
-          prefixIcon: const Icon(PhosphorIconsRegular.pencilSimpleLine),
+          prefixIcon: const Icon(RemixIcons.pencil_line),
           labelText: label,
         ),
         validator: _validator,

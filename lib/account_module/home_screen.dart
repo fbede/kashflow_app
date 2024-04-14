@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/fade_on_scroll.dart';
 import '../components/other_widgets.dart';
 import '../currency_module/currency_provider.dart';
+import '../icons_module/icons.dart';
 import '../shared/extensions/build_context_extensions.dart';
 import '../ui_elements/themes.dart';
 import '../ui_elements/user_text.dart';
@@ -134,6 +134,8 @@ class _HomeAppBar extends StatelessWidget {
       );
 }
 
+//TODO: Decide on this design later
+
 class _AppBarBackgroudText extends StatelessWidget {
   const _AppBarBackgroudText({
     required this.balanceChange,
@@ -161,17 +163,17 @@ class _AppBarBackgroudText extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 title,
-                style: context.textTheme.bodyLarge?.copyWith(height: 1),
+                style: context.textTheme.titleSmall?.copyWith(height: 1),
               ),
               const SizedBox(height: 16),
               Text(
                 balanceAmount,
-                style: context.textTheme.headlineLarge?.copyWith(height: 1),
+                style: context.textTheme.displaySmall?.copyWith(height: 1),
               ),
               const SizedBox(height: 16),
               Text(
                 title,
-                style: context.textTheme.bodyLarge?.copyWith(height: 1),
+                style: context.textTheme.headlineSmall?.copyWith(height: 1),
               ),
               const SizedBox(height: 64),
             ],
@@ -218,7 +220,7 @@ class _AddNewAccountButton extends ConsumerWidget {
             error: (e, s) => Center(child: Text('$e\n$s')),
             loading: () => const Center(child: CustomProgressIndicator()),
             data: (data) => Center(
-              child: FilledButton.tonalIcon(
+              child: ElevatedButton.icon(
                 onPressed: () async => showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
@@ -233,7 +235,7 @@ class _AddNewAccountButton extends ConsumerWidget {
                     child: CreateAccountView(data),
                   ),
                 ),
-                icon: const PhosphorIcon(PhosphorIconsRegular.bank),
+                icon: const Icon(RemixIcons.bank_card_line),
                 label: const Text(UserText.addNewAccount),
               ),
             ),

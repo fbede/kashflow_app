@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
+import '../icons_module/icons.dart';
 import '../shared/extensions/build_context_extensions.dart';
 import '../shared/logger/log_handler.dart';
 import '../ui_elements/user_text.dart';
@@ -167,7 +167,7 @@ class _BottomSearchBar extends StatelessWidget {
                 decoration: const InputDecoration(
                   filled: true,
                   contentPadding: EdgeInsetsDirectional.zero,
-                  prefixIcon: Icon(PhosphorIconsRegular.magnifyingGlass),
+                  prefixIcon: Icon(RemixIcons.search_2_line),
                   hintText: UserText.search,
                 ),
               ),
@@ -183,7 +183,7 @@ class _BottomSearchBar extends StatelessWidget {
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
-                  child: const Icon(PhosphorIconsRegular.plus),
+                  //   child: const Icon(PhosphorIconsRegular.plus),
                 ),
               ),
             ),

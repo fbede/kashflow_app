@@ -17,6 +17,7 @@ analyzer:
 
 linter:
   rules:
+    always_put_control_body_on_new_line: false
     always_specify_types: false
     always_use_package_imports: false
     avoid_field_initializers_in_const_classes: false

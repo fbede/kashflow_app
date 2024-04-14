@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:kashflow/account_module/home_screen.dart';
+import 'package:kashflow/icons_module/icons.dart';
 import 'package:kashflow/shared/keys.dart';
 import 'package:kashflow/shared/route_names.dart';
 import 'package:kashflow/shared/router.dart';
 import 'package:kashflow/ui_elements/themes.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -27,11 +27,11 @@ void main() {
       expect(find.byKey(const ValueKey('page1')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
+        find.byIcon(RemixIcons.arrow_left_line).hitTestable(),
         findsNothing,
       );
 
-      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
+      expect(find.byIcon(RemixIcons.arrow_right_line), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -74,17 +74,17 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const ValueKey('page2')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
+        find.byIcon(RemixIcons.arrow_left_line).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
+      expect(find.byIcon(RemixIcons.arrow_right_line), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -127,19 +127,19 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const ValueKey('page3')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
+        find.byIcon(RemixIcons.arrow_left_line).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
+      expect(find.byIcon(RemixIcons.arrow_right_line), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -182,21 +182,21 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
 
       expect(find.byKey(const ValueKey('page4')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
+        find.byIcon(RemixIcons.arrow_left_line).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIconsRegular.check), findsOneWidget);
+      expect(find.byIcon(RemixIcons.check_line), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -243,13 +243,13 @@ void main() {
       );
 
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.caretRight));
+      await tester.tap(find.byIcon(RemixIcons.arrow_right_line));
       await tester.pumpAndSettle();
-      await tester.tap(find.byIcon(PhosphorIconsRegular.check));
+      await tester.tap(find.byIcon(RemixIcons.check_line));
       await tester.pumpAndSettle();
 
       expect(find.byType(HomeScreen), findsOneWidget);
@@ -279,11 +279,11 @@ void main() {
       expect(find.byKey(const ValueKey('page2')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
+        find.byIcon(RemixIcons.arrow_left_line).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
+      expect(find.byIcon(RemixIcons.arrow_right_line), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -334,11 +334,11 @@ void main() {
       expect(find.byKey(const ValueKey('page3')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
+        find.byIcon(RemixIcons.arrow_left_line).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIconsRegular.caretRight), findsOneWidget);
+      expect(find.byIcon(RemixIcons.arrow_right_line), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {
@@ -391,11 +391,11 @@ void main() {
       expect(find.byKey(const ValueKey('page4')), findsOneWidget);
 
       expect(
-        find.byIcon(PhosphorIconsRegular.caretLeft).hitTestable(),
+        find.byIcon(RemixIcons.arrow_left_line).hitTestable(),
         findsOneWidget,
       );
 
-      expect(find.byIcon(PhosphorIconsRegular.check), findsOneWidget);
+      expect(find.byIcon(RemixIcons.check_line), findsOneWidget);
 
       expect(
         find.byWidgetPredicate((widget) {

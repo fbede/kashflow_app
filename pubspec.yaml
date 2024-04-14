@@ -24,7 +24,6 @@ dependencies:
   package_info_plus: ^5.0.1
   path: ^1.8.3
   path_provider: ^2.0.0
-  phosphor_flutter: ^2.0.0
   riverpod_annotation: ^2.3.4
   sentry_flutter: ^7.9.0
   shared_preferences: ^2.0.15
@@ -107,7 +106,7 @@ flutter_native_splash:
   web: true
 
 icons_launcher:
-  image_path: "assets/images/launcher_icon_2.png"
+  image_path: "assets/images/launcher_icon.png"
   platforms:
     android:
       enable: true

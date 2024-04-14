@@ -1,14 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/color_picker.dart';
 import '../shared/app_icon_data.dart';
 import '../shared/extensions/build_context_extensions.dart';
 import '../ui_elements/user_text.dart';
 import 'icon_picker.dart';
-import 'icon_picker.map.dart';
+import 'icons.dart';
+import 'icons_map.dart';
 
 class IconSelector extends StatefulWidget {
   const IconSelector({required this.controller, super.key});
@@ -94,7 +94,7 @@ class _IconSelectorState extends State<IconSelector> {
                 label: const Text(UserText.resetColors),
                 onPressed: _resetColors,
                 icon: Icon(
-                  PhosphorIconsRegular.warningCircle,
+                  RemixIcons.error_warning_line,
                   color: context.colorScheme.error,
                 ),
                 style: TextButton.styleFrom(
@@ -169,11 +169,7 @@ class IconSelectorController extends ChangeNotifier {
   }
 
   static IconData _getRandomIconData() {
-    final icons = [
-      ...regularIconMap.values,
-      ...filledIconMap.values,
-    ];
-
+    final icons = remixIconsMap.values.toList();
     final index = Random().nextInt(icons.length);
     return icons[index];
   }

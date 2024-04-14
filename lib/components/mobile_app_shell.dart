@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../account_module/account_provider.dart';
+import '../icons_module/icons.dart';
 import '../shared/route_names.dart';
 import '../ui_elements/user_text.dart';
 import 'other_widgets.dart';
@@ -23,18 +23,18 @@ class MobileAppShell extends StatelessWidget {
           onDestinationSelected: (value) => _onItemTapped(value, context),
           destinations: const [
             NavigationDestination(
-              icon: Icon(PhosphorIconsRegular.house),
-              selectedIcon: Icon(PhosphorIconsFill.house),
+              icon: Icon(RemixIcons.home_4_line),
+              selectedIcon: Icon(RemixIcons.home_2_fill),
               label: UserText.homeNavBarHome,
             ),
             NavigationDestination(
-              icon: Icon(PhosphorIconsRegular.receipt),
-              selectedIcon: Icon(PhosphorIconsFill.receipt),
+              icon: Icon(RemixIcons.receipt_line),
+              selectedIcon: Icon(RemixIcons.receipt_fill),
               label: UserText.homeNavBarRecords,
             ),
             NavigationDestination(
-              icon: Icon(PhosphorIconsRegular.gearSix),
-              selectedIcon: Icon(PhosphorIconsFill.gearSix),
+              icon: Icon(RemixIcons.settings_4_line),
+              selectedIcon: Icon(RemixIcons.settings_4_fill),
               label: UserText.homeNavBarSettings,
             ),
           ],
@@ -89,10 +89,7 @@ class _MobileAppShellFAB extends ConsumerWidget {
               return FloatingActionButton(
                 ///TODO: Add Create Transaction Here
                 onPressed: () {},
-                child: const PhosphorIcon(
-                  PhosphorIconsDuotone.pencilSimpleLine,
-                  duotoneSecondaryOpacity: 1,
-                ),
+                child: const Icon(RemixIcons.edit_2_line),
               );
             },
           );

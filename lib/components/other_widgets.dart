@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../gen/assets.gen.dart';
 import '../shared/extensions/build_context_extensions.dart';
@@ -116,7 +115,7 @@ class ErrorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) => AlertDialog(
         backgroundColor: context.colorScheme.errorContainer,
-        icon: const Icon(PhosphorIconsFill.warningCircle),
+        //   icon: const Icon(R),
         iconColor: context.colorScheme.error,
         title: titleText != null ? Text(titleText!) : null,
         content: ConstrainedBox(

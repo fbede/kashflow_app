@@ -3,15 +3,17 @@ import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../currency_module/currency_picker_dialog.dart';
 import '../currency_module/currency_provider.dart';
 import '../gen/assets.gen.dart';
-import '../shared/keys.dart';
+import '../icons_module/icons.dart';
+import '../shared/app_color_mapper.dart';
 import '../shared/extensions/build_context_extensions.dart';
+import '../shared/keys.dart';
 import '../shared/route_names.dart';
 import '../ui_elements/themes.dart';
 import '../ui_elements/user_text.dart';
@@ -52,43 +54,65 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: Stack(
-          children: [
-            PageView(
-              controller: _controller,
-              children: [
-                _WelcomeScreenPage(
-                  key: const ValueKey('page1'),
-                  title: UserText.onboardingPage1TitleText,
-                  subtitle: UserText.onboardingPage1SubTitleText,
-                  content: Assets.images.appLogo.image(),
+  Widget build(BuildContext context) {
+    final colorMapper = SVGColorChanger(
+      oldColor: const Color(0xFF008000),
+      newColor: context.colorScheme.primary,
+    );
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          PageView(
+            controller: _controller,
+            children: [
+              _WelcomeScreenPage(
+                key: const ValueKey('page1'),
+                title: UserText.onboardingPage1TitleText,
+                subtitle: UserText.onboardingPage1SubTitleText,
+                content: Assets.images.appLogo.image(),
+              ),
+              _WelcomeScreenPage(
+                key: const ValueKey('page2'),
+                title: UserText.onboardingPage2TitleText,
+                subtitle: UserText.onboardingPage2SubTitleText,
+                content: SvgPicture(
+                  SvgAssetLoader(
+                    Assets.svg.dailyTransactions.keyName,
+                    colorMapper: colorMapper,
+                  ),
                 ),
-                _WelcomeScreenPage(
-                  key: const ValueKey('page2'),
-                  title: UserText.onboardingPage2TitleText,
-                  subtitle: UserText.onboardingPage2SubTitleText,
-                  content: Assets.svg.dailyTransactions.svg(),
+              ),
+              _WelcomeScreenPage(
+                key: const ValueKey('page3'),
+                title: UserText.onboardingPage3TitleText,
+                subtitle: UserText.onboardingPage3SubTitleText,
+                content: SvgPicture(
+                  SvgAssetLoader(
+                    Assets.svg.incomeExpense.keyName,
+                    colorMapper: colorMapper,
+                  ),
                 ),
-                _WelcomeScreenPage(
-                  key: const ValueKey('page3'),
-                  title: UserText.onboardingPage3TitleText,
-                  subtitle: UserText.onboardingPage3SubTitleText,
-                  content: Assets.svg.incomeExpense.svg(),
+              ),
+              _WelcomeScreenPage(
+                key: const ValueKey('page4'),
+                title: UserText.onboardingPage4TitleText,
+                subtitle: UserText.onboardingPage4SubTitleText,
+                content: SvgPicture(
+                  SvgAssetLoader(
+                    Assets.svg.assetsAndLiabilities.keyName,
+                    colorMapper: colorMapper,
+                  ),
                 ),
-                _WelcomeScreenPage(
-                  key: const ValueKey('page4'),
-                  title: UserText.onboardingPage4TitleText,
-                  subtitle: UserText.onboardingPage4SubTitleText,
-                  content: Assets.svg.assetsAndLiabilities.svg(),
-                ),
-              ],
-            ),
-            _buildIndicators(),
-            _buildNavButtons(),
-          ],
-        ),
-      );
+              ),
+            ],
+          ),
+          _buildIndicators(),
+          _buildNavButtons(),
+        ],
+      ),
+    );
+  }
 
   Align _buildIndicators() => Align(
         alignment: Alignment.bottomCenter,
@@ -110,7 +134,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     final index = i ~/ 2;
     final size = _currentIndex == index ? 16.0 : 8.0;
     final normalColor = context.colorScheme.primaryContainer;
-    final selectedColor = context.colorScheme.secondary;
+    final selectedColor = context.colorScheme.primary;
     final color = _currentIndex == index ? selectedColor : normalColor;
 
     if (i.isEven) {
@@ -145,7 +169,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   heroTag: null,
                   onPressed: () async =>
                       _gotoPage(_controller.page!.toInt() - 1),
-                  child: const Icon(PhosphorIconsRegular.caretLeft),
+                  child: const Icon(RemixIcons.arrow_left_line),
                 ),
               ),
               const Spacer(),
@@ -158,11 +182,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       RotationTransition(turns: animation, child: child),
                   child: _currentIndex != _maxIndex
                       ? const Icon(
-                          PhosphorIconsRegular.caretRight,
+                          RemixIcons.arrow_right_line,
                           key: ValueKey(0),
                         )
                       : const Icon(
-                          PhosphorIconsRegular.check,
+                          RemixIcons.check_fill,
                           key: ValueKey(1),
                         ),
                 ),

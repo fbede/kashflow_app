@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../components/other_widgets.dart';
+import '../icons_module/icons.dart';
 import '../shared/extensions/build_context_extensions.dart';
 import '../ui_elements/user_text.dart';
 import 'account.dart';
@@ -25,7 +25,7 @@ class AccountListTileMenuButton extends ConsumerStatefulWidget {
 class _AccountListTileMenuButtonState
     extends ConsumerState<AccountListTileMenuButton> {
   final loadingIcon = const CustomProgressIndicator();
-  final notLoadingIcon = const Icon(PhosphorIconsRegular.dotsThreeVertical);
+  final notLoadingIcon = const Icon(RemixIcons.more_2_fill);
 
   late Widget icon;
 
@@ -37,6 +37,7 @@ class _AccountListTileMenuButtonState
 
   @override
   Widget build(BuildContext context) => PopupMenuButton<void>(
+        padding: EdgeInsets.zero,
         icon: icon,
         itemBuilder: (_) => [
           PopupMenuItem(
@@ -44,7 +45,7 @@ class _AccountListTileMenuButtonState
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(PhosphorIconsRegular.pencilSimpleLine),
+                Icon(RemixIcons.pencil_line),
                 SizedBox(width: 8),
                 Text(UserText.edit),
               ],
@@ -55,7 +56,7 @@ class _AccountListTileMenuButtonState
             child: const Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(PhosphorIconsRegular.trashSimple),
+                Icon(RemixIcons.delete_bin_6_line),
                 SizedBox(width: 8),
                 Text(UserText.delete),
               ],
