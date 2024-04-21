@@ -6,7 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'shared/provider_observer.dart';
 import 'shared/router.dart';
 import 'shared/start_up.dart';
-import 'ui_elements/themes.dart';
+import 'ui_elements/app_theme.dart';
+import 'ui_elements/color_schemes.dart';
 import 'ui_elements/user_text.dart';
 import 'user_preferences_module/theme_provider.dart';
 
@@ -28,14 +29,13 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeProvider).themeMode;
-    final useDeepBlacks = ref.watch(themeProvider).useDeepBlacks;
 
     return TooltipVisibility(
       visible: false,
       child: MaterialApp.router(
         title: UserText.appName,
-        theme: lightThemeNew(useDeepBlacks: useDeepBlacks),
-        darkTheme: darkThemeNew(useDeepBlacks: useDeepBlacks),
+        theme: AppTheme(lightColorScheme).themeData,
+        darkTheme: AppTheme(darkColorScheme).themeData,
         themeMode: themeMode,
         routerConfig: router,
       ),

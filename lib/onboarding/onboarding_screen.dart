@@ -15,7 +15,7 @@ import '../shared/app_color_mapper.dart';
 import '../shared/extensions/build_context_extensions.dart';
 import '../shared/keys.dart';
 import '../shared/route_names.dart';
-import '../ui_elements/themes.dart';
+import '../ui_elements/app_theme.dart';
 import '../ui_elements/user_text.dart';
 
 // FIX: Use GetIt for Shared Preferences

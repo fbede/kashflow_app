@@ -11,7 +11,6 @@ Future<double> showCalculator(BuildContext context) async {
   await showModalBottomSheet<Widget>(
     context: context,
     isScrollControlled: true,
-    shape: const RoundedRectangleBorder(),
     builder: (_) => _CalculatorWidget(
       onChanged: (value) => result = value,
     ),
@@ -36,27 +35,22 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
   @override
   Widget build(BuildContext context) => Material(
         color: Colors.transparent,
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AspectRatio(
-                aspectRatio: 1,
-                child: SimpleCalculator(
-                  hideSurroundingBorder: true,
-                  maximumDigits: 20,
-                  onChanged: _onChanged,
-                  theme: getCalculatorTheme(context),
-                ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            AspectRatio(
+              aspectRatio: 1,
+              child: SimpleCalculator(
+                hideSurroundingBorder: true,
+                maximumDigits: 20,
+                onChanged: _onChanged,
+                theme: _getCalculatorTheme(context),
               ),
-              const SizedBox(height: 8),
-              _buildFooter(),
-              const SizedBox(height: 8),
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            _buildFooter(),
+            const SizedBox(height: 8),
+          ],
         ),
       );
 
@@ -89,13 +83,16 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
         ),
       );
 
-  CalculatorThemeData getCalculatorTheme(BuildContext context) {
+  CalculatorThemeData _getCalculatorTheme(BuildContext context) {
     final bodyStyle = context.textTheme.titleLarge;
     return CalculatorThemeData(
+      operatorColor: context.colorScheme.primary,
+      commandColor: context.colorScheme.tertiaryContainer,
+      numColor: context.colorScheme.surface,
       displayStyle: context.textTheme.displaySmall,
       expressionStyle: bodyStyle,
       operatorStyle: bodyStyle?.copyWith(color: context.colorScheme.onPrimary),
-      numStyle: bodyStyle?.copyWith(color: context.colorScheme.onBackground),
+      numStyle: bodyStyle?.copyWith(color: context.colorScheme.onSurface),
       commandStyle:
           bodyStyle?.copyWith(color: context.colorScheme.onBackground),
     );

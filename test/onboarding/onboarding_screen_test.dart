@@ -236,7 +236,7 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           child: MaterialApp.router(
-            theme: lightTheme(useDeepBlacks: true),
+            theme: lightThemeOld(useDeepBlacks: true),
             routerConfig: getTestRouter(initalLocation: Routes.onboarding),
           ),
         ),

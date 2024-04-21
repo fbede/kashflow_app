@@ -6,7 +6,7 @@ import '../components/other_widgets.dart';
 import '../currency_module/currency_provider.dart';
 import '../icons_module/icons.dart';
 import '../shared/extensions/build_context_extensions.dart';
-import '../ui_elements/themes.dart';
+import '../ui_elements/app_theme.dart';
 import '../ui_elements/user_text.dart';
 import 'account_provider.dart';
 import 'create_account_view.dart';
@@ -220,6 +220,7 @@ class _AccountsTabBody extends ConsumerWidget {
               }
 
               return ListView.builder(
+                padding: EdgeInsets.only(top: 4),
                 itemCount: data.length + 1,
                 itemBuilder: (ctx, index) {
                   if (index < data.length) {

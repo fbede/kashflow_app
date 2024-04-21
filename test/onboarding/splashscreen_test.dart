@@ -16,7 +16,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp.router(
-        theme: lightTheme(useDeepBlacks: true),
+        theme: lightThemeOld(useDeepBlacks: true),
         routerConfig: getTestRouter(),
       ),
     );
@@ -38,7 +38,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp.router(
-        theme: lightTheme(useDeepBlacks: true),
+        theme: lightThemeOld(useDeepBlacks: true),
         routerConfig: getTestRouter(),
       ),
     );

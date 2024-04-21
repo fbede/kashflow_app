@@ -9,7 +9,7 @@ import '../shared/extensions/build_context_extensions.dart';
 import '../shared/keys.dart';
 import '../shared/logger/log_handler.dart';
 import '../shared/route_names.dart';
-import '../ui_elements/themes.dart';
+import '../ui_elements/app_theme.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

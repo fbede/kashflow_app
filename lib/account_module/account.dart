@@ -53,7 +53,7 @@ class Account {
         openingBalance: openingBalance.minorUnits,
       );
 
-  ListTile buildListTile(BuildContext context) => ListTile(
+  Widget buildListTile(BuildContext context) => ListTile(
         contentPadding: const EdgeInsets.only(left: 16, right: 8),
         leading: iconData.buildAvatar(context),
         title: Text(name),
