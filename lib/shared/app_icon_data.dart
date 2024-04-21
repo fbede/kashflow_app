@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/v7.dart';
 
 import 'db/local_db.dart';
+import 'extensions/build_context_extensions.dart';
 
 const _uuid = UuidV7();
 
@@ -40,8 +41,9 @@ class AppIconData {
   }) : id = id ?? _uuid.generate();
 
   CircleAvatar buildAvatar(BuildContext context) => CircleAvatar(
-        foregroundColor: iconColor,
-        backgroundColor: backgroundColor,
+        foregroundColor: iconColor ?? context.colorScheme.onPrimaryContainer,
+        backgroundColor:
+            backgroundColor ?? context.colorScheme.primaryContainer,
         child: Icon(iconData),
       );
 

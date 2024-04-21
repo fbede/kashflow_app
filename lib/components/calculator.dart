@@ -87,7 +87,6 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
     final bodyStyle = context.textTheme.titleLarge;
     return CalculatorThemeData(
       operatorColor: context.colorScheme.primary,
-      commandColor: context.colorScheme.tertiaryContainer,
       numColor: context.colorScheme.surface,
       displayStyle: context.textTheme.displaySmall,
       expressionStyle: bodyStyle,

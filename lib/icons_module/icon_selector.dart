@@ -34,6 +34,8 @@ class _IconSelectorState extends State<IconSelector> {
     final selectedIcon = controller.iconData;
     final iconColor = controller.iconColor;
     final backgroundColor = controller.backgroundColor;
+    final defualtIconColor = context.colorScheme.onPrimaryContainer;
+    final defaultBackgroundColor = context.colorScheme.primaryContainer;
 
     return Row(
       children: [
@@ -43,13 +45,13 @@ class _IconSelectorState extends State<IconSelector> {
             dimension: 128,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: backgroundColor ?? context.colorScheme.primaryContainer,
+                color: backgroundColor ?? defaultBackgroundColor,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(
                 selectedIcon,
                 size: 100,
-                color: iconColor ?? context.colorScheme.onPrimaryContainer,
+                color: iconColor ?? defualtIconColor,
               ),
             ),
           ),
@@ -67,8 +69,7 @@ class _IconSelectorState extends State<IconSelector> {
                   padding: const EdgeInsets.all(4),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color:
-                          iconColor ?? context.colorScheme.onPrimaryContainer,
+                      color: iconColor ?? defualtIconColor,
                       shape: BoxShape.circle,
                     ),
                     child: const SizedBox.square(dimension: 16),
@@ -82,8 +83,7 @@ class _IconSelectorState extends State<IconSelector> {
                   padding: const EdgeInsets.all(4),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: backgroundColor ??
-                          context.colorScheme.primaryContainer,
+                      color: backgroundColor ?? defaultBackgroundColor,
                       shape: BoxShape.circle,
                     ),
                     child: const SizedBox.square(dimension: 16),

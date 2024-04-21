@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../account_module/account_provider.dart';
 import '../icons_module/icons.dart';
+import '../shared/extensions/build_context_extensions.dart';
 import '../shared/route_names.dart';
 import '../ui_elements/user_text.dart';
 import 'other_widgets.dart';
@@ -14,32 +15,44 @@ class MobileAppShell extends StatelessWidget {
   const MobileAppShell({required this.child, super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        body: child,
-        floatingActionButton: _buildFAB(context),
-        bottomNavigationBar: NavigationBar(
-          animationDuration: const Duration(milliseconds: 500),
-          selectedIndex: _getSelectedIndex(context),
-          onDestinationSelected: (value) => _onItemTapped(value, context),
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(RemixIcons.home_4_line),
-              selectedIcon: Icon(RemixIcons.home_2_fill),
-              label: UserText.homeNavBarHome,
+  Widget build(BuildContext context) {
+    final iconColor = context.theme.colorScheme.onPrimary;
+    return Scaffold(
+      body: child,
+      floatingActionButton: _buildFAB(context),
+      bottomNavigationBar: NavigationBar(
+        animationDuration: const Duration(milliseconds: 500),
+        selectedIndex: _getSelectedIndex(context),
+        onDestinationSelected: (value) => _onItemTapped(value, context),
+        destinations: [
+          NavigationDestination(
+            icon: const Icon(RemixIcons.home_4_line),
+            selectedIcon: Icon(
+              RemixIcons.home_2_fill,
+              color: iconColor,
             ),
-            NavigationDestination(
-              icon: Icon(RemixIcons.receipt_line),
-              selectedIcon: Icon(RemixIcons.receipt_fill),
-              label: UserText.homeNavBarRecords,
+            label: UserText.homeNavBarHome,
+          ),
+          NavigationDestination(
+            icon: const Icon(RemixIcons.receipt_line),
+            selectedIcon: Icon(
+              RemixIcons.receipt_fill,
+              color: iconColor,
             ),
-            NavigationDestination(
-              icon: Icon(RemixIcons.settings_4_line),
-              selectedIcon: Icon(RemixIcons.settings_4_fill),
-              label: UserText.homeNavBarSettings,
+            label: UserText.homeNavBarRecords,
+          ),
+          NavigationDestination(
+            icon: const Icon(RemixIcons.settings_4_line),
+            selectedIcon: Icon(
+              RemixIcons.settings_4_fill,
+              color: iconColor,
             ),
-          ],
-        ),
-      );
+            label: UserText.homeNavBarSettings,
+          ),
+        ],
+      ),
+    );
+  }
 
   static int _getSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).matchedLocation;

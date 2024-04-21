@@ -7,29 +7,26 @@ import '../shared/extensions/color_extenstions.dart';
 class AppTheme {
   final Brightness _brightness;
   final ColorScheme _colorScheme;
-  final _actualPrimary = const Color(0xff009933);
-  final _actualSecondary = const Color(0xff99ff00);
-  final _actualTertiary = const Color(0xff003333);
 
   AppTheme(ColorScheme colorScheme)
       : _brightness = colorScheme.brightness,
         _colorScheme = colorScheme;
 
   ThemeData get themeData => ThemeData(
-      inputDecorationTheme: _inputDecorationTheme,
-      useMaterial3: true,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-      colorScheme: _colorScheme,
-      // dialogBackgroundColor: _dialogBackgroundColor,
-      scaffoldBackgroundColor: _scaffoldBackgroundColor,
-      fontFamily: FontFamily.poppins,
-      fontFamilyFallback: const [FontFamily.notoSans],
-      primaryTextTheme: _textTheme,
-      textTheme: _textTheme,
-      actionIconTheme: _actionIconThemeData,
-      appBarTheme: _appBarTheme,
-      bottomSheetTheme: _bottomSheetThemeData,
-      dialogTheme: _dialogTheme);
+        inputDecorationTheme: _inputDecorationTheme,
+        useMaterial3: true,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        colorScheme: _colorScheme,
+        scaffoldBackgroundColor: _scaffoldBackgroundColor,
+        fontFamily: FontFamily.poppins,
+        fontFamilyFallback: const [FontFamily.notoSans],
+        primaryTextTheme: _textTheme,
+        textTheme: _textTheme,
+        actionIconTheme: _actionIconThemeData,
+        appBarTheme: _appBarTheme,
+        bottomSheetTheme: _bottomSheetThemeData,
+        navigationBarTheme: _navigationBarTheme,
+      );
 
   InputDecorationTheme get _inputDecorationTheme => const InputDecorationTheme(
         border: OutlineInputBorder(),
@@ -50,33 +47,26 @@ class AppTheme {
         closeButtonIconBuilder: (_) => const Icon(RemixIcons.close_line),
       );
 
-  AppBarTheme get _appBarTheme => AppBarTheme(
-        backgroundColor: _scaffoldBackgroundColor,
+  AppBarTheme get _appBarTheme => const AppBarTheme(
         scrolledUnderElevation: 0,
         elevation: 0,
       );
 
-  BottomSheetThemeData get _bottomSheetThemeData => BottomSheetThemeData(
-        modalBarrierColor: _colorScheme.onBackground.withOpacity(0.2),
-        modalBackgroundColor: _bottomSheetBackgroundColor,
-        showDragHandle: true,
-      );
+  BottomSheetThemeData get _bottomSheetThemeData =>
+      const BottomSheetThemeData(showDragHandle: true);
 
-//TODO: Adjust surface Tint to satisfaction
-//TODO: Remove themeing from navigationbar in app
-  DialogTheme get _dialogTheme => DialogTheme(
-        backgroundColor: _bottomSheetBackgroundColor,
-        surfaceTintColor: _colorScheme.primary.tone(100),
+  NavigationBarThemeData get _navigationBarTheme => NavigationBarThemeData(
+        indicatorColor: _colorScheme.primary,
+        labelTextStyle: MaterialStateTextStyle.resolveWith((states) {
+          if (states.contains(MaterialState.selected)) {
+            return _labelStyle.copyWith(
+              fontSize: 12,
+              color: _colorScheme.primary,
+            );
+          }
+          return _labelStyle.copyWith(fontSize: 12);
+        }),
       );
-
-  Color get _bottomSheetBackgroundColor {
-    switch (_brightness) {
-      case Brightness.dark:
-        return _scaffoldBackgroundColor.tone(0);
-      case Brightness.light:
-        return _scaffoldBackgroundColor.tone(100);
-    }
-  }
 }
 
 const _textTheme = TextTheme(
