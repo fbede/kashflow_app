@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../currency_module/currency_picker_dialog.dart';
+import '../i18n/translations.g.dart';
 import '../icons_module/icons.dart';
 import '../ui_elements/user_text.dart';
 import 'calculator.dart';
@@ -95,8 +96,6 @@ class CurrencyFormField extends StatelessWidget {
   final AppCurrencyController appCurrencyController;
   final TextEditingController textController;
 
-  //TODO: Add Option to Create New Currency
-
   @override
   Widget build(BuildContext context) => TextFormField(
         readOnly: true,
@@ -119,7 +118,7 @@ class CurrencyFormField extends StatelessWidget {
   }
 
   Future<void> _onCurrencyTap(BuildContext context) async {
-    final result = await showCurrencyPicker(context);
+    final result = await showCurrencyPicker(context, '');
     if (result != null) {
       appCurrencyController.currency = result;
     }
@@ -160,5 +159,31 @@ class NameFormField extends StatelessWidget {
     }
 
     return null;
+  }
+}
+
+class SearchTextField extends StatelessWidget {
+  const SearchTextField({
+    required this.controller,
+    super.key,
+  });
+
+  final TextEditingController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    final hintText = context.t.components.custom_text_fields.search;
+
+    return TextField(
+      keyboardType: TextInputType.text,
+      autocorrect: false,
+      controller: controller,
+      decoration: InputDecoration(
+        filled: true,
+        contentPadding: EdgeInsetsDirectional.zero,
+        prefixIcon: const Icon(RemixIcons.search_2_line),
+        hintText: hintText,
+      ),
+    );
   }
 }

@@ -11,6 +11,16 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
 
+class $AssetsI18nGen {
+  const $AssetsI18nGen();
+
+  /// File path: assets/i18n/strings.i18n.json
+  String get stringsI18n => 'assets/i18n/strings.i18n.json';
+
+  /// List of all assets
+  List<String> get values => [stringsI18n];
+}
+
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
@@ -22,8 +32,12 @@ class $AssetsImagesGen {
   AssetGenImage get launcherIcon =>
       const AssetGenImage('assets/images/launcher_icon.png');
 
+  /// File path: assets/images/launcher_icon_3.png
+  AssetGenImage get launcherIcon3 =>
+      const AssetGenImage('assets/images/launcher_icon_3.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [appLogo, launcherIcon];
+  List<AssetGenImage> get values => [appLogo, launcherIcon, launcherIcon3];
 }
 
 class $AssetsJsonGen {
@@ -74,6 +88,7 @@ class $AssetsSvgGen {
 class Assets {
   Assets._();
 
+  static const $AssetsI18nGen i18n = $AssetsI18nGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();

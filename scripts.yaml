@@ -9,3 +9,4 @@ build_config:
 
 build_runner: dart run build_runner build
 watch_runner: dart run build_runner watch
+build_strings: dart run slang watch

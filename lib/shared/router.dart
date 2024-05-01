@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-import '../account_module/home_screen.dart';
+import '../onboarding_module/home_screen.dart';
 import '../components/mobile_app_shell.dart';
-import '../onboarding/onboarding_screen.dart';
-import '../onboarding/splashscreen.dart';
+import '../onboarding_module/onboarding_screen.dart';
+import '../onboarding_module/splashscreen.dart';
 import '../user_preferences_module/categories_management_screen.dart';
 import '../user_preferences_module/settings_screen.dart';
 

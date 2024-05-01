@@ -1,0 +1,58 @@
+{
+  "account_module": {},
+  "components": {
+    "custom_text_fields": {
+      "search": "Search"
+    }
+  },
+  "currency_module": {
+    "picker": {
+      "dialog": {
+        "saved_currencies": "Saved Currencies",
+        "other_currencies": "Other Currencies"
+      }
+    }
+  },
+  "onboarding_module": {
+    "onboarding_screen": {
+      "pages": [
+        {
+          "title": "Welcome To Kashflow",
+          "subtitle": "Let's help you manage your finances"
+        },
+        {
+          "title": "Record Your Daily Transactions",
+          "subtitle": "Enter your daily transactions to find out how much you are making"
+        },
+        {
+          "title": "Discover Your Finances",
+          "subtitle": "Indepth analysis of your money tells you where you can cut costs and increase income."
+        },
+        {
+          "title": "Know Your Networth",
+          "subtitle": "View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!"
+        }
+      ],
+      "currency_picker_title": "Select Default Currency"
+    },
+    "home_screen": {
+      "title": "Home",
+      "purse": "Purse",
+      "portfoilo": "Portfolio",
+      "balance": "BALANCE",
+      "net_worth": "NET WORTH",
+      "new_record": "New Record"
+    }
+  },
+  "records": {
+    "title": "Records"
+  },
+  "settings": "Settings",
+  "purse": "Purse",
+  "portfoilo": "Portfolio",
+  "account_name": "Account Name",
+  "add_new_account": "Add New Account",
+  "add_account": "Add Account",
+  "edit_account": "Edit Account",
+  "new_record": "New Record"
+}

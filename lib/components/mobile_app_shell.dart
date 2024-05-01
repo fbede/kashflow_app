@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../account_module/account_provider.dart';
 import '../icons_module/icons.dart';
 import '../shared/extensions/build_context_extensions.dart';
 import '../shared/route_names.dart';
 import '../ui_elements/user_text.dart';
-import 'other_widgets.dart';
 
 class MobileAppShell extends StatelessWidget {
   final Widget child;
@@ -19,7 +16,6 @@ class MobileAppShell extends StatelessWidget {
     final iconColor = context.theme.colorScheme.onPrimary;
     return Scaffold(
       body: child,
-      floatingActionButton: _buildFAB(context),
       bottomNavigationBar: NavigationBar(
         animationDuration: const Duration(milliseconds: 500),
         selectedIndex: _getSelectedIndex(context),
@@ -79,32 +75,4 @@ class MobileAppShell extends StatelessWidget {
         context.go(Routes.other);
     }
   }
-
-  Widget? _buildFAB(BuildContext context) {
-    final index = _getSelectedIndex(context);
-    if (index < 2) {
-      return _MobileAppShellFAB();
-    }
-    return null;
-  }
-}
-
-class _MobileAppShellFAB extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(accountProvider).when(
-            loading: () => const Center(child: CustomProgressIndicator()),
-            error: (e, s) => Center(child: Text('$e\n$s')),
-            data: (data) {
-              if (data.isEmpty) {
-                return const SizedBox.shrink();
-              }
-              return FloatingActionButton.extended(
-                ///TODO: Add Create Transaction Here
-                onPressed: () {},
-                label: const Text(UserText.newRecord),
-                icon: const Icon(RemixIcons.edit_2_line),
-              );
-            },
-          );
 }

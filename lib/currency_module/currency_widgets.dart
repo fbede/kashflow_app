@@ -8,8 +8,6 @@ class CurrencyCardTile extends StatelessWidget {
   final AppCurrency item;
   final void Function(AppCurrency c) onTap;
 
-  //TODO: Add Option to Create Edit Currency on Long Tap
-
   @override
   Widget build(BuildContext context) => Card(
         margin: EdgeInsets.zero,

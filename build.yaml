@@ -1,0 +1,30 @@
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        options:
+          input_directory: assets/i18n
+          output_directory: lib/i18n
+          output_file_name: translations.g.dart
+          key_case: snake
+          key_map_case: camel
+          param_case: pascal
+          string_interpolation: double_braces
+          maps:
+          pluralization:
+            auto: cardinal
+            default_parameter: n
+            cardinal:
+            ordinal:
+          contexts:
+          interfaces:
+            OnboardingPageData: onboarding_module.onboarding_screen.pages.*
+            # PageData2:
+            #   paths:
+            #     - my.path
+            #     - cool.pages.*
+            #   attributes:
+            #     - String title
+            #     - String? content
+          imports:
+          #  - 'package:my_package/path_to_enum.dart'

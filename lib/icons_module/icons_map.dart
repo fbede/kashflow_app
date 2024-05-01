@@ -2222,7 +2222,7 @@ final remixIconsMap = {
   'wallet_3_fill': RemixIcons.wallet_3_fill,
   'wallet_3_line': RemixIcons.wallet_3_line,
   'wallet_fill': RemixIcons.wallet_fill,
-  'wallet_line': RemixIcons.wallet_line,
+  'wallet_line': RemixIcons.wallet_2_line,
   'water_flash_fill': RemixIcons.water_flash_fill,
   'water_flash_line': RemixIcons.water_flash_line,
   'webcam_fill': RemixIcons.webcam_fill,

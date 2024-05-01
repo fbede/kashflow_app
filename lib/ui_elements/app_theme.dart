@@ -2,29 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../gen/fonts.gen.dart';
 import '../icons_module/icons.dart';
-import '../shared/extensions/color_extenstions.dart';
+
+import 'material_theme.dart';
 
 class AppTheme {
-  final Brightness _brightness;
-  final ColorScheme _colorScheme;
+  final ThemeData _baseThemeData;
 
-  AppTheme(ColorScheme colorScheme)
-      : _brightness = colorScheme.brightness,
-        _colorScheme = colorScheme;
+  const AppTheme._(ThemeData baseThemeData) : _baseThemeData = baseThemeData;
+  factory AppTheme.light() => AppTheme._(MaterialTheme(_textTheme).light());
+  factory AppTheme.dark() => AppTheme._(MaterialTheme(_textTheme).dark());
 
-  ThemeData get themeData => ThemeData(
+  ThemeData get themeData => _baseThemeData.copyWith(
         inputDecorationTheme: _inputDecorationTheme,
-        useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        colorScheme: _colorScheme,
-        scaffoldBackgroundColor: _scaffoldBackgroundColor,
-        fontFamily: FontFamily.poppins,
-        fontFamilyFallback: const [FontFamily.notoSans],
-        primaryTextTheme: _textTheme,
-        textTheme: _textTheme,
         actionIconTheme: _actionIconThemeData,
-        appBarTheme: _appBarTheme,
-        bottomSheetTheme: _bottomSheetThemeData,
         navigationBarTheme: _navigationBarTheme,
       );
 
@@ -32,36 +23,19 @@ class AppTheme {
         border: OutlineInputBorder(),
       );
 
-  Color get _scaffoldBackgroundColor {
-    switch (_brightness) {
-      case Brightness.dark:
-        return _colorScheme.background.tone(0);
-      case Brightness.light:
-        return _colorScheme.background.tone(100);
-    }
-  }
-
   //*Use to modify Default Appbar Icons
   ActionIconThemeData get _actionIconThemeData => ActionIconThemeData(
         backButtonIconBuilder: (_) => const Icon(RemixIcons.arrow_left_line),
         closeButtonIconBuilder: (_) => const Icon(RemixIcons.close_line),
       );
 
-  AppBarTheme get _appBarTheme => const AppBarTheme(
-        scrolledUnderElevation: 0,
-        elevation: 0,
-      );
-
-  BottomSheetThemeData get _bottomSheetThemeData =>
-      const BottomSheetThemeData(showDragHandle: true);
-
   NavigationBarThemeData get _navigationBarTheme => NavigationBarThemeData(
-        indicatorColor: _colorScheme.primary,
+        indicatorColor: _baseThemeData.colorScheme.primary,
         labelTextStyle: MaterialStateTextStyle.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
             return _labelStyle.copyWith(
               fontSize: 12,
-              color: _colorScheme.primary,
+              color: _baseThemeData.colorScheme.primary,
             );
           }
           return _labelStyle.copyWith(fontSize: 12);
@@ -69,7 +43,11 @@ class AppTheme {
       );
 }
 
-const _textTheme = TextTheme(
+const slowGlobalAnimationDuration = Duration(milliseconds: 1000);
+const midGlobalAnimationDuration = Duration(milliseconds: 500);
+const fastGlobalAnimationDuration = Duration(milliseconds: 250);
+
+final _textTheme = TextTheme(
   displayLarge: _displayStyle,
   displayMedium: _displayStyle,
   displaySmall: _displayStyle,
@@ -87,12 +65,13 @@ const _textTheme = TextTheme(
   labelSmall: _labelStyle,
 );
 
-const _displayStyle = TextStyle(fontWeight: FontWeight.w700);
-const _headlineStyle = TextStyle(fontWeight: FontWeight.w300);
-const _titleStyle = TextStyle(fontWeight: FontWeight.w600);
-const _bodyStyle = TextStyle(fontWeight: FontWeight.w400);
-const _labelStyle = TextStyle(fontWeight: FontWeight.w500);
+final _displayStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w700);
+final _headlineStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w300);
+final _titleStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w600);
+final _bodyStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w400);
+final _labelStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w500);
 
-const slowGlobalAnimationDuration = Duration(milliseconds: 1000);
-const midGlobalAnimationDuration = Duration(milliseconds: 500);
-const fastGlobalAnimationDuration = Duration(milliseconds: 250);
+const _baseTextStyle = TextStyle(
+  fontFamily: FontFamily.poppins,
+  fontFamilyFallback: [FontFamily.notoSans],
+);

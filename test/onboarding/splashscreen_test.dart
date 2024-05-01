@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/account_module/home_screen.dart';
-import 'package:kashflow/onboarding/onboarding_screen.dart';
-import 'package:kashflow/onboarding/splashscreen.dart';
+import 'package:kashflow/onboarding_module/home_screen.dart';
+import 'package:kashflow/onboarding_module/onboarding_screen.dart';
+import 'package:kashflow/onboarding_module/splashscreen.dart';
 import 'package:kashflow/shared/keys.dart';
 import 'package:kashflow/shared/router.dart';
-import 'package:kashflow/ui_elements/themes.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -16,7 +16,6 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp.router(
-        theme: lightThemeOld(useDeepBlacks: true),
         routerConfig: getTestRouter(),
       ),
     );
@@ -38,7 +37,6 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp.router(
-        theme: lightThemeOld(useDeepBlacks: true),
         routerConfig: getTestRouter(),
       ),
     );

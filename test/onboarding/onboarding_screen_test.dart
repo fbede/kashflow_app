@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/account_module/home_screen.dart';
 import 'package:kashflow/icons_module/icons.dart';
+import 'package:kashflow/onboarding_module/home_screen.dart';
 import 'package:kashflow/shared/keys.dart';
 import 'package:kashflow/shared/route_names.dart';
 import 'package:kashflow/shared/router.dart';
-import 'package:kashflow/ui_elements/themes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -236,7 +235,6 @@ void main() {
       await tester.pumpWidget(
         ProviderScope(
           child: MaterialApp.router(
-            theme: lightThemeOld(useDeepBlacks: true),
             routerConfig: getTestRouter(initalLocation: Routes.onboarding),
           ),
         ),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../components/custom_text_fields.dart';
 import '../components/other_widgets.dart';
-import '../icons_module/icons.dart';
 import '../shared/extensions/build_context_extensions.dart';
 import '../shared/logger/log_handler.dart';
 import '../ui_elements/user_text.dart';
@@ -11,7 +11,8 @@ import 'currency.dart';
 import 'currency_provider.dart';
 
 Future<AppCurrency?> showCurrencyPicker(
-  BuildContext context, {
+  BuildContext context,
+  String titleString, {
   bool barrierDismissible = true,
 }) async {
   AppCurrency? data;
@@ -21,6 +22,7 @@ Future<AppCurrency?> showCurrencyPicker(
     barrierDismissible: barrierDismissible,
     useRootNavigator: false,
     builder: (_) => CurrencyPickerDialog(
+      titleString: titleString,
       onTap: (c) {
         data = c;
         context.pop();
@@ -32,9 +34,14 @@ Future<AppCurrency?> showCurrencyPicker(
 }
 
 class CurrencyPickerDialog extends ConsumerStatefulWidget {
-  const CurrencyPickerDialog({required this.onTap, super.key});
+  const CurrencyPickerDialog({
+    required this.onTap,
+    required this.titleString,
+    super.key,
+  });
 
   final ValueChanged<AppCurrency> onTap;
+  final String titleString;
 
   @override
   ConsumerState<CurrencyPickerDialog> createState() =>
@@ -69,7 +76,7 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
             children: [
               const SizedBox(height: 16),
               Text(
-                UserText.selectCurrency,
+                widget.titleString,
                 style: context.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
@@ -160,17 +167,7 @@ class _BottomSearchBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child: TextField(
-                keyboardType: TextInputType.text,
-                autocorrect: false,
-                controller: controller,
-                decoration: const InputDecoration(
-                  filled: true,
-                  contentPadding: EdgeInsetsDirectional.zero,
-                  prefixIcon: Icon(RemixIcons.search_2_line),
-                  hintText: UserText.search,
-                ),
-              ),
+              child: SearchTextField(controller: controller),
             ),
             const SizedBox(width: 8),
             Visibility(
