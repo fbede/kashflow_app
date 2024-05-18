@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../icons_module/icons.dart';
-import '../shared/extensions/build_context_extensions.dart';
-import '../shared/route_names.dart';
-import '../ui_elements/user_text.dart';
+import '../src/shared/extensions/build_context_extensions.dart';
+import '../src/core/routing/route_names.dart';
+import '../user_text.dart';
 
 class MobileAppShell extends StatelessWidget {
   final Widget child;

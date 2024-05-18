@@ -3,12 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../currency_module/currency_picker_dialog.dart';
-import '../currency_module/currency_provider.dart';
+import '../src/app/currency/providers/currency_provider.dart';
 import '../icons_module/icons.dart';
-import '../shared/extensions/build_context_extensions.dart';
-import '../shared/logger/log_handler.dart';
-import '../shared/route_names.dart';
-import '../ui_elements/user_text.dart';
+import '../src/shared/extensions/build_context_extensions.dart';
+import '../src/core/logging/log_handler.dart';
+import '../src/core/routing/route_names.dart';
+import '../user_text.dart';
 import 'settings_screen_components.dart';
 import 'theme_provider.dart';
 

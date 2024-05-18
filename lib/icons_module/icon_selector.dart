@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../components/color_picker.dart';
 import '../shared/app_icon_data.dart';
-import '../shared/extensions/build_context_extensions.dart';
-import '../ui_elements/user_text.dart';
+import '../src/shared/extensions/build_context_extensions.dart';
+import '../user_text.dart';
 import 'icon_picker.dart';
 import 'icons.dart';
 import 'icons_map.dart';

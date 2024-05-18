@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:kashflow/icons_module/icons.dart';
 import 'package:kashflow/onboarding_module/home_screen.dart';
 import 'package:kashflow/shared/keys.dart';
-import 'package:kashflow/shared/route_names.dart';
-import 'package:kashflow/shared/router.dart';
+import 'package:kashflow/src/core/routing/route_names.dart';
+import 'package:kashflow/src/core/routing/router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {

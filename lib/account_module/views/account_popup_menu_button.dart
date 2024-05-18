@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../components/other_widgets.dart';
 import '../../icons_module/icons.dart';
-import '../../shared/extensions/build_context_extensions.dart';
-import '../../ui_elements/user_text.dart';
+import '../../src/shared/extensions/build_context_extensions.dart';
+import '../../user_text.dart';
 import '../account.dart';
 import '../account_provider.dart' hide Account;
 //import 'edit_account_view.dart.old';

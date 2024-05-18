@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../components/other_widgets.dart';
-import '../ui_elements/user_text.dart';
-import 'logger/log_handler.dart';
+import '../user_text.dart';
+import '../src/core/logging/log_handler.dart';
 
 class ExceptionHandler {
   final BuildContext context;

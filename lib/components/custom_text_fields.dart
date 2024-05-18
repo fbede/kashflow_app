@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import '../../currency_module/currency_picker_dialog.dart';
 import '../i18n/translations.g.dart';
 import '../icons_module/icons.dart';
-import '../ui_elements/user_text.dart';
+import '../user_text.dart';
 import 'calculator.dart';
 import 'custom_controllers.dart';
 

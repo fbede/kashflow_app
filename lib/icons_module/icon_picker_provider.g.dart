@@ -40,7 +40,7 @@ abstract class _$IconPicker
 
 /// See also [IconPicker].
 @ProviderFor(IconPicker)
-const iconPickerProvider = IconPickerFamily();
+const iconPicker = IconPickerFamily();
 
 /// See also [IconPicker].
 class IconPickerFamily extends Family<List<IconData>> {
@@ -77,7 +77,7 @@ class IconPickerFamily extends Family<List<IconData>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'iconPickerProvider';
+  String? get name => r'iconPicker';
 }
 
 /// See also [IconPicker].
@@ -88,8 +88,8 @@ class IconPickerProvider
     String searchTerm,
   ) : this._internal(
           () => IconPicker()..searchTerm = searchTerm,
-          from: iconPickerProvider,
-          name: r'iconPickerProvider',
+          from: iconPicker,
+          name: r'iconPicker',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null

@@ -6,11 +6,11 @@ import '../account_module/views/account_purse_view.dart';
 import '../account_module/views/ui_functions.dart';
 import '../components/fade_on_scroll.dart';
 import '../components/other_widgets.dart';
-import '../currency_module/currency_provider.dart';
+import '../src/app/currency/providers/currency_provider.dart';
 import '../i18n/translations.g.dart';
 import '../icons_module/icons.dart';
-import '../shared/extensions/build_context_extensions.dart';
-import '../ui_elements/app_theme.dart';
+import '../src/shared/extensions/build_context_extensions.dart';
+import '../src/core/theming/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

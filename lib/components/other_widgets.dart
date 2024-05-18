@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../gen/assets.gen.dart';
-import '../shared/extensions/build_context_extensions.dart';
-import '../ui_elements/user_text.dart';
+import '../src/shared/extensions/build_context_extensions.dart';
+import '../user_text.dart';
 
 class CustomProgressIndicator extends StatefulWidget {
   const CustomProgressIndicator({super.key});

@@ -10,9 +10,9 @@ import '../../components/custom_text_fields.dart';
 import '../../components/other_widgets.dart';
 import '../../currency_module/currency.dart';
 import '../../icons_module/icon_selector.dart';
-import '../../shared/extensions/build_context_extensions.dart';
-import '../../shared/logger/log_handler.dart';
-import '../../ui_elements/user_text.dart';
+import '../../src/shared/extensions/build_context_extensions.dart';
+import '../../src/core/logging/log_handler.dart';
+import '../../user_text.dart';
 import '../account.dart';
 import '../account_provider.dart' hide Account;
 
@@ -76,7 +76,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
               const SizedBox(height: 16),
               Text(
                 UserText.addAnAccount,
-                style: context.textTheme.headlineMedium,
+                style: context.textTheme.titleLarge,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16),

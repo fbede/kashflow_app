@@ -1,11 +1,18 @@
 targets:
   $default:
     builders:
+      riverpod_generator:
+        options:
+          provider_name_prefix: ""
+          provider_family_name_prefix: ""
+          provider_name_suffix: ""
+          provider_family_name_suffix: ""
+
       slang_build_runner:
         options:
           input_directory: assets/i18n
-          output_directory: lib/i18n
-          output_file_name: translations.g.dart
+          output_directory: lib/src/core/translations
+          output_file_name: translations.translations.dart
           key_case: snake
           key_map_case: camel
           param_case: pascal

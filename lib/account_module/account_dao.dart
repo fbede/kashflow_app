@@ -2,7 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:money2/money2.dart';
 
 import '../shared/db/local_db.dart';
-import '../shared/logger/log_handler.dart';
+import '../src/core/logging/log_handler.dart';
 
 import 'account.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../ui_elements/user_text.dart';
+import '../user_text.dart';
 
 class CategoriesManagementScreen extends ConsumerStatefulWidget {
   const CategoriesManagementScreen({super.key});

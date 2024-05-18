@@ -10,10 +10,10 @@ String _$accountHash() => r'21bf0342151143fd4b2aaf3cfcdf84baead01ce5';
 
 /// See also [Account].
 @ProviderFor(Account)
-final accountProvider =
+final account =
     AutoDisposeStreamNotifierProvider<Account, List<model.Account>>.internal(
   Account.new,
-  name: r'accountProvider',
+  name: r'account',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$accountHash,
   dependencies: null,

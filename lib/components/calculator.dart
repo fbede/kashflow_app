@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_simple_calculator/flutter_simple_calculator.dart';
 import 'package:go_router/go_router.dart';
-import '../shared/extensions/build_context_extensions.dart';
-import '../ui_elements/user_text.dart';
+import '../src/shared/extensions/build_context_extensions.dart';
+import '../user_text.dart';
 
 Future<double> showCalculator(BuildContext context) async {
   double result = 0;

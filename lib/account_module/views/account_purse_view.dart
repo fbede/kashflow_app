@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../components/other_widgets.dart';
-import '../../currency_module/currency_provider.dart';
+import '../../src/app/currency/providers/currency_provider.dart';
 import '../../icons_module/icons.dart';
-import '../../ui_elements/user_text.dart';
+import '../../user_text.dart';
 import '../account_provider.dart';
 import 'ui_functions.dart';
 
