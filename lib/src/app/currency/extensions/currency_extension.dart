@@ -1,9 +1,9 @@
 import 'package:money2/money2.dart';
 
-import '../../../core/core.dart' hide Currency;
+import '../../../core/core.dart';
 
 extension CurrencyExtension on Currency {
-  CurrencyCompanion get companion => CurrencyCompanion.insert(
+  CurrencyTableCompanion get companion => CurrencyTableCompanion.insert(
         code: isoCode,
         decimalDigits: decimalDigits,
         symbol: symbol,

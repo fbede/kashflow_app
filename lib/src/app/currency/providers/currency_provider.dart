@@ -1,15 +1,15 @@
 import 'package:money2/money2.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../core/core.dart' hide Currency;
+import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../interactors/currency_interactor.dart';
 
 part 'currency_provider.g.dart';
 
 @riverpod
-Stream<List<CurrencyData>> savedCurrenciesProvider(
-  SavedCurrenciesProviderRef ref,
+Stream<List<CurrencyTableData>> savedCurrencies(
+  SavedCurrenciesRef ref,
   String searchTerm, {
   CurrencyInteractor? currencyInteractor,
 }) async* {
@@ -18,8 +18,8 @@ Stream<List<CurrencyData>> savedCurrenciesProvider(
 }
 
 @riverpod
-List<Currency> otherCurrenciesProvider(
-  OtherCurrenciesProviderRef ref,
+List<Currency> otherCurrencies(
+  OtherCurrenciesRef ref,
   String searchTerm, {
   CurrencyInteractor? currencyInteractor,
 }) {
@@ -35,10 +35,10 @@ class DefaultCurrencyProvider extends _$DefaultCurrencyProvider {
       : _interactor = interactor ?? CurrencyInteractor();
 
   @override
-  Future<CurrencyData?> build() async => _interactor.defaultCurrency;
+  Future<CurrencyTableData?> build() async => _interactor.defaultCurrency;
 
   Future<void> setDefaultCurrency(
-    Either<Currency, CurrencyData> defaultCurrency,
+    Either<Currency, CurrencyTableData> defaultCurrency,
   ) async {
     try {
       final currecyData = await _interactor.setDefaultCurrency(defaultCurrency);

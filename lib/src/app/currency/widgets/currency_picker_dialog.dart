@@ -3,17 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:money2/money2.dart';
 
-import '../../../core/core.dart' hide Currency;
+import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../providers/providers.dart';
 import 'currency_card_tile.dart';
 
-Future<Either<Currency, CurrencyData>?> showCurrencyPicker(
+Future<Either<Currency, CurrencyTableData>?> showCurrencyPicker(
   BuildContext context,
   String titleString, {
   bool barrierDismissible = true,
 }) async {
-  Either<Currency, CurrencyData>? data;
+  Either<Currency, CurrencyTableData>? data;
 
   await showDialog<Widget>(
     context: context,
@@ -38,7 +38,7 @@ class CurrencyPickerDialog extends ConsumerStatefulWidget {
     super.key,
   });
 
-  final ValueChanged<Either<Currency, CurrencyData>> onTap;
+  final ValueChanged<Either<Currency, CurrencyTableData>> onTap;
   final String titleString;
 
   @override
@@ -87,7 +87,7 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
                 physics: const AlwaysScrollableScrollPhysics(),
                 slivers: [
                   _Subtitle(titleString: subtitles.saved_currencies),
-                  ref.watch(savedCurrenciesProvider.call(searchTerm)).when(
+                  ref.watch(savedCurrenciesPresenter.call(searchTerm)).when(
                         error: _buildErrorText,
                         loading: _buildLoader,
                         data: (data) => _CurrencyList(
@@ -99,7 +99,7 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
                   _CurrencyList(
                     onTap: widget.onTap,
                     dataProvider: Either.a(
-                      ref.watch(otherCurrenciesProvider.call(searchTerm)),
+                      ref.watch(otherCurrenciesPresenter.call(searchTerm)),
                     ),
                   ),
                 ],
@@ -138,8 +138,8 @@ class _Subtitle extends StatelessWidget {
 class _CurrencyList extends StatelessWidget {
   const _CurrencyList({required this.onTap, required this.dataProvider});
 
-  final ValueChanged<Either<Currency, CurrencyData>> onTap;
-  final Either<List<Currency>, List<CurrencyData>> dataProvider;
+  final ValueChanged<Either<Currency, CurrencyTableData>> onTap;
+  final Either<List<Currency>, List<CurrencyTableData>> dataProvider;
 
   @override
   Widget build(BuildContext context) => dataProvider.when(
@@ -161,7 +161,7 @@ class _CurrencyList extends StatelessWidget {
         ),
         b: (b) => SliverGrid.builder(
           itemCount: b.length,
-          itemBuilder: (_, index) => CurrencyCardTile<CurrencyData>(
+          itemBuilder: (_, index) => CurrencyCardTile<CurrencyTableData>(
             onTap: (c) => onTap(Either.b(c)),
             item: b[index],
             code: b[index].code,

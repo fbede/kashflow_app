@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../currency_module/currency.dart';
-
-class AppCurrencyController extends ChangeNotifier {
+/* class AppCurrencyController extends ChangeNotifier {
   AppCurrency _currencyData;
 
   AppCurrencyController(AppCurrency currencyData)
@@ -17,3 +15,4 @@ class AppCurrencyController extends ChangeNotifier {
 
   AppCurrency get currency => _currencyData;
 }
+ */

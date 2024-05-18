@@ -54,8 +54,10 @@ class _SplashScreenState extends State<SplashScreen>
         ),
       );
 
-  void _gotoNextScreen() {
+  void _gotoNextScreen() async {
     final hasOnboarded = _onboardingService.isOnboardingComplete;
+
+    await LocalDB().doWhenOpened((e) => talker.log('Hello'));
 
     if (hasOnboarded) {
       context.goNamed(Routes.home);

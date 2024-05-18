@@ -40,6 +40,16 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [appLogo, launcherIcon, launcherIcon3];
 }
 
+class $AssetsJsonGen {
+  const $AssetsJsonGen();
+
+  /// File path: assets/json/loaded_currencies.json
+  String get loadedCurrencies => 'assets/json/loaded_currencies.json';
+
+  /// List of all assets
+  List<String> get values => [loadedCurrencies];
+}
+
 class $AssetsSvgGen {
   const $AssetsSvgGen();
 
@@ -80,6 +90,7 @@ class Assets {
 
   static const $AssetsI18nGen i18n = $AssetsI18nGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsJsonGen json = $AssetsJsonGen();
   static const $AssetsSvgGen svg = $AssetsSvgGen();
 }
 

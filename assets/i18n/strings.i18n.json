@@ -1,8 +1,10 @@
 {
-  "account_module": {},
-  "components": {
-    "custom_text_fields": {
-      "search": "Search"
+  "account_module": {
+    "create_account_view": {
+      "add_account": "Add Account",
+      "account_name": "Account Name",
+      "cancel": "Cancel",
+      "save": "Save"
     }
   },
   "currency_module": {
@@ -35,6 +37,11 @@
       ],
       "currency_picker_title": "Select Default Currency"
     },
+    "mobile_app_shell": {
+      "nav_bar_home": "Home",
+      "nav_bar_records": "Records",
+      "nav_bar_settings": "Settings"
+    },
     "home_screen": {
       "title": "Home",
       "purse": "Purse",
@@ -45,12 +52,24 @@
     }
   },
   "shared": {
+    "icon_module": {
+      "icon_picker": {
+        "select_icon": "Select Icon",
+        "search": "Search"
+      },
+      "icon_selector": {
+        "change_icon_color": "Change Icon Color",
+        "change_background_color": "Change Background Color",
+        "reset_colors": "Reset Colors"
+      }
+    },
     "widgets": {
       "custom_text_fields": {
         "description": "Description",
         "amount": "Amount",
         "cannot_be_empty": "Cannot Be Empty",
-        "too_short": "Too Short"
+        "too_short": "Too Short",
+        "search": "Search"
       }
     }
   },

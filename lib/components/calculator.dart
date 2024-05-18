@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_simple_calculator/flutter_simple_calculator.dart';
 import 'package:go_router/go_router.dart';
 import '../src/shared/extensions/build_context_extensions.dart';
-import '../user_text.dart.old';
 
 Future<double> showCalculator(BuildContext context) async {
   double result = 0;
@@ -69,7 +68,9 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
           children: [
             TextButton(
               onPressed: () => context.pop(),
-              child: const Text(UserText.cancel),
+              child: const Text(''
+                  //UserText.cancel
+                  ),
             ),
             const SizedBox(height: 16),
             TextButton(
@@ -77,7 +78,9 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
                 widget.onChanged(answer);
                 context.pop();
               },
-              child: const Text(UserText.done),
+              child: const Text(''
+                  //UserText.done
+                  ),
             ),
           ],
         ),

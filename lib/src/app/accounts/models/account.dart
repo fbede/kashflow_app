@@ -8,12 +8,12 @@ class Account {
   final String name;
   final String description;
   final String currencyId;
-  final IconData iconData;
+  final IconTableData iconData;
   final Money openingBalance;
 
   Account({
-    required AccountData accountData,
-    required CurrencyData currencyData,
+    required AccountTableData accountData,
+    required CurrencyTableData currencyData,
     required this.iconData,
   })  : id = accountData.id,
         name = accountData.name,
@@ -24,7 +24,7 @@ class Account {
           currencyData.currency,
         );
 
-  AccountCompanion get companion => AccountCompanion.insert(
+  AccountTableCompanion get companion => AccountTableCompanion.insert(
         id: id,
         name: name,
         currency: currencyId,

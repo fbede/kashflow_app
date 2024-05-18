@@ -66,7 +66,7 @@ class _HomeScreenFAB extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(accountProvider).when(
+      ref.watch(accountProviderPresenter).when(
             loading: () => const Center(child: CustomProgressIndicator()),
             error: (e, s) => Center(child: Text('$e\n$s')),
             data: (data) {
@@ -85,7 +85,7 @@ class _HomeScreenFAB extends ConsumerWidget {
           );
 
   Widget buildFAB(BuildContext context, WidgetRef ref) =>
-      ref.watch(defaultCurrencyProvider).when(
+      ref.watch(defaultCurrencyProviderPresenter).when(
             error: (e, s) => Center(child: Text('$e\n$s')),
             loading: () => const Center(child: CustomProgressIndicator()),
             data: (data) {
@@ -97,7 +97,7 @@ class _HomeScreenFAB extends ConsumerWidget {
                 onPressed = () {};
               } else {
                 icon = const Icon(RemixIcons.wallet_3_line);
-                onPressed = () async => openCreateAccount(context, data);
+                onPressed = () async => openCreateAccount(context, data!);
               }
 
               return FloatingActionButton(
@@ -108,18 +108,18 @@ class _HomeScreenFAB extends ConsumerWidget {
           );
 
   Future<void> openCreateAccount(
-          BuildContext context, AppCurrency data) async =>
+    BuildContext context,
+    CurrencyTableData data,
+  ) async =>
       showModalBottomSheet(
         context: context,
         isScrollControlled: true,
         useRootNavigator: true,
-        builder: (ctx) => SafeArea(
-          //TODO: Fix Later
-          // duration: fastGlobalAnimationDuration,
-          // curve: Curves.easeOut,
-          // padding: EdgeInsetsDirectional.only(
-          //   bottom: ctx.viewInsets.bottom,
-          // ),
+        builder: (ctx) => AnimatedPadding(
+          duration: fastGlobalAnimationDuration,
+          padding: EdgeInsetsDirectional.only(
+            bottom: ctx.viewInsets.bottom,
+          ),
           child: CreateAccountView(data),
         ),
       );

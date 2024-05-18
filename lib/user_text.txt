@@ -1,17 +1,4 @@
 abstract final class UserText {
-  //onboarding screen
-  static const onboardingPage1TitleText = 'Welcome To Kashflow';
-  static const onboardingPage1SubTitleText =
-      "Let's help you manage your finances";
-  static const onboardingPage2TitleText = 'Record Your Daily Transactions';
-  static const onboardingPage2SubTitleText =
-      '''Enter your daily transactions to find out how much you are making and spending.''';
-  static const onboardingPage3TitleText = 'Discover Your Finances';
-  static const onboardingPage3SubTitleText =
-      '''Indepth analysis of your money tells you where you can cut costs and increase income.''';
-  static const onboardingPage4TitleText = 'Know Your Networth';
-  static const onboardingPage4SubTitleText =
-      '''View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!''';
 
   //home screen
   static const homeNavBarHome = 'Home';

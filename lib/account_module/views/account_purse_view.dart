@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../src/shared/widgets/custom_progress_indicator.dart';
 import '../../src/app/currency/providers/currency_provider.dart';
 import '../../src/shared/modules/icons/icons.dart';
-import '../../user_text.dart.old';
 import '../account_provider.dart';
 import 'ui_functions.dart';
 
@@ -55,3 +54,4 @@ class _AddNewAccountButton extends ConsumerWidget {
             ),
           );
 }
+ */

@@ -3,12 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import '../../app/onboarding/views/home_screen.dart';
-import '../../../components/mobile_app_shell.dart';
+import '../../app/onboarding/views/mobile_app_shell.dart';
 import '../../app/onboarding/views/onboarding_screen.dart';
 import '../../app/onboarding/views/splashscreen.dart';
-import '../../../user_preferences_module/categories_management_screen.dart';
-import '../../../user_preferences_module/settings_screen.dart';
-
 import '../logging/log_handler.dart';
 import 'route_names.dart';
 
@@ -71,20 +68,20 @@ final _mainAppRoutes = <RouteBase>[
     parentNavigatorKey: _appNavBarNavigatorKey,
     builder: (context, state) => const SizedBox(),
   ),
-  GoRoute(
-    path: Routes.other,
-    name: Routes.other,
-    parentNavigatorKey: _appNavBarNavigatorKey,
-    routes: _settingsRoutes,
-    builder: (context, state) => const SettingsScreen(),
-  ),
+  // GoRoute(
+  //   path: Routes.other,
+  //   name: Routes.other,
+  //   parentNavigatorKey: _appNavBarNavigatorKey,
+  //   routes: _settingsRoutes,
+  //   builder: (context, state) => const SettingsScreen(),
+  // ),
 ];
 
 final _settingsRoutes = <RouteBase>[
-  GoRoute(
-    path: Routes.manageCategories,
-    name: Routes.manageCategories,
-    parentNavigatorKey: _rootNavigatorKey,
-    builder: (_, __) => const CategoriesManagementScreen(),
-  ),
+  // GoRoute(
+  //   path: Routes.manageCategories,
+  //   name: Routes.manageCategories,
+  //   parentNavigatorKey: _rootNavigatorKey,
+  //   builder: (_, __) => const CategoriesManagementScreen(),
+  // ),
 ];

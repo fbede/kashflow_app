@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 31
+/// Strings: 43
 ///
-/// Built on 2024-05-18 at 10:17 UTC
+/// Built on 2024-05-18 at 16:50 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -161,7 +161,6 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _TranslationsAccountModuleEn account_module = _TranslationsAccountModuleEn._(_root);
-	late final _TranslationsComponentsEn components = _TranslationsComponentsEn._(_root);
 	late final _TranslationsCurrencyModuleEn currency_module = _TranslationsCurrencyModuleEn._(_root);
 	late final _TranslationsOnboardingModuleEn onboarding_module = _TranslationsOnboardingModuleEn._(_root);
 	late final _TranslationsSharedEn shared = _TranslationsSharedEn._(_root);
@@ -183,16 +182,7 @@ class _TranslationsAccountModuleEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-}
-
-// Path: components
-class _TranslationsComponentsEn {
-	_TranslationsComponentsEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	late final _TranslationsComponentsCustomTextFieldsEn custom_text_fields = _TranslationsComponentsCustomTextFieldsEn._(_root);
+	late final _TranslationsAccountModuleCreateAccountViewEn create_account_view = _TranslationsAccountModuleCreateAccountViewEn._(_root);
 }
 
 // Path: currency_module
@@ -213,6 +203,7 @@ class _TranslationsOnboardingModuleEn {
 
 	// Translations
 	late final _TranslationsOnboardingModuleOnboardingScreenEn onboarding_screen = _TranslationsOnboardingModuleOnboardingScreenEn._(_root);
+	late final _TranslationsOnboardingModuleMobileAppShellEn mobile_app_shell = _TranslationsOnboardingModuleMobileAppShellEn._(_root);
 	late final _TranslationsOnboardingModuleHomeScreenEn home_screen = _TranslationsOnboardingModuleHomeScreenEn._(_root);
 }
 
@@ -223,6 +214,7 @@ class _TranslationsSharedEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final _TranslationsSharedIconModuleEn icon_module = _TranslationsSharedIconModuleEn._(_root);
 	late final _TranslationsSharedWidgetsEn widgets = _TranslationsSharedWidgetsEn._(_root);
 }
 
@@ -236,14 +228,17 @@ class _TranslationsRecordsEn {
 	String get title => 'Records';
 }
 
-// Path: components.custom_text_fields
-class _TranslationsComponentsCustomTextFieldsEn {
-	_TranslationsComponentsCustomTextFieldsEn._(this._root);
+// Path: account_module.create_account_view
+class _TranslationsAccountModuleCreateAccountViewEn {
+	_TranslationsAccountModuleCreateAccountViewEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get search => 'Search';
+	String get add_account => 'Add Account';
+	String get account_name => 'Account Name';
+	String get cancel => 'Cancel';
+	String get save => 'Save';
 }
 
 // Path: currency_module.picker
@@ -272,6 +267,18 @@ class _TranslationsOnboardingModuleOnboardingScreenEn {
 	String get currency_picker_title => 'Select Default Currency';
 }
 
+// Path: onboarding_module.mobile_app_shell
+class _TranslationsOnboardingModuleMobileAppShellEn {
+	_TranslationsOnboardingModuleMobileAppShellEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get nav_bar_home => 'Home';
+	String get nav_bar_records => 'Records';
+	String get nav_bar_settings => 'Settings';
+}
+
 // Path: onboarding_module.home_screen
 class _TranslationsOnboardingModuleHomeScreenEn {
 	_TranslationsOnboardingModuleHomeScreenEn._(this._root);
@@ -285,6 +292,17 @@ class _TranslationsOnboardingModuleHomeScreenEn {
 	String get balance => 'BALANCE';
 	String get net_worth => 'NET WORTH';
 	String get new_record => 'New Record';
+}
+
+// Path: shared.icon_module
+class _TranslationsSharedIconModuleEn {
+	_TranslationsSharedIconModuleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _TranslationsSharedIconModuleIconPickerEn icon_picker = _TranslationsSharedIconModuleIconPickerEn._(_root);
+	late final _TranslationsSharedIconModuleIconSelectorEn icon_selector = _TranslationsSharedIconModuleIconSelectorEn._(_root);
 }
 
 // Path: shared.widgets
@@ -352,6 +370,29 @@ class _TranslationsOnboardingModuleOnboardingScreen$pages$0i3$En with Onboarding
 	@override String get subtitle => 'View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!';
 }
 
+// Path: shared.icon_module.icon_picker
+class _TranslationsSharedIconModuleIconPickerEn {
+	_TranslationsSharedIconModuleIconPickerEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get select_icon => 'Select Icon';
+	String get search => 'Search';
+}
+
+// Path: shared.icon_module.icon_selector
+class _TranslationsSharedIconModuleIconSelectorEn {
+	_TranslationsSharedIconModuleIconSelectorEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get change_icon_color => 'Change Icon Color';
+	String get change_background_color => 'Change Background Color';
+	String get reset_colors => 'Reset Colors';
+}
+
 // Path: shared.widgets.custom_text_fields
 class _TranslationsSharedWidgetsCustomTextFieldsEn {
 	_TranslationsSharedWidgetsCustomTextFieldsEn._(this._root);
@@ -363,6 +404,7 @@ class _TranslationsSharedWidgetsCustomTextFieldsEn {
 	String get amount => 'Amount';
 	String get cannot_be_empty => 'Cannot Be Empty';
 	String get too_short => 'Too Short';
+	String get search => 'Search';
 }
 
 /// Flat map(s) containing all translations.
@@ -371,7 +413,10 @@ class _TranslationsSharedWidgetsCustomTextFieldsEn {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'components.custom_text_fields.search': return 'Search';
+			case 'account_module.create_account_view.add_account': return 'Add Account';
+			case 'account_module.create_account_view.account_name': return 'Account Name';
+			case 'account_module.create_account_view.cancel': return 'Cancel';
+			case 'account_module.create_account_view.save': return 'Save';
 			case 'currency_module.picker.dialog.saved_currencies': return 'Saved Currencies';
 			case 'currency_module.picker.dialog.other_currencies': return 'Other Currencies';
 			case 'onboarding_module.onboarding_screen.pages.0.title': return 'Welcome To Kashflow';
@@ -383,16 +428,25 @@ extension on Translations {
 			case 'onboarding_module.onboarding_screen.pages.3.title': return 'Know Your Networth';
 			case 'onboarding_module.onboarding_screen.pages.3.subtitle': return 'View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!';
 			case 'onboarding_module.onboarding_screen.currency_picker_title': return 'Select Default Currency';
+			case 'onboarding_module.mobile_app_shell.nav_bar_home': return 'Home';
+			case 'onboarding_module.mobile_app_shell.nav_bar_records': return 'Records';
+			case 'onboarding_module.mobile_app_shell.nav_bar_settings': return 'Settings';
 			case 'onboarding_module.home_screen.title': return 'Home';
 			case 'onboarding_module.home_screen.purse': return 'Purse';
 			case 'onboarding_module.home_screen.portfoilo': return 'Portfolio';
 			case 'onboarding_module.home_screen.balance': return 'BALANCE';
 			case 'onboarding_module.home_screen.net_worth': return 'NET WORTH';
 			case 'onboarding_module.home_screen.new_record': return 'New Record';
+			case 'shared.icon_module.icon_picker.select_icon': return 'Select Icon';
+			case 'shared.icon_module.icon_picker.search': return 'Search';
+			case 'shared.icon_module.icon_selector.change_icon_color': return 'Change Icon Color';
+			case 'shared.icon_module.icon_selector.change_background_color': return 'Change Background Color';
+			case 'shared.icon_module.icon_selector.reset_colors': return 'Reset Colors';
 			case 'shared.widgets.custom_text_fields.description': return 'Description';
 			case 'shared.widgets.custom_text_fields.amount': return 'Amount';
 			case 'shared.widgets.custom_text_fields.cannot_be_empty': return 'Cannot Be Empty';
 			case 'shared.widgets.custom_text_fields.too_short': return 'Too Short';
+			case 'shared.widgets.custom_text_fields.search': return 'Search';
 			case 'records.title': return 'Records';
 			case 'settings': return 'Settings';
 			case 'purse': return 'Purse';

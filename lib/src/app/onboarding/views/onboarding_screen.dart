@@ -85,9 +85,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       }
 
       await Future.wait([
-        ref.read(onboardingProvider.notifier).completeOnboarding(),
+        ref.read(onboardingProviderPresenter.notifier).completeOnboarding(),
         ref
-            .read(defaultCurrencyProvider.notifier)
+            .read(defaultCurrencyProviderPresenter.notifier)
             .setDefaultCurrency(defaultCurrency),
       ]);
 

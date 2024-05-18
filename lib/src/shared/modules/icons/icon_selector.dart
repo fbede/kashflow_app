@@ -3,8 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../../../components/color_picker.dart';
-import '../../../../shared/app_icon_data.dart';
-import '../../../../user_text.dart.old';
+import '../../../core/translations/translations.dart';
 import '../../extensions/build_context_extensions.dart';
 import 'icons.dart';
 
@@ -34,6 +33,7 @@ class _IconSelectorState extends State<IconSelector> {
     final backgroundColor = controller.backgroundColor;
     final defualtIconColor = context.colorScheme.onPrimaryContainer;
     final defaultBackgroundColor = context.colorScheme.primaryContainer;
+    final userText = context.t.shared.icon_module.icon_selector;
 
     return Row(
       children: [
@@ -62,7 +62,7 @@ class _IconSelectorState extends State<IconSelector> {
             children: [
               TextButton.icon(
                 onPressed: _onIconColorChanged,
-                label: const Text(UserText.changeIconColor),
+                label: Text(userText.change_icon_color),
                 icon: Padding(
                   padding: const EdgeInsets.all(4),
                   child: DecoratedBox(
@@ -76,7 +76,7 @@ class _IconSelectorState extends State<IconSelector> {
               ),
               TextButton.icon(
                 onPressed: _onBackgroundColorChanged,
-                label: const Text(UserText.changeBackgroundColor),
+                label: Text(userText.change_background_color),
                 icon: Padding(
                   padding: const EdgeInsets.all(4),
                   child: DecoratedBox(
@@ -89,7 +89,7 @@ class _IconSelectorState extends State<IconSelector> {
                 ),
               ),
               TextButton.icon(
-                label: const Text(UserText.resetColors),
+                label: Text(userText.reset_colors),
                 onPressed: _resetColors,
                 icon: Icon(
                   RemixIcons.error_warning_line,
@@ -134,12 +134,12 @@ class IconSelectorController extends ChangeNotifier {
     IconData? selectedIconData,
   }) : iconData = selectedIconData ?? _getRandomIconData();
 
-  factory IconSelectorController.fromIconData(AppIconData appIconData) =>
-      IconSelectorController(
-        iconColor: appIconData.iconColor,
-        backgroundColor: appIconData.backgroundColor,
-        selectedIconData: appIconData.iconData,
-      );
+  // factory IconSelectorController.fromIconData(AppIconData appIconData) =>
+  //     IconSelectorController(
+  //       iconColor: appIconData.iconColor,
+  //       backgroundColor: appIconData.backgroundColor,
+  //       selectedIconData: appIconData.iconData,
+  //     );
 
   IconData iconData;
   Color? iconColor;

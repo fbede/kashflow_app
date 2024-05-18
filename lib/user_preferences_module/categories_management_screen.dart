@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../user_text.dart.old';
 
 class CategoriesManagementScreen extends ConsumerStatefulWidget {
   const CategoriesManagementScreen({super.key});
@@ -78,3 +76,4 @@ class _CategoriesManagementScreenState
         ), */
       );
 }
+ */

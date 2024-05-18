@@ -11,7 +11,7 @@ import '../components/dialog_shell.dart';
 import '../components/icon_picker/icon_selector.dart';
 import '../shared/exception_handler.dart';
 import '../shared/responsive.dart';
-import '../ui_elements/user_text.dart';
+// import '../ui_elements/user_text.dart';
 import 'account_provider.dart';
 
 class OldAccountView extends ConsumerStatefulWidget {

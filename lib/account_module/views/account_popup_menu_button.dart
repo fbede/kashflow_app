@@ -4,9 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../src/shared/widgets/custom_progress_indicator.dart';
 import '../../src/shared/modules/icons/icons.dart';
 import '../../src/shared/extensions/build_context_extensions.dart';
-import '../../user_text.dart.old';
 import '../../src/app/accounts/models/account.dart';
-import '../account_provider.dart' hide Account;
+
 //import 'edit_account_view.dart.old';
 
 class AccountListTileMenuButton extends ConsumerStatefulWidget {
@@ -47,7 +46,10 @@ class _AccountListTileMenuButtonState
               children: [
                 Icon(RemixIcons.edit_2_line),
                 SizedBox(width: 8),
-                Text(UserText.edit),
+                Text(
+                  '',
+                  //UserText.edit
+                ),
               ],
             ),
           ),
@@ -58,7 +60,9 @@ class _AccountListTileMenuButtonState
               children: [
                 Icon(RemixIcons.delete_bin_6_line),
                 SizedBox(width: 8),
-                Text(UserText.delete),
+                Text(
+                  '', //UserText.delete
+                ),
               ],
             ),
           ),
@@ -93,8 +97,8 @@ class _AccountListTileMenuButtonState
     setState(() {});
 
 //TODO: Wrap with try catch
-    await ref
-        .watch(accountProvider.notifier)
-        .deleteAccount(widget.account.name);
+    // await ref
+    //     .watch(accountProvider.notifier)
+    //     .deleteAccount(widget.account.name);
   }
 }

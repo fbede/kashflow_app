@@ -1,41 +1,21 @@
 import 'package:flutter/material.dart';
 
 extension BuildContextExt on BuildContext {
-  EdgeInsets get viewInsets => MediaQuery.of(this).viewInsets;
-  double getScreenWidth() => MediaQuery.of(this).size.width;
+  EdgeInsets get viewInsets => MediaQuery.viewInsetsOf(this);
+  double getScreenWidth() => MediaQuery.sizeOf(this).width;
 
-  bool get isPhone => MediaQuery.of(this).size.width < 500;
+  bool get isPhone => MediaQuery.sizeOf(this).width < 600;
 
   bool get isTablet =>
-      MediaQuery.of(this).size.width > 500 &&
-      MediaQuery.of(this).size.width < 1100;
+      MediaQuery.sizeOf(this).width > 500 &&
+      MediaQuery.sizeOf(this).width < 840;
 
-  bool get isDesktop => MediaQuery.of(this).size.width > 1100;
+  bool get isDesktop => MediaQuery.sizeOf(this).width > 640;
 
-  Widget buildResponsiveScreen({
-    required Widget mobileScreen,
-    required Widget desktopScreen,
-    Widget? tabletScreen,
-  }) {
-    if (isPhone) {
-      return mobileScreen;
-    }
-
-    if (isTablet && tabletScreen != null) {
-      return tabletScreen;
-    }
-
-    return desktopScreen;
-  }
-}
-
-extension ThemeUtils on BuildContext {
   ThemeData get theme => Theme.of(this);
   ColorScheme get colorScheme => Theme.of(this).colorScheme;
   TextTheme get textTheme => Theme.of(this).textTheme;
-}
 
-extension OtherUtils on BuildContext {
   void showSnackBar(String text) {
     ScaffoldMessenger.of(this).showSnackBar(SnackBar(content: Text(text)));
   }

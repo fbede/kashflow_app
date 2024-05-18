@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../src/shared/modules/icons/icons.dart';
-import '../src/shared/extensions/build_context_extensions.dart';
-import '../src/core/routing/route_names.dart';
-import '../user_text.dart.old';
+import '../../../core/core.dart' hide Icon;
+import '../../../shared/extensions/build_context_extensions.dart';
+import '../../../shared/modules/icons/icons.dart';
 
 class MobileAppShell extends StatelessWidget {
   final Widget child;
@@ -14,6 +13,8 @@ class MobileAppShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final iconColor = context.theme.colorScheme.onPrimary;
+    final userText = context.t.onboarding_module.mobile_app_shell;
+
     return Scaffold(
       body: child,
       bottomNavigationBar: NavigationBar(
@@ -27,7 +28,7 @@ class MobileAppShell extends StatelessWidget {
               RemixIcons.home_2_fill,
               color: iconColor,
             ),
-            label: UserText.homeNavBarHome,
+            label: userText.nav_bar_home,
           ),
           NavigationDestination(
             icon: const Icon(RemixIcons.receipt_line),
@@ -35,7 +36,7 @@ class MobileAppShell extends StatelessWidget {
               RemixIcons.receipt_fill,
               color: iconColor,
             ),
-            label: UserText.homeNavBarRecords,
+            label: userText.nav_bar_records,
           ),
           NavigationDestination(
             icon: const Icon(RemixIcons.settings_4_line),
@@ -43,7 +44,7 @@ class MobileAppShell extends StatelessWidget {
               RemixIcons.settings_4_fill,
               color: iconColor,
             ),
-            label: UserText.homeNavBarSettings,
+            label: userText.nav_bar_settings,
           ),
         ],
       ),

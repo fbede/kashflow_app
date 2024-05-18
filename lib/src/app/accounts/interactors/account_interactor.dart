@@ -1,4 +1,4 @@
-import '../../../core/core.dart' hide Account;
+import '../../../core/core.dart';
 import '../accounts.dart';
 
 class AccountInteractor {

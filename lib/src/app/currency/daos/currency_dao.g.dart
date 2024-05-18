@@ -4,5 +4,5 @@ part of 'currency_dao.dart';
 
 // ignore_for_file: type=lint
 mixin _$CurrencyDaoMixin on DatabaseAccessor<LocalDB> {
-  $CurrencyTable get currency => attachedDatabase.currency;
+  $CurrencyTableTable get currencyTable => attachedDatabase.currencyTable;
 }
