@@ -44,6 +44,16 @@
       "new_record": "New Record"
     }
   },
+  "shared": {
+    "widgets": {
+      "custom_text_fields": {
+        "description": "Description",
+        "amount": "Amount",
+        "cannot_be_empty": "Cannot Be Empty",
+        "too_short": "Too Short"
+      }
+    }
+  },
   "records": {
     "title": "Records"
   },

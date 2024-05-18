@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:money2/money2.dart';
 
-import '../components/custom_text_fields.dart';
-import '../components/other_widgets.dart';
-import '../src/shared/extensions/build_context_extensions.dart';
-import '../src/core/logging/log_handler.dart';
-import '../user_text.dart';
-import 'currency.dart';
-import '../src/app/currency/providers/currency_provider.dart';
+import '../../../core/core.dart' hide Currency;
+import '../../../shared/shared.dart';
+import '../providers/providers.dart';
+import 'currency_card_tile.dart';
 
-Future<AppCurrency?> showCurrencyPicker(
+Future<Either<Currency, CurrencyData>?> showCurrencyPicker(
   BuildContext context,
   String titleString, {
   bool barrierDismissible = true,
 }) async {
-  AppCurrency? data;
+  Either<Currency, CurrencyData>? data;
 
   await showDialog<Widget>(
     context: context,
@@ -40,7 +38,7 @@ class CurrencyPickerDialog extends ConsumerStatefulWidget {
     super.key,
   });
 
-  final ValueChanged<AppCurrency> onTap;
+  final ValueChanged<Either<Currency, CurrencyData>> onTap;
   final String titleString;
 
   @override
@@ -69,43 +67,59 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
   }
 
   @override
-  Widget build(BuildContext context) => Dialog(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              const SizedBox(height: 16),
-              Text(
-                widget.titleString,
-                style: context.textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 8),
-              const Divider(height: 1),
-              Expanded(
-                child: CustomScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  slivers: [
-                    const _Subtitle(titleString: UserText.savedCurriences),
-                    _CurrencyList(
-                      dataProvider:
-                          ref.watch(savedCurrenciesProvider.call(searchTerm)),
-                      onTap: widget.onTap,
+  Widget build(BuildContext context) {
+    final subtitles = context.t.currency_module.picker.dialog;
+
+    return Dialog(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            Text(
+              widget.titleString,
+              style: context.textTheme.headlineSmall,
+            ),
+            const SizedBox(height: 8),
+            const Divider(height: 1),
+            Expanded(
+              child: CustomScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                slivers: [
+                  _Subtitle(titleString: subtitles.saved_currencies),
+                  ref.watch(savedCurrenciesProvider.call(searchTerm)).when(
+                        error: _buildErrorText,
+                        loading: _buildLoader,
+                        data: (data) => _CurrencyList(
+                          onTap: widget.onTap,
+                          dataProvider: Either.b(data),
+                        ),
+                      ),
+                  _Subtitle(titleString: subtitles.other_currencies),
+                  _CurrencyList(
+                    onTap: widget.onTap,
+                    dataProvider: Either.a(
+                      ref.watch(otherCurrenciesProvider.call(searchTerm)),
                     ),
-                    const _Subtitle(titleString: UserText.otherCurriences),
-                    _CurrencyList(
-                      dataProvider:
-                          ref.watch(otherCurrenciesProvider.call(searchTerm)),
-                      onTap: widget.onTap,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const Divider(height: 1),
-              _BottomSearchBar(controller: _controller),
-            ],
-          ),
+            ),
+            const Divider(height: 1),
+            _BottomSearchBar(controller: _controller),
+          ],
         ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _buildErrorText(Object e, StackTrace s) =>
+      SliverToBoxAdapter(
+        child: Text(e.toString(), textAlign: TextAlign.center),
       );
+
+  SliverToBoxAdapter _buildLoader() =>
+      const SliverToBoxAdapter(child: CustomProgressIndicator());
 }
 
 class _Subtitle extends StatelessWidget {
@@ -124,34 +138,43 @@ class _Subtitle extends StatelessWidget {
 class _CurrencyList extends StatelessWidget {
   const _CurrencyList({required this.onTap, required this.dataProvider});
 
-  final ValueChanged<AppCurrency> onTap;
-  final AsyncValue<List<AppCurrency>> dataProvider;
+  final ValueChanged<Either<Currency, CurrencyData>> onTap;
+  final Either<List<Currency>, List<CurrencyData>> dataProvider;
 
   @override
   Widget build(BuildContext context) => dataProvider.when(
-        error: (e, s) => SliverToBoxAdapter(
-          child: Text(e.toString(), textAlign: TextAlign.center),
+        a: (a) => SliverGrid.builder(
+          itemCount: a.length,
+          itemBuilder: (_, index) => CurrencyCardTile<Currency>(
+            onTap: (c) => onTap(Either.a(c)),
+            item: a[index],
+            code: a[index].isoCode,
+            symbol: a[index].symbol,
+            name: a[index].name,
+          ),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            maxCrossAxisExtent: 550,
+            mainAxisExtent: 48,
+          ),
         ),
-        loading: () =>
-            const SliverToBoxAdapter(child: CustomProgressIndicator()),
-        data: (data) {
-          talker.log(data.toString());
-          return SliverGrid.builder(
-            itemCount: data.length,
-            itemBuilder: (_, index) {
-              if (index == data.length) {
-                return const CustomProgressIndicator();
-              }
-              return data[index].buildCardTile(onTap: onTap);
-            },
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              maxCrossAxisExtent: 550,
-              mainAxisExtent: 48,
-            ),
-          );
-        },
+        b: (b) => SliverGrid.builder(
+          itemCount: b.length,
+          itemBuilder: (_, index) => CurrencyCardTile<CurrencyData>(
+            onTap: (c) => onTap(Either.b(c)),
+            item: b[index],
+            code: b[index].code,
+            symbol: b[index].symbol,
+            name: b[index].name,
+          ),
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            maxCrossAxisExtent: 550,
+            mainAxisExtent: 48,
+          ),
+        ),
       );
 }
 

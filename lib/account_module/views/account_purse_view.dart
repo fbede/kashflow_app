@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../components/other_widgets.dart';
+import '../../src/shared/widgets/custom_progress_indicator.dart';
 import '../../src/app/currency/providers/currency_provider.dart';
-import '../../icons_module/icons.dart';
-import '../../user_text.dart';
+import '../../src/shared/modules/icons/icons.dart';
+import '../../user_text.dart.old';
 import '../account_provider.dart';
 import 'ui_functions.dart';
 

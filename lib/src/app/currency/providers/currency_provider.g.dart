@@ -7,7 +7,7 @@ part of 'currency_provider.dart';
 // **************************************************************************
 
 String _$savedCurrenciesProviderHash() =>
-    r'b083cb16430be863532629fbbe9273d3bcf064f5';
+    r'7777fc8ddcaef58ae51e6a54c4607625d306ca26';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -43,7 +43,7 @@ class SavedCurrenciesProviderFamily
   /// See also [savedCurrenciesProvider].
   SavedCurrenciesProviderProvider call(
     String searchTerm, {
-    LocalCurrencyInteractor? currencyInteractor,
+    CurrencyInteractor? currencyInteractor,
   }) {
     return SavedCurrenciesProviderProvider(
       searchTerm,
@@ -82,7 +82,7 @@ class SavedCurrenciesProviderProvider
   /// See also [savedCurrenciesProvider].
   SavedCurrenciesProviderProvider(
     String searchTerm, {
-    LocalCurrencyInteractor? currencyInteractor,
+    CurrencyInteractor? currencyInteractor,
   }) : this._internal(
           (ref) => savedCurrenciesProvider(
             ref as SavedCurrenciesProviderRef,
@@ -114,7 +114,7 @@ class SavedCurrenciesProviderProvider
   }) : super.internal();
 
   final String searchTerm;
-  final LocalCurrencyInteractor? currencyInteractor;
+  final CurrencyInteractor? currencyInteractor;
 
   @override
   Override overrideWith(
@@ -164,7 +164,7 @@ mixin SavedCurrenciesProviderRef
   String get searchTerm;
 
   /// The parameter `currencyInteractor` of this provider.
-  LocalCurrencyInteractor? get currencyInteractor;
+  CurrencyInteractor? get currencyInteractor;
 }
 
 class _SavedCurrenciesProviderProviderElement
@@ -176,26 +176,26 @@ class _SavedCurrenciesProviderProviderElement
   String get searchTerm =>
       (origin as SavedCurrenciesProviderProvider).searchTerm;
   @override
-  LocalCurrencyInteractor? get currencyInteractor =>
+  CurrencyInteractor? get currencyInteractor =>
       (origin as SavedCurrenciesProviderProvider).currencyInteractor;
 }
 
 String _$otherCurrenciesProviderHash() =>
-    r'1c2b53c8758bdfb4c04889003a69b6614ce76e05';
+    r'61a2b3ed4bfddc59332c4557a4d09a429d70a989';
 
 /// See also [otherCurrenciesProvider].
 @ProviderFor(otherCurrenciesProvider)
 const otherCurrenciesProvider = OtherCurrenciesProviderFamily();
 
 /// See also [otherCurrenciesProvider].
-class OtherCurrenciesProviderFamily extends Family<List<money2.Currency>> {
+class OtherCurrenciesProviderFamily extends Family<List<Currency>> {
   /// See also [otherCurrenciesProvider].
   const OtherCurrenciesProviderFamily();
 
   /// See also [otherCurrenciesProvider].
   OtherCurrenciesProviderProvider call(
     String searchTerm, {
-    LocalCurrencyInteractor? currencyInteractor,
+    CurrencyInteractor? currencyInteractor,
   }) {
     return OtherCurrenciesProviderProvider(
       searchTerm,
@@ -230,11 +230,11 @@ class OtherCurrenciesProviderFamily extends Family<List<money2.Currency>> {
 
 /// See also [otherCurrenciesProvider].
 class OtherCurrenciesProviderProvider
-    extends AutoDisposeProvider<List<money2.Currency>> {
+    extends AutoDisposeProvider<List<Currency>> {
   /// See also [otherCurrenciesProvider].
   OtherCurrenciesProviderProvider(
     String searchTerm, {
-    LocalCurrencyInteractor? currencyInteractor,
+    CurrencyInteractor? currencyInteractor,
   }) : this._internal(
           (ref) => otherCurrenciesProvider(
             ref as OtherCurrenciesProviderRef,
@@ -266,11 +266,11 @@ class OtherCurrenciesProviderProvider
   }) : super.internal();
 
   final String searchTerm;
-  final LocalCurrencyInteractor? currencyInteractor;
+  final CurrencyInteractor? currencyInteractor;
 
   @override
   Override overrideWith(
-    List<money2.Currency> Function(OtherCurrenciesProviderRef provider) create,
+    List<Currency> Function(OtherCurrenciesProviderRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
@@ -288,7 +288,7 @@ class OtherCurrenciesProviderProvider
   }
 
   @override
-  AutoDisposeProviderElement<List<money2.Currency>> createElement() {
+  AutoDisposeProviderElement<List<Currency>> createElement() {
     return _OtherCurrenciesProviderProviderElement(this);
   }
 
@@ -309,17 +309,16 @@ class OtherCurrenciesProviderProvider
   }
 }
 
-mixin OtherCurrenciesProviderRef
-    on AutoDisposeProviderRef<List<money2.Currency>> {
+mixin OtherCurrenciesProviderRef on AutoDisposeProviderRef<List<Currency>> {
   /// The parameter `searchTerm` of this provider.
   String get searchTerm;
 
   /// The parameter `currencyInteractor` of this provider.
-  LocalCurrencyInteractor? get currencyInteractor;
+  CurrencyInteractor? get currencyInteractor;
 }
 
 class _OtherCurrenciesProviderProviderElement
-    extends AutoDisposeProviderElement<List<money2.Currency>>
+    extends AutoDisposeProviderElement<List<Currency>>
     with OtherCurrenciesProviderRef {
   _OtherCurrenciesProviderProviderElement(super.provider);
 
@@ -327,157 +326,26 @@ class _OtherCurrenciesProviderProviderElement
   String get searchTerm =>
       (origin as OtherCurrenciesProviderProvider).searchTerm;
   @override
-  LocalCurrencyInteractor? get currencyInteractor =>
+  CurrencyInteractor? get currencyInteractor =>
       (origin as OtherCurrenciesProviderProvider).currencyInteractor;
 }
 
 String _$defaultCurrencyProviderHash() =>
-    r'7d4db737c7f61d464b195cf03dc9015baf1d9cd6';
-
-abstract class _$DefaultCurrencyProvider
-    extends BuildlessAutoDisposeAsyncNotifier<CurrencyData?> {
-  late final LocalCurrencyInteractor? interactor;
-
-  FutureOr<CurrencyData?> build({
-    LocalCurrencyInteractor? interactor,
-  });
-}
+    r'06ac0ac4ef0a4773642e3f6a607a0cee2814eadd';
 
 /// See also [DefaultCurrencyProvider].
 @ProviderFor(DefaultCurrencyProvider)
-const defaultCurrencyProvider = DefaultCurrencyProviderFamily();
+final defaultCurrencyProvider = AutoDisposeAsyncNotifierProvider<
+    DefaultCurrencyProvider, CurrencyData?>.internal(
+  DefaultCurrencyProvider.new,
+  name: r'defaultCurrencyProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$defaultCurrencyProviderHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// See also [DefaultCurrencyProvider].
-class DefaultCurrencyProviderFamily extends Family<AsyncValue<CurrencyData?>> {
-  /// See also [DefaultCurrencyProvider].
-  const DefaultCurrencyProviderFamily();
-
-  /// See also [DefaultCurrencyProvider].
-  DefaultCurrencyProviderProvider call({
-    LocalCurrencyInteractor? interactor,
-  }) {
-    return DefaultCurrencyProviderProvider(
-      interactor: interactor,
-    );
-  }
-
-  @override
-  DefaultCurrencyProviderProvider getProviderOverride(
-    covariant DefaultCurrencyProviderProvider provider,
-  ) {
-    return call(
-      interactor: provider.interactor,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'defaultCurrencyProvider';
-}
-
-/// See also [DefaultCurrencyProvider].
-class DefaultCurrencyProviderProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<DefaultCurrencyProvider,
-        CurrencyData?> {
-  /// See also [DefaultCurrencyProvider].
-  DefaultCurrencyProviderProvider({
-    LocalCurrencyInteractor? interactor,
-  }) : this._internal(
-          () => DefaultCurrencyProvider()..interactor = interactor,
-          from: defaultCurrencyProvider,
-          name: r'defaultCurrencyProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$defaultCurrencyProviderHash,
-          dependencies: DefaultCurrencyProviderFamily._dependencies,
-          allTransitiveDependencies:
-              DefaultCurrencyProviderFamily._allTransitiveDependencies,
-          interactor: interactor,
-        );
-
-  DefaultCurrencyProviderProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.interactor,
-  }) : super.internal();
-
-  final LocalCurrencyInteractor? interactor;
-
-  @override
-  FutureOr<CurrencyData?> runNotifierBuild(
-    covariant DefaultCurrencyProvider notifier,
-  ) {
-    return notifier.build(
-      interactor: interactor,
-    );
-  }
-
-  @override
-  Override overrideWith(DefaultCurrencyProvider Function() create) {
-    return ProviderOverride(
-      origin: this,
-      override: DefaultCurrencyProviderProvider._internal(
-        () => create()..interactor = interactor,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        interactor: interactor,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeAsyncNotifierProviderElement<DefaultCurrencyProvider,
-      CurrencyData?> createElement() {
-    return _DefaultCurrencyProviderProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is DefaultCurrencyProviderProvider &&
-        other.interactor == interactor;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, interactor.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin DefaultCurrencyProviderRef
-    on AutoDisposeAsyncNotifierProviderRef<CurrencyData?> {
-  /// The parameter `interactor` of this provider.
-  LocalCurrencyInteractor? get interactor;
-}
-
-class _DefaultCurrencyProviderProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<DefaultCurrencyProvider,
-        CurrencyData?> with DefaultCurrencyProviderRef {
-  _DefaultCurrencyProviderProviderElement(super.provider);
-
-  @override
-  LocalCurrencyInteractor? get interactor =>
-      (origin as DefaultCurrencyProviderProvider).interactor;
-}
+typedef _$DefaultCurrencyProvider = AutoDisposeAsyncNotifier<CurrencyData?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

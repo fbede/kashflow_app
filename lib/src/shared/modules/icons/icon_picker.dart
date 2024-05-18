@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../src/shared/extensions/build_context_extensions.dart';
-import '../user_text.dart';
+import '../../extensions/build_context_extensions.dart';
+import '../../../../user_text.dart.old';
 import 'icon_picker_provider.dart';
 import 'icons.dart';
 

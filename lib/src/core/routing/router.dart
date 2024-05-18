@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-import '../../../onboarding_module/home_screen.dart';
+import '../../app/onboarding/views/home_screen.dart';
 import '../../../components/mobile_app_shell.dart';
 import '../../app/onboarding/views/onboarding_screen.dart';
 import '../../app/onboarding/views/splashscreen.dart';

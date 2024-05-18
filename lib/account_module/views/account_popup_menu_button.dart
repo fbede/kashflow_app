@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../components/other_widgets.dart';
-import '../../icons_module/icons.dart';
+import '../../src/shared/widgets/custom_progress_indicator.dart';
+import '../../src/shared/modules/icons/icons.dart';
 import '../../src/shared/extensions/build_context_extensions.dart';
-import '../../user_text.dart';
-import '../account.dart';
+import '../../user_text.dart.old';
+import '../../src/app/accounts/models/account.dart';
 import '../account_provider.dart' hide Account;
 //import 'edit_account_view.dart.old';
 

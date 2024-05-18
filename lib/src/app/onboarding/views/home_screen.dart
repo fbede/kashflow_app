@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../account_module/account_provider.dart';
-import '../account_module/views/account_purse_view.dart';
-import '../account_module/views/ui_functions.dart';
-import '../components/fade_on_scroll.dart';
-import '../components/other_widgets.dart';
-import '../src/app/currency/providers/currency_provider.dart';
-import '../i18n/translations.g.dart';
-import '../icons_module/icons.dart';
-import '../src/shared/extensions/build_context_extensions.dart';
-import '../src/core/theming/app_theme.dart';
+import '../../../core/core.dart' hide Icon;
+import '../../../shared/shared.dart';
+import '../../app.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -55,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               child: TabBarView(
                 controller: _tabController,
                 children: const [
-                  AccountPurseView(),
-                  UnderConstructionWidget(),
+                  SizedBox.expand(), // AccountPurseView(),
+                  SizedBox.expand(),
                 ],
               ),
             ),
@@ -113,6 +106,23 @@ class _HomeScreenFAB extends ConsumerWidget {
               );
             },
           );
+
+  Future<void> openCreateAccount(
+          BuildContext context, AppCurrency data) async =>
+      showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        useRootNavigator: true,
+        builder: (ctx) => SafeArea(
+          //TODO: Fix Later
+          // duration: fastGlobalAnimationDuration,
+          // curve: Curves.easeOut,
+          // padding: EdgeInsetsDirectional.only(
+          //   bottom: ctx.viewInsets.bottom,
+          // ),
+          child: CreateAccountView(data),
+        ),
+      );
 }
 
 class _HomeAppBar extends StatelessWidget {

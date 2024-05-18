@@ -1,1 +1,1 @@
-export 'local_currency_dao.dart';
+export 'currency_dao.dart';

@@ -5,21 +5,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:money2/money2.dart';
 
-import '../../components/custom_controllers.dart';
-import '../../components/custom_text_fields.dart';
-import '../../components/other_widgets.dart';
-import '../../currency_module/currency.dart';
-import '../../icons_module/icon_selector.dart';
-import '../../src/shared/extensions/build_context_extensions.dart';
-import '../../src/core/logging/log_handler.dart';
-import '../../user_text.dart';
-import '../account.dart';
-import '../account_provider.dart' hide Account;
+import '../../../../components/custom_controllers.dart';
+
+import '../../../../user_text.dart.old';
+import '../../../core/core.dart';
+import '../../../shared/shared.dart';
+import '../models/account.dart';
 
 class CreateAccountView extends ConsumerStatefulWidget {
-  const CreateAccountView(this.defaultCurrency,
+  const CreateAccountView(this.defaultCurrencyData,
       {this.scrollController, super.key});
-  final AppCurrency defaultCurrency;
+  final CurrencyData defaultCurrencyData;
   final ScrollController? scrollController;
 
   @override
@@ -41,7 +37,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   @override
   void initState() {
     super.initState();
-    _appCurrencyController = AppCurrencyController(widget.defaultCurrency);
+    _appCurrencyController = AppCurrencyController(widget.defaultCurrencyData);
     _appCurrencyController.addListener(
       () => _currencyTextController.text = _appCurrencyController.text,
     );
@@ -87,10 +83,10 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
                 controller: _accountNameController,
               ),
               const SizedBox(height: 8),
-              CurrencyFormField(
-                appCurrencyController: _appCurrencyController,
-                textController: _currencyTextController,
-              ),
+              // CurrencyFormField(
+              //   appCurrencyController: _appCurrencyController,
+              //   textController: _currencyTextController,
+              // ),
               const SizedBox(height: 16),
               MoneyAmountFormField(controller: _amountController),
               const SizedBox(height: 16),

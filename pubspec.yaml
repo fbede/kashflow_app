@@ -44,7 +44,6 @@ dependency_overrides:
 
 dev_dependencies:
   all_lint_rules_community: ^0.0.31
-  barreler: ^1.1.4
   build_runner: null
   custom_lint: null
   dart_define: ^2.1.1

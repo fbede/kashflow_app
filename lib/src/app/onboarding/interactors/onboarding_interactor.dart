@@ -1,3 +1,4 @@
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../shared/shared.dart';
@@ -5,7 +6,8 @@ import '../../../shared/shared.dart';
 class OnboardingInteractor {
   final SharedPreferences _prefs;
 
-  OnboardingInteractor({required SharedPreferences prefs}) : _prefs = prefs;
+  OnboardingInteractor({SharedPreferences? prefs})
+      : _prefs = prefs ?? GetIt.I<SharedPreferences>();
 
   bool get isOnboardingComplete =>
       _prefs.getBool(PrefKeys.hasOnboarded) ?? false;

@@ -6,15 +6,15 @@ import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:vlsid/vlsid.dart';
 
+import '../../app/app.dart';
 import '../core.dart';
-import 'type_converters/type_converters.dart';
 
 part 'local_db.g.dart';
 part 'local_db.tables.dart';
 
 @DriftDatabase(
-  tables: [AccountTable, Currency, IconTable],
-//  daos: [LocalCurrencyDao, LocalAccountsDao],
+  tables: [Account, Currency, Icon],
+  daos: [CurrencyDao, AccountDao],
 )
 class LocalDB extends _$LocalDB {
   static late final LocalDB _instance;

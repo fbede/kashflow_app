@@ -6,7 +6,7 @@ import 'icons_map.dart';
 part 'icon_picker_provider.g.dart';
 
 @riverpod
-class IconPicker extends _$IconPicker {
+class IconPickerProvider extends _$IconPickerProvider {
   @override
   List<IconData> build(String searchTerm) {
     final tempResult = _searchIconInList(searchTerm, remixIconsMap.keys);

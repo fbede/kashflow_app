@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 27
+/// Strings: 31
 ///
-/// Built on 2024-05-18 at 02:45 UTC
+/// Built on 2024-05-18 at 10:17 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -164,6 +164,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _TranslationsComponentsEn components = _TranslationsComponentsEn._(_root);
 	late final _TranslationsCurrencyModuleEn currency_module = _TranslationsCurrencyModuleEn._(_root);
 	late final _TranslationsOnboardingModuleEn onboarding_module = _TranslationsOnboardingModuleEn._(_root);
+	late final _TranslationsSharedEn shared = _TranslationsSharedEn._(_root);
 	late final _TranslationsRecordsEn records = _TranslationsRecordsEn._(_root);
 	String get settings => 'Settings';
 	String get purse => 'Purse';
@@ -213,6 +214,16 @@ class _TranslationsOnboardingModuleEn {
 	// Translations
 	late final _TranslationsOnboardingModuleOnboardingScreenEn onboarding_screen = _TranslationsOnboardingModuleOnboardingScreenEn._(_root);
 	late final _TranslationsOnboardingModuleHomeScreenEn home_screen = _TranslationsOnboardingModuleHomeScreenEn._(_root);
+}
+
+// Path: shared
+class _TranslationsSharedEn {
+	_TranslationsSharedEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _TranslationsSharedWidgetsEn widgets = _TranslationsSharedWidgetsEn._(_root);
 }
 
 // Path: records
@@ -276,6 +287,16 @@ class _TranslationsOnboardingModuleHomeScreenEn {
 	String get new_record => 'New Record';
 }
 
+// Path: shared.widgets
+class _TranslationsSharedWidgetsEn {
+	_TranslationsSharedWidgetsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _TranslationsSharedWidgetsCustomTextFieldsEn custom_text_fields = _TranslationsSharedWidgetsCustomTextFieldsEn._(_root);
+}
+
 // Path: currency_module.picker.dialog
 class _TranslationsCurrencyModulePickerDialogEn {
 	_TranslationsCurrencyModulePickerDialogEn._(this._root);
@@ -331,6 +352,19 @@ class _TranslationsOnboardingModuleOnboardingScreen$pages$0i3$En with Onboarding
 	@override String get subtitle => 'View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!';
 }
 
+// Path: shared.widgets.custom_text_fields
+class _TranslationsSharedWidgetsCustomTextFieldsEn {
+	_TranslationsSharedWidgetsCustomTextFieldsEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get description => 'Description';
+	String get amount => 'Amount';
+	String get cannot_be_empty => 'Cannot Be Empty';
+	String get too_short => 'Too Short';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -355,6 +389,10 @@ extension on Translations {
 			case 'onboarding_module.home_screen.balance': return 'BALANCE';
 			case 'onboarding_module.home_screen.net_worth': return 'NET WORTH';
 			case 'onboarding_module.home_screen.new_record': return 'New Record';
+			case 'shared.widgets.custom_text_fields.description': return 'Description';
+			case 'shared.widgets.custom_text_fields.amount': return 'Amount';
+			case 'shared.widgets.custom_text_fields.cannot_be_empty': return 'Cannot Be Empty';
+			case 'shared.widgets.custom_text_fields.too_short': return 'Too Short';
 			case 'records.title': return 'Records';
 			case 'settings': return 'Settings';
 			case 'purse': return 'Purse';

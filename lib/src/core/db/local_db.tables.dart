@@ -18,8 +18,8 @@ class Currency extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-class IconTable extends Table {
-  TextColumn get id => text()();
+class Icon extends Table {
+  TextColumn get id => text().clientDefault(_vlsid.nextId)();
   IntColumn get codePoint => integer()();
   TextColumn get fontFamily => text().nullable()();
   TextColumn get fontPackage => text().nullable()();
@@ -33,8 +33,8 @@ class IconTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-class AccountTable extends Table {
-  TextColumn get id => text().references(IconTable, #id)();
+class Account extends Table {
+  TextColumn get id => text().references(Icon, #id)();
   TextColumn get name => text().withLength(min: 3, max: 25).unique()();
   TextColumn get currency => text().references(Currency, #id)();
   TextColumn get description => text().withLength(max: 100)();

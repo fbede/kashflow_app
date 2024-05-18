@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/icons_module/icons.dart';
-import 'package:kashflow/onboarding_module/home_screen.dart';
+import 'package:kashflow/src/shared/modules/icons/icons.dart';
+import 'package:kashflow/src/app/onboarding/views/home_screen.dart';
 import 'package:kashflow/shared/keys.dart';
 import 'package:kashflow/src/core/routing/route_names.dart';
 import 'package:kashflow/src/core/routing/router.dart';

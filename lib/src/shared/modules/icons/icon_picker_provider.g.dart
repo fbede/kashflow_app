@@ -6,7 +6,8 @@ part of 'icon_picker_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$iconPickerHash() => r'a162696ec579e09882960e81108f2b21fbf88d17';
+String _$iconPickerProviderHash() =>
+    r'd72c4c219dccfd0f7484b0a07accd503f8f9771a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,7 +30,7 @@ class _SystemHash {
   }
 }
 
-abstract class _$IconPicker
+abstract class _$IconPickerProvider
     extends BuildlessAutoDisposeNotifier<List<IconData>> {
   late final String searchTerm;
 
@@ -38,27 +39,27 @@ abstract class _$IconPicker
   );
 }
 
-/// See also [IconPicker].
-@ProviderFor(IconPicker)
-const iconPicker = IconPickerFamily();
+/// See also [IconPickerProvider].
+@ProviderFor(IconPickerProvider)
+const iconPickerProvider = IconPickerProviderFamily();
 
-/// See also [IconPicker].
-class IconPickerFamily extends Family<List<IconData>> {
-  /// See also [IconPicker].
-  const IconPickerFamily();
+/// See also [IconPickerProvider].
+class IconPickerProviderFamily extends Family<List<IconData>> {
+  /// See also [IconPickerProvider].
+  const IconPickerProviderFamily();
 
-  /// See also [IconPicker].
-  IconPickerProvider call(
+  /// See also [IconPickerProvider].
+  IconPickerProviderProvider call(
     String searchTerm,
   ) {
-    return IconPickerProvider(
+    return IconPickerProviderProvider(
       searchTerm,
     );
   }
 
   @override
-  IconPickerProvider getProviderOverride(
-    covariant IconPickerProvider provider,
+  IconPickerProviderProvider getProviderOverride(
+    covariant IconPickerProviderProvider provider,
   ) {
     return call(
       provider.searchTerm,
@@ -77,30 +78,30 @@ class IconPickerFamily extends Family<List<IconData>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'iconPicker';
+  String? get name => r'iconPickerProvider';
 }
 
-/// See also [IconPicker].
-class IconPickerProvider
-    extends AutoDisposeNotifierProviderImpl<IconPicker, List<IconData>> {
-  /// See also [IconPicker].
-  IconPickerProvider(
+/// See also [IconPickerProvider].
+class IconPickerProviderProvider extends AutoDisposeNotifierProviderImpl<
+    IconPickerProvider, List<IconData>> {
+  /// See also [IconPickerProvider].
+  IconPickerProviderProvider(
     String searchTerm,
   ) : this._internal(
-          () => IconPicker()..searchTerm = searchTerm,
-          from: iconPicker,
-          name: r'iconPicker',
+          () => IconPickerProvider()..searchTerm = searchTerm,
+          from: iconPickerProvider,
+          name: r'iconPickerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$iconPickerHash,
-          dependencies: IconPickerFamily._dependencies,
+                  : _$iconPickerProviderHash,
+          dependencies: IconPickerProviderFamily._dependencies,
           allTransitiveDependencies:
-              IconPickerFamily._allTransitiveDependencies,
+              IconPickerProviderFamily._allTransitiveDependencies,
           searchTerm: searchTerm,
         );
 
-  IconPickerProvider._internal(
+  IconPickerProviderProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -114,7 +115,7 @@ class IconPickerProvider
 
   @override
   List<IconData> runNotifierBuild(
-    covariant IconPicker notifier,
+    covariant IconPickerProvider notifier,
   ) {
     return notifier.build(
       searchTerm,
@@ -122,10 +123,10 @@ class IconPickerProvider
   }
 
   @override
-  Override overrideWith(IconPicker Function() create) {
+  Override overrideWith(IconPickerProvider Function() create) {
     return ProviderOverride(
       origin: this,
-      override: IconPickerProvider._internal(
+      override: IconPickerProviderProvider._internal(
         () => create()..searchTerm = searchTerm,
         from: from,
         name: null,
@@ -138,14 +139,15 @@ class IconPickerProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<IconPicker, List<IconData>>
+  AutoDisposeNotifierProviderElement<IconPickerProvider, List<IconData>>
       createElement() {
-    return _IconPickerProviderElement(this);
+    return _IconPickerProviderProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is IconPickerProvider && other.searchTerm == searchTerm;
+    return other is IconPickerProviderProvider &&
+        other.searchTerm == searchTerm;
   }
 
   @override
@@ -157,18 +159,18 @@ class IconPickerProvider
   }
 }
 
-mixin IconPickerRef on AutoDisposeNotifierProviderRef<List<IconData>> {
+mixin IconPickerProviderRef on AutoDisposeNotifierProviderRef<List<IconData>> {
   /// The parameter `searchTerm` of this provider.
   String get searchTerm;
 }
 
-class _IconPickerProviderElement
-    extends AutoDisposeNotifierProviderElement<IconPicker, List<IconData>>
-    with IconPickerRef {
-  _IconPickerProviderElement(super.provider);
+class _IconPickerProviderProviderElement
+    extends AutoDisposeNotifierProviderElement<IconPickerProvider,
+        List<IconData>> with IconPickerProviderRef {
+  _IconPickerProviderProviderElement(super.provider);
 
   @override
-  String get searchTerm => (origin as IconPickerProvider).searchTerm;
+  String get searchTerm => (origin as IconPickerProviderProvider).searchTerm;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

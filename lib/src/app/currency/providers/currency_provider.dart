@@ -1,8 +1,9 @@
-import 'package:money2/money2.dart' as money2;
+import 'package:money2/money2.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../core/core.dart';
-import '../interactors/local_currency_interactor.dart';
+import '../../../core/core.dart' hide Currency;
+import '../../../shared/shared.dart';
+import '../interactors/currency_interactor.dart';
 
 part 'currency_provider.g.dart';
 
@@ -10,35 +11,38 @@ part 'currency_provider.g.dart';
 Stream<List<CurrencyData>> savedCurrenciesProvider(
   SavedCurrenciesProviderRef ref,
   String searchTerm, {
-  LocalCurrencyInteractor? currencyInteractor,
+  CurrencyInteractor? currencyInteractor,
 }) async* {
-  final interactor = currencyInteractor ?? LocalCurrencyInteractor();
+  final interactor = currencyInteractor ?? CurrencyInteractor();
   yield* interactor.watchSavedCurrencies(searchTerm);
 }
 
 @riverpod
-List<money2.Currency> otherCurrenciesProvider(
+List<Currency> otherCurrenciesProvider(
   OtherCurrenciesProviderRef ref,
   String searchTerm, {
-  LocalCurrencyInteractor? currencyInteractor,
+  CurrencyInteractor? currencyInteractor,
 }) {
-  final interactor = currencyInteractor ?? LocalCurrencyInteractor();
+  final interactor = currencyInteractor ?? CurrencyInteractor();
   return interactor.otherCurrencies(searchTerm);
 }
 
 @riverpod
 class DefaultCurrencyProvider extends _$DefaultCurrencyProvider {
-  late final LocalCurrencyInteractor _interactor;
+  final CurrencyInteractor _interactor;
+
+  DefaultCurrencyProvider({CurrencyInteractor? interactor})
+      : _interactor = interactor ?? CurrencyInteractor();
 
   @override
-  Future<CurrencyData?> build({LocalCurrencyInteractor? interactor}) async {
-    _interactor = interactor ?? LocalCurrencyInteractor();
-    return _interactor.defaultCurrency;
-  }
+  Future<CurrencyData?> build() async => _interactor.defaultCurrency;
 
-  Future<void> setDefaultCurrency(String currencyId) async {
+  Future<void> setDefaultCurrency(
+    Either<Currency, CurrencyData> defaultCurrency,
+  ) async {
     try {
-      state = AsyncValue.data(await _interactor.setDefaultCurrency(currencyId));
+      final currecyData = await _interactor.setDefaultCurrency(defaultCurrency);
+      state = AsyncValue.data(currecyData);
     } on Exception {
       rethrow;
     }

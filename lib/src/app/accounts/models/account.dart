@@ -1,0 +1,44 @@
+import 'package:money2/money2.dart';
+
+import '../../../core/core.dart';
+import '../../currency/currency.dart';
+
+class Account {
+  final String id;
+  final String name;
+  final String description;
+  final String currencyId;
+  final IconData iconData;
+  final Money openingBalance;
+
+  Account({
+    required AccountData accountData,
+    required CurrencyData currencyData,
+    required this.iconData,
+  })  : id = accountData.id,
+        name = accountData.name,
+        description = accountData.description,
+        currencyId = currencyData.id,
+        openingBalance = Money.fromBigIntWithCurrency(
+          accountData.openingBalance,
+          currencyData.currency,
+        );
+
+  AccountCompanion get companion => AccountCompanion.insert(
+        id: id,
+        name: name,
+        currency: currencyId,
+        description: description,
+        openingBalance: openingBalance.minorUnits,
+      );
+
+  @override
+  String toString() => '''
+\n
+Account:
+  id:$id
+  name: $name
+  currencyId: $currencyId
+  openingBalance: $openingBalance
+  \n''';
+}

@@ -1,15 +1,16 @@
 import 'package:drift/drift.dart';
+import 'package:money2/money2.dart' as money2;
 
 import '../../../core/core.dart';
+import '../extensions/currency_extension.dart';
 
-part 'local_currency_dao.g.dart';
+part 'currency_dao.g.dart';
 
 //TODO: Clear comments
 
 @DriftAccessor(tables: [Currency])
-class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
-    with _$LocalCurrencyDaoMixin {
-  LocalCurrencyDao(super.attachedDatabase);
+class CurrencyDao extends DatabaseAccessor<LocalDB> with _$CurrencyDaoMixin {
+  CurrencyDao(super.attachedDatabase);
 
   Stream<List<CurrencyData>> watchCurrencies(String searchTerm) async* {
     try {
@@ -47,6 +48,19 @@ class LocalCurrencyDao extends DatabaseAccessor<LocalDB>
           .currency
           .filter((f) => f.id.equals(id))
           .getSingle();
+    } on Exception catch (e, s) {
+      talker.handle(e, s);
+      rethrow;
+    }
+  }
+
+  Future<CurrencyData> saveCurrency(money2.Currency currency) async {
+    try {
+      return await super
+          .attachedDatabase
+          .managers
+          .currency
+          .createReturning((o) => currency.companion);
     } on Exception catch (e, s) {
       talker.handle(e, s);
       rethrow;

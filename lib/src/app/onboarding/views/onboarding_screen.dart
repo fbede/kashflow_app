@@ -4,18 +4,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../../currency_module/currency_picker_dialog.dart';
-import '../../currency/providers/currency_provider.dart';
-import '../../../../icons_module/icons.dart';
-import '../../../../shared/app_color_mapper.dart';
-import '../../../core/core.dart';
-import '../../../shared/extensions/build_context_extensions.dart';
-import '../interactors/onboarding_interactor.dart';
+import '../../../core/core.dart' hide Icon;
+import '../../../shared/shared.dart';
+import '../../currency/currency.dart';
+import '../providers/onboarding_provider.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -29,10 +24,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _curve = Curves.linear;
   final _maxIndex = 3;
   final _minIndex = 0;
-  final _prefs = GetIt.I<SharedPreferences>();
 
   late final _controller = PageController();
-  late final _onboardingService = OnboardingInteractor(prefs: _prefs);
 
   int _currentIndex = 0;
 
@@ -91,11 +84,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         return;
       }
 
-      await ref
-          .read(defaultCurrencyProvider.notifier)
-          .setDefaultCurrency(defaultCurrency.id);
-
-      unawaited(_onboardingService.completeOnboarding());
+      await Future.wait([
+        ref.read(onboardingProvider.notifier).completeOnboarding(),
+        ref
+            .read(defaultCurrencyProvider.notifier)
+            .setDefaultCurrency(defaultCurrency),
+      ]);
 
       router.goNamed(Routes.home);
 

@@ -3,17 +3,18 @@
 part of 'local_db.dart';
 
 // ignore_for_file: type=lint
-class $IconTableTable extends IconTable
-    with TableInfo<$IconTableTable, IconTableData> {
+class $IconTable extends Icon with TableInfo<$IconTable, IconData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $IconTableTable(this.attachedDatabase, [this._alias]);
+  $IconTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
       'id', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      clientDefault: _vlsid.nextId);
   static const VerificationMeta _codePointMeta =
       const VerificationMeta('codePoint');
   @override
@@ -61,7 +62,7 @@ class $IconTableTable extends IconTable
               'font_family_fallback', aliasedName, true,
               type: DriftSqlType.string, requiredDuringInsert: false)
           .withConverter<List<String>?>(
-              $IconTableTable.$converterfontFamilyFallback);
+              $IconTable.$converterfontFamilyFallback);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -77,16 +78,14 @@ class $IconTableTable extends IconTable
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'icon_table';
+  static const String $name = 'icon';
   @override
-  VerificationContext validateIntegrity(Insertable<IconTableData> instance,
+  VerificationContext validateIntegrity(Insertable<IconData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
-    } else if (isInserting) {
-      context.missing(_idMeta);
     }
     if (data.containsKey('code_point')) {
       context.handle(_codePointMeta,
@@ -131,9 +130,9 @@ class $IconTableTable extends IconTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  IconTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  IconData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return IconTableData(
+    return IconData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       codePoint: attachedDatabase.typeMapping
@@ -148,22 +147,22 @@ class $IconTableTable extends IconTable
           .read(DriftSqlType.int, data['${effectivePrefix}icon_color']),
       backgroundColor: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}background_color']),
-      fontFamilyFallback: $IconTableTable.$converterfontFamilyFallback.fromSql(
+      fontFamilyFallback: $IconTable.$converterfontFamilyFallback.fromSql(
           attachedDatabase.typeMapping.read(DriftSqlType.string,
               data['${effectivePrefix}font_family_fallback'])),
     );
   }
 
   @override
-  $IconTableTable createAlias(String alias) {
-    return $IconTableTable(attachedDatabase, alias);
+  $IconTable createAlias(String alias) {
+    return $IconTable(attachedDatabase, alias);
   }
 
   static TypeConverter<List<String>?, String?> $converterfontFamilyFallback =
       StringListTypeConverter();
 }
 
-class IconTableData extends DataClass implements Insertable<IconTableData> {
+class IconData extends DataClass implements Insertable<IconData> {
   final String id;
   final int codePoint;
   final String? fontFamily;
@@ -172,7 +171,7 @@ class IconTableData extends DataClass implements Insertable<IconTableData> {
   final int? iconColor;
   final int? backgroundColor;
   final List<String>? fontFamilyFallback;
-  const IconTableData(
+  const IconData(
       {required this.id,
       required this.codePoint,
       this.fontFamily,
@@ -200,15 +199,14 @@ class IconTableData extends DataClass implements Insertable<IconTableData> {
       map['background_color'] = Variable<int>(backgroundColor);
     }
     if (!nullToAbsent || fontFamilyFallback != null) {
-      map['font_family_fallback'] = Variable<String>($IconTableTable
-          .$converterfontFamilyFallback
-          .toSql(fontFamilyFallback));
+      map['font_family_fallback'] = Variable<String>(
+          $IconTable.$converterfontFamilyFallback.toSql(fontFamilyFallback));
     }
     return map;
   }
 
-  IconTableCompanion toCompanion(bool nullToAbsent) {
-    return IconTableCompanion(
+  IconCompanion toCompanion(bool nullToAbsent) {
+    return IconCompanion(
       id: Value(id),
       codePoint: Value(codePoint),
       fontFamily: fontFamily == null && nullToAbsent
@@ -230,10 +228,10 @@ class IconTableData extends DataClass implements Insertable<IconTableData> {
     );
   }
 
-  factory IconTableData.fromJson(Map<String, dynamic> json,
+  factory IconData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return IconTableData(
+    return IconData(
       id: serializer.fromJson<String>(json['id']),
       codePoint: serializer.fromJson<int>(json['codePoint']),
       fontFamily: serializer.fromJson<String?>(json['fontFamily']),
@@ -261,7 +259,7 @@ class IconTableData extends DataClass implements Insertable<IconTableData> {
     };
   }
 
-  IconTableData copyWith(
+  IconData copyWith(
           {String? id,
           int? codePoint,
           Value<String?> fontFamily = const Value.absent(),
@@ -270,7 +268,7 @@ class IconTableData extends DataClass implements Insertable<IconTableData> {
           Value<int?> iconColor = const Value.absent(),
           Value<int?> backgroundColor = const Value.absent(),
           Value<List<String>?> fontFamilyFallback = const Value.absent()}) =>
-      IconTableData(
+      IconData(
         id: id ?? this.id,
         codePoint: codePoint ?? this.codePoint,
         fontFamily: fontFamily.present ? fontFamily.value : this.fontFamily,
@@ -286,7 +284,7 @@ class IconTableData extends DataClass implements Insertable<IconTableData> {
       );
   @override
   String toString() {
-    return (StringBuffer('IconTableData(')
+    return (StringBuffer('IconData(')
           ..write('id: $id, ')
           ..write('codePoint: $codePoint, ')
           ..write('fontFamily: $fontFamily, ')
@@ -305,7 +303,7 @@ class IconTableData extends DataClass implements Insertable<IconTableData> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is IconTableData &&
+      (other is IconData &&
           other.id == this.id &&
           other.codePoint == this.codePoint &&
           other.fontFamily == this.fontFamily &&
@@ -316,7 +314,7 @@ class IconTableData extends DataClass implements Insertable<IconTableData> {
           other.fontFamilyFallback == this.fontFamilyFallback);
 }
 
-class IconTableCompanion extends UpdateCompanion<IconTableData> {
+class IconCompanion extends UpdateCompanion<IconData> {
   final Value<String> id;
   final Value<int> codePoint;
   final Value<String?> fontFamily;
@@ -326,7 +324,7 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
   final Value<int?> backgroundColor;
   final Value<List<String>?> fontFamilyFallback;
   final Value<int> rowid;
-  const IconTableCompanion({
+  const IconCompanion({
     this.id = const Value.absent(),
     this.codePoint = const Value.absent(),
     this.fontFamily = const Value.absent(),
@@ -337,8 +335,8 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
     this.fontFamilyFallback = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  IconTableCompanion.insert({
-    required String id,
+  IconCompanion.insert({
+    this.id = const Value.absent(),
     required int codePoint,
     this.fontFamily = const Value.absent(),
     this.fontPackage = const Value.absent(),
@@ -347,10 +345,9 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
     this.backgroundColor = const Value.absent(),
     this.fontFamilyFallback = const Value.absent(),
     this.rowid = const Value.absent(),
-  })  : id = Value(id),
-        codePoint = Value(codePoint),
+  })  : codePoint = Value(codePoint),
         matchTextDirection = Value(matchTextDirection);
-  static Insertable<IconTableData> custom({
+  static Insertable<IconData> custom({
     Expression<String>? id,
     Expression<int>? codePoint,
     Expression<String>? fontFamily,
@@ -376,7 +373,7 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
     });
   }
 
-  IconTableCompanion copyWith(
+  IconCompanion copyWith(
       {Value<String>? id,
       Value<int>? codePoint,
       Value<String?>? fontFamily,
@@ -386,7 +383,7 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
       Value<int?>? backgroundColor,
       Value<List<String>?>? fontFamilyFallback,
       Value<int>? rowid}) {
-    return IconTableCompanion(
+    return IconCompanion(
       id: id ?? this.id,
       codePoint: codePoint ?? this.codePoint,
       fontFamily: fontFamily ?? this.fontFamily,
@@ -424,7 +421,7 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
       map['background_color'] = Variable<int>(backgroundColor.value);
     }
     if (fontFamilyFallback.present) {
-      map['font_family_fallback'] = Variable<String>($IconTableTable
+      map['font_family_fallback'] = Variable<String>($IconTable
           .$converterfontFamilyFallback
           .toSql(fontFamilyFallback.value));
     }
@@ -436,7 +433,7 @@ class IconTableCompanion extends UpdateCompanion<IconTableData> {
 
   @override
   String toString() {
-    return (StringBuffer('IconTableCompanion(')
+    return (StringBuffer('IconCompanion(')
           ..write('id: $id, ')
           ..write('codePoint: $codePoint, ')
           ..write('fontFamily: $fontFamily, ')
@@ -955,12 +952,11 @@ class CurrencyCompanion extends UpdateCompanion<CurrencyData> {
   }
 }
 
-class $AccountTableTable extends AccountTable
-    with TableInfo<$AccountTableTable, AccountTableData> {
+class $AccountTable extends Account with TableInfo<$AccountTable, AccountData> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $AccountTableTable(this.attachedDatabase, [this._alias]);
+  $AccountTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<String> id = GeneratedColumn<String>(
@@ -968,7 +964,7 @@ class $AccountTableTable extends AccountTable
       type: DriftSqlType.string,
       requiredDuringInsert: true,
       defaultConstraints:
-          GeneratedColumn.constraintIsAlways('REFERENCES icon_table (id)'));
+          GeneratedColumn.constraintIsAlways('REFERENCES icon (id)'));
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
   late final GeneratedColumn<String> name = GeneratedColumn<String>(
@@ -1008,9 +1004,9 @@ class $AccountTableTable extends AccountTable
   String get aliasedName => _alias ?? actualTableName;
   @override
   String get actualTableName => $name;
-  static const String $name = 'account_table';
+  static const String $name = 'account';
   @override
-  VerificationContext validateIntegrity(Insertable<AccountTableData> instance,
+  VerificationContext validateIntegrity(Insertable<AccountData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -1053,9 +1049,9 @@ class $AccountTableTable extends AccountTable
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  AccountTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+  AccountData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
-    return AccountTableData(
+    return AccountData(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}id'])!,
       name: attachedDatabase.typeMapping
@@ -1070,19 +1066,18 @@ class $AccountTableTable extends AccountTable
   }
 
   @override
-  $AccountTableTable createAlias(String alias) {
-    return $AccountTableTable(attachedDatabase, alias);
+  $AccountTable createAlias(String alias) {
+    return $AccountTable(attachedDatabase, alias);
   }
 }
 
-class AccountTableData extends DataClass
-    implements Insertable<AccountTableData> {
+class AccountData extends DataClass implements Insertable<AccountData> {
   final String id;
   final String name;
   final String currency;
   final String description;
   final BigInt openingBalance;
-  const AccountTableData(
+  const AccountData(
       {required this.id,
       required this.name,
       required this.currency,
@@ -1099,8 +1094,8 @@ class AccountTableData extends DataClass
     return map;
   }
 
-  AccountTableCompanion toCompanion(bool nullToAbsent) {
-    return AccountTableCompanion(
+  AccountCompanion toCompanion(bool nullToAbsent) {
+    return AccountCompanion(
       id: Value(id),
       name: Value(name),
       currency: Value(currency),
@@ -1109,10 +1104,10 @@ class AccountTableData extends DataClass
     );
   }
 
-  factory AccountTableData.fromJson(Map<String, dynamic> json,
+  factory AccountData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
-    return AccountTableData(
+    return AccountData(
       id: serializer.fromJson<String>(json['id']),
       name: serializer.fromJson<String>(json['name']),
       currency: serializer.fromJson<String>(json['currency']),
@@ -1132,13 +1127,13 @@ class AccountTableData extends DataClass
     };
   }
 
-  AccountTableData copyWith(
+  AccountData copyWith(
           {String? id,
           String? name,
           String? currency,
           String? description,
           BigInt? openingBalance}) =>
-      AccountTableData(
+      AccountData(
         id: id ?? this.id,
         name: name ?? this.name,
         currency: currency ?? this.currency,
@@ -1147,7 +1142,7 @@ class AccountTableData extends DataClass
       );
   @override
   String toString() {
-    return (StringBuffer('AccountTableData(')
+    return (StringBuffer('AccountData(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('currency: $currency, ')
@@ -1163,7 +1158,7 @@ class AccountTableData extends DataClass
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is AccountTableData &&
+      (other is AccountData &&
           other.id == this.id &&
           other.name == this.name &&
           other.currency == this.currency &&
@@ -1171,14 +1166,14 @@ class AccountTableData extends DataClass
           other.openingBalance == this.openingBalance);
 }
 
-class AccountTableCompanion extends UpdateCompanion<AccountTableData> {
+class AccountCompanion extends UpdateCompanion<AccountData> {
   final Value<String> id;
   final Value<String> name;
   final Value<String> currency;
   final Value<String> description;
   final Value<BigInt> openingBalance;
   final Value<int> rowid;
-  const AccountTableCompanion({
+  const AccountCompanion({
     this.id = const Value.absent(),
     this.name = const Value.absent(),
     this.currency = const Value.absent(),
@@ -1186,7 +1181,7 @@ class AccountTableCompanion extends UpdateCompanion<AccountTableData> {
     this.openingBalance = const Value.absent(),
     this.rowid = const Value.absent(),
   });
-  AccountTableCompanion.insert({
+  AccountCompanion.insert({
     required String id,
     required String name,
     required String currency,
@@ -1198,7 +1193,7 @@ class AccountTableCompanion extends UpdateCompanion<AccountTableData> {
         currency = Value(currency),
         description = Value(description),
         openingBalance = Value(openingBalance);
-  static Insertable<AccountTableData> custom({
+  static Insertable<AccountData> custom({
     Expression<String>? id,
     Expression<String>? name,
     Expression<String>? currency,
@@ -1216,14 +1211,14 @@ class AccountTableCompanion extends UpdateCompanion<AccountTableData> {
     });
   }
 
-  AccountTableCompanion copyWith(
+  AccountCompanion copyWith(
       {Value<String>? id,
       Value<String>? name,
       Value<String>? currency,
       Value<String>? description,
       Value<BigInt>? openingBalance,
       Value<int>? rowid}) {
-    return AccountTableCompanion(
+    return AccountCompanion(
       id: id ?? this.id,
       name: name ?? this.name,
       currency: currency ?? this.currency,
@@ -1259,7 +1254,7 @@ class AccountTableCompanion extends UpdateCompanion<AccountTableData> {
 
   @override
   String toString() {
-    return (StringBuffer('AccountTableCompanion(')
+    return (StringBuffer('AccountCompanion(')
           ..write('id: $id, ')
           ..write('name: $name, ')
           ..write('currency: $currency, ')
@@ -1274,19 +1269,20 @@ class AccountTableCompanion extends UpdateCompanion<AccountTableData> {
 abstract class _$LocalDB extends GeneratedDatabase {
   _$LocalDB(QueryExecutor e) : super(e);
   _$LocalDBManager get managers => _$LocalDBManager(this);
-  late final $IconTableTable iconTable = $IconTableTable(this);
+  late final $IconTable icon = $IconTable(this);
   late final $CurrencyTable currency = $CurrencyTable(this);
-  late final $AccountTableTable accountTable = $AccountTableTable(this);
+  late final $AccountTable account = $AccountTable(this);
+  late final CurrencyDao currencyDao = CurrencyDao(this as LocalDB);
+  late final AccountDao accountDao = AccountDao(this as LocalDB);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [iconTable, currency, accountTable];
+  List<DatabaseSchemaEntity> get allSchemaEntities => [icon, currency, account];
 }
 
-typedef $$IconTableTableInsertCompanionBuilder = IconTableCompanion Function({
-  required String id,
+typedef $$IconTableInsertCompanionBuilder = IconCompanion Function({
+  Value<String> id,
   required int codePoint,
   Value<String?> fontFamily,
   Value<String?> fontPackage,
@@ -1296,7 +1292,7 @@ typedef $$IconTableTableInsertCompanionBuilder = IconTableCompanion Function({
   Value<List<String>?> fontFamilyFallback,
   Value<int> rowid,
 });
-typedef $$IconTableTableUpdateCompanionBuilder = IconTableCompanion Function({
+typedef $$IconTableUpdateCompanionBuilder = IconCompanion Function({
   Value<String> id,
   Value<int> codePoint,
   Value<String?> fontFamily,
@@ -1308,25 +1304,24 @@ typedef $$IconTableTableUpdateCompanionBuilder = IconTableCompanion Function({
   Value<int> rowid,
 });
 
-class $$IconTableTableTableManager extends RootTableManager<
+class $$IconTableTableManager extends RootTableManager<
     _$LocalDB,
-    $IconTableTable,
-    IconTableData,
-    $$IconTableTableFilterComposer,
-    $$IconTableTableOrderingComposer,
-    $$IconTableTableProcessedTableManager,
-    $$IconTableTableInsertCompanionBuilder,
-    $$IconTableTableUpdateCompanionBuilder> {
-  $$IconTableTableTableManager(_$LocalDB db, $IconTableTable table)
+    $IconTable,
+    IconData,
+    $$IconTableFilterComposer,
+    $$IconTableOrderingComposer,
+    $$IconTableProcessedTableManager,
+    $$IconTableInsertCompanionBuilder,
+    $$IconTableUpdateCompanionBuilder> {
+  $$IconTableTableManager(_$LocalDB db, $IconTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           filteringComposer:
-              $$IconTableTableFilterComposer(ComposerState(db, table)),
+              $$IconTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
-              $$IconTableTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$IconTableTableProcessedTableManager(p),
+              $$IconTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) => $$IconTableProcessedTableManager(p),
           getUpdateCompanionBuilder: ({
             Value<String> id = const Value.absent(),
             Value<int> codePoint = const Value.absent(),
@@ -1338,7 +1333,7 @@ class $$IconTableTableTableManager extends RootTableManager<
             Value<List<String>?> fontFamilyFallback = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              IconTableCompanion(
+              IconCompanion(
             id: id,
             codePoint: codePoint,
             fontFamily: fontFamily,
@@ -1350,7 +1345,7 @@ class $$IconTableTableTableManager extends RootTableManager<
             rowid: rowid,
           ),
           getInsertCompanionBuilder: ({
-            required String id,
+            Value<String> id = const Value.absent(),
             required int codePoint,
             Value<String?> fontFamily = const Value.absent(),
             Value<String?> fontPackage = const Value.absent(),
@@ -1360,7 +1355,7 @@ class $$IconTableTableTableManager extends RootTableManager<
             Value<List<String>?> fontFamilyFallback = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              IconTableCompanion.insert(
+              IconCompanion.insert(
             id: id,
             codePoint: codePoint,
             fontFamily: fontFamily,
@@ -1374,21 +1369,20 @@ class $$IconTableTableTableManager extends RootTableManager<
         ));
 }
 
-class $$IconTableTableProcessedTableManager extends ProcessedTableManager<
+class $$IconTableProcessedTableManager extends ProcessedTableManager<
     _$LocalDB,
-    $IconTableTable,
-    IconTableData,
-    $$IconTableTableFilterComposer,
-    $$IconTableTableOrderingComposer,
-    $$IconTableTableProcessedTableManager,
-    $$IconTableTableInsertCompanionBuilder,
-    $$IconTableTableUpdateCompanionBuilder> {
-  $$IconTableTableProcessedTableManager(super.$state);
+    $IconTable,
+    IconData,
+    $$IconTableFilterComposer,
+    $$IconTableOrderingComposer,
+    $$IconTableProcessedTableManager,
+    $$IconTableInsertCompanionBuilder,
+    $$IconTableUpdateCompanionBuilder> {
+  $$IconTableProcessedTableManager(super.$state);
 }
 
-class $$IconTableTableFilterComposer
-    extends FilterComposer<_$LocalDB, $IconTableTable> {
-  $$IconTableTableFilterComposer(super.$state);
+class $$IconTableFilterComposer extends FilterComposer<_$LocalDB, $IconTable> {
+  $$IconTableFilterComposer(super.$state);
   ColumnFilters<String> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -1431,23 +1425,23 @@ class $$IconTableTableFilterComposer
               column,
               joinBuilders: joinBuilders));
 
-  ComposableFilter accountTableRefs(
-      ComposableFilter Function($$AccountTableTableFilterComposer f) f) {
-    final $$AccountTableTableFilterComposer composer = $state.composerBuilder(
+  ComposableFilter accountRefs(
+      ComposableFilter Function($$AccountTableFilterComposer f) f) {
+    final $$AccountTableFilterComposer composer = $state.composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.accountTable,
+        referencedTable: $state.db.account,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$AccountTableTableFilterComposer(ComposerState($state.db,
-                $state.db.accountTable, joinBuilder, parentComposers)));
+        builder: (joinBuilder, parentComposers) => $$AccountTableFilterComposer(
+            ComposerState(
+                $state.db, $state.db.account, joinBuilder, parentComposers)));
     return f(composer);
   }
 }
 
-class $$IconTableTableOrderingComposer
-    extends OrderingComposer<_$LocalDB, $IconTableTable> {
-  $$IconTableTableOrderingComposer(super.$state);
+class $$IconTableOrderingComposer
+    extends OrderingComposer<_$LocalDB, $IconTable> {
+  $$IconTableOrderingComposer(super.$state);
   ColumnOrderings<String> get id => $state.composableBuilder(
       column: $state.table.id,
       builder: (column, joinBuilders) =>
@@ -1655,16 +1649,16 @@ class $$CurrencyTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  ComposableFilter accountTableRefs(
-      ComposableFilter Function($$AccountTableTableFilterComposer f) f) {
-    final $$AccountTableTableFilterComposer composer = $state.composerBuilder(
+  ComposableFilter accountRefs(
+      ComposableFilter Function($$AccountTableFilterComposer f) f) {
+    final $$AccountTableFilterComposer composer = $state.composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.accountTable,
+        referencedTable: $state.db.account,
         getReferencedColumn: (t) => t.currency,
-        builder: (joinBuilder, parentComposers) =>
-            $$AccountTableTableFilterComposer(ComposerState($state.db,
-                $state.db.accountTable, joinBuilder, parentComposers)));
+        builder: (joinBuilder, parentComposers) => $$AccountTableFilterComposer(
+            ComposerState(
+                $state.db, $state.db.account, joinBuilder, parentComposers)));
     return f(composer);
   }
 }
@@ -1723,8 +1717,7 @@ class $$CurrencyTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$AccountTableTableInsertCompanionBuilder = AccountTableCompanion
-    Function({
+typedef $$AccountTableInsertCompanionBuilder = AccountCompanion Function({
   required String id,
   required String name,
   required String currency,
@@ -1732,8 +1725,7 @@ typedef $$AccountTableTableInsertCompanionBuilder = AccountTableCompanion
   required BigInt openingBalance,
   Value<int> rowid,
 });
-typedef $$AccountTableTableUpdateCompanionBuilder = AccountTableCompanion
-    Function({
+typedef $$AccountTableUpdateCompanionBuilder = AccountCompanion Function({
   Value<String> id,
   Value<String> name,
   Value<String> currency,
@@ -1742,25 +1734,24 @@ typedef $$AccountTableTableUpdateCompanionBuilder = AccountTableCompanion
   Value<int> rowid,
 });
 
-class $$AccountTableTableTableManager extends RootTableManager<
+class $$AccountTableTableManager extends RootTableManager<
     _$LocalDB,
-    $AccountTableTable,
-    AccountTableData,
-    $$AccountTableTableFilterComposer,
-    $$AccountTableTableOrderingComposer,
-    $$AccountTableTableProcessedTableManager,
-    $$AccountTableTableInsertCompanionBuilder,
-    $$AccountTableTableUpdateCompanionBuilder> {
-  $$AccountTableTableTableManager(_$LocalDB db, $AccountTableTable table)
+    $AccountTable,
+    AccountData,
+    $$AccountTableFilterComposer,
+    $$AccountTableOrderingComposer,
+    $$AccountTableProcessedTableManager,
+    $$AccountTableInsertCompanionBuilder,
+    $$AccountTableUpdateCompanionBuilder> {
+  $$AccountTableTableManager(_$LocalDB db, $AccountTable table)
       : super(TableManagerState(
           db: db,
           table: table,
           filteringComposer:
-              $$AccountTableTableFilterComposer(ComposerState(db, table)),
+              $$AccountTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
-              $$AccountTableTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$AccountTableTableProcessedTableManager(p),
+              $$AccountTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) => $$AccountTableProcessedTableManager(p),
           getUpdateCompanionBuilder: ({
             Value<String> id = const Value.absent(),
             Value<String> name = const Value.absent(),
@@ -1769,7 +1760,7 @@ class $$AccountTableTableTableManager extends RootTableManager<
             Value<BigInt> openingBalance = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
-              AccountTableCompanion(
+              AccountCompanion(
             id: id,
             name: name,
             currency: currency,
@@ -1785,7 +1776,7 @@ class $$AccountTableTableTableManager extends RootTableManager<
             required BigInt openingBalance,
             Value<int> rowid = const Value.absent(),
           }) =>
-              AccountTableCompanion.insert(
+              AccountCompanion.insert(
             id: id,
             name: name,
             currency: currency,
@@ -1796,21 +1787,21 @@ class $$AccountTableTableTableManager extends RootTableManager<
         ));
 }
 
-class $$AccountTableTableProcessedTableManager extends ProcessedTableManager<
+class $$AccountTableProcessedTableManager extends ProcessedTableManager<
     _$LocalDB,
-    $AccountTableTable,
-    AccountTableData,
-    $$AccountTableTableFilterComposer,
-    $$AccountTableTableOrderingComposer,
-    $$AccountTableTableProcessedTableManager,
-    $$AccountTableTableInsertCompanionBuilder,
-    $$AccountTableTableUpdateCompanionBuilder> {
-  $$AccountTableTableProcessedTableManager(super.$state);
+    $AccountTable,
+    AccountData,
+    $$AccountTableFilterComposer,
+    $$AccountTableOrderingComposer,
+    $$AccountTableProcessedTableManager,
+    $$AccountTableInsertCompanionBuilder,
+    $$AccountTableUpdateCompanionBuilder> {
+  $$AccountTableProcessedTableManager(super.$state);
 }
 
-class $$AccountTableTableFilterComposer
-    extends FilterComposer<_$LocalDB, $AccountTableTable> {
-  $$AccountTableTableFilterComposer(super.$state);
+class $$AccountTableFilterComposer
+    extends FilterComposer<_$LocalDB, $AccountTable> {
+  $$AccountTableFilterComposer(super.$state);
   ColumnFilters<String> get name => $state.composableBuilder(
       column: $state.table.name,
       builder: (column, joinBuilders) =>
@@ -1826,15 +1817,15 @@ class $$AccountTableTableFilterComposer
       builder: (column, joinBuilders) =>
           ColumnFilters(column, joinBuilders: joinBuilders));
 
-  $$IconTableTableFilterComposer get id {
-    final $$IconTableTableFilterComposer composer = $state.composerBuilder(
+  $$IconTableFilterComposer get id {
+    final $$IconTableFilterComposer composer = $state.composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.iconTable,
+        referencedTable: $state.db.icon,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$IconTableTableFilterComposer(ComposerState(
-                $state.db, $state.db.iconTable, joinBuilder, parentComposers)));
+        builder: (joinBuilder, parentComposers) => $$IconTableFilterComposer(
+            ComposerState(
+                $state.db, $state.db.icon, joinBuilder, parentComposers)));
     return composer;
   }
 
@@ -1851,9 +1842,9 @@ class $$AccountTableTableFilterComposer
   }
 }
 
-class $$AccountTableTableOrderingComposer
-    extends OrderingComposer<_$LocalDB, $AccountTableTable> {
-  $$AccountTableTableOrderingComposer(super.$state);
+class $$AccountTableOrderingComposer
+    extends OrderingComposer<_$LocalDB, $AccountTable> {
+  $$AccountTableOrderingComposer(super.$state);
   ColumnOrderings<String> get name => $state.composableBuilder(
       column: $state.table.name,
       builder: (column, joinBuilders) =>
@@ -1869,15 +1860,15 @@ class $$AccountTableTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 
-  $$IconTableTableOrderingComposer get id {
-    final $$IconTableTableOrderingComposer composer = $state.composerBuilder(
+  $$IconTableOrderingComposer get id {
+    final $$IconTableOrderingComposer composer = $state.composerBuilder(
         composer: this,
         getCurrentColumn: (t) => t.id,
-        referencedTable: $state.db.iconTable,
+        referencedTable: $state.db.icon,
         getReferencedColumn: (t) => t.id,
-        builder: (joinBuilder, parentComposers) =>
-            $$IconTableTableOrderingComposer(ComposerState(
-                $state.db, $state.db.iconTable, joinBuilder, parentComposers)));
+        builder: (joinBuilder, parentComposers) => $$IconTableOrderingComposer(
+            ComposerState(
+                $state.db, $state.db.icon, joinBuilder, parentComposers)));
     return composer;
   }
 
@@ -1897,10 +1888,9 @@ class $$AccountTableTableOrderingComposer
 class _$LocalDBManager {
   final _$LocalDB _db;
   _$LocalDBManager(this._db);
-  $$IconTableTableTableManager get iconTable =>
-      $$IconTableTableTableManager(_db, _db.iconTable);
+  $$IconTableTableManager get icon => $$IconTableTableManager(_db, _db.icon);
   $$CurrencyTableTableManager get currency =>
       $$CurrencyTableTableManager(_db, _db.currency);
-  $$AccountTableTableTableManager get accountTable =>
-      $$AccountTableTableTableManager(_db, _db.accountTable);
+  $$AccountTableTableManager get account =>
+      $$AccountTableTableManager(_db, _db.account);
 }
