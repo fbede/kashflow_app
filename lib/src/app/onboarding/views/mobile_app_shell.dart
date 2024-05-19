@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/core.dart' hide Icon;
+import '../../../core/core.dart';
 import '../../../shared/extensions/build_context_extensions.dart';
 import '../../../shared/modules/icons/icons.dart';
 

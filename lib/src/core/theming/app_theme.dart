@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../shared/modules/icons/icons.dart';
 
-import '../core.dart' hide Icon;
+import '../core.dart';
 
 class AppTheme {
   final ThemeData _baseThemeData;

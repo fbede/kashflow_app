@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/core.dart' hide Icon;
+import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../../app.dart';
 

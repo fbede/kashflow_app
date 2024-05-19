@@ -6,8 +6,6 @@ import '../extensions/currency_extension.dart';
 
 part 'currency_dao.g.dart';
 
-//TODO: Clear comments
-
 @DriftAccessor(tables: [CurrencyTable])
 class CurrencyDao extends DatabaseAccessor<LocalDB> with _$CurrencyDaoMixin {
   CurrencyDao(super.attachedDatabase);
@@ -26,13 +24,6 @@ class CurrencyDao extends DatabaseAccessor<LocalDB> with _$CurrencyDaoMixin {
                 e.unit.contains(searchTerm),
           )
           .watch();
-      // final query = select(currency)
-      //   ..where(
-      //     (tbl) =>
-      //         (tbl.code.contains(searchTerm) | tbl.name.contains(searchTerm)),
-      //   );
-
-      // yield* query.watch();
     } on Exception catch (e, s) {
       talker.handle(e, s);
       rethrow;

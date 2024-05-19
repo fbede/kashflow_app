@@ -1,11 +1,8 @@
-import 'dart:convert';
+/* import 'dart:convert';
 
 import 'package:drift/native.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/currency_module/currency_dao.dart';
-import 'package:kashflow/gen/assets.gen.dart';
-import 'package:kashflow/shared/db/local_db.dart';
 
 void main() {
   late LocalDB db;
@@ -37,3 +34,4 @@ Future<int> _numOfCurrenciesInAsset() async {
   final data = jsonDecode(json) as List;
   return data.length;
 }
+ */

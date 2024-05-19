@@ -7,7 +7,7 @@ class CurrencyTable extends Table {
   TextColumn get code => text().withLength(min: 3, max: 10).unique()();
   IntColumn get decimalDigits => integer()();
   TextColumn get symbol => text().withLength(max: 10)();
-  TextColumn get pattern => text().withLength(min: 2, max: 10)();
+  TextColumn get pattern => text().withLength(min: 2, max: 20)();
   TextColumn get groupSeparator => text().withLength(max: 5)();
   TextColumn get decimalSeparator => text().withLength(max: 5)();
   TextColumn get country => text()();

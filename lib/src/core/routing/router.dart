@@ -68,13 +68,13 @@ final _mainAppRoutes = <RouteBase>[
     parentNavigatorKey: _appNavBarNavigatorKey,
     builder: (context, state) => const SizedBox(),
   ),
-  // GoRoute(
-  //   path: Routes.other,
-  //   name: Routes.other,
-  //   parentNavigatorKey: _appNavBarNavigatorKey,
-  //   routes: _settingsRoutes,
-  //   builder: (context, state) => const SettingsScreen(),
-  // ),
+  GoRoute(
+    path: Routes.other,
+    name: Routes.other,
+    parentNavigatorKey: _appNavBarNavigatorKey,
+    routes: _settingsRoutes,
+    builder: (context, state) => const SizedBox(), //const SettingsScreen(),
+  ),
 ];
 
 final _settingsRoutes = <RouteBase>[

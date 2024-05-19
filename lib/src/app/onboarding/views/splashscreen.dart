@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/extensions/build_context_extensions.dart';
-import '../interactors/onboarding_interactor.dart';
+import '../../app.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends ConsumerStatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  ConsumerState<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
+class _SplashScreenState extends ConsumerState<SplashScreen>
     with TickerProviderStateMixin {
-  final _prefs = GetIt.I<SharedPreferences>();
-
-  late final _onboardingService = OnboardingInteractor(prefs: _prefs);
   late final _controller = AnimationController(
     duration: slowGlobalAnimationDuration,
     vsync: this,
@@ -31,7 +27,8 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) => _gotoNextScreen());
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) async => _gotoNextScreen());
   }
 
   @override
@@ -54,16 +51,20 @@ class _SplashScreenState extends State<SplashScreen>
         ),
       );
 
-  void _gotoNextScreen() async {
-    final hasOnboarded = _onboardingService.isOnboardingComplete;
+  Future<void> _gotoNextScreen() async {
+    final router = GoRouter.of(context);
 
-    await LocalDB().doWhenOpened((e) => talker.log('Hello'));
+    await LocalDB().doWhenOpened((e) => talker.log('Database Opened'));
 
-    if (hasOnboarded) {
-      context.goNamed(Routes.home);
+    final hasOnboarded = ref.watch(onboardingProviderPresenter);
+    final defaultCurrencyIsSet =
+        (await ref.watch(defaultCurrencyProviderPresenter.future)) != null;
+
+    if (hasOnboarded & defaultCurrencyIsSet) {
+      router.goNamed(Routes.home);
       return;
     }
 
-    context.goNamed(Routes.onboarding);
+    router.goNamed(Routes.onboarding);
   }
 }

@@ -491,7 +491,7 @@ class $CurrencyTableTable extends CurrencyTable
   late final GeneratedColumn<String> pattern = GeneratedColumn<String>(
       'pattern', aliasedName, false,
       additionalChecks:
-          GeneratedColumn.checkTextLength(minTextLength: 2, maxTextLength: 10),
+          GeneratedColumn.checkTextLength(minTextLength: 2, maxTextLength: 20),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
   static const VerificationMeta _groupSeparatorMeta =

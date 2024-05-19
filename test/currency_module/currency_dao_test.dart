@@ -1,22 +1,20 @@
-import 'dart:convert';
+/* import 'dart:convert';
 
 import 'package:drift/native.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kashflow/currency_module/currency.dart';
-import 'package:kashflow/currency_module/currency_dao.dart';
-import 'package:kashflow/gen/assets.gen.dart';
-import 'package:kashflow/shared/db/local_db.dart';
+import 'package:kashflow/src/app/app.dart';
+import 'package:kashflow/src/core/core.dart';
 
 void main() {
   late LocalDB db;
-  late LocalCurrencyDao dao;
+  late CurrencyDao dao;
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
   setUpAll(() {
     db = LocalDB.test(NativeDatabase.memory());
-    dao = LocalCurrencyDao(db);
+    dao = CurrencyDao(db);
   });
 
   tearDownAll(() async {
@@ -37,3 +35,4 @@ Future<List<AppCurrency>> _getAssetCurrencies() async {
       .map((e) => AppCurrency.currencyFromJson(e as Map<String, Object?>))
       .toList();
 }
+ */

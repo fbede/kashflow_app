@@ -7,10 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../core/core.dart' hide Icon;
+import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../../currency/currency.dart';
-import '../providers/onboarding_provider.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -84,12 +83,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         return;
       }
 
-      await Future.wait([
-        ref.read(onboardingProviderPresenter.notifier).completeOnboarding(),
-        ref
-            .read(defaultCurrencyProviderPresenter.notifier)
-            .setDefaultCurrency(defaultCurrency),
-      ]);
+      // await Future.wait([
+      //   ref.read(onboardingProviderPresenter.notifier).completeOnboarding(),
+      //   ref
+      //       .read(defaultCurrencyProviderPresenter.notifier)
+      //       .setDefaultCurrency(defaultCurrency),
+      // ]);
 
       router.goNamed(Routes.home);
 
