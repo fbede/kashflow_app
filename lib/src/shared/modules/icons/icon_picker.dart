@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/core.dart' hide Icon, IconData;
-import '../../extensions/build_context_extensions.dart';
+import '../../../core/core.dart';
 import '../../shared.dart';
-import 'icons.dart';
 
 Future<IconData?> showIconPicker(BuildContext context) async {
   IconData? iconData;

@@ -6,7 +6,7 @@ part of 'currency_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$savedCurrenciesHash() => r'f263add2dbe0a6aef16c4ef5218ddb057b62a547';
+String _$currencyHash() => r'b0ccee0515f2fc620ad6ae37c11c33cf301df992';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,14 +29,14 @@ class _SystemHash {
   }
 }
 
-/// See also [savedCurrencies].
-@ProviderFor(savedCurrencies)
-const savedCurrenciesPresenter = SavedCurrenciesFamily();
+/// See also [currency].
+@ProviderFor(currency)
+const currencyPresenter = CurrencyFamily();
 
-/// See also [savedCurrencies].
-class SavedCurrenciesFamily extends Family {
-  /// See also [savedCurrencies].
-  const SavedCurrenciesFamily();
+/// See also [currency].
+class CurrencyFamily extends Family {
+  /// See also [currency].
+  const CurrencyFamily();
 
   static const Iterable<ProviderOrFamily>? _dependencies = null;
 
@@ -50,14 +50,14 @@ class SavedCurrenciesFamily extends Family {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'savedCurrenciesPresenter';
+  String? get name => r'currencyPresenter';
 
-  /// See also [savedCurrencies].
-  SavedCurrenciesProvider call(
+  /// See also [currency].
+  CurrencyProvider call(
     String searchTerm, {
     CurrencyInteractor? currencyInteractor,
   }) {
-    return SavedCurrenciesProvider(
+    return CurrencyProvider(
       searchTerm,
       currencyInteractor: currencyInteractor,
     );
@@ -65,8 +65,8 @@ class SavedCurrenciesFamily extends Family {
 
   @visibleForOverriding
   @override
-  SavedCurrenciesProvider getProviderOverride(
-    covariant SavedCurrenciesProvider provider,
+  CurrencyProvider getProviderOverride(
+    covariant CurrencyProvider provider,
   ) {
     return call(
       provider.searchTerm,
@@ -76,54 +76,53 @@ class SavedCurrenciesFamily extends Family {
 
   /// Enables overriding the behavior of this provider, no matter the parameters.
   Override overrideWith(
-      Stream<List<CurrencyTableData>> Function(SavedCurrenciesRef ref) create) {
-    return _$SavedCurrenciesFamilyOverride(this, create);
+      Stream<List<CurrencyTableData>> Function(CurrencyRef ref) create) {
+    return _$CurrencyFamilyOverride(this, create);
   }
 }
 
-class _$SavedCurrenciesFamilyOverride implements FamilyOverride {
-  _$SavedCurrenciesFamilyOverride(this.overriddenFamily, this.create);
+class _$CurrencyFamilyOverride implements FamilyOverride {
+  _$CurrencyFamilyOverride(this.overriddenFamily, this.create);
 
-  final Stream<List<CurrencyTableData>> Function(SavedCurrenciesRef ref) create;
-
-  @override
-  final SavedCurrenciesFamily overriddenFamily;
+  final Stream<List<CurrencyTableData>> Function(CurrencyRef ref) create;
 
   @override
-  SavedCurrenciesProvider getProviderOverride(
-    covariant SavedCurrenciesProvider provider,
+  final CurrencyFamily overriddenFamily;
+
+  @override
+  CurrencyProvider getProviderOverride(
+    covariant CurrencyProvider provider,
   ) {
     return provider._copyWith(create);
   }
 }
 
-/// See also [savedCurrencies].
-class SavedCurrenciesProvider
+/// See also [currency].
+class CurrencyProvider
     extends AutoDisposeStreamProvider<List<CurrencyTableData>> {
-  /// See also [savedCurrencies].
-  SavedCurrenciesProvider(
+  /// See also [currency].
+  CurrencyProvider(
     String searchTerm, {
     CurrencyInteractor? currencyInteractor,
   }) : this._internal(
-          (ref) => savedCurrencies(
-            ref as SavedCurrenciesRef,
+          (ref) => currency(
+            ref as CurrencyRef,
             searchTerm,
             currencyInteractor: currencyInteractor,
           ),
-          from: savedCurrenciesPresenter,
-          name: r'savedCurrenciesPresenter',
+          from: currencyPresenter,
+          name: r'currencyPresenter',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$savedCurrenciesHash,
-          dependencies: SavedCurrenciesFamily._dependencies,
-          allTransitiveDependencies:
-              SavedCurrenciesFamily._allTransitiveDependencies,
+                  : _$currencyHash,
+          dependencies: CurrencyFamily._dependencies,
+          allTransitiveDependencies: CurrencyFamily._allTransitiveDependencies,
           searchTerm: searchTerm,
           currencyInteractor: currencyInteractor,
         );
 
-  SavedCurrenciesProvider._internal(
+  CurrencyProvider._internal(
     super.create, {
     required super.name,
     required super.dependencies,
@@ -139,12 +138,12 @@ class SavedCurrenciesProvider
 
   @override
   Override overrideWith(
-    Stream<List<CurrencyTableData>> Function(SavedCurrenciesRef ref) create,
+    Stream<List<CurrencyTableData>> Function(CurrencyRef ref) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: SavedCurrenciesProvider._internal(
-        (ref) => create(ref as SavedCurrenciesRef),
+      override: CurrencyProvider._internal(
+        (ref) => create(ref as CurrencyRef),
         from: from,
         name: null,
         dependencies: null,
@@ -169,14 +168,14 @@ class SavedCurrenciesProvider
 
   @override
   AutoDisposeStreamProviderElement<List<CurrencyTableData>> createElement() {
-    return _SavedCurrenciesProviderElement(this);
+    return _CurrencyProviderElement(this);
   }
 
-  SavedCurrenciesProvider _copyWith(
-    Stream<List<CurrencyTableData>> Function(SavedCurrenciesRef ref) create,
+  CurrencyProvider _copyWith(
+    Stream<List<CurrencyTableData>> Function(CurrencyRef ref) create,
   ) {
-    return SavedCurrenciesProvider._internal(
-      (ref) => create(ref as SavedCurrenciesRef),
+    return CurrencyProvider._internal(
+      (ref) => create(ref as CurrencyRef),
       name: name,
       dependencies: dependencies,
       allTransitiveDependencies: allTransitiveDependencies,
@@ -189,7 +188,7 @@ class SavedCurrenciesProvider
 
   @override
   bool operator ==(Object other) {
-    return other is SavedCurrenciesProvider &&
+    return other is CurrencyProvider &&
         other.searchTerm == searchTerm &&
         other.currencyInteractor == currencyInteractor;
   }
@@ -204,8 +203,7 @@ class SavedCurrenciesProvider
   }
 }
 
-mixin SavedCurrenciesRef
-    on AutoDisposeStreamProviderRef<List<CurrencyTableData>> {
+mixin CurrencyRef on AutoDisposeStreamProviderRef<List<CurrencyTableData>> {
   /// The parameter `searchTerm` of this provider.
   String get searchTerm;
 
@@ -213,215 +211,20 @@ mixin SavedCurrenciesRef
   CurrencyInteractor? get currencyInteractor;
 }
 
-class _SavedCurrenciesProviderElement
+class _CurrencyProviderElement
     extends AutoDisposeStreamProviderElement<List<CurrencyTableData>>
-    with SavedCurrenciesRef {
-  _SavedCurrenciesProviderElement(super.provider);
+    with CurrencyRef {
+  _CurrencyProviderElement(super.provider);
 
   @override
-  String get searchTerm => (origin as SavedCurrenciesProvider).searchTerm;
-  @override
-  CurrencyInteractor? get currencyInteractor =>
-      (origin as SavedCurrenciesProvider).currencyInteractor;
-}
-
-String _$otherCurrenciesHash() => r'a6529d7d05b8d490cc24118e04eb0faef84674c5';
-
-/// See also [otherCurrencies].
-@ProviderFor(otherCurrencies)
-const otherCurrenciesPresenter = OtherCurrenciesFamily();
-
-/// See also [otherCurrencies].
-class OtherCurrenciesFamily extends Family {
-  /// See also [otherCurrencies].
-  const OtherCurrenciesFamily();
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'otherCurrenciesPresenter';
-
-  /// See also [otherCurrencies].
-  OtherCurrenciesProvider call(
-    String searchTerm, {
-    CurrencyInteractor? currencyInteractor,
-  }) {
-    return OtherCurrenciesProvider(
-      searchTerm,
-      currencyInteractor: currencyInteractor,
-    );
-  }
-
-  @visibleForOverriding
-  @override
-  OtherCurrenciesProvider getProviderOverride(
-    covariant OtherCurrenciesProvider provider,
-  ) {
-    return call(
-      provider.searchTerm,
-      currencyInteractor: provider.currencyInteractor,
-    );
-  }
-
-  /// Enables overriding the behavior of this provider, no matter the parameters.
-  Override overrideWith(
-      List<Currency> Function(OtherCurrenciesRef ref) create) {
-    return _$OtherCurrenciesFamilyOverride(this, create);
-  }
-}
-
-class _$OtherCurrenciesFamilyOverride implements FamilyOverride {
-  _$OtherCurrenciesFamilyOverride(this.overriddenFamily, this.create);
-
-  final List<Currency> Function(OtherCurrenciesRef ref) create;
-
-  @override
-  final OtherCurrenciesFamily overriddenFamily;
-
-  @override
-  OtherCurrenciesProvider getProviderOverride(
-    covariant OtherCurrenciesProvider provider,
-  ) {
-    return provider._copyWith(create);
-  }
-}
-
-/// See also [otherCurrencies].
-class OtherCurrenciesProvider extends AutoDisposeProvider<List<Currency>> {
-  /// See also [otherCurrencies].
-  OtherCurrenciesProvider(
-    String searchTerm, {
-    CurrencyInteractor? currencyInteractor,
-  }) : this._internal(
-          (ref) => otherCurrencies(
-            ref as OtherCurrenciesRef,
-            searchTerm,
-            currencyInteractor: currencyInteractor,
-          ),
-          from: otherCurrenciesPresenter,
-          name: r'otherCurrenciesPresenter',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$otherCurrenciesHash,
-          dependencies: OtherCurrenciesFamily._dependencies,
-          allTransitiveDependencies:
-              OtherCurrenciesFamily._allTransitiveDependencies,
-          searchTerm: searchTerm,
-          currencyInteractor: currencyInteractor,
-        );
-
-  OtherCurrenciesProvider._internal(
-    super.create, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.searchTerm,
-    required this.currencyInteractor,
-  }) : super.internal();
-
-  final String searchTerm;
-  final CurrencyInteractor? currencyInteractor;
-
-  @override
-  Override overrideWith(
-    List<Currency> Function(OtherCurrenciesRef ref) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: OtherCurrenciesProvider._internal(
-        (ref) => create(ref as OtherCurrenciesRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        searchTerm: searchTerm,
-        currencyInteractor: currencyInteractor,
-      ),
-    );
-  }
-
-  @override
-  (
-    String, {
-    CurrencyInteractor? currencyInteractor,
-  }) get argument {
-    return (
-      searchTerm,
-      currencyInteractor: currencyInteractor,
-    );
-  }
-
-  @override
-  AutoDisposeProviderElement<List<Currency>> createElement() {
-    return _OtherCurrenciesProviderElement(this);
-  }
-
-  OtherCurrenciesProvider _copyWith(
-    List<Currency> Function(OtherCurrenciesRef ref) create,
-  ) {
-    return OtherCurrenciesProvider._internal(
-      (ref) => create(ref as OtherCurrenciesRef),
-      name: name,
-      dependencies: dependencies,
-      allTransitiveDependencies: allTransitiveDependencies,
-      debugGetCreateSourceHash: debugGetCreateSourceHash,
-      from: from,
-      searchTerm: searchTerm,
-      currencyInteractor: currencyInteractor,
-    );
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is OtherCurrenciesProvider &&
-        other.searchTerm == searchTerm &&
-        other.currencyInteractor == currencyInteractor;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, searchTerm.hashCode);
-    hash = _SystemHash.combine(hash, currencyInteractor.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin OtherCurrenciesRef on AutoDisposeProviderRef<List<Currency>> {
-  /// The parameter `searchTerm` of this provider.
-  String get searchTerm;
-
-  /// The parameter `currencyInteractor` of this provider.
-  CurrencyInteractor? get currencyInteractor;
-}
-
-class _OtherCurrenciesProviderElement
-    extends AutoDisposeProviderElement<List<Currency>> with OtherCurrenciesRef {
-  _OtherCurrenciesProviderElement(super.provider);
-
-  @override
-  String get searchTerm => (origin as OtherCurrenciesProvider).searchTerm;
+  String get searchTerm => (origin as CurrencyProvider).searchTerm;
   @override
   CurrencyInteractor? get currencyInteractor =>
-      (origin as OtherCurrenciesProvider).currencyInteractor;
+      (origin as CurrencyProvider).currencyInteractor;
 }
 
 String _$defaultCurrencyProviderHash() =>
-    r'6b6f54fb6cc7546543cd2410517359bffc913ded';
+    r'0d157aebdeba307b807e6f89433791de8b0016c7';
 
 /// See also [DefaultCurrencyProvider].
 @ProviderFor(DefaultCurrencyProvider)

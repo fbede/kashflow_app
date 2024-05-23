@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 43
+/// Strings: 41
 ///
-/// Built on 2024-05-19 at 05:27 UTC
+/// Built on 2024-05-22 at 18:37 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -192,7 +192,6 @@ class _TranslationsCurrencyModuleEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final _TranslationsCurrencyModulePickerEn picker = _TranslationsCurrencyModulePickerEn._(_root);
 }
 
 // Path: onboarding_module
@@ -239,16 +238,6 @@ class _TranslationsAccountModuleCreateAccountViewEn {
 	String get account_name => 'Account Name';
 	String get cancel => 'Cancel';
 	String get save => 'Save';
-}
-
-// Path: currency_module.picker
-class _TranslationsCurrencyModulePickerEn {
-	_TranslationsCurrencyModulePickerEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	late final _TranslationsCurrencyModulePickerDialogEn dialog = _TranslationsCurrencyModulePickerDialogEn._(_root);
 }
 
 // Path: onboarding_module.onboarding_screen
@@ -313,17 +302,6 @@ class _TranslationsSharedWidgetsEn {
 
 	// Translations
 	late final _TranslationsSharedWidgetsCustomTextFieldsEn custom_text_fields = _TranslationsSharedWidgetsCustomTextFieldsEn._(_root);
-}
-
-// Path: currency_module.picker.dialog
-class _TranslationsCurrencyModulePickerDialogEn {
-	_TranslationsCurrencyModulePickerDialogEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get saved_currencies => 'Saved Currencies';
-	String get other_currencies => 'Other Currencies';
 }
 
 // Path: onboarding_module.onboarding_screen.pages.0
@@ -417,8 +395,6 @@ extension on Translations {
 			case 'account_module.create_account_view.account_name': return 'Account Name';
 			case 'account_module.create_account_view.cancel': return 'Cancel';
 			case 'account_module.create_account_view.save': return 'Save';
-			case 'currency_module.picker.dialog.saved_currencies': return 'Saved Currencies';
-			case 'currency_module.picker.dialog.other_currencies': return 'Other Currencies';
 			case 'onboarding_module.onboarding_screen.pages.0.title': return 'Welcome To Kashflow';
 			case 'onboarding_module.onboarding_screen.pages.0.subtitle': return 'Let\'s help you manage your finances';
 			case 'onboarding_module.onboarding_screen.pages.1.title': return 'Record Your Daily Transactions';

@@ -1,8 +1,6 @@
 import 'package:drift/drift.dart';
-import 'package:money2/money2.dart' as money2;
 
 import '../../../core/core.dart';
-import '../extensions/currency_extension.dart';
 
 part 'currency_dao.g.dart';
 
@@ -30,28 +28,48 @@ class CurrencyDao extends DatabaseAccessor<LocalDB> with _$CurrencyDaoMixin {
     }
   }
 
-  Future<CurrencyTableData> getCurrencyById(String id) async {
-    //  final query = select(currency)..where((tbl) => tbl.id.equals(id));
+  Future<CurrencyTableData?> get defaultCurrency async {
     try {
       return await super
           .attachedDatabase
           .managers
           .currencyTable
-          .filter((f) => f.id.equals(id))
-          .getSingle();
+          .filter((f) => f.isDefault.equals(true))
+          .getSingleOrNull();
     } on Exception catch (e, s) {
       talker.handle(e, s);
       rethrow;
     }
   }
 
-  Future<CurrencyTableData> saveCurrency(money2.Currency currency) async {
+  Future<CurrencyTableData> setDefaultCurrency(
+    CurrencyTableData currency,
+  ) async {
     try {
-      return await super
-          .attachedDatabase
-          .managers
-          .currencyTable
-          .createReturning((o) => currency.companion);
+      return await transaction(() async {
+        final currencyManager = super.attachedDatabase.managers.currencyTable;
+
+        final currentDefaultCurrency = await currencyManager
+            .filter((f) => f.isDefault.equals(true))
+            .getSingleOrNull();
+
+        if (currentDefaultCurrency != null) {
+          await currencyManager
+              .replace(currentDefaultCurrency.copyWith(isDefault: false));
+        }
+
+        await currencyManager.replace(currency.copyWith(isDefault: true));
+
+        final a = await currencyManager
+            .filter((f) => f.isDefault.equals(true))
+            .getSingle();
+
+        talker
+          ..log(currency.copyWith(isDefault: true))
+          ..log(a);
+
+        return a;
+      });
     } on Exception catch (e, s) {
       talker.handle(e, s);
       rethrow;

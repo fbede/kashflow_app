@@ -33,11 +33,11 @@ class AppTheme {
         labelTextStyle: MaterialStateTextStyle.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
             return _labelStyle.copyWith(
-              fontSize: 12,
+              fontWeight: FontWeight.w700,
               color: _baseThemeData.colorScheme.primary,
             );
           }
-          return _labelStyle.copyWith(fontSize: 12);
+          return _labelStyle;
         }),
       );
 }
@@ -64,11 +64,23 @@ final _textTheme = TextTheme(
   labelSmall: _labelStyle,
 );
 
-final _displayStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w700);
-final _headlineStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w300);
-final _titleStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w600);
-final _bodyStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w400);
-final _labelStyle = _baseTextStyle.copyWith(fontWeight: FontWeight.w500);
+final _displayStyle = _baseTextStyle.copyWith(
+  fontSize: 54,
+  height: 1.2,
+  fontWeight: FontWeight.w700,
+);
+final _headlineStyle = _baseTextStyle.copyWith(
+  fontSize: 36,
+  height: 1.2,
+  fontWeight: FontWeight.w700,
+);
+final _titleStyle = _baseTextStyle.copyWith(
+  fontSize: 24,
+  height: 1.2,
+  fontWeight: FontWeight.w700,
+);
+final _bodyStyle = _baseTextStyle.copyWith(fontSize: 16, height: 1.5);
+final _labelStyle = _baseTextStyle.copyWith(fontSize: 11, height: 1.5);
 
 const _baseTextStyle = TextStyle(
   fontFamily: FontFamily.poppins,

@@ -7,14 +7,7 @@
       "save": "Save"
     }
   },
-  "currency_module": {
-    "picker": {
-      "dialog": {
-        "saved_currencies": "Saved Currencies",
-        "other_currencies": "Other Currencies"
-      }
-    }
-  },
+  "currency_module": {},
   "onboarding_module": {
     "onboarding_screen": {
       "pages": [

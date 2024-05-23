@@ -9,7 +9,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
-import '../../currency/currency.dart';
+import '../../app.dart';
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
@@ -83,12 +83,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
         return;
       }
 
-      // await Future.wait([
-      //   ref.read(onboardingProviderPresenter.notifier).completeOnboarding(),
-      //   ref
-      //       .read(defaultCurrencyProviderPresenter.notifier)
-      //       .setDefaultCurrency(defaultCurrency),
-      // ]);
+      await Future.wait([
+        ref.read(onboardingProviderPresenter.notifier).completeOnboarding(),
+        ref
+            .read(defaultCurrencyProviderPresenter.notifier)
+            .setDefaultCurrency(defaultCurrency),
+      ]);
 
       router.goNamed(Routes.home);
 
@@ -265,33 +265,22 @@ class _WelcomeScreenPage extends StatelessWidget {
   Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Flexible(child: SizedBox(height: 32)),
-            Flexible(
-              fit: FlexFit.tight,
-              flex: 10,
+            Expanded(
               child: content,
             ),
-            const Flexible(child: SizedBox(height: 32)),
-            Flexible(
-              flex: 2,
-              child: AutoSizeText(
-                data.title,
-                style: context.textTheme.displaySmall,
-                textAlign: TextAlign.center,
-                maxLines: 1,
-              ),
+            AutoSizeText(
+              data.title,
+              style: context.textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+              maxLines: 2,
             ),
-            const Flexible(child: SizedBox(height: 16)),
-            Flexible(
-              flex: 3,
-              child: AutoSizeText(
-                data.subtitle,
-                style: context.textTheme.bodyLarge,
-                textAlign: TextAlign.center,
-                maxLines: 3,
-              ),
+            AutoSizeText(
+              data.subtitle,
+              style: context.textTheme.bodyLarge,
+              textAlign: TextAlign.center,
+              maxLines: 4,
             ),
             const SizedBox(height: 112),
           ],

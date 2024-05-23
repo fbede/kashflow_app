@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../components/calculator.dart';
-import '../../core/core.dart' hide Icon;
-import '../modules/icons/icons.dart';
+import '../../core/core.dart';
+import '../shared.dart';
 
 class DescriptionFormField extends StatelessWidget {
   const DescriptionFormField({
@@ -139,17 +139,18 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hintText = context.t.shared.widgets.custom_text_fields.search;
+    final hintStyle = context.textTheme.bodySmall;
 
     return TextField(
       keyboardType: TextInputType.text,
       autocorrect: false,
       controller: controller,
       decoration: InputDecoration(
-        filled: true,
-        contentPadding: EdgeInsetsDirectional.zero,
-        prefixIcon: const Icon(RemixIcons.search_2_line),
-        hintText: hintText,
-      ),
+          filled: true,
+          contentPadding: EdgeInsetsDirectional.zero,
+          prefixIcon: const Icon(RemixIcons.search_2_line),
+          hintText: hintText,
+          hintStyle: hintStyle),
     );
   }
 }

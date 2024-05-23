@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CurrencyCardTile<T> extends StatelessWidget {
+import '../../../core/core.dart';
+
+class CurrencyCardTile extends StatelessWidget {
   const CurrencyCardTile({
     required this.item,
     required this.onTap,
-    required this.code,
-    required this.symbol,
-    required this.name,
     super.key,
   });
 
-  final T item;
-  final String code, symbol, name;
-  final void Function(T c) onTap;
+  final CurrencyTableData item;
+
+  final void Function(CurrencyTableData c) onTap;
 
 //TODO: Try the filled and outlined variants
   @override
@@ -21,9 +20,9 @@ class CurrencyCardTile<T> extends StatelessWidget {
         shadowColor: Colors.transparent,
         child: ListTile(
           dense: true,
-          leading: Text(code),
-          title: Text(name, maxLines: 1, overflow: TextOverflow.ellipsis),
-          trailing: Text(symbol),
+          leading: Text(item.code),
+          title: Text(item.name, maxLines: 1, overflow: TextOverflow.ellipsis),
+          trailing: Text(item.symbol),
           onTap: () => onTap(item),
         ),
       );
