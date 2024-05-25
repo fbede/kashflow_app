@@ -74,7 +74,7 @@ void registerFontLicenses() {
 
   LicenseRegistry.addLicense(() async* {
     final license =
-        await rootBundle.loadString('assets/fonts/RemixIcons/License.txt');
-    yield LicenseEntryWithLineBreaks(['RemixIcon'], license);
+        await rootBundle.loadString('assets/fonts/LucideIcons/License.txt');
+    yield LicenseEntryWithLineBreaks(['Lucide License'], license);
   });
 }

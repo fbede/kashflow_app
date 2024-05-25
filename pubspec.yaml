@@ -66,6 +66,7 @@ flutter:
     - assets/json/
     - assets/svg/
     - assets/i18n/
+    - assets/lucide/
 
   fonts:
     - family: Poppins
@@ -90,9 +91,6 @@ flutter:
       fonts:
         - asset: assets/fonts/Noto_Sans/NotoSans-Italic-VariableFont_wdth,wght.ttf
         - asset: assets/fonts/Noto_Sans/NotoSans-VariableFont_wdth,wght.ttf
-    - family: RemixIcons
-      fonts:
-        - asset: assets/fonts/RemixIcons/RemixIcons.ttf
 
   uses-material-design: true
 

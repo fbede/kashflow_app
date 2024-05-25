@@ -58,17 +58,12 @@ class CurrencyDao extends DatabaseAccessor<LocalDB> with _$CurrencyDaoMixin {
               .replace(currentDefaultCurrency.copyWith(isDefault: false));
         }
 
-        await currencyManager.replace(currency.copyWith(isDefault: true));
+        await currencyManager
+            .replace(currency.copyWith(isDefault: true, hasBeenUsed: true));
 
-        final a = await currencyManager
+        return currencyManager
             .filter((f) => f.isDefault.equals(true))
             .getSingle();
-
-        talker
-          ..log(currency.copyWith(isDefault: true))
-          ..log(a);
-
-        return a;
       });
     } on Exception catch (e, s) {
       talker.handle(e, s);

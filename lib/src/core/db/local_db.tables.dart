@@ -20,6 +20,15 @@ class CurrencyTable extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class AssetIconTable extends Table {
+  TextColumn get name => text()();
+  TextColumn get tags => text()();
+  TextColumn get categories => text()();
+
+  @override
+  Set<Column> get primaryKey => {name};
+}
+
 class IconTable extends Table {
   TextColumn get id => text().clientDefault(_vlsid.nextId)();
   IntColumn get codePoint => integer()();

@@ -18,6 +18,9 @@ class DescriptionFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = context.t.shared.widgets.custom_text_fields;
+    final textIcon = Assets.lucide.text.svg(theme: context.svgTheme());
+    final closeIcon = Assets.lucide.circleX.svg(theme: context.svgTheme());
+
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.multiline,
@@ -28,13 +31,13 @@ class DescriptionFormField extends StatelessWidget {
       maxLengthEnforcement: MaxLengthEnforcement.enforced,
       decoration: InputDecoration(
         isDense: true,
-        prefixIcon: const Icon(RemixIcons.align_justify),
+        prefixIcon: textIcon,
         labelText: text.description,
         suffixIcon: showSuffix
             ? null
             : IconButton(
                 onPressed: controller.clear,
-                icon: const Icon(RemixIcons.close_circle_fill),
+                icon: closeIcon,
               ),
       ),
     );
@@ -49,6 +52,9 @@ class MoneyAmountFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = context.t.shared.widgets.custom_text_fields;
+    final coinsIcon = Assets.lucide.coins.svg(theme: context.svgTheme());
+    final calculator = Assets.lucide.calculator.svg(theme: context.svgTheme());
+
     return TextFormField(
       controller: controller,
       keyboardType: const TextInputType.numberWithOptions(
@@ -60,9 +66,9 @@ class MoneyAmountFormField extends StatelessWidget {
       decoration: InputDecoration(
         isDense: true,
         labelText: text.amount,
-        prefixIcon: const Icon(RemixIcons.coin_line),
+        prefixIcon: coinsIcon,
         suffixIcon: IconButton(
-          icon: const Icon(RemixIcons.calculator_line),
+          icon: calculator,
           onPressed: () async => _onAmountTap(context),
         ),
       ),
@@ -100,19 +106,24 @@ class NameFormField extends StatelessWidget {
   final TextEditingController controller;
 
   @override
-  Widget build(BuildContext context) => TextFormField(
-        controller: controller,
-        keyboardType: TextInputType.name,
-        textCapitalization: TextCapitalization.words,
-        maxLength: 25,
-        maxLengthEnforcement: MaxLengthEnforcement.enforced,
-        decoration: InputDecoration(
-          isDense: true,
-          prefixIcon: const Icon(RemixIcons.pencil_line),
-          labelText: label,
-        ),
-        validator: (x) => _validator(context, x),
-      );
+  Widget build(BuildContext context) {
+    final penIcon =
+        Assets.lucide.pen.svg(height: 24, width: 24, theme: context.svgTheme());
+
+    return TextFormField(
+      controller: controller,
+      keyboardType: TextInputType.name,
+      textCapitalization: TextCapitalization.words,
+      maxLength: 25,
+      maxLengthEnforcement: MaxLengthEnforcement.enforced,
+      decoration: InputDecoration(
+        isDense: true,
+        prefixIcon: penIcon,
+        labelText: label,
+      ),
+      validator: (x) => _validator(context, x),
+    );
+  }
 
   String? _validator(BuildContext ctx, String? input) {
     final text = ctx.t.shared.widgets.custom_text_fields;
@@ -139,18 +150,18 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hintText = context.t.shared.widgets.custom_text_fields.search;
-    final hintStyle = context.textTheme.bodySmall;
+    final searchIcon = Assets.lucide.search.svg(theme: context.svgTheme());
 
     return TextField(
       keyboardType: TextInputType.text,
       autocorrect: false,
       controller: controller,
       decoration: InputDecoration(
-          filled: true,
-          contentPadding: EdgeInsetsDirectional.zero,
-          prefixIcon: const Icon(RemixIcons.search_2_line),
-          hintText: hintText,
-          hintStyle: hintStyle),
+        filled: true,
+        contentPadding: EdgeInsetsDirectional.zero,
+        prefixIcon: searchIcon,
+        hintText: hintText,
+      ),
     );
   }
 }

@@ -1,5 +1,12 @@
 {
   "account_module": {
+    "account_purse_view": {
+      "add_new_account": "Add New Account"
+    },
+    "account_popup_menu_button": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
     "create_account_view": {
       "add_account": "Add Account",
       "account_name": "Account Name",

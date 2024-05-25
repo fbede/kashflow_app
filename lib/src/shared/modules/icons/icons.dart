@@ -1,5 +1,5 @@
-export 'icon_picker.dart';
-export 'icon_picker_provider.dart';
-export 'icon_selector.dart';
-export 'icons_map.dart';
-export 'remix_icons.dart';
+export 'daos/daos.dart';
+export 'interactors/interactors.dart';
+export 'providers/providers.dart';
+export 'widgets/icon_selector.dart';
+export 'widgets/widgets.dart';

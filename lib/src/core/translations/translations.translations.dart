@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 41
+/// Strings: 44
 ///
-/// Built on 2024-05-22 at 18:37 UTC
+/// Built on 2024-05-25 at 13:55 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -182,6 +182,8 @@ class _TranslationsAccountModuleEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final _TranslationsAccountModuleAccountPurseViewEn account_purse_view = _TranslationsAccountModuleAccountPurseViewEn._(_root);
+	late final _TranslationsAccountModuleAccountPopupMenuButtonEn account_popup_menu_button = _TranslationsAccountModuleAccountPopupMenuButtonEn._(_root);
 	late final _TranslationsAccountModuleCreateAccountViewEn create_account_view = _TranslationsAccountModuleCreateAccountViewEn._(_root);
 }
 
@@ -225,6 +227,27 @@ class _TranslationsRecordsEn {
 
 	// Translations
 	String get title => 'Records';
+}
+
+// Path: account_module.account_purse_view
+class _TranslationsAccountModuleAccountPurseViewEn {
+	_TranslationsAccountModuleAccountPurseViewEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get add_new_account => 'Add New Account';
+}
+
+// Path: account_module.account_popup_menu_button
+class _TranslationsAccountModuleAccountPopupMenuButtonEn {
+	_TranslationsAccountModuleAccountPopupMenuButtonEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get edit => 'Edit';
+	String get delete => 'Delete';
 }
 
 // Path: account_module.create_account_view
@@ -391,6 +414,9 @@ class _TranslationsSharedWidgetsCustomTextFieldsEn {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
+			case 'account_module.account_purse_view.add_new_account': return 'Add New Account';
+			case 'account_module.account_popup_menu_button.edit': return 'Edit';
+			case 'account_module.account_popup_menu_button.delete': return 'Delete';
 			case 'account_module.create_account_view.add_account': return 'Add Account';
 			case 'account_module.create_account_view.account_name': return 'Account Name';
 			case 'account_module.create_account_view.cancel': return 'Cancel';

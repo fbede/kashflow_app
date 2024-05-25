@@ -36,24 +36,24 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            _HomeAppBar(
-              scrollController: _scrollController,
-              tabController: _tabController,
-              randomInt: intIndex,
-            ),
-            SliverFillRemaining(
-              child: TabBarView(
-                controller: _tabController,
-                children: const [
-                  SizedBox.expand(), // AccountPurseView(),
-                  SizedBox.expand(),
-                ],
+        body: SafeArea(
+          child: NestedScrollView(
+            controller: _scrollController,
+            headerSliverBuilder: (_, __) => [
+              _HomeAppBar(
+                scrollController: _scrollController,
+                tabController: _tabController,
+                randomInt: intIndex,
               ),
+            ],
+            body: TabBarView(
+              controller: _tabController,
+              children: const [
+                SizedBox.expand(), // AccountPurseView(),
+                SizedBox.expand(),
+              ],
             ),
-          ],
+          ),
         ),
         floatingActionButton: _HomeScreenFAB(controller: _tabController),
       );
@@ -75,37 +75,44 @@ class _HomeScreenFAB extends ConsumerWidget {
               }
 
               final text = context.t.onboarding_module.home_screen;
+              final editIcon =
+                  Assets.lucide.penLine.svg(theme: context.svgTheme());
               return FloatingActionButton.extended(
                 ///TODO: Add Create Transaction Here
                 onPressed: () {},
                 label: Text(text.new_record),
-                icon: const Icon(RemixIcons.edit_2_line),
+                icon: editIcon,
               );
             },
           );
 
-  Widget buildFAB(BuildContext context, WidgetRef ref) =>
-      ref.watch(defaultCurrencyProviderPresenter).when(
-            error: (e, s) => Center(child: Text('$e\n$s')),
-            loading: () => const Center(child: CustomProgressIndicator()),
-            data: (data) {
-              late void Function() onPressed;
-              late Widget icon;
+  Widget buildFAB(BuildContext context, WidgetRef ref) {
+    final lineChartIcon =
+        Assets.lucide.lineChart.svg(theme: context.svgTheme());
+    final walletIcon = Assets.lucide.wallet.svg(theme: context.svgTheme());
 
-              if (controller.index == 1) {
-                icon = const Icon(RemixIcons.line_chart_line);
-                onPressed = () {};
-              } else {
-                icon = const Icon(RemixIcons.wallet_3_line);
-                onPressed = () async => openCreateAccount(context, data!);
-              }
+    return ref.watch(defaultCurrencyProviderPresenter).when(
+          error: (e, s) => Center(child: Text('$e\n$s')),
+          loading: () => const Center(child: CustomProgressIndicator()),
+          data: (data) {
+            late void Function() onPressed;
+            late Widget icon;
 
-              return FloatingActionButton(
-                onPressed: onPressed,
-                child: icon,
-              );
-            },
-          );
+            if (controller.index == 1) {
+              icon = lineChartIcon;
+              onPressed = () {};
+            } else {
+              icon = walletIcon;
+              onPressed = () async => openCreateAccount(context, data!);
+            }
+
+            return FloatingActionButton(
+              onPressed: onPressed,
+              child: icon,
+            );
+          },
+        );
+  }
 
   Future<void> openCreateAccount(
     BuildContext context,
@@ -142,6 +149,9 @@ class _HomeAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final text = context.t.onboarding_module.home_screen;
     final title = tabController.index == 0 ? text.balance : text.net_worth;
+    final lineChartIcon =
+        Assets.lucide.lineChart.svg(theme: context.svgTheme());
+    final walletIcon = Assets.lucide.wallet.svg(theme: context.svgTheme());
 
     return SliverAppBar(
       centerTitle: true,
@@ -177,10 +187,7 @@ class _HomeAppBar extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (tabController.index == 0)
-                  const Icon(RemixIcons.wallet_3_fill)
-                else
-                  const Icon(RemixIcons.wallet_3_line),
+                walletIcon,
                 const SizedBox(width: 8),
                 Text(text.purse),
               ],
@@ -190,10 +197,7 @@ class _HomeAppBar extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                if (tabController.index == 1)
-                  const Icon(RemixIcons.line_chart_fill)
-                else
-                  const Icon(RemixIcons.line_chart_line),
+                lineChartIcon,
                 const SizedBox(width: 8),
                 Text(text.portfoilo),
               ],

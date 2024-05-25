@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -45,22 +46,24 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: Stack(
-          children: [
-            _OnboardingPages(controller: _controller),
-            _BottomIndicator(
-              controller: _controller,
-              goToPage: (i) async => _gotoPage(i),
-            ),
-            _NavButtons(
-              currentIndex: _currentIndex,
-              minIndex: _minIndex,
-              duration: _duration,
-              maxIndex: _maxIndex,
-              controller: _controller,
-              goToPage: (i) async => _gotoPage(i),
-            ),
-          ],
+        body: SafeArea(
+          child: Stack(
+            children: [
+              _OnboardingPages(controller: _controller),
+              _BottomIndicator(
+                controller: _controller,
+                goToPage: (i) async => _gotoPage(i),
+              ),
+              _NavButtons(
+                currentIndex: _currentIndex,
+                minIndex: _minIndex,
+                duration: _duration,
+                maxIndex: _maxIndex,
+                controller: _controller,
+                goToPage: (i) async => _gotoPage(i),
+              ),
+            ],
+          ),
         ),
       );
 
@@ -117,46 +120,50 @@ class _NavButtons extends StatelessWidget {
   final void Function(int i) goToPage;
 
   @override
-  Widget build(BuildContext context) => Align(
-        alignment: Alignment.bottomCenter,
-        child: SizedBox(
-          height: 128,
-          child: Row(
-            children: [
-              const SizedBox(width: 16),
-              AnimatedScale(
-                scale: currentIndex != minIndex ? 1 : 0,
-                duration: duration,
-                child: FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () => goToPage(controller.page!.toInt() - 1),
-                  child: const Icon(RemixIcons.arrow_left_line),
-                ),
-              ),
-              const Spacer(),
-              FloatingActionButton(
+  Widget build(BuildContext context) {
+    final leftArrow = Assets.lucide.chevronLeft.svg(theme: context.svgTheme());
+    final rightArrow = Assets.lucide.chevronRight.svg(
+      key: const ValueKey(0),
+      theme: context.svgTheme(),
+    );
+    final check = Assets.lucide.check.svg(
+      key: const ValueKey(1),
+      theme: context.svgTheme(),
+    );
+
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: SizedBox(
+        height: 128,
+        child: Row(
+          children: [
+            const SizedBox(width: 16),
+            AnimatedScale(
+              scale: currentIndex != minIndex ? 1 : 0,
+              duration: duration,
+              child: FloatingActionButton(
                 heroTag: null,
-                onPressed: () => goToPage(controller.page!.toInt() + 1),
-                child: AnimatedSwitcher(
-                  duration: duration,
-                  transitionBuilder: (child, animation) =>
-                      RotationTransition(turns: animation, child: child),
-                  child: currentIndex != maxIndex
-                      ? const Icon(
-                          RemixIcons.arrow_right_line,
-                          key: ValueKey(0),
-                        )
-                      : const Icon(
-                          RemixIcons.check_fill,
-                          key: ValueKey(1),
-                        ),
-                ),
+                onPressed: () => goToPage(controller.page!.toInt() - 1),
+                child: leftArrow,
               ),
-              const SizedBox(width: 16),
-            ],
-          ),
+            ),
+            const Spacer(),
+            FloatingActionButton(
+              heroTag: null,
+              onPressed: () => goToPage(controller.page!.toInt() + 1),
+              child: AnimatedSwitcher(
+                duration: duration,
+                transitionBuilder: (child, animation) =>
+                    RotationTransition(turns: animation, child: child),
+                child: currentIndex != maxIndex ? rightArrow : check,
+              ),
+            ),
+            const SizedBox(width: 16),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }
 
 class _BottomIndicator extends ConsumerWidget {
@@ -267,21 +274,36 @@ class _WelcomeScreenPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Expanded(
-              child: content,
+            // Spacer(),
+            // const SizedBox(height: 32),
+            Expanded(flex: 6, child: content),
+            // const SizedBox(height: 32),
+            //Spacer(),
+
+            Flexible(
+              flex: 2,
+              child: AutoSizeText(
+                data.title,
+                style: context.textTheme.displayBold,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+              ),
             ),
-            AutoSizeText(
-              data.title,
-              style: context.textTheme.headlineSmall,
-              textAlign: TextAlign.center,
-              maxLines: 2,
+            //Spacer(),
+
+            // const SizedBox(height: 32),
+            Flexible(
+              flex: 2,
+              child: AutoSizeText(
+                data.subtitle,
+                style: context.textTheme.bodyNormal,
+                textAlign: TextAlign.center,
+                maxLines: 4,
+              ),
             ),
-            AutoSizeText(
-              data.subtitle,
-              style: context.textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-              maxLines: 4,
-            ),
+            //Spacer(),
+
+            // const SizedBox(height: 32),
             const SizedBox(height: 112),
           ],
         ),

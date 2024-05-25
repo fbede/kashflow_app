@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../shared/modules/icons/icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../core.dart';
 
@@ -15,29 +14,42 @@ class AppTheme {
         inputDecorationTheme: _inputDecorationTheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         actionIconTheme: _actionIconThemeData,
+        //  buttonTheme: _buttonTheme,
         navigationBarTheme: _navigationBarTheme,
       );
 
-  InputDecorationTheme get _inputDecorationTheme => const InputDecorationTheme(
-        border: OutlineInputBorder(),
+  InputDecorationTheme get _inputDecorationTheme => InputDecorationTheme(
+        border: const OutlineInputBorder(),
+        hintStyle: _textTheme.bodyNormal,
       );
 
-  //*Use to modify Default Appbar Icons
   ActionIconThemeData get _actionIconThemeData => ActionIconThemeData(
-        backButtonIconBuilder: (_) => const Icon(RemixIcons.arrow_left_line),
-        closeButtonIconBuilder: (_) => const Icon(RemixIcons.close_line),
+        backButtonIconBuilder: (_) => Assets.lucide.chevronLeft.svg(
+          theme: SvgTheme(
+            currentColor: _baseThemeData.colorScheme.onBackground,
+          ),
+        ),
+        closeButtonIconBuilder: (_) => Assets.lucide.x.svg(
+          theme: SvgTheme(
+            currentColor: _baseThemeData.colorScheme.onBackground,
+          ),
+        ),
       );
+
+  // ButtonThemeData get _buttonTheme => ButtonThemeData();
+
+  // ButtonTextTheme get _buttonTextTheme => Butt
 
   NavigationBarThemeData get _navigationBarTheme => NavigationBarThemeData(
-        indicatorColor: _baseThemeData.colorScheme.primary,
+        indicatorColor: _baseThemeData.colorScheme.onPrimaryContainer,
         labelTextStyle: MaterialStateTextStyle.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
-            return _labelStyle.copyWith(
+            return _textTheme.labelNormal.copyWith(
               fontWeight: FontWeight.w700,
               color: _baseThemeData.colorScheme.primary,
             );
           }
-          return _labelStyle;
+          return _textTheme.labelNormal;
         }),
       );
 }
@@ -46,43 +58,4 @@ const slowGlobalAnimationDuration = Duration(milliseconds: 1000);
 const midGlobalAnimationDuration = Duration(milliseconds: 500);
 const fastGlobalAnimationDuration = Duration(milliseconds: 250);
 
-final _textTheme = TextTheme(
-  displayLarge: _displayStyle,
-  displayMedium: _displayStyle,
-  displaySmall: _displayStyle,
-  headlineLarge: _headlineStyle,
-  headlineMedium: _headlineStyle,
-  headlineSmall: _headlineStyle,
-  titleLarge: _titleStyle,
-  titleMedium: _titleStyle,
-  titleSmall: _titleStyle,
-  bodyLarge: _bodyStyle,
-  bodyMedium: _bodyStyle,
-  bodySmall: _bodyStyle,
-  labelLarge: _labelStyle,
-  labelMedium: _labelStyle,
-  labelSmall: _labelStyle,
-);
-
-final _displayStyle = _baseTextStyle.copyWith(
-  fontSize: 54,
-  height: 1.2,
-  fontWeight: FontWeight.w700,
-);
-final _headlineStyle = _baseTextStyle.copyWith(
-  fontSize: 36,
-  height: 1.2,
-  fontWeight: FontWeight.w700,
-);
-final _titleStyle = _baseTextStyle.copyWith(
-  fontSize: 24,
-  height: 1.2,
-  fontWeight: FontWeight.w700,
-);
-final _bodyStyle = _baseTextStyle.copyWith(fontSize: 16, height: 1.5);
-final _labelStyle = _baseTextStyle.copyWith(fontSize: 11, height: 1.5);
-
-const _baseTextStyle = TextStyle(
-  fontFamily: FontFamily.poppins,
-  fontFamilyFallback: [FontFamily.notoSans],
-);
+final _textTheme = AppTextTheme.theme;

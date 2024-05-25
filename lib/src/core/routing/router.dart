@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
 import '../../app/onboarding/views/home_screen.dart';
-import '../../app/onboarding/views/mobile_app_shell.dart';
+import '../../app/onboarding/views/app_shell.dart';
 import '../../app/onboarding/views/onboarding_screen.dart';
 import '../../app/onboarding/views/splashscreen.dart';
 import '../logging/log_handler.dart';
@@ -45,7 +45,7 @@ final _appBaseRoutes = <RouteBase>[
   ShellRoute(
     navigatorKey: _appNavBarNavigatorKey,
     routes: _mainAppRoutes,
-    builder: (_, __, child) => MobileAppShell(child: child),
+    builder: (_, __, child) => AppShell(child: child),
   ),
 ];
 

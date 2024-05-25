@@ -36,7 +36,7 @@ class _CustomProgressIndicatorState extends State<CustomProgressIndicator>
         dimension: 24,
         child: RotationTransition(
           turns: _controller,
-          child: Assets.svg.spinner.svg(
+          child: Assets.lucide.loaderCircle.svg(
             theme: SvgTheme(
               currentColor: context.colorScheme.onBackground,
             ),

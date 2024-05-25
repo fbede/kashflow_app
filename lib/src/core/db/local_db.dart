@@ -1,22 +1,20 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
-import 'package:flutter/services.dart';
-import 'package:money2/money2.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:vlsid/vlsid.dart';
 
 import '../../app/app.dart';
 import '../core.dart';
+import 'functions/functions.dart';
 
 part 'local_db.g.dart';
 part 'local_db.tables.dart';
 
 @DriftDatabase(
-  tables: [AccountTable, CurrencyTable, IconTable],
+  tables: [AccountTable, CurrencyTable, IconTable, AssetIconTable],
   daos: [CurrencyDao, AccountDao],
 )
 class LocalDB extends _$LocalDB {
@@ -37,7 +35,7 @@ class LocalDB extends _$LocalDB {
     }
   }
 
-  LocalDB._() : super(_openConnection());
+  LocalDB._() : super(_openDBConnection());
   LocalDB.test(super.e);
 
   //* Increase this number whenever schema is changed
@@ -48,9 +46,12 @@ class LocalDB extends _$LocalDB {
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (m) async {
           await m.createAll();
-          final assetCurrenciesCompanion = await _loadCurrenciesFromAsset();
+          final assetCurrenciesCompanion = await loadCurrenciesFromAsset();
+          final assetIcons = await loadIconsFromAsset();
           await batch((batch) {
-            batch.insertAll(currencyTable, assetCurrenciesCompanion);
+            batch
+              ..insertAll(currencyTable, assetCurrenciesCompanion)
+              ..insertAll(assetIconTable, assetIcons);
           });
         },
         beforeOpen: (details) async {
@@ -59,31 +60,8 @@ class LocalDB extends _$LocalDB {
       );
 }
 
-LazyDatabase _openConnection() => LazyDatabase(() async {
+LazyDatabase _openDBConnection() => LazyDatabase(() async {
       final dbFolder = await getApplicationDocumentsDirectory();
       final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
       return NativeDatabase.createInBackground(file);
     });
-
-Future<List<CurrencyTableCompanion>> _loadCurrenciesFromAsset() async {
-  final String json = await rootBundle.loadString(Assets.json.loadedCurrencies);
-  final data = jsonDecode(json) as List;
-  final List<CurrencyTableCompanion> currenciesData = data
-      .map((e) => _currencyCompanionFromMap(e as Map<String, dynamic>))
-      .toList();
-
-  return currenciesData;
-}
-
-CurrencyTableCompanion _currencyCompanionFromMap(Map<String, dynamic> map) =>
-    CurrencyTableCompanion.insert(
-      code: map['code']! as String,
-      decimalDigits: 2,
-      symbol: map['symbol']! as String,
-      pattern: Currency.defaultPattern,
-      groupSeparator: ',',
-      decimalSeparator: '.',
-      country: '',
-      unit: '',
-      name: map['name']! as String,
-    );

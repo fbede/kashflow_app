@@ -1360,12 +1360,238 @@ class AccountTableCompanion extends UpdateCompanion<AccountTableData> {
   }
 }
 
+class $AssetIconTableTable extends AssetIconTable
+    with TableInfo<$AssetIconTableTable, AssetIconTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $AssetIconTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _tagsMeta = const VerificationMeta('tags');
+  @override
+  late final GeneratedColumn<String> tags = GeneratedColumn<String>(
+      'tags', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _categoriesMeta =
+      const VerificationMeta('categories');
+  @override
+  late final GeneratedColumn<String> categories = GeneratedColumn<String>(
+      'categories', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [name, tags, categories];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'asset_icon_table';
+  @override
+  VerificationContext validateIntegrity(Insertable<AssetIconTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('tags')) {
+      context.handle(
+          _tagsMeta, tags.isAcceptableOrUnknown(data['tags']!, _tagsMeta));
+    } else if (isInserting) {
+      context.missing(_tagsMeta);
+    }
+    if (data.containsKey('categories')) {
+      context.handle(
+          _categoriesMeta,
+          categories.isAcceptableOrUnknown(
+              data['categories']!, _categoriesMeta));
+    } else if (isInserting) {
+      context.missing(_categoriesMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {name};
+  @override
+  AssetIconTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return AssetIconTableData(
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      tags: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}tags'])!,
+      categories: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}categories'])!,
+    );
+  }
+
+  @override
+  $AssetIconTableTable createAlias(String alias) {
+    return $AssetIconTableTable(attachedDatabase, alias);
+  }
+}
+
+class AssetIconTableData extends DataClass
+    implements Insertable<AssetIconTableData> {
+  final String name;
+  final String tags;
+  final String categories;
+  const AssetIconTableData(
+      {required this.name, required this.tags, required this.categories});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['name'] = Variable<String>(name);
+    map['tags'] = Variable<String>(tags);
+    map['categories'] = Variable<String>(categories);
+    return map;
+  }
+
+  AssetIconTableCompanion toCompanion(bool nullToAbsent) {
+    return AssetIconTableCompanion(
+      name: Value(name),
+      tags: Value(tags),
+      categories: Value(categories),
+    );
+  }
+
+  factory AssetIconTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return AssetIconTableData(
+      name: serializer.fromJson<String>(json['name']),
+      tags: serializer.fromJson<String>(json['tags']),
+      categories: serializer.fromJson<String>(json['categories']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'name': serializer.toJson<String>(name),
+      'tags': serializer.toJson<String>(tags),
+      'categories': serializer.toJson<String>(categories),
+    };
+  }
+
+  AssetIconTableData copyWith(
+          {String? name, String? tags, String? categories}) =>
+      AssetIconTableData(
+        name: name ?? this.name,
+        tags: tags ?? this.tags,
+        categories: categories ?? this.categories,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('AssetIconTableData(')
+          ..write('name: $name, ')
+          ..write('tags: $tags, ')
+          ..write('categories: $categories')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(name, tags, categories);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is AssetIconTableData &&
+          other.name == this.name &&
+          other.tags == this.tags &&
+          other.categories == this.categories);
+}
+
+class AssetIconTableCompanion extends UpdateCompanion<AssetIconTableData> {
+  final Value<String> name;
+  final Value<String> tags;
+  final Value<String> categories;
+  final Value<int> rowid;
+  const AssetIconTableCompanion({
+    this.name = const Value.absent(),
+    this.tags = const Value.absent(),
+    this.categories = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  AssetIconTableCompanion.insert({
+    required String name,
+    required String tags,
+    required String categories,
+    this.rowid = const Value.absent(),
+  })  : name = Value(name),
+        tags = Value(tags),
+        categories = Value(categories);
+  static Insertable<AssetIconTableData> custom({
+    Expression<String>? name,
+    Expression<String>? tags,
+    Expression<String>? categories,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (name != null) 'name': name,
+      if (tags != null) 'tags': tags,
+      if (categories != null) 'categories': categories,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  AssetIconTableCompanion copyWith(
+      {Value<String>? name,
+      Value<String>? tags,
+      Value<String>? categories,
+      Value<int>? rowid}) {
+    return AssetIconTableCompanion(
+      name: name ?? this.name,
+      tags: tags ?? this.tags,
+      categories: categories ?? this.categories,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (tags.present) {
+      map['tags'] = Variable<String>(tags.value);
+    }
+    if (categories.present) {
+      map['categories'] = Variable<String>(categories.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('AssetIconTableCompanion(')
+          ..write('name: $name, ')
+          ..write('tags: $tags, ')
+          ..write('categories: $categories, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$LocalDB extends GeneratedDatabase {
   _$LocalDB(QueryExecutor e) : super(e);
   _$LocalDBManager get managers => _$LocalDBManager(this);
   late final $IconTableTable iconTable = $IconTableTable(this);
   late final $CurrencyTableTable currencyTable = $CurrencyTableTable(this);
   late final $AccountTableTable accountTable = $AccountTableTable(this);
+  late final $AssetIconTableTable assetIconTable = $AssetIconTableTable(this);
   late final CurrencyDao currencyDao = CurrencyDao(this as LocalDB);
   late final AccountDao accountDao = AccountDao(this as LocalDB);
   @override
@@ -1373,7 +1599,7 @@ abstract class _$LocalDB extends GeneratedDatabase {
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [iconTable, currencyTable, accountTable];
+      [iconTable, currencyTable, accountTable, assetIconTable];
 }
 
 typedef $$IconTableTableInsertCompanionBuilder = IconTableCompanion Function({
@@ -2020,6 +2246,117 @@ class $$AccountTableTableOrderingComposer
   }
 }
 
+typedef $$AssetIconTableTableInsertCompanionBuilder = AssetIconTableCompanion
+    Function({
+  required String name,
+  required String tags,
+  required String categories,
+  Value<int> rowid,
+});
+typedef $$AssetIconTableTableUpdateCompanionBuilder = AssetIconTableCompanion
+    Function({
+  Value<String> name,
+  Value<String> tags,
+  Value<String> categories,
+  Value<int> rowid,
+});
+
+class $$AssetIconTableTableTableManager extends RootTableManager<
+    _$LocalDB,
+    $AssetIconTableTable,
+    AssetIconTableData,
+    $$AssetIconTableTableFilterComposer,
+    $$AssetIconTableTableOrderingComposer,
+    $$AssetIconTableTableProcessedTableManager,
+    $$AssetIconTableTableInsertCompanionBuilder,
+    $$AssetIconTableTableUpdateCompanionBuilder> {
+  $$AssetIconTableTableTableManager(_$LocalDB db, $AssetIconTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$AssetIconTableTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$AssetIconTableTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$AssetIconTableTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<String> name = const Value.absent(),
+            Value<String> tags = const Value.absent(),
+            Value<String> categories = const Value.absent(),
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              AssetIconTableCompanion(
+            name: name,
+            tags: tags,
+            categories: categories,
+            rowid: rowid,
+          ),
+          getInsertCompanionBuilder: ({
+            required String name,
+            required String tags,
+            required String categories,
+            Value<int> rowid = const Value.absent(),
+          }) =>
+              AssetIconTableCompanion.insert(
+            name: name,
+            tags: tags,
+            categories: categories,
+            rowid: rowid,
+          ),
+        ));
+}
+
+class $$AssetIconTableTableProcessedTableManager extends ProcessedTableManager<
+    _$LocalDB,
+    $AssetIconTableTable,
+    AssetIconTableData,
+    $$AssetIconTableTableFilterComposer,
+    $$AssetIconTableTableOrderingComposer,
+    $$AssetIconTableTableProcessedTableManager,
+    $$AssetIconTableTableInsertCompanionBuilder,
+    $$AssetIconTableTableUpdateCompanionBuilder> {
+  $$AssetIconTableTableProcessedTableManager(super.$state);
+}
+
+class $$AssetIconTableTableFilterComposer
+    extends FilterComposer<_$LocalDB, $AssetIconTableTable> {
+  $$AssetIconTableTableFilterComposer(super.$state);
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get tags => $state.composableBuilder(
+      column: $state.table.tags,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get categories => $state.composableBuilder(
+      column: $state.table.categories,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$AssetIconTableTableOrderingComposer
+    extends OrderingComposer<_$LocalDB, $AssetIconTableTable> {
+  $$AssetIconTableTableOrderingComposer(super.$state);
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get tags => $state.composableBuilder(
+      column: $state.table.tags,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get categories => $state.composableBuilder(
+      column: $state.table.categories,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
 class _$LocalDBManager {
   final _$LocalDB _db;
   _$LocalDBManager(this._db);
@@ -2029,4 +2366,6 @@ class _$LocalDBManager {
       $$CurrencyTableTableTableManager(_db, _db.currencyTable);
   $$AccountTableTableTableManager get accountTable =>
       $$AccountTableTableTableManager(_db, _db.accountTable);
+  $$AssetIconTableTableTableManager get assetIconTable =>
+      $$AssetIconTableTableTableManager(_db, _db.assetIconTable);
 }

@@ -74,10 +74,9 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
               const SizedBox(height: 16),
               Text(
                 widget.titleString,
-                style: context.textTheme.titleLarge,
+                style: context.textTheme.titleNormal,
               ),
               const SizedBox(height: 8),
-              const Divider(height: 1),
               Expanded(
                 child: CustomScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
@@ -103,7 +102,6 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
                   ],
                 ),
               ),
-              const Divider(height: 1),
               _BottomSearchBar(controller: _controller),
             ],
           ),

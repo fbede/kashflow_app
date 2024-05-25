@@ -9,8 +9,15 @@ import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 
 class CreateAccountView extends ConsumerStatefulWidget {
-  const CreateAccountView(this.defaultCurrencyData, {super.key});
+  const CreateAccountView(
+    this.defaultCurrencyData,
+    //   this.defaultAccountIcon,
+    {
+    super.key,
+  });
+
   final CurrencyTableData defaultCurrencyData;
+  // final AssetIconTableData defaultAccountIcon;
 
   @override
   ConsumerState<CreateAccountView> createState() => _CreateAccountViewState();
@@ -21,9 +28,9 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   final _amountController = TextEditingController(text: '0.0');
   final _currencyTextController = TextEditingController();
   final _descriptionController = TextEditingController();
-  final _iconSelectorController = IconSelectorController();
   final _formKey = GlobalKey<FormState>();
 
+  late final _iconSelectorController = IconSelectorController(Icons.abc);
   // late final AppCurrencyController _appCurrencyController;
 
   bool _saveIsLoading = false;
