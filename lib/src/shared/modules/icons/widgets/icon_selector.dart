@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -46,9 +45,8 @@ class _IconSelectorState extends State<IconSelector> {
                 color: backgroundColor ?? defaultBackgroundColor,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(
+              child: AssetIcon(
                 selectedIcon,
-                size: 100,
                 color: iconColor ?? defualtIconColor,
               ),
             ),
@@ -108,7 +106,7 @@ class _IconSelectorState extends State<IconSelector> {
   Future<void> _updateIcon() async {
     final icon = await showIconPicker(context);
     if (icon != null) {
-      //   widget.controller.updateSelectedIcon(icon);
+      widget.controller.updateSelectedIcon(icon);
     }
   }
 
@@ -133,11 +131,11 @@ class IconSelectorController extends ChangeNotifier {
     this.backgroundColor,
   });
 
-  IconData iconData;
+  AssetIconTableData iconData;
   Color? iconColor;
   Color? backgroundColor;
 
-  void updateSelectedIcon(IconData iconData) {
+  void updateSelectedIcon(AssetIconTableData iconData) {
     this.iconData = iconData;
     notifyListeners();
   }

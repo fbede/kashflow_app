@@ -45,7 +45,7 @@ class HomeScreenFAB extends ConsumerWidget {
                 onPressed = () {};
               } else {
                 icon = const Icon(LucideIcons.wallet);
-                onPressed = () async => openCreateAccount(context, data!);
+                onPressed = () async => openCreateAccount(context, ref, data!);
               }
 
               return FloatingActionButton(
@@ -57,18 +57,23 @@ class HomeScreenFAB extends ConsumerWidget {
 
   Future<void> openCreateAccount(
     BuildContext context,
+    WidgetRef ref,
     CurrencyTableData data,
-  ) async =>
-      showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        useRootNavigator: true,
-        builder: (ctx) => AnimatedPadding(
-          duration: fastGlobalAnimationDuration,
-          padding: EdgeInsetsDirectional.only(
-            bottom: ctx.viewInsets.bottom,
-          ),
-          child: CreateAccountView(data),
+  ) async {
+    final defaultAccountIcon =
+        await ref.watch(defaultAccountIconPresenter.call().future);
+
+    await showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useRootNavigator: true,
+      builder: (ctx) => AnimatedPadding(
+        duration: fastGlobalAnimationDuration,
+        padding: EdgeInsetsDirectional.only(
+          bottom: ctx.viewInsets.bottom,
         ),
-      );
+        child: CreateAccountView(data, defaultAccountIcon),
+      ),
+    );
+  }
 }
