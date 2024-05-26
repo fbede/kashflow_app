@@ -7,6 +7,7 @@ import 'package:money2/money2.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
+import '../../app.dart';
 
 class CreateAccountView extends ConsumerStatefulWidget {
   const CreateAccountView(
@@ -31,7 +32,8 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   final _formKey = GlobalKey<FormState>();
 
   late final _iconSelectorController = IconSelectorController(Icons.abc);
-  // late final AppCurrencyController _appCurrencyController;
+  late final _currencyController =
+      CurrencyFormFieldController(widget.defaultCurrencyData);
 
   bool _saveIsLoading = false;
 
@@ -39,12 +41,12 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   void initState() {
     super.initState();
     // _appCurrencyController = AppCurrencyController(widget.defaultCurrencyData);
-    // _appCurrencyController.addListener(
-    //   () => _currencyTextController.text = _appCurrencyController.text,
-    // );
+    _currencyController.addListener(
+      () => _currencyTextController.text = _currencyController.text,
+    );
     _descriptionController.addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //     _currencyTextController.text = _appCurrencyController.text;
+      _currencyTextController.text = _currencyController.text;
       setState(() {});
     });
   }
@@ -53,7 +55,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   void dispose() {
     _accountNameController.dispose();
     _amountController.dispose();
-    //  _appCurrencyController.dispose();
+    _currencyController.dispose();
     _currencyTextController.dispose();
     _descriptionController.dispose();
     _iconSelectorController.dispose();
@@ -75,7 +77,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
             const SizedBox(height: 16),
             Text(
               userText.add_account,
-              style: context.textTheme.titleLarge,
+              style: context.textTheme.titleNormal,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
@@ -86,11 +88,10 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
               controller: _accountNameController,
             ),
             const SizedBox(height: 8),
-            // CurrencyDropDown(),
-            // CurrencyFormField(
-            //   appCurrencyController: _appCurrencyController,
-            //   textController: _currencyTextController,
-            // ),
+            CurrencyFormField(
+              currencyController: _currencyController,
+              textController: _currencyTextController,
+            ),
             const SizedBox(height: 16),
             MoneyAmountFormField(controller: _amountController),
             const SizedBox(height: 16),

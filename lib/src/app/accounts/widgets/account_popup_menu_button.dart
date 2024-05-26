@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
@@ -21,12 +22,8 @@ class AccountListTileMenuButton extends ConsumerStatefulWidget {
 class _AccountListTileMenuButtonState
     extends ConsumerState<AccountListTileMenuButton> {
   final loadingIcon = const CustomProgressIndicator();
+  final notLoadingIcon = const Icon(LucideIcons.ellipsisVertical);
 
-  late final notLoadingIcon = Assets.lucide.ellipsisVertical.svg(
-    theme: context.svgTheme(),
-  );
-  late final editIcon = Assets.lucide.penLine.svg(theme: context.svgTheme());
-  late final deleteIcon = Assets.lucide.trash2.svg(theme: context.svgTheme());
   late final userText = context.t.account_module.account_popup_menu_button;
   late Widget icon;
 
@@ -46,7 +43,7 @@ class _AccountListTileMenuButtonState
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                editIcon,
+                const Icon(LucideIcons.penLine),
                 const SizedBox(width: 8),
                 Text(userText.edit),
               ],
@@ -57,7 +54,7 @@ class _AccountListTileMenuButtonState
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                deleteIcon,
+                const Icon(LucideIcons.trash2),
                 const SizedBox(width: 8),
                 Text(
                   userText.delete,

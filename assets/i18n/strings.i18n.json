@@ -14,7 +14,13 @@
       "save": "Save"
     }
   },
-  "currency_module": {},
+  "currency_module": {
+    "currency_form_field": {
+      "select_currency": "Select Currency",
+      "cannot_be_empty": "Cannot Be Empty",
+      "currency": "Currency"
+    }
+  },
   "onboarding_module": {
     "onboarding_screen": {
       "pages": [

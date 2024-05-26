@@ -4,7 +4,6 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../components/calculator.dart';
 import '../../core/core.dart';
-import '../shared.dart';
 
 class DescriptionFormField extends StatelessWidget {
   const DescriptionFormField({
@@ -19,8 +18,8 @@ class DescriptionFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = context.t.shared.widgets.custom_text_fields;
-    final textIcon = Assets.lucide.text.svg(theme: context.svgTheme());
-    final closeIcon = Assets.lucide.circleX.svg(theme: context.svgTheme());
+    const textIcon = Icon(LucideIcons.text);
+    const closeIcon = Icon(LucideIcons.circleX);
 
     return TextFormField(
       controller: controller,
@@ -53,8 +52,8 @@ class MoneyAmountFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final text = context.t.shared.widgets.custom_text_fields;
-    final coinsIcon = Assets.lucide.coins.svg(theme: context.svgTheme());
-    final calculator = Assets.lucide.calculator.svg(theme: context.svgTheme());
+    const coinsIcon = Icon(LucideIcons.coins);
+    const calculator = Icon(LucideIcons.calculator);
 
     return TextFormField(
       controller: controller,
@@ -108,8 +107,7 @@ class NameFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final penIcon =
-        Assets.lucide.pen.svg(height: 24, width: 24, theme: context.svgTheme());
+    const penIcon = Icon(LucideIcons.pen);
 
     return TextFormField(
       controller: controller,
@@ -151,10 +149,6 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hintText = context.t.shared.widgets.custom_text_fields.search;
-    final searchIcon = SizedBox.square(
-      dimension: 10,
-      child: Assets.lucide.search.svg(theme: context.svgTheme()),
-    );
 
     return TextField(
       keyboardType: TextInputType.text,

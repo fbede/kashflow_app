@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/core.dart';
@@ -121,15 +122,9 @@ class _NavButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final leftArrow = Assets.lucide.chevronLeft.svg(theme: context.svgTheme());
-    final rightArrow = Assets.lucide.chevronRight.svg(
-      key: const ValueKey(0),
-      theme: context.svgTheme(),
-    );
-    final check = Assets.lucide.check.svg(
-      key: const ValueKey(1),
-      theme: context.svgTheme(),
-    );
+    const leftArrow = Icon(LucideIcons.chevronLeft);
+    const rightArrow = Icon(LucideIcons.chevronRight, key: ValueKey(0));
+    const check = Icon(LucideIcons.chevronRight, key: ValueKey(1));
 
     return Align(
       alignment: Alignment.bottomCenter,

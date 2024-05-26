@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 44
+/// Strings: 47
 ///
-/// Built on 2024-05-26 at 02:03 UTC
+/// Built on 2024-05-26 at 03:19 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -194,6 +194,7 @@ class _TranslationsCurrencyModuleEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
+	late final _TranslationsCurrencyModuleCurrencyFormFieldEn currency_form_field = _TranslationsCurrencyModuleCurrencyFormFieldEn._(_root);
 }
 
 // Path: onboarding_module
@@ -261,6 +262,18 @@ class _TranslationsAccountModuleCreateAccountViewEn {
 	String get account_name => 'Account Name';
 	String get cancel => 'Cancel';
 	String get save => 'Save';
+}
+
+// Path: currency_module.currency_form_field
+class _TranslationsCurrencyModuleCurrencyFormFieldEn {
+	_TranslationsCurrencyModuleCurrencyFormFieldEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get select_currency => 'Select Currency';
+	String get cannot_be_empty => 'Cannot Be Empty';
+	String get currency => 'Currency';
 }
 
 // Path: onboarding_module.onboarding_screen
@@ -421,6 +434,9 @@ extension on Translations {
 			case 'account_module.create_account_view.account_name': return 'Account Name';
 			case 'account_module.create_account_view.cancel': return 'Cancel';
 			case 'account_module.create_account_view.save': return 'Save';
+			case 'currency_module.currency_form_field.select_currency': return 'Select Currency';
+			case 'currency_module.currency_form_field.cannot_be_empty': return 'Cannot Be Empty';
+			case 'currency_module.currency_form_field.currency': return 'Currency';
 			case 'onboarding_module.onboarding_screen.pages.0.title': return 'Welcome To Kashflow';
 			case 'onboarding_module.onboarding_screen.pages.0.subtitle': return 'Let\'s help you manage your finances';
 			case 'onboarding_module.onboarding_screen.pages.1.title': return 'Record Your Daily Transactions';
