@@ -11,4 +11,4 @@ build:
   strings: dart run slang watch
 
   test:
-    apk: flutter build apk --dart-define-from-file=config/test.json --no-tree-shake-icons
+    apk: flutter build apk --dart-define-from-file=config/test.json

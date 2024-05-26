@@ -14,8 +14,11 @@ class AppTheme {
         inputDecorationTheme: _inputDecorationTheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         actionIconTheme: _actionIconThemeData,
-        //  buttonTheme: _buttonTheme,
+        elevatedButtonTheme: _elevatedButtonTheme,
+        filledButtonTheme: _filledButtonTheme,
         navigationBarTheme: _navigationBarTheme,
+        outlinedButtonTheme: _outlinedButtonTheme,
+        textButtonTheme: _textButtonTheme,
       );
 
   InputDecorationTheme get _inputDecorationTheme => InputDecorationTheme(
@@ -36,9 +39,13 @@ class AppTheme {
         ),
       );
 
-  // ButtonThemeData get _buttonTheme => ButtonThemeData();
+  ElevatedButtonThemeData get _elevatedButtonTheme => ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(textStyle: _textTheme.bodyNormal),
+      );
 
-  // ButtonTextTheme get _buttonTextTheme => Butt
+  FilledButtonThemeData get _filledButtonTheme => FilledButtonThemeData(
+        style: FilledButton.styleFrom(textStyle: _textTheme.bodyNormal),
+      );
 
   NavigationBarThemeData get _navigationBarTheme => NavigationBarThemeData(
         indicatorColor: _baseThemeData.colorScheme.onPrimaryContainer,
@@ -51,6 +58,14 @@ class AppTheme {
           }
           return _textTheme.labelNormal;
         }),
+      );
+
+  OutlinedButtonThemeData get _outlinedButtonTheme => OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(textStyle: _textTheme.bodyNormal),
+      );
+
+  TextButtonThemeData get _textButtonTheme => TextButtonThemeData(
+        style: TextButton.styleFrom(textStyle: _textTheme.bodyNormal),
       );
 }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../components/calculator.dart';
 import '../../core/core.dart';
@@ -150,7 +151,10 @@ class SearchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hintText = context.t.shared.widgets.custom_text_fields.search;
-    final searchIcon = Assets.lucide.search.svg(theme: context.svgTheme());
+    final searchIcon = SizedBox.square(
+      dimension: 10,
+      child: Assets.lucide.search.svg(theme: context.svgTheme()),
+    );
 
     return TextField(
       keyboardType: TextInputType.text,
@@ -159,7 +163,7 @@ class SearchTextField extends StatelessWidget {
       decoration: InputDecoration(
         filled: true,
         contentPadding: EdgeInsetsDirectional.zero,
-        prefixIcon: searchIcon,
+        prefixIcon: const Icon(LucideIcons.search),
         hintText: hintText,
       ),
     );
