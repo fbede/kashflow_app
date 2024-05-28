@@ -9,6 +9,6 @@ class AssetIconInteractor {
 
   Future<AssetIconTableData> get defaultAccountIcon => _dao.defaultAccountIcon;
 
-  Stream<List<AssetIconTableData>> watchIcons(String searchTerm) =>
-      _dao.watchIcons(searchTerm);
+  Future<List<AssetIconTableData>> fetchIcons(AssetIconQuery query) =>
+      _dao.fetchIcons(query);
 }

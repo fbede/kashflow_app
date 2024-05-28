@@ -45,9 +45,12 @@ class _IconSelectorState extends State<IconSelector> {
                 color: backgroundColor ?? defaultBackgroundColor,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: AssetIcon(
-                selectedIcon,
-                color: iconColor ?? defualtIconColor,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: AssetIcon(
+                  selectedIcon,
+                  color: iconColor ?? defualtIconColor,
+                ),
               ),
             ),
           ),

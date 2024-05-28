@@ -37,7 +37,7 @@ class MyApp extends ConsumerWidget {
           // title: UserText.appName,
           theme: AppTheme.light().themeData,
           darkTheme: AppTheme.dark().themeData,
-          //   themeMode: themeMode,
+          //themeMode: ThemeMode.light, // themeMode,
           routerConfig: router,
           locale: TranslationProvider.of(context).flutterLocale,
           supportedLocales: AppLocaleUtils.supportedLocales,

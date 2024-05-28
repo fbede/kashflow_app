@@ -6,7 +6,7 @@ import '../accounts.dart';
 class AccountListTile extends StatelessWidget {
   const AccountListTile({required this.data, super.key});
 
-  final Account data;
+  final AccountOld data;
 
   @override
   Widget build(BuildContext context) => ListTile(

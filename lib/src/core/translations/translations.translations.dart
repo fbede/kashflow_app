@@ -6,7 +6,7 @@
 /// Locales: 1
 /// Strings: 47
 ///
-/// Built on 2024-05-26 at 03:19 UTC
+/// Built on 2024-05-28 at 20:07 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -301,7 +301,7 @@ class _TranslationsOnboardingModuleMobileAppShellEn {
 	// Translations
 	String get nav_bar_home => 'Home';
 	String get nav_bar_records => 'Records';
-	String get nav_bar_settings => 'Settings';
+	String get nav_bar_more => 'More';
 }
 
 // Path: onboarding_module.home_screen
@@ -448,7 +448,7 @@ extension on Translations {
 			case 'onboarding_module.onboarding_screen.currency_picker_title': return 'Select Default Currency';
 			case 'onboarding_module.mobile_app_shell.nav_bar_home': return 'Home';
 			case 'onboarding_module.mobile_app_shell.nav_bar_records': return 'Records';
-			case 'onboarding_module.mobile_app_shell.nav_bar_settings': return 'Settings';
+			case 'onboarding_module.mobile_app_shell.nav_bar_more': return 'More';
 			case 'onboarding_module.home_screen.title': return 'Home';
 			case 'onboarding_module.home_screen.purse': return 'Purse';
 			case 'onboarding_module.home_screen.portfoilo': return 'Portfolio';

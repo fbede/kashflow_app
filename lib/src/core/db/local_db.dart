@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'dart:isolate';
 
 import 'package:drift/drift.dart';
+import 'package:drift/isolate.dart';
 import 'package:drift/native.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:vlsid/vlsid.dart';
@@ -46,13 +49,11 @@ class LocalDB extends _$LocalDB {
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (m) async {
           await m.createAll();
-          final assetCurrenciesCompanion = await loadCurrenciesFromAsset();
-          final assetIcons = await loadIconsFromAsset();
-          await batch((batch) {
-            batch
-              ..insertAll(currencyTable, assetCurrenciesCompanion)
-              ..insertAll(assetIconTable, assetIcons);
-          });
+          final String currenciesJson =
+              await rootBundle.loadString(Assets.json.loadedCurrencies);
+          final String iconsJson =
+              await rootBundle.loadString(Assets.json.iconInfo);
+          await _insertBulkData(this, currenciesJson, iconsJson);
         },
         beforeOpen: (details) async {
           await customStatement('PRAGMA foreign_keys = ON');
@@ -65,3 +66,23 @@ LazyDatabase _openDBConnection() => LazyDatabase(() async {
       final file = File(p.join(dbFolder.path, 'database', 'db.sqlite'));
       return NativeDatabase.createInBackground(file);
     });
+
+Future<void> _insertBulkData(
+  LocalDB database,
+  String currenciesJson,
+  String iconsJson,
+) async {
+  await database.computeWithDatabase(
+    computation: (database) async {
+      final assetCurrenciesCompanion = loadCurrenciesFromAsset(currenciesJson);
+      final assetIcons = loadIconsFromAsset(iconsJson);
+
+      await database.batch((batch) {
+        batch
+          ..insertAll(database.currencyTable, assetCurrenciesCompanion)
+          ..insertAll(database.assetIconTable, assetIcons);
+      });
+    },
+    connect: LocalDB.test,
+  );
+}

@@ -6,20 +6,16 @@ import '../../../shared.dart';
 part 'asset_icon_provider.g.dart';
 
 @riverpod
-Stream<List<AssetIconTableData>> assetIcon(
+Future<List<AssetIconTableData>> assetIcon(
   AssetIconRef ref,
-  String searchTerm, {
-  AssetIconInteractor? currencyInteractor,
-}) async* {
-  final interactor = currencyInteractor ?? AssetIconInteractor();
-  yield* interactor.watchIcons(searchTerm);
+  AssetIconQuery query,
+) async {
+  final interactor = AssetIconInteractor();
+  return interactor.fetchIcons(query);
 }
 
 @riverpod
-Future<AssetIconTableData> defaultAccountIcon(
-  DefaultAccountIconRef ref, {
-  AssetIconInteractor? currencyInteractor,
-}) async {
-  final interactor = currencyInteractor ?? AssetIconInteractor();
+Future<AssetIconTableData> defaultAccountIcon(DefaultAccountIconRef ref) async {
+  final interactor = AssetIconInteractor();
   return interactor.defaultAccountIcon;
 }

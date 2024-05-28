@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../../core/core.dart';
 import '../../../shared.dart';
@@ -63,10 +64,9 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
             const SizedBox(height: 16),
             Text(
               userText.select_icon,
-              style: context.textTheme.headlineSmall,
+              style: context.textTheme.titleNormal,
             ),
             const SizedBox(height: 8),
-            const Divider(height: 1),
             Expanded(
               child: _IconGrid(
                 onTap: widget.onTap,
@@ -81,7 +81,7 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
               decoration: InputDecoration(
                 filled: true,
                 contentPadding: EdgeInsetsDirectional.zero,
-                prefixIcon: Assets.lucide.search.svg(),
+                prefixIcon: const Icon(LucideIcons.search),
                 hintText: userText.search,
               ),
             ),
@@ -103,41 +103,63 @@ class _IconGrid extends ConsumerWidget {
   final String searchTerm;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(assetIconPresenter.call(searchTerm)).when(
-            loading: () => const CustomProgressIndicator(),
-            error: (e, s) => const Text('e\ns'),
-            data: (data) => GridView.builder(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              itemCount: data.length,
-              itemBuilder: (context, index) =>
-                  _ItemWidget(item: data[index], onTap: onTap),
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                mainAxisSpacing: 8,
-                crossAxisSpacing: 8,
-                maxCrossAxisExtent: 48,
-                mainAxisExtent: 40,
-              ),
-            ),
+  Widget build(BuildContext context, WidgetRef ref) => GridView.builder(
+        key: ValueKey(searchTerm),
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        itemBuilder: (context, index) {
+          const pageSize = PageSize.large;
+          final page = index ~/ pageSize + 1;
+          final indexInPage = index % pageSize;
+          final query = (
+            searchTerm: searchTerm,
+            page: page,
+            pageSize: PageSize.large,
           );
+
+          final response = ref.watch(assetIconProvider(query));
+
+          return response.when(
+            loading: () => _ItemWidget(onTap: (v) {}),
+            error: (e, s) => const Text('e\ns'),
+            data: (data) {
+              if (indexInPage >= data.length) {
+                return null;
+              }
+              return _ItemWidget(item: data[indexInPage], onTap: onTap);
+            },
+          );
+        },
+        gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
+          maxCrossAxisExtent: 56,
+          mainAxisExtent: 56,
+        ),
+      );
 }
 
 class _ItemWidget extends StatelessWidget {
   const _ItemWidget({
-    required this.item,
     required this.onTap,
+    this.item,
   });
 
-  final AssetIconTableData item;
+  final AssetIconTableData? item;
   final ValueChanged<AssetIconTableData> onTap;
 
   @override
   Widget build(BuildContext context) => InkWell(
-        onTap: () => onTap(item),
+        onTap: item == null ? () {} : () => onTap(item!),
         child: Card(
-          margin: EdgeInsets.zero,
           shadowColor: Colors.transparent,
-          child: GridTile(child: AssetIcon(item)),
+          child: GridTile(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: item == null
+                  ? const CustomProgressIndicator()
+                  : AssetIcon(item!),
+            ),
+          ),
         ),
       );
 }

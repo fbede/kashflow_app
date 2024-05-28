@@ -8,5 +8,5 @@ class AccountInteractor {
 
   AccountInteractor.test(AccountDao dao) : this(dao: dao);
 
-  Stream<List<Account>> watchAllAccounts() => _dao.watchAllAccounts();
+  Stream<List<AccountOld>> watchAllAccounts() => _dao.watchAllAccounts();
 }

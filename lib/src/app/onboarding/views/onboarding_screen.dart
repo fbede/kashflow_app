@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -88,9 +87,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
       }
 
       await Future.wait([
-        ref.read(onboardingProviderPresenter.notifier).completeOnboarding(),
+        ref.read(onboardingProvider.notifier).completeOnboarding(),
         ref
-            .read(defaultCurrencyProviderPresenter.notifier)
+            .read(defaultCurrencyProvider.notifier)
             .setDefaultCurrency(defaultCurrency),
       ]);
 

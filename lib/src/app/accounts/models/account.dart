@@ -3,7 +3,7 @@ import 'package:money2/money2.dart';
 import '../../../core/core.dart';
 import '../../currency/currency.dart';
 
-class Account {
+class AccountOld {
   final String id;
   final String name;
   final String description;
@@ -11,7 +11,7 @@ class Account {
   final IconTableData iconData;
   final Money openingBalance;
 
-  Account({
+  AccountOld({
     required AccountTableData accountData,
     required CurrencyTableData currencyData,
     required this.iconData,

@@ -81,7 +81,7 @@ class _CurrencyPickerDialogState extends ConsumerState<CurrencyPickerDialog> {
                 child: CustomScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
                   slivers: [
-                    ref.watch(currencyPresenter.call(searchTerm)).when(
+                    ref.watch(currencyProvider(searchTerm)).when(
                           error: _buildErrorText,
                           loading: _buildLoader,
                           data: (data) => SliverGrid.builder(

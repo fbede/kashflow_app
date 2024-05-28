@@ -4,6 +4,8 @@ import '../../../../core/core.dart';
 
 part 'asset_icon_dao.g.dart';
 
+typedef AssetIconQuery = ({String searchTerm, int pageSize, int page});
+
 @DriftAccessor(tables: [AssetIconTable])
 class AssetIconDao extends DatabaseAccessor<LocalDB> with _$AssetIconDaoMixin {
   AssetIconDao(super.attachedDatabase);
@@ -24,19 +26,24 @@ class AssetIconDao extends DatabaseAccessor<LocalDB> with _$AssetIconDaoMixin {
     }
   }
 
-  Stream<List<AssetIconTableData>> watchIcons(String searchTerm) async* {
+  Future<List<AssetIconTableData>> fetchIcons(
+    AssetIconQuery query,
+  ) async {
     try {
-      yield* super
+      return await super
           .attachedDatabase
           .managers
           .assetIconTable
           .filter(
             (e) =>
-                e.name.contains(searchTerm) |
-                e.tags.contains(searchTerm) |
-                e.categories.contains(searchTerm),
+                e.name.contains(query.searchTerm) |
+                e.tags.contains(query.searchTerm) |
+                e.categories.contains(query.searchTerm),
           )
-          .watch();
+          .get(
+            limit: query.pageSize,
+            offset: (query.page - 1) * query.pageSize,
+          );
     } on Exception catch (e, s) {
       talker.handle(e, s);
       rethrow;

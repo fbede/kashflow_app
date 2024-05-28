@@ -46,7 +46,7 @@
     "mobile_app_shell": {
       "nav_bar_home": "Home",
       "nav_bar_records": "Records",
-      "nav_bar_settings": "Settings"
+      "nav_bar_more": "More"
     },
     "home_screen": {
       "title": "Home",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/extensions/build_context_extensions.dart';
@@ -41,13 +42,11 @@ class AppShell extends StatelessWidget {
             label: userText.nav_bar_records,
           ),
           NavigationDestination(
-            icon: Assets.lucide.menu.svg(
-              theme: SvgTheme(currentColor: colorScheme.onBackground),
-            ),
+            icon: const Icon(LucideIcons.ellipsis),
             selectedIcon: Assets.lucide.menu.svg(
               theme: SvgTheme(currentColor: colorScheme.primaryContainer),
             ),
-            label: userText.nav_bar_settings,
+            label: userText.nav_bar_more,
           ),
         ],
       ),

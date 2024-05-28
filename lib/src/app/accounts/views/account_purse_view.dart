@@ -10,7 +10,7 @@ class AccountPurseView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(accountProviderPresenter).when(
+      ref.watch(accountProvider).when(
             loading: () => const Center(child: CustomProgressIndicator()),
             error: (e, s) => Center(child: Text('$e\n$s')),
             data: (data) {
@@ -40,7 +40,7 @@ class _AddNewAccountButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(defaultCurrencyProviderPresenter).when(
+      ref.watch(defaultCurrencyProvider).when(
             error: (e, s) => Center(child: Text('$e\n$s')),
             loading: () => const Center(child: CustomProgressIndicator()),
             data: (data) => Center(

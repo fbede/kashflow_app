@@ -13,7 +13,7 @@ class HomeScreenFAB extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(accountProviderPresenter).when(
+      ref.watch(accountProvider).when(
             loading: () => const Center(child: CustomProgressIndicator()),
             error: (e, s) => Center(child: Text('$e\n$s')),
             data: (data) {
@@ -33,7 +33,7 @@ class HomeScreenFAB extends ConsumerWidget {
           );
 
   Widget buildFAB(BuildContext context, WidgetRef ref) =>
-      ref.watch(defaultCurrencyProviderPresenter).when(
+      ref.watch(defaultCurrencyProvider).when(
             error: (e, s) => Center(child: Text('$e\n$s')),
             loading: () => const Center(child: CustomProgressIndicator()),
             data: (data) {
@@ -59,21 +59,21 @@ class HomeScreenFAB extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     CurrencyTableData data,
-  ) async {
-    final defaultAccountIcon =
-        await ref.watch(defaultAccountIconPresenter.call().future);
-
-    await showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      useRootNavigator: true,
-      builder: (ctx) => AnimatedPadding(
-        duration: fastGlobalAnimationDuration,
-        padding: EdgeInsetsDirectional.only(
-          bottom: ctx.viewInsets.bottom,
-        ),
-        child: CreateAccountView(data, defaultAccountIcon),
-      ),
-    );
-  }
+  ) async =>
+      ref.watch(defaultAccountIconProvider).when(
+            error: (e, s) => Center(child: Text('$e\n$s')),
+            loading: () => const Center(child: CustomProgressIndicator()),
+            data: (icon) async => showModalBottomSheet<void>(
+              context: context,
+              isScrollControlled: true,
+              useRootNavigator: true,
+              builder: (ctx) => AnimatedPadding(
+                duration: fastGlobalAnimationDuration,
+                padding: EdgeInsetsDirectional.only(
+                  bottom: ctx.viewInsets.bottom,
+                ),
+                child: CreateAccountView(data, icon),
+              ),
+            ),
+          );
 }

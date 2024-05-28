@@ -56,9 +56,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
     await LocalDB().doWhenOpened((e) => talker.log('Database Opened'));
 
-    final hasOnboarded = ref.watch(onboardingProviderPresenter);
+    final hasOnboarded = ref.watch(onboardingProvider);
     final defaultCurrencyIsSet =
-        (await ref.watch(defaultCurrencyProviderPresenter.future)) != null;
+        (await ref.watch(defaultCurrencyProvider.future)) != null;
 
     if (hasOnboarded & defaultCurrencyIsSet) {
       router.goNamed(Routes.home);

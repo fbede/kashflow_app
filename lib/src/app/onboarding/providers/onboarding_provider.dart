@@ -5,11 +5,8 @@ import '../interactors/onboarding_interactor.dart';
 part 'onboarding_provider.g.dart';
 
 @riverpod
-class OnboardingProvider extends _$OnboardingProvider {
-  final OnboardingInteractor _interactor;
-
-  OnboardingProvider({OnboardingInteractor? interactor})
-      : _interactor = interactor ?? OnboardingInteractor();
+class Onboarding extends _$Onboarding {
+  final _interactor = OnboardingInteractor();
 
   @override
   bool build() => _interactor.isOnboardingComplete;

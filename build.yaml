@@ -5,8 +5,8 @@ targets:
         options:
           provider_name_prefix: ""
           provider_family_name_prefix: ""
-          provider_name_suffix: "Presenter"
-          provider_family_name_suffix: "Presenter"
+          provider_name_suffix: "Provider"
+          provider_family_name_suffix: "Provider"
 
       slang_build_runner:
         options:

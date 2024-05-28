@@ -6,21 +6,17 @@ import '../interactors/currency_interactor.dart';
 part 'currency_provider.g.dart';
 
 @riverpod
-Stream<List<CurrencyTableData>> currency(
+Future<List<CurrencyTableData>> currency(
   CurrencyRef ref,
-  String searchTerm, {
-  CurrencyInteractor? currencyInteractor,
-}) async* {
-  final interactor = currencyInteractor ?? CurrencyInteractor();
-  yield* interactor.watchSavedCurrencies(searchTerm);
+  String searchTerm,
+) async {
+  final interactor = CurrencyInteractor();
+  return interactor.savedCurrencies(searchTerm);
 }
 
 @riverpod
-class DefaultCurrencyProvider extends _$DefaultCurrencyProvider {
-  final CurrencyInteractor _interactor;
-
-  DefaultCurrencyProvider({CurrencyInteractor? interactor})
-      : _interactor = interactor ?? CurrencyInteractor();
+class DefaultCurrency extends _$DefaultCurrency {
+  final _interactor = CurrencyInteractor();
 
   @override
   Future<CurrencyTableData?> build() async => _interactor.defaultCurrency;

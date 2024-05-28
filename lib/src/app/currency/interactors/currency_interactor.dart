@@ -19,6 +19,6 @@ class CurrencyInteractor {
     }
   }
 
-  Stream<List<CurrencyTableData>> watchSavedCurrencies(String searchTerm) =>
-      _dao.watchCurrencies(searchTerm);
+  Future<List<CurrencyTableData>> savedCurrencies(String searchTerm) =>
+      _dao.savedCurrencies(searchTerm);
 }

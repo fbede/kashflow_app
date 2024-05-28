@@ -70,59 +70,61 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
       child: Form(
         key: _formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 16),
-            Text(
-              userText.add_account,
-              style: context.textTheme.titleNormal,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            IconSelector(controller: _iconSelectorController),
-            const SizedBox(height: 16),
-            NameFormField(
-              label: userText.account_name,
-              controller: _accountNameController,
-            ),
-            const SizedBox(height: 8),
-            CurrencyFormField(
-              currencyController: _currencyController,
-              textController: _currencyTextController,
-            ),
-            const SizedBox(height: 16),
-            MoneyAmountFormField(controller: _amountController),
-            const SizedBox(height: 16),
-            DescriptionFormField(
-              controller: _descriptionController,
-              showSuffix: _descriptionController.text.isEmpty,
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: context.pop,
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: context.colorScheme.error),
-                      foregroundColor: context.colorScheme.error,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 16),
+              Text(
+                userText.add_account,
+                style: context.textTheme.titleNormal,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              IconSelector(controller: _iconSelectorController),
+              const SizedBox(height: 16),
+              NameFormField(
+                label: userText.account_name,
+                controller: _accountNameController,
+              ),
+              const SizedBox(height: 8),
+              CurrencyFormField(
+                currencyController: _currencyController,
+                textController: _currencyTextController,
+              ),
+              const SizedBox(height: 16),
+              MoneyAmountFormField(controller: _amountController),
+              const SizedBox(height: 16),
+              DescriptionFormField(
+                controller: _descriptionController,
+                showSuffix: _descriptionController.text.isEmpty,
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: context.pop,
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: context.colorScheme.error),
+                        foregroundColor: context.colorScheme.error,
+                      ),
+                      child: Text(userText.cancel),
                     ),
-                    child: Text(userText.cancel),
                   ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: FilledButton(
-                    onPressed: _save,
-                    child: _saveIsLoading
-                        ? const CustomProgressIndicator()
-                        : Text(userText.save),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: FilledButton(
+                      onPressed: _save,
+                      child: _saveIsLoading
+                          ? const CustomProgressIndicator()
+                          : Text(userText.save),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

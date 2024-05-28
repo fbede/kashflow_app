@@ -8,9 +8,9 @@ part 'currency_dao.g.dart';
 class CurrencyDao extends DatabaseAccessor<LocalDB> with _$CurrencyDaoMixin {
   CurrencyDao(super.attachedDatabase);
 
-  Stream<List<CurrencyTableData>> watchCurrencies(String searchTerm) async* {
+  Future<List<CurrencyTableData>> savedCurrencies(String searchTerm) async {
     try {
-      yield* super
+      return super
           .attachedDatabase
           .managers
           .currencyTable
@@ -21,7 +21,7 @@ class CurrencyDao extends DatabaseAccessor<LocalDB> with _$CurrencyDaoMixin {
                 e.code.contains(searchTerm) |
                 e.unit.contains(searchTerm),
           )
-          .watch();
+          .get();
     } on Exception catch (e, s) {
       talker.handle(e, s);
       rethrow;
