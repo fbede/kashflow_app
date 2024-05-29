@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../../app.dart';
+import '../providers/home_fab_provider.dart';
 
 class HomeScreenFAB extends ConsumerWidget {
   const HomeScreenFAB({required this.controller, super.key});
@@ -33,7 +34,7 @@ class HomeScreenFAB extends ConsumerWidget {
           );
 
   Widget buildFAB(BuildContext context, WidgetRef ref) =>
-      ref.watch(defaultCurrencyProvider).when(
+      ref.watch(homeScreenFABDataProvider).when(
             error: (e, s) => Center(child: Text('$e\n$s')),
             loading: () => const Center(child: CustomProgressIndicator()),
             data: (data) {
@@ -45,7 +46,7 @@ class HomeScreenFAB extends ConsumerWidget {
                 onPressed = () {};
               } else {
                 icon = const Icon(LucideIcons.wallet);
-                onPressed = () async => openCreateAccount(context, ref, data!);
+                onPressed = () async => openCreateAccount(context, ref, data);
               }
 
               return FloatingActionButton(
@@ -58,22 +59,18 @@ class HomeScreenFAB extends ConsumerWidget {
   Future<void> openCreateAccount(
     BuildContext context,
     WidgetRef ref,
-    CurrencyTableData data,
+    HomeScreenFABData data,
   ) async =>
-      ref.watch(defaultAccountIconProvider).when(
-            error: (e, s) => Center(child: Text('$e\n$s')),
-            loading: () => const Center(child: CustomProgressIndicator()),
-            data: (icon) async => showModalBottomSheet<void>(
-              context: context,
-              isScrollControlled: true,
-              useRootNavigator: true,
-              builder: (ctx) => AnimatedPadding(
-                duration: fastGlobalAnimationDuration,
-                padding: EdgeInsetsDirectional.only(
-                  bottom: ctx.viewInsets.bottom,
-                ),
-                child: CreateAccountView(data, icon),
-              ),
-            ),
-          );
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        useRootNavigator: true,
+        builder: (ctx) => AnimatedPadding(
+          duration: fastGlobalAnimationDuration,
+          padding: EdgeInsetsDirectional.only(
+            bottom: ctx.viewInsets.bottom,
+          ),
+          child: CreateAccountView(data.currency!, data.icon),
+        ),
+      );
 }

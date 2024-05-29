@@ -51,12 +51,24 @@ class AppTheme {
         indicatorColor: _baseThemeData.colorScheme.onPrimaryContainer,
         labelTextStyle: MaterialStateTextStyle.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
-            return _textTheme.labelNormal.copyWith(
-              fontWeight: FontWeight.w700,
+            return _textTheme.bodyNormal.copyWith(
+              fontWeight: FontWeight.w500,
               color: _baseThemeData.colorScheme.primary,
             );
           }
-          return _textTheme.labelNormal;
+
+          return _textTheme.bodyNormal;
+        }),
+        iconTheme: MaterialStateProperty.resolveWith((states) {
+          if (states.contains(MaterialState.selected)) {
+            return _baseThemeData.iconTheme.copyWith(
+              color: _baseThemeData.colorScheme.primaryContainer,
+            );
+          }
+
+          return _baseThemeData.iconTheme.copyWith(
+            color: _baseThemeData.colorScheme.onBackground.withOpacity(0.5),
+          );
         }),
       );
 

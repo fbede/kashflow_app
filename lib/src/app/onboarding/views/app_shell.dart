@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/core.dart';
-import '../../../shared/extensions/build_context_extensions.dart';
 
 class AppShell extends StatelessWidget {
   final Widget child;
@@ -13,7 +11,6 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = context.theme.colorScheme;
     final userText = context.t.onboarding_module.mobile_app_shell;
 
     return Scaffold(
@@ -24,28 +21,18 @@ class AppShell extends StatelessWidget {
         onDestinationSelected: (value) => _onItemTapped(value, context),
         destinations: [
           NavigationDestination(
-            icon: Assets.lucide.home.svg(
-              theme: SvgTheme(currentColor: colorScheme.onBackground),
-            ),
-            selectedIcon: Assets.lucide.home.svg(
-              theme: SvgTheme(currentColor: colorScheme.primaryContainer),
-            ),
+            icon: const Icon(LucideIcons.home),
+            selectedIcon: const Icon(LucideIcons.home),
             label: userText.nav_bar_home,
           ),
           NavigationDestination(
-            icon: Assets.lucide.receiptText.svg(
-              theme: SvgTheme(currentColor: colorScheme.onBackground),
-            ),
-            selectedIcon: Assets.lucide.receiptText.svg(
-              theme: SvgTheme(currentColor: colorScheme.primaryContainer),
-            ),
+            icon: const Icon(LucideIcons.receiptText),
+            selectedIcon: const Icon(LucideIcons.receiptText),
             label: userText.nav_bar_records,
           ),
           NavigationDestination(
             icon: const Icon(LucideIcons.ellipsis),
-            selectedIcon: Assets.lucide.menu.svg(
-              theme: SvgTheme(currentColor: colorScheme.primaryContainer),
-            ),
+            selectedIcon: const Icon(LucideIcons.ellipsis),
             label: userText.nav_bar_more,
           ),
         ],

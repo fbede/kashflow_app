@@ -6,7 +6,7 @@ part of 'home_fab_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeScreenFABDataHash() => r'71ee4930efdb9642808b077325079d9ba36838cb';
+String _$homeScreenFABDataHash() => r'90bb1dd69ab14b206d1758b62d2aec46d5e10909';
 
 /// See also [homeScreenFABData].
 @ProviderFor(homeScreenFABData)
