@@ -39,7 +39,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) => ColoredBox(
-        color: context.theme.scaffoldBackgroundColor,
+        color: context.colorScheme.surfaceContainerLowest,
         child: Center(
           child: FractionallySizedBox(
             heightFactor: 0.4,

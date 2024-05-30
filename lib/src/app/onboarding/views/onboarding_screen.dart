@@ -179,11 +179,11 @@ class _BottomIndicator extends ConsumerWidget {
             count: 4,
             effect: ScaleEffect(
               scale: 2,
-              activeDotColor: context.colorScheme.primary,
+              activeDotColor: context.colorScheme.primaryContainer,
               dotHeight: 12,
               dotWidth: 12,
               spacing: 16,
-              dotColor: context.colorScheme.primaryContainer,
+              dotColor: context.colorScheme.inversePrimary,
             ),
             onDotClicked: goToPage,
           ),
@@ -202,9 +202,7 @@ class _OnboardingPages extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorMapper = SVGColorChanger(
       oldColor: const Color(0xFF008000),
-      newColor: context.theme.brightness == Brightness.dark
-          ? context.colorScheme.primaryContainer
-          : context.colorScheme.primary,
+      newColor: context.colorScheme.inversePrimary,
     );
 
     final userText = context.t.onboarding_module.onboarding_screen.pages;

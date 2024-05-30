@@ -17,7 +17,7 @@ class CurrencyCardTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Card(
         margin: EdgeInsets.zero,
-        shadowColor: Colors.transparent,
+        //  shadowColor: Colors.transparent,
         child: ListTile(
           dense: true,
           leading: Text(item.code),

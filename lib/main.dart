@@ -35,8 +35,8 @@ class MyApp extends ConsumerWidget {
         child: MaterialApp.router(
           //TODO: Add AppName
           // title: UserText.appName,
-          theme: AppTheme.light().themeData,
-          darkTheme: AppTheme.dark().themeData,
+          theme: AppTheme(MaterialTheme.lightHighContrastScheme()).themeData,
+          darkTheme: AppTheme(MaterialTheme.darkHighContrastScheme()).themeData,
           //themeMode: ThemeMode.light, // themeMode,
           routerConfig: router,
           locale: TranslationProvider.of(context).flutterLocale,

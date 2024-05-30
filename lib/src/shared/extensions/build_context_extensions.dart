@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/theming/material_scheme.dart';
+
 extension BuildContextExt on BuildContext {
   EdgeInsets get viewInsets => MediaQuery.viewInsetsOf(this);
   Size get screenSize => MediaQuery.sizeOf(this);
@@ -9,7 +11,7 @@ extension BuildContextExt on BuildContext {
   bool get isDesktop => screenSize.width > 840;
 
   ThemeData get theme => Theme.of(this);
-  ColorScheme get colorScheme => Theme.of(this).colorScheme;
+  MaterialScheme get colorScheme => Theme.of(this).extension<MaterialScheme>()!;
   TextTheme get textTheme => Theme.of(this).textTheme;
 
   void showSnackBar(String text) {

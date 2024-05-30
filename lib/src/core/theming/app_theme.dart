@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../core.dart';
+import 'material_scheme.dart';
 
 class AppTheme {
-  final ThemeData _baseThemeData;
+  late final ThemeData _baseThemeData;
+  late final MaterialScheme _materialScheme;
 
-  const AppTheme._(ThemeData baseThemeData) : _baseThemeData = baseThemeData;
-  factory AppTheme.light() => AppTheme._(MaterialTheme(_textTheme).light());
-  factory AppTheme.dark() => AppTheme._(MaterialTheme(_textTheme).dark());
+  AppTheme(MaterialScheme materialScheme) {
+    _materialScheme = materialScheme;
+    _baseThemeData = MaterialTheme(_textTheme).theme(
+      materialScheme.toColorScheme(),
+    );
+  }
 
   ThemeData get themeData => _baseThemeData.copyWith(
+        extensions: [_materialScheme],
         inputDecorationTheme: _inputDecorationTheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor: _materialScheme.surfaceContainerLowest,
         actionIconTheme: _actionIconThemeData,
         elevatedButtonTheme: _elevatedButtonTheme,
         filledButtonTheme: _filledButtonTheme,
         navigationBarTheme: _navigationBarTheme,
         outlinedButtonTheme: _outlinedButtonTheme,
+        tabBarTheme: _tabBarTheme,
         textButtonTheme: _textButtonTheme,
       );
 
@@ -27,16 +35,8 @@ class AppTheme {
       );
 
   ActionIconThemeData get _actionIconThemeData => ActionIconThemeData(
-        backButtonIconBuilder: (_) => Assets.lucide.chevronLeft.svg(
-          theme: SvgTheme(
-            currentColor: _baseThemeData.colorScheme.onBackground,
-          ),
-        ),
-        closeButtonIconBuilder: (_) => Assets.lucide.x.svg(
-          theme: SvgTheme(
-            currentColor: _baseThemeData.colorScheme.onBackground,
-          ),
-        ),
+        backButtonIconBuilder: (_) => const Icon(LucideIcons.chevronLeft),
+        closeButtonIconBuilder: (_) => const Icon(LucideIcons.x),
       );
 
   ElevatedButtonThemeData get _elevatedButtonTheme => ElevatedButtonThemeData(
@@ -48,12 +48,12 @@ class AppTheme {
       );
 
   NavigationBarThemeData get _navigationBarTheme => NavigationBarThemeData(
-        indicatorColor: _baseThemeData.colorScheme.onPrimaryContainer,
+        indicatorColor: _baseThemeData.colorScheme.primaryContainer,
         labelTextStyle: MaterialStateTextStyle.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
             return _textTheme.bodyNormal.copyWith(
-              fontWeight: FontWeight.w500,
-              color: _baseThemeData.colorScheme.primary,
+              fontWeight: FontWeight.bold,
+              // color: _baseThemeData.colorScheme.onPrimaryContainer,
             );
           }
 
@@ -62,7 +62,7 @@ class AppTheme {
         iconTheme: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
             return _baseThemeData.iconTheme.copyWith(
-              color: _baseThemeData.colorScheme.primaryContainer,
+              color: _baseThemeData.colorScheme.onPrimaryContainer,
             );
           }
 
@@ -74,6 +74,11 @@ class AppTheme {
 
   OutlinedButtonThemeData get _outlinedButtonTheme => OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(textStyle: _textTheme.bodyNormal),
+      );
+
+  TabBarTheme get _tabBarTheme => TabBarTheme(
+        labelStyle: _textTheme.bodyNormal
+            .copyWith(color: _baseThemeData.colorScheme.primary),
       );
 
   TextButtonThemeData get _textButtonTheme => TextButtonThemeData(

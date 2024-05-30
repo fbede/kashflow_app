@@ -33,23 +33,21 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        body: SafeArea(
-          child: NestedScrollView(
-            controller: _scrollController,
-            headerSliverBuilder: (_, __) => [
-              HomeAppBar(
-                scrollController: _scrollController,
-                tabController: _tabController,
-                randomInt: intIndex,
-              ),
-            ],
-            body: TabBarView(
-              controller: _tabController,
-              children: const [
-                AccountPurseView(),
-                SizedBox(height: 14),
-              ],
+        body: NestedScrollView(
+          controller: _scrollController,
+          headerSliverBuilder: (_, __) => [
+            HomeAppBar(
+              scrollController: _scrollController,
+              tabController: _tabController,
+              randomInt: intIndex,
             ),
+          ],
+          body: TabBarView(
+            controller: _tabController,
+            children: const [
+              AccountPurseView(),
+              SizedBox(height: 14),
+            ],
           ),
         ),
         floatingActionButton: HomeScreenFAB(controller: _tabController),

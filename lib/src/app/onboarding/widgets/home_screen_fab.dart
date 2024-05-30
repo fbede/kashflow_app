@@ -13,25 +13,34 @@ class HomeScreenFAB extends ConsumerWidget {
   final TabController controller;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(accountProvider).when(
-            loading: () => const Center(child: CustomProgressIndicator()),
-            error: (e, s) => Center(child: Text('$e\n$s')),
-            data: (data) {
-              if (data.isEmpty) {
-                return buildFAB(context, ref);
-              }
+  Widget build(BuildContext context, WidgetRef ref) {
+    final showMultipleFAB = ref.watch(
+      accountProvider
+          .select((value) => value.hasValue && value.requireValue.isNotEmpty),
+    );
 
-              final text = context.t.onboarding_module.home_screen;
+    if (showMultipleFAB) {}
 
-              return FloatingActionButton.extended(
-                ///TODO: Add Create Transaction Here
-                onPressed: () {},
-                label: Text(text.new_record),
-                icon: const Icon(LucideIcons.penLine),
-              );
-            },
-          );
+    return buildFAB(context, ref);
+  }
+  // .when(
+  //   loading: () => const Center(child: CustomProgressIndicator()),
+  //   error: (e, s) => Center(child: Text('$e\n$s')),
+  //   data: (data) {
+  //     if (data.isEmpty) {
+  //
+  //     }
+
+  //     final text = context.t.onboarding_module.home_screen;
+
+  //     return FloatingActionButton.extended(
+  //       ///TODO: Add Create Transaction Here
+  //       onPressed: () {},
+  //       label: Text(text.new_record),
+  //       icon: const Icon(LucideIcons.penLine),
+  //     );
+  //   },
+  // ),
 
   Widget buildFAB(BuildContext context, WidgetRef ref) =>
       ref.watch(homeScreenFABDataProvider).when(
