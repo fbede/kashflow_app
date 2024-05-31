@@ -12,7 +12,7 @@ class AccountListTileMenuButton extends ConsumerStatefulWidget {
     super.key,
   });
 
-  final AccountOld account;
+  final Account account;
 
   @override
   ConsumerState<AccountListTileMenuButton> createState() =>

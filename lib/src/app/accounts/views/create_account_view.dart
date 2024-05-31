@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:money2/money2.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
@@ -130,36 +129,31 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
   }
 
   Future<void> _save() async {
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-
-    _saveIsLoading = true;
-    setState(() {});
-
-    final openingBalance = Money.fromBigIntWithCurrency(
-      BigInt.from(
-        double.parse(_amountController.text),
-      ),
-      CommonCurrencies().aed,
-      //  _appCurrencyController.currency,
-    );
-
-    // final accountInfo = Account.create(
-    //   name: _accountNameController.text,
-    //   description: _descriptionController.text,
-    //   openingBalance: openingBalance,
-    //   iconData: _iconSelectorController.iconData,
-    //   backgroundColor: _iconSelectorController.backgroundColor,
-    //   iconColor: _iconSelectorController.iconColor,
-    //   currencyId: _appCurrencyController.currency.id,
-    // );
-
-    final router = GoRouter.of(context);
-
     try {
-      //    await ref.watch(accountProvider.notifier).createNewAccount(accountInfo);
-      router.pop();
+      if (!_formKey.currentState!.validate()) {
+        return;
+      }
+
+      _saveIsLoading = true;
+      setState(() {});
+
+      final openingBalance = BigInt.from(double.parse(_amountController.text));
+
+      final accountDto = CreateAccountDTO(
+        accountName: _accountNameController.text,
+        description: _descriptionController.text,
+        amount: openingBalance,
+        iconName: _iconSelectorController.iconData.name,
+        backgroundColor: _iconSelectorController.backgroundColor,
+        iconColor: _iconSelectorController.iconColor,
+        currencyId: _currencyController.currency.id,
+      );
+
+      await ref.watch(accountsProvider.notifier).createNewAccount(accountDto);
+
+      if (mounted) {
+        context.pop();
+      }
     } on Exception catch (e, s) {
       talker.handle(e, s);
     } finally {

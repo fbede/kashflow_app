@@ -29,27 +29,17 @@ class AssetIconTable extends Table {
   Set<Column> get primaryKey => {name};
 }
 
-class IconTable extends Table {
-  TextColumn get id => text().clientDefault(_vlsid.nextId)();
-  IntColumn get codePoint => integer()();
-  TextColumn get fontFamily => text().nullable()();
-  TextColumn get fontPackage => text().nullable()();
-  BoolColumn get matchTextDirection => boolean()();
-  IntColumn get iconColor => integer().nullable()();
-  IntColumn get backgroundColor => integer().nullable()();
-  TextColumn get fontFamilyFallback =>
-      text().map(StringListTypeConverter()).nullable()();
-
-  @override
-  Set<Column> get primaryKey => {id};
-}
-
 class AccountTable extends Table {
-  TextColumn get id => text().references(IconTable, #id)();
+  TextColumn get id => text().clientDefault(_vlsid.nextId)();
   TextColumn get name => text().withLength(min: 3, max: 25).unique()();
   TextColumn get currency => text().references(CurrencyTable, #id)();
   TextColumn get description => text().withLength(max: 100)();
   Int64Column get openingBalance => int64()();
+  TextColumn get icon => text().references(AssetIconTable, #name)();
+  IntColumn get iconColor =>
+      integer().map(ColorIntTypeConverter()).nullable()();
+  IntColumn get backgroundColor =>
+      integer().map(ColorIntTypeConverter()).nullable()();
   //*Note: Generate from Transactions table
   //Int64Column get currentBalance => int64().generatedAs();
   //Int64Column get closingBalance => int64().nullable()();

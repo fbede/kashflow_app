@@ -16,7 +16,7 @@ part 'local_db.g.dart';
 part 'local_db.tables.dart';
 
 @DriftDatabase(
-  tables: [AccountTable, CurrencyTable, IconTable, AssetIconTable],
+  tables: [AccountTable, CurrencyTable, AssetIconTable],
   daos: [CurrencyDao, AccountDao],
 )
 class LocalDB extends _$LocalDB {

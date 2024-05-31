@@ -4,7 +4,7 @@ part of 'account_dao.dart';
 
 // ignore_for_file: type=lint
 mixin _$AccountDaoMixin on DatabaseAccessor<LocalDB> {
-  $IconTableTable get iconTable => attachedDatabase.iconTable;
   $CurrencyTableTable get currencyTable => attachedDatabase.currencyTable;
+  $AssetIconTableTable get assetIconTable => attachedDatabase.assetIconTable;
   $AccountTableTable get accountTable => attachedDatabase.accountTable;
 }

@@ -1,17 +1,21 @@
+import 'package:drift/drift.dart';
+import 'package:flutter/material.dart';
 import 'package:money2/money2.dart';
 
 import '../../../core/core.dart';
 import '../../currency/currency.dart';
 
-class AccountOld {
+class Account {
   final String id;
   final String name;
   final String description;
   final String currencyId;
-  final IconTableData iconData;
+  final AssetIconTableData iconData;
+  final Color? iconColor;
+  final Color? backgroundColor;
   final Money openingBalance;
 
-  AccountOld({
+  Account({
     required AccountTableData accountData,
     required CurrencyTableData currencyData,
     required this.iconData,
@@ -22,14 +26,17 @@ class AccountOld {
         openingBalance = Money.fromBigIntWithCurrency(
           accountData.openingBalance,
           currencyData.currency,
-        );
+        ),
+        backgroundColor = accountData.backgroundColor,
+        iconColor = accountData.iconColor;
 
   AccountTableCompanion get companion => AccountTableCompanion.insert(
-        id: id,
+        id: Value(id),
         name: name,
         currency: currencyId,
         description: description,
         openingBalance: openingBalance.minorUnits,
+        icon: iconData.name,
       );
 
   @override

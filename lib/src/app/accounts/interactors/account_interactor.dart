@@ -8,5 +8,8 @@ class AccountInteractor {
 
   AccountInteractor.test(AccountDao dao) : this(dao: dao);
 
-  Stream<List<AccountOld>> watchAllAccounts() => _dao.watchAllAccounts();
+  Stream<List<Account>> watchAllAccounts() => _dao.watchAllAccounts();
+
+  Future<void> createNewAccount(CreateAccountDTO account) =>
+      _dao.createNewAccount(account);
 }

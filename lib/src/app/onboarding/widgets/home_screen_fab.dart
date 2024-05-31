@@ -15,7 +15,7 @@ class HomeScreenFAB extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final showMultipleFAB = ref.watch(
-      accountProvider
+      accountsProvider
           .select((value) => value.hasValue && value.requireValue.isNotEmpty),
     );
 

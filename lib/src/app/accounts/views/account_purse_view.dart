@@ -10,7 +10,7 @@ class AccountPurseView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) =>
-      ref.watch(accountProvider).when(
+      ref.watch(accountsProvider).when(
             loading: () => const Center(child: CustomProgressIndicator()),
             error: (e, s) => Center(child: Text('$e\n$s')),
             data: (data) {
