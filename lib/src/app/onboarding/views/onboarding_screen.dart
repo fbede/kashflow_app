@@ -123,7 +123,7 @@ class _NavButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     const leftArrow = Icon(LucideIcons.chevronLeft);
     const rightArrow = Icon(LucideIcons.chevronRight, key: ValueKey(0));
-    const check = Icon(LucideIcons.chevronRight, key: ValueKey(1));
+    const check = Icon(LucideIcons.check, key: ValueKey(1));
 
     return Align(
       alignment: Alignment.bottomCenter,
@@ -202,7 +202,7 @@ class _OnboardingPages extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorMapper = SVGColorChanger(
       oldColor: const Color(0xFF008000),
-      newColor: context.colorScheme.inversePrimary,
+      newColor: context.colorScheme.primaryContainer,
     );
 
     final userText = context.t.onboarding_module.onboarding_screen.pages;

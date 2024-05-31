@@ -66,7 +66,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     final userText = context.t.account_module.create_account_view;
 
     return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(16, 0, 16, 16),
+      padding: const EdgeInsetsDirectional.all(16),
       child: Form(
         key: _formKey,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -74,13 +74,12 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(height: 16),
               Text(
                 userText.add_account,
-                style: context.textTheme.titleNormal,
+                style: context.textTheme.titleBold,
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               IconSelector(controller: _iconSelectorController),
               const SizedBox(height: 16),
               NameFormField(

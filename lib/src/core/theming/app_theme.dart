@@ -10,23 +10,24 @@ class AppTheme {
 
   AppTheme(MaterialScheme materialScheme) {
     _materialScheme = materialScheme;
-    _baseThemeData = MaterialTheme(_textTheme).theme(
+    _baseThemeData = MaterialTheme(AppTextTheme.theme).theme(
       materialScheme.toColorScheme(),
     );
   }
+
+  TextTheme get _textTheme => _baseThemeData.textTheme;
 
   ThemeData get themeData => _baseThemeData.copyWith(
         extensions: [_materialScheme],
         inputDecorationTheme: _inputDecorationTheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: _materialScheme.surfaceContainerLowest,
+        appBarTheme: _appBarTheme,
         actionIconTheme: _actionIconThemeData,
-        elevatedButtonTheme: _elevatedButtonTheme,
-        filledButtonTheme: _filledButtonTheme,
+        bottomSheetTheme: _bottomSheetTheme,
+        dialogTheme: _dialogTheme,
         navigationBarTheme: _navigationBarTheme,
-        outlinedButtonTheme: _outlinedButtonTheme,
         tabBarTheme: _tabBarTheme,
-        textButtonTheme: _textButtonTheme,
       );
 
   InputDecorationTheme get _inputDecorationTheme => InputDecorationTheme(
@@ -39,55 +40,58 @@ class AppTheme {
         closeButtonIconBuilder: (_) => const Icon(LucideIcons.x),
       );
 
-  ElevatedButtonThemeData get _elevatedButtonTheme => ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(textStyle: _textTheme.bodyNormal),
+  AppBarTheme get _appBarTheme => AppBarTheme(
+        scrolledUnderElevation: 0,
+        backgroundColor: _materialScheme.surfaceContainerLowest,
+        titleTextStyle: _textTheme.titleBold,
       );
 
-  FilledButtonThemeData get _filledButtonTheme => FilledButtonThemeData(
-        style: FilledButton.styleFrom(textStyle: _textTheme.bodyNormal),
+  BottomSheetThemeData get _bottomSheetTheme => BottomSheetThemeData(
+        backgroundColor: _materialScheme.surface,
+        surfaceTintColor: Colors.transparent,
+      );
+
+  DialogTheme get _dialogTheme => DialogTheme(
+        backgroundColor: _materialScheme.surface,
+        surfaceTintColor: Colors.transparent,
+        titleTextStyle: _textTheme.titleBold,
+        contentTextStyle: _textTheme.bodyNormal,
       );
 
   NavigationBarThemeData get _navigationBarTheme => NavigationBarThemeData(
-        indicatorColor: _baseThemeData.colorScheme.primaryContainer,
+        indicatorColor: _materialScheme.primaryContainer,
+        backgroundColor: _materialScheme.surface,
+        surfaceTintColor: Colors.transparent,
         labelTextStyle: MaterialStateTextStyle.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
-            return _textTheme.bodyNormal.copyWith(
+            return _textTheme.labelNormal.copyWith(
               fontWeight: FontWeight.bold,
-              // color: _baseThemeData.colorScheme.onPrimaryContainer,
+              color: _materialScheme.primary,
             );
           }
 
-          return _textTheme.bodyNormal;
+          return _textTheme.labelNormal;
         }),
         iconTheme: MaterialStateProperty.resolveWith((states) {
           if (states.contains(MaterialState.selected)) {
             return _baseThemeData.iconTheme.copyWith(
-              color: _baseThemeData.colorScheme.onPrimaryContainer,
+              color: _materialScheme.onPrimaryContainer,
             );
           }
 
           return _baseThemeData.iconTheme.copyWith(
-            color: _baseThemeData.colorScheme.onBackground.withOpacity(0.5),
+            color: _materialScheme.onSurface.withOpacity(0.5),
           );
         }),
       );
 
-  OutlinedButtonThemeData get _outlinedButtonTheme => OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(textStyle: _textTheme.bodyNormal),
-      );
-
   TabBarTheme get _tabBarTheme => TabBarTheme(
-        labelStyle: _textTheme.bodyNormal
-            .copyWith(color: _baseThemeData.colorScheme.primary),
-      );
-
-  TextButtonThemeData get _textButtonTheme => TextButtonThemeData(
-        style: TextButton.styleFrom(textStyle: _textTheme.bodyNormal),
+        labelStyle: _baseThemeData.textTheme.titleBold.copyWith(
+          color: _materialScheme.primary,
+        ),
       );
 }
 
 const slowGlobalAnimationDuration = Duration(milliseconds: 1000);
 const midGlobalAnimationDuration = Duration(milliseconds: 500);
 const fastGlobalAnimationDuration = Duration(milliseconds: 250);
-
-final _textTheme = AppTextTheme.theme;

@@ -71,16 +71,17 @@ class _CalculatorWidgetState extends State<_CalculatorWidget> {
 
   CalculatorThemeData _getCalculatorTheme() {
     final bodyStyle = context.textTheme.bodyNormal;
-    final titleStyle = context.textTheme.titleNormal;
+    final headlineStyle = context.textTheme.headlineNormal;
     return CalculatorThemeData(
       operatorColor: context.colorScheme.primary,
       numColor: context.colorScheme.surface,
-      displayStyle: titleStyle.copyWith(height: 1),
+      displayStyle: headlineStyle.copyWith(height: 1),
       expressionStyle: bodyStyle.copyWith(height: 1),
-      operatorStyle: titleStyle.copyWith(color: context.colorScheme.onPrimary),
-      numStyle: titleStyle.copyWith(color: context.colorScheme.onSurface),
+      operatorStyle:
+          headlineStyle.copyWith(color: context.colorScheme.onPrimary),
+      numStyle: headlineStyle.copyWith(color: context.colorScheme.onSurface),
       commandStyle:
-          titleStyle.copyWith(color: context.colorScheme.onBackground),
+          headlineStyle.copyWith(color: context.colorScheme.onSurface),
     );
   }
 }

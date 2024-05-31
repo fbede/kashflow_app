@@ -37,26 +37,25 @@ extension AppTextTheme on TextTheme {
 }
 
 final _displayStyle = _baseTextStyle.copyWith(
-  fontSize: 54,
+  fontSize: 31,
   height: 1.2,
 );
 final _headlineStyle = _baseTextStyle.copyWith(
-  fontSize: 36,
+  fontSize: 25,
   height: 1.2,
 );
 final _titleStyle = _baseTextStyle.copyWith(
-  fontSize: 24,
+  fontSize: 20,
   height: 1.2,
 );
 final _bodyStyle = _baseTextStyle.copyWith(fontSize: 16, height: 1.5);
 final _labelStyle = _baseTextStyle.copyWith(
-  fontSize: 11,
+  fontSize: 13,
   height: 1.5,
   fontWeight: FontWeight.w500,
 );
 
 const _baseTextStyle = TextStyle(
-  // inherit: false,
   fontFamily: FontFamily.poppins,
   fontFamilyFallback: [FontFamily.notoSans],
   fontWeight: FontWeight.w400,

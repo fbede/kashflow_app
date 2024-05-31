@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/core.dart';
+import '../../../shared/extensions/build_context_extensions.dart';
 
 class CurrencyCardTile extends StatelessWidget {
   const CurrencyCardTile({
@@ -16,8 +17,9 @@ class CurrencyCardTile extends StatelessWidget {
 //TODO: Try the filled and outlined variants
   @override
   Widget build(BuildContext context) => Card(
+        elevation: 0,
+        color: context.colorScheme.surfaceContainer,
         margin: EdgeInsets.zero,
-        //  shadowColor: Colors.transparent,
         child: ListTile(
           dense: true,
           leading: Text(item.code),

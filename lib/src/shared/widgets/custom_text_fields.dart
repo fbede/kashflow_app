@@ -155,7 +155,6 @@ class SearchTextField extends StatelessWidget {
       autocorrect: false,
       controller: controller,
       decoration: InputDecoration(
-        filled: true,
         contentPadding: EdgeInsetsDirectional.zero,
         prefixIcon: const Icon(LucideIcons.search),
         hintText: hintText,
