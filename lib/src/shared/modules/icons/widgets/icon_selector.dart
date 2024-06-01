@@ -115,13 +115,17 @@ class _IconSelectorState extends State<IconSelector> {
 
   Future<void> _onIconColorChanged() async {
     final color = await showColorPicker(context, widget.controller.iconColor);
-    widget.controller.updateIconColor(color);
+    if (color != null) {
+      widget.controller.updateIconColor(color);
+    }
   }
 
   Future<void> _onBackgroundColorChanged() async {
     final color =
         await showColorPicker(context, widget.controller.backgroundColor);
-    widget.controller.updateBackgroundColor(color);
+    if (color != null) {
+      widget.controller.updateBackgroundColor(color);
+    }
   }
 
   void _resetColors() => widget.controller.resetColors();
