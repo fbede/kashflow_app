@@ -9,12 +9,20 @@ class AccountListTile extends StatelessWidget {
   final Account data;
 
   @override
-  Widget build(BuildContext context) => ListTile(
-        contentPadding: const EdgeInsets.only(left: 16, right: 8),
-        //    leading: IconAvatar(data: data.iconData),
-        title: Text(data.name),
-        subtitle: Text(data.openingBalance.toString()),
-        trailing: AccountListTileMenuButton(account: data),
-        onTap: () {},
-      );
+  Widget build(BuildContext context) {
+    final iconAvatarData = IconAvatarData(
+      iconData: data.iconData,
+      iconColor: data.iconColor,
+      backgroundColor: data.backgroundColor,
+    );
+
+    return ListTile(
+      contentPadding: const EdgeInsets.only(left: 16, right: 8),
+      leading: IconAvatar(data: iconAvatarData),
+      title: Text(data.name),
+      subtitle: Text(data.openingBalance.toString()),
+      trailing: AccountListTileMenuButton(account: data),
+      onTap: () {},
+    );
+  }
 }

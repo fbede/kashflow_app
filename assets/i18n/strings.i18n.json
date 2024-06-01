@@ -1,7 +1,9 @@
 {
   "account_module": {
     "account_purse_view": {
-      "add_new_account": "Add New Account"
+      "add_new_account": "Add New Account",
+      "nothing_here": "Nothing Here",
+      "create_a_new_account_text": "Create a new account to start managing your finances."
     },
     "account_popup_menu_button": {
       "edit": "Edit",

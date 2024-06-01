@@ -69,14 +69,14 @@ class _AccountListTileMenuButtonState
         context: context,
         builder: (context) {
           if (context.isPhone) {
-            return Dialog.fullscreen(
-                child:
-                    SizedBox() /*  EditAccountView(
+            return const Dialog.fullscreen(
+              child:
+                  SizedBox(), /*  EditAccountView(
                 account: widget.account,
               ),*/
-                );
+            );
           } else {
-            return Dialog(
+            return const Dialog(
               child: SizedBox(
                 width: 400,
                 /* child: EditAccountView(

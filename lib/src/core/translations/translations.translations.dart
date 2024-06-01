@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 47
+/// Strings: 49
 ///
-/// Built on 2024-05-31 at 19:51 UTC
+/// Built on 2024-06-01 at 01:20 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -238,6 +238,8 @@ class _TranslationsAccountModuleAccountPurseViewEn {
 
 	// Translations
 	String get add_new_account => 'Add New Account';
+	String get nothing_here => 'Nothing Here';
+	String get create_a_new_account_text => 'Create a new account to start managing your finances.';
 }
 
 // Path: account_module.account_popup_menu_button
@@ -428,6 +430,8 @@ extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
 			case 'account_module.account_purse_view.add_new_account': return 'Add New Account';
+			case 'account_module.account_purse_view.nothing_here': return 'Nothing Here';
+			case 'account_module.account_purse_view.create_a_new_account_text': return 'Create a new account to start managing your finances.';
 			case 'account_module.account_popup_menu_button.edit': return 'Edit';
 			case 'account_module.account_popup_menu_button.delete': return 'Delete';
 			case 'account_module.create_account_view.add_account': return 'Add Account';
