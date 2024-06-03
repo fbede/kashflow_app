@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../models/account.dart';
+import '../views/views.dart';
 
 class AccountListTileMenuButton extends ConsumerStatefulWidget {
   const AccountListTileMenuButton({
@@ -65,27 +66,17 @@ class _AccountListTileMenuButtonState
         ],
       );
 
-  Future<void> _onEdit() async => showDialog(
+  Future<void> _onEdit() async => showModalBottomSheet<void>(
         context: context,
-        builder: (context) {
-          if (context.isPhone) {
-            return const Dialog.fullscreen(
-              child:
-                  SizedBox(), /*  EditAccountView(
-                account: widget.account,
-              ),*/
-            );
-          } else {
-            return const Dialog(
-              child: SizedBox(
-                width: 400,
-                /* child: EditAccountView(
-                  account: widget.account,
-                ), */
-              ),
-            );
-          }
-        },
+        isScrollControlled: true,
+        useRootNavigator: true,
+        builder: (ctx) => AnimatedPadding(
+          duration: fastGlobalAnimationDuration,
+          padding: EdgeInsetsDirectional.only(
+            bottom: ctx.viewInsets.bottom,
+          ),
+          child: EditAccountView(widget.account),
+        ),
       );
 
   Future<void> _delete() async {

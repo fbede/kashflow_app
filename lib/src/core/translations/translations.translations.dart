@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 49
+/// Strings: 51
 ///
-/// Built on 2024-06-01 at 15:13 UTC
+/// Built on 2024-06-02 at 21:21 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -184,7 +184,7 @@ class _TranslationsAccountModuleEn {
 	// Translations
 	late final _TranslationsAccountModuleAccountPurseViewEn account_purse_view = _TranslationsAccountModuleAccountPurseViewEn._(_root);
 	late final _TranslationsAccountModuleAccountPopupMenuButtonEn account_popup_menu_button = _TranslationsAccountModuleAccountPopupMenuButtonEn._(_root);
-	late final _TranslationsAccountModuleCreateAccountViewEn create_account_view = _TranslationsAccountModuleCreateAccountViewEn._(_root);
+	late final _TranslationsAccountModuleCreateEditAccountViewEn create_edit_account_view = _TranslationsAccountModuleCreateEditAccountViewEn._(_root);
 }
 
 // Path: currency_module
@@ -253,17 +253,16 @@ class _TranslationsAccountModuleAccountPopupMenuButtonEn {
 	String get delete => 'Delete';
 }
 
-// Path: account_module.create_account_view
-class _TranslationsAccountModuleCreateAccountViewEn {
-	_TranslationsAccountModuleCreateAccountViewEn._(this._root);
+// Path: account_module.create_edit_account_view
+class _TranslationsAccountModuleCreateEditAccountViewEn {
+	_TranslationsAccountModuleCreateEditAccountViewEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
 	String get add_account => 'Add Account';
+	String get edit_account => 'Edit Account';
 	String get account_name => 'Account Name';
-	String get cancel => 'Cancel';
-	String get save => 'Save';
 }
 
 // Path: currency_module.currency_form_field
@@ -330,6 +329,7 @@ class _TranslationsSharedIconModuleEn {
 	// Translations
 	late final _TranslationsSharedIconModuleIconPickerEn icon_picker = _TranslationsSharedIconModuleIconPickerEn._(_root);
 	late final _TranslationsSharedIconModuleIconSelectorEn icon_selector = _TranslationsSharedIconModuleIconSelectorEn._(_root);
+	late final _TranslationsSharedIconModuleColorPickerEn color_picker = _TranslationsSharedIconModuleColorPickerEn._(_root);
 }
 
 // Path: shared.widgets
@@ -340,6 +340,7 @@ class _TranslationsSharedWidgetsEn {
 
 	// Translations
 	late final _TranslationsSharedWidgetsCustomTextFieldsEn custom_text_fields = _TranslationsSharedWidgetsCustomTextFieldsEn._(_root);
+	late final _TranslationsSharedWidgetsSaveOrCancelButtonBarEn save_or_cancel_button_bar = _TranslationsSharedWidgetsSaveOrCancelButtonBarEn._(_root);
 }
 
 // Path: onboarding_module.onboarding_screen.pages.0
@@ -409,6 +410,16 @@ class _TranslationsSharedIconModuleIconSelectorEn {
 	String get reset_colors => 'Reset Colors';
 }
 
+// Path: shared.icon_module.color_picker
+class _TranslationsSharedIconModuleColorPickerEn {
+	_TranslationsSharedIconModuleColorPickerEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get pick_a_color => 'Pick a color!';
+}
+
 // Path: shared.widgets.custom_text_fields
 class _TranslationsSharedWidgetsCustomTextFieldsEn {
 	_TranslationsSharedWidgetsCustomTextFieldsEn._(this._root);
@@ -423,6 +434,17 @@ class _TranslationsSharedWidgetsCustomTextFieldsEn {
 	String get search => 'Search';
 }
 
+// Path: shared.widgets.save_or_cancel_button_bar
+class _TranslationsSharedWidgetsSaveOrCancelButtonBarEn {
+	_TranslationsSharedWidgetsSaveOrCancelButtonBarEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get cancel => 'Cancel';
+	String get save => 'Save';
+}
+
 /// Flat map(s) containing all translations.
 /// Only for edge cases! For simple maps, use the map function of this library.
 
@@ -434,10 +456,9 @@ extension on Translations {
 			case 'account_module.account_purse_view.create_a_new_account_text': return 'Create a new account to start managing your finances.';
 			case 'account_module.account_popup_menu_button.edit': return 'Edit';
 			case 'account_module.account_popup_menu_button.delete': return 'Delete';
-			case 'account_module.create_account_view.add_account': return 'Add Account';
-			case 'account_module.create_account_view.account_name': return 'Account Name';
-			case 'account_module.create_account_view.cancel': return 'Cancel';
-			case 'account_module.create_account_view.save': return 'Save';
+			case 'account_module.create_edit_account_view.add_account': return 'Add Account';
+			case 'account_module.create_edit_account_view.edit_account': return 'Edit Account';
+			case 'account_module.create_edit_account_view.account_name': return 'Account Name';
 			case 'currency_module.currency_form_field.select_currency': return 'Select Currency';
 			case 'currency_module.currency_form_field.cannot_be_empty': return 'Cannot Be Empty';
 			case 'currency_module.currency_form_field.currency': return 'Currency';
@@ -464,11 +485,14 @@ extension on Translations {
 			case 'shared.icon_module.icon_selector.change_icon_color': return 'Change Icon Color';
 			case 'shared.icon_module.icon_selector.change_background_color': return 'Change Background Color';
 			case 'shared.icon_module.icon_selector.reset_colors': return 'Reset Colors';
+			case 'shared.icon_module.color_picker.pick_a_color': return 'Pick a color!';
 			case 'shared.widgets.custom_text_fields.description': return 'Description';
 			case 'shared.widgets.custom_text_fields.amount': return 'Amount';
 			case 'shared.widgets.custom_text_fields.cannot_be_empty': return 'Cannot Be Empty';
 			case 'shared.widgets.custom_text_fields.too_short': return 'Too Short';
 			case 'shared.widgets.custom_text_fields.search': return 'Search';
+			case 'shared.widgets.save_or_cancel_button_bar.cancel': return 'Cancel';
+			case 'shared.widgets.save_or_cancel_button_bar.save': return 'Save';
 			case 'records.title': return 'Records';
 			case 'settings': return 'Settings';
 			case 'purse': return 'Purse';

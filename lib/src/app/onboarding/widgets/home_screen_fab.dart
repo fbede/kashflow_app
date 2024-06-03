@@ -23,24 +23,7 @@ class HomeScreenFAB extends ConsumerWidget {
 
     return buildFAB(context, ref);
   }
-  // .when(
-  //   loading: () => const Center(child: CustomProgressIndicator()),
-  //   error: (e, s) => Center(child: Text('$e\n$s')),
-  //   data: (data) {
-  //     if (data.isEmpty) {
-  //
-  //     }
-
-  //     final text = context.t.onboarding_module.home_screen;
-
-  //     return FloatingActionButton.extended(
-  //       ///TODO: Add Create Transaction Here
-  //       onPressed: () {},
-  //       label: Text(text.new_record),
-  //       icon: const Icon(LucideIcons.penLine),
-  //     );
-  //   },
-  // ),
+  
 
   Widget buildFAB(BuildContext context, WidgetRef ref) =>
       ref.watch(homeScreenFABDataProvider).when(

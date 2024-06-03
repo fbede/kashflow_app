@@ -3,36 +3,41 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:money2/money2.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../../app.dart';
 
-class CreateAccountView extends ConsumerStatefulWidget {
-  const CreateAccountView(
-    this.defaultCurrencyData,
-    this.defaultAccountIcon, {
+class EditAccountView extends ConsumerStatefulWidget {
+  const EditAccountView(
+    this.data, {
     super.key,
   });
 
-  final CurrencyTableData defaultCurrencyData;
-  final AssetIconTableData defaultAccountIcon;
+  final Account data;
 
   @override
-  ConsumerState<CreateAccountView> createState() => _CreateAccountViewState();
+  ConsumerState<EditAccountView> createState() => _EditAccountViewState();
 }
 
-class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
-  final _accountNameController = TextEditingController();
-  final _amountController = TextEditingController(text: '0.0');
-  final _currencyTextController = TextEditingController();
-  final _descriptionController = TextEditingController();
+class _EditAccountViewState extends ConsumerState<EditAccountView> {
   final _formKey = GlobalKey<FormState>();
-
-  late final _iconSelectorController =
-      IconSelectorController(widget.defaultAccountIcon);
+  final _currencyTextController = TextEditingController();
+  late final _accountNameController =
+      TextEditingController(text: widget.data.name);
+  late final _amountController =
+      TextEditingController(text: widget.data.openingBalance.amount.toString());
+  late final _descriptionController =
+      TextEditingController(text: widget.data.description);
   late final _currencyController =
-      CurrencyFormFieldController(widget.defaultCurrencyData);
+      CurrencyFormFieldController(widget.data.currencyData);
+
+  late final _iconSelectorController = IconSelectorController(
+    widget.data.iconData,
+    iconColor: widget.data.iconColor,
+    backgroundColor: widget.data.backgroundColor,
+  );
 
   bool _saveIsLoading = false;
 
@@ -74,7 +79,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                userText.add_account,
+                userText.edit_account,
                 style: context.textTheme.titleBold,
                 textAlign: TextAlign.center,
               ),
@@ -120,7 +125,8 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
       final openingBalance = BigInt.from(double.parse(_amountController.text));
 
-      final accountDto = CreateAccountDTO(
+      final accountDto = EditAccountDTO(
+        id: widget.data.id,
         accountName: _accountNameController.text,
         description: _descriptionController.text,
         amount: openingBalance,
@@ -130,7 +136,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
         currencyId: _currencyController.currency.id,
       );
 
-      await ref.watch(accountsProvider.notifier).createNewAccount(accountDto);
+      //   await ref.watch(accountsProvider.notifier).createNewAccount(accountDto);
 
       if (mounted) {
         context.pop();
@@ -140,6 +146,18 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     } finally {
       _saveIsLoading = false;
       setState(() {});
+    }
+  }
+
+  Future<void> _warnUserOnDangerousChanges() async {
+    final warnings = <String>[];
+    if (widget.data.currencyData != _currencyController.currency) {
+      //add currency warning
+    }
+
+    if (widget.data.openingBalance.amount.toString() !=
+        _amountController.text) {
+      // add amount warning
     }
   }
 }

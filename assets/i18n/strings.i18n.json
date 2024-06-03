@@ -9,11 +9,10 @@
       "edit": "Edit",
       "delete": "Delete"
     },
-    "create_account_view": {
+    "create_edit_account_view": {
       "add_account": "Add Account",
-      "account_name": "Account Name",
-      "cancel": "Cancel",
-      "save": "Save"
+      "edit_account": "Edit Account",
+      "account_name": "Account Name"
     }
   },
   "currency_module": {
@@ -69,6 +68,9 @@
         "change_icon_color": "Change Icon Color",
         "change_background_color": "Change Background Color",
         "reset_colors": "Reset Colors"
+      },
+      "color_picker": {
+        "pick_a_color": "Pick a color!"
       }
     },
     "widgets": {
@@ -78,6 +80,10 @@
         "cannot_be_empty": "Cannot Be Empty",
         "too_short": "Too Short",
         "search": "Search"
+      },
+      "save_or_cancel_button_bar": {
+        "cancel": "Cancel",
+        "save": "Save"
       }
     }
   },

@@ -32,3 +32,22 @@ class CreateAccountDTO {
         backgroundColor: Value(backgroundColor),
       );
 }
+
+class EditAccountDTO extends CreateAccountDTO {
+  String id;
+
+  EditAccountDTO({
+    required this.id,
+    required super.accountName,
+    required super.iconName,
+    required super.amount,
+    required super.currencyId,
+    required super.description,
+    required super.iconColor,
+    required super.backgroundColor,
+  });
+
+  @override
+  AccountTableCompanion get companion =>
+      super.companion.copyWith(id: Value(id));
+}

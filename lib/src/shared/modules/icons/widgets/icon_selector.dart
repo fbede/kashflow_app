@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../../components/color_picker.dart';
 import '../../../../core/core.dart';
-import '../../../extensions/build_context_extensions.dart';
-import '../icons.dart';
+import '../../../shared.dart';
 
 class IconSelector extends StatefulWidget {
   const IconSelector({required this.controller, super.key});
