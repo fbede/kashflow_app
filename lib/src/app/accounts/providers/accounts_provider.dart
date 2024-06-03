@@ -14,8 +14,8 @@ class Accounts extends _$Accounts {
   Future<void> createNewAccount(CreateAccountDTO account) async =>
       _interactor.createNewAccount(account);
 
-  // Future<void> updateAccount(Account account) async =>
-  //     _interactor.updateAccount(account);
+  Future<void> updateAccount(EditAccountDTO account) async =>
+      _interactor.updateAccount(account);
 
-  // Future<void> deleteAccount(String name) => _interactor.deleteAccount(name);
+  Future<void> deleteAccount(String id) => _interactor.deleteAccount(id);
 }

@@ -1,12 +1,13 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
+import 'package:money2/money2.dart';
 
 import '../../../core/core.dart';
 
 class CreateAccountDTO {
   String accountName;
   String iconName;
-  BigInt amount;
+  Fixed amount;
   String currencyId;
   String description;
   Color? iconColor;
@@ -26,7 +27,7 @@ class CreateAccountDTO {
         name: accountName,
         currency: currencyId,
         description: description,
-        openingBalance: amount,
+        openingBalance: amount.minorUnits,
         icon: iconName,
         iconColor: Value(iconColor),
         backgroundColor: Value(backgroundColor),

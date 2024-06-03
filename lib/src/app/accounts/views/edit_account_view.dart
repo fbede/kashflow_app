@@ -47,6 +47,9 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
     _currencyController.addListener(
       () => _currencyTextController.text = _currencyController.text,
     );
+    _amountController.addListener(() {
+      talker.log(_amountController.text);
+    });
     _descriptionController.addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _currencyTextController.text = _currencyController.text;
@@ -123,7 +126,10 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
       _saveIsLoading = true;
       setState(() {});
 
-      final openingBalance = BigInt.from(double.parse(_amountController.text));
+      final openingBalance = Fixed.copyWith(
+        Fixed.parse(_amountController.text),
+        scale: widget.data.currencyData.decimalDigits,
+      );
 
       final accountDto = EditAccountDTO(
         id: widget.data.id,
@@ -136,7 +142,7 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
         currencyId: _currencyController.currency.id,
       );
 
-      //   await ref.watch(accountsProvider.notifier).createNewAccount(accountDto);
+      await ref.watch(accountsProvider.notifier).updateAccount(accountDto);
 
       if (mounted) {
         context.pop();
@@ -152,12 +158,12 @@ class _EditAccountViewState extends ConsumerState<EditAccountView> {
   Future<void> _warnUserOnDangerousChanges() async {
     final warnings = <String>[];
     if (widget.data.currencyData != _currencyController.currency) {
-      //add currency warning
+      //TODO: Add currency warning
     }
 
     if (widget.data.openingBalance.amount.toString() !=
-        _amountController.text) {
-      // add amount warning
+        Fixed.parse(_amountController.text)) {
+      // TODO: Add balance warning
     }
   }
 }

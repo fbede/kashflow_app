@@ -5,7 +5,6 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../../app.dart';
-import '../providers/home_fab_provider.dart';
 
 class HomeScreenFAB extends ConsumerWidget {
   const HomeScreenFAB({required this.controller, super.key});
@@ -23,7 +22,6 @@ class HomeScreenFAB extends ConsumerWidget {
 
     return buildFAB(context, ref);
   }
-  
 
   Widget buildFAB(BuildContext context, WidgetRef ref) =>
       ref.watch(homeScreenFABDataProvider).when(

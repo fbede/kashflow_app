@@ -12,7 +12,8 @@
     "create_edit_account_view": {
       "add_account": "Add Account",
       "edit_account": "Edit Account",
-      "account_name": "Account Name"
+      "account_name": "Account Name",
+      "balance_change_warning": "You are about to change the opening balance of your account. This will also change the current balance of the account."
     }
   },
   "currency_module": {

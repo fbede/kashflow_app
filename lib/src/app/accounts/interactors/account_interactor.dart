@@ -12,4 +12,9 @@ class AccountInteractor {
 
   Future<void> createNewAccount(CreateAccountDTO account) =>
       _dao.createNewAccount(account);
+
+  Future<void> updateAccount(EditAccountDTO account) =>
+      _dao.updateAccount(account);
+
+  Future<void> deleteAccount(String id) => _dao.deleteAccount(id);
 }

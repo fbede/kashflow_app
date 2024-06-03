@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:money2/money2.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
@@ -42,6 +43,9 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
     _currencyController.addListener(
       () => _currencyTextController.text = _currencyController.text,
     );
+    _amountController.addListener(() {
+      talker.log(Fixed.parse(_amountController.text));
+    });
     _descriptionController.addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _currencyTextController.text = _currencyController.text;
@@ -118,7 +122,10 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
       _saveIsLoading = true;
       setState(() {});
 
-      final openingBalance = BigInt.from(double.parse(_amountController.text));
+      final openingBalance = Fixed.copyWith(
+        Fixed.parse(_amountController.text),
+        scale: widget.defaultCurrencyData.decimalDigits,
+      );
 
       final accountDto = CreateAccountDTO(
         accountName: _accountNameController.text,

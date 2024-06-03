@@ -4,8 +4,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
-import '../models/account.dart';
-import '../views/views.dart';
+import '../accounts.dart';
 
 class AccountListTileMenuButton extends ConsumerStatefulWidget {
   const AccountListTileMenuButton({
@@ -50,6 +49,7 @@ class _AccountListTileMenuButtonState
               ],
             ),
           ),
+          //TODO: Add Account Adjustment
           PopupMenuItem(
             onTap: _delete,
             child: Row(
@@ -80,12 +80,18 @@ class _AccountListTileMenuButtonState
       );
 
   Future<void> _delete() async {
-    icon = loadingIcon;
-    setState(() {});
+    try {
+      icon = loadingIcon;
+      setState(() {});
 
-//TODO: Wrap with try catch
-    // await ref
-    //     .watch(accountProvider.notifier)
-    //     .deleteAccount(widget.account.name);
+      await ref
+          .watch(accountsProvider.notifier)
+          .deleteAccount(widget.account.id);
+    } on Exception catch (e, s) {
+      talker.handle(e, s);
+    } finally {
+      icon = notLoadingIcon;
+      setState(() {});
+    }
   }
 }
