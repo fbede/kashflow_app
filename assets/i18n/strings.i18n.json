@@ -23,6 +23,20 @@
       "currency": "Currency"
     }
   },
+  "icon_module": {
+    "icon_picker": {
+      "select_icon": "Select Icon",
+      "search": "Search"
+    },
+    "icon_selector": {
+      "change_icon_color": "Change Icon Color",
+      "change_background_color": "Change Background Color",
+      "reset_colors": "Reset Colors"
+    },
+    "color_picker": {
+      "pick_a_color": "Pick a color!"
+    }
+  },
   "onboarding_module": {
     "onboarding_screen": {
       "pages": [
@@ -59,21 +73,12 @@
       "new_record": "New Record"
     }
   },
+  "other": {
+    "more_screen": {
+      "title": "More"
+    }
+  },
   "shared": {
-    "icon_module": {
-      "icon_picker": {
-        "select_icon": "Select Icon",
-        "search": "Search"
-      },
-      "icon_selector": {
-        "change_icon_color": "Change Icon Color",
-        "change_background_color": "Change Background Color",
-        "reset_colors": "Reset Colors"
-      },
-      "color_picker": {
-        "pick_a_color": "Pick a color!"
-      }
-    },
     "widgets": {
       "custom_text_fields": {
         "description": "Description",

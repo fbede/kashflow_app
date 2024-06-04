@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 52
+/// Strings: 53
 ///
-/// Built on 2024-06-04 at 16:08 UTC
+/// Built on 2024-06-04 at 20:48 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -162,7 +162,9 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	// Translations
 	late final _TranslationsAccountModuleEn account_module = _TranslationsAccountModuleEn._(_root);
 	late final _TranslationsCurrencyModuleEn currency_module = _TranslationsCurrencyModuleEn._(_root);
+	late final _TranslationsIconModuleEn icon_module = _TranslationsIconModuleEn._(_root);
 	late final _TranslationsOnboardingModuleEn onboarding_module = _TranslationsOnboardingModuleEn._(_root);
+	late final _TranslationsOtherEn other = _TranslationsOtherEn._(_root);
 	late final _TranslationsSharedEn shared = _TranslationsSharedEn._(_root);
 	late final _TranslationsRecordsEn records = _TranslationsRecordsEn._(_root);
 	String get settings => 'Settings';
@@ -197,6 +199,18 @@ class _TranslationsCurrencyModuleEn {
 	late final _TranslationsCurrencyModuleCurrencyFormFieldEn currency_form_field = _TranslationsCurrencyModuleCurrencyFormFieldEn._(_root);
 }
 
+// Path: icon_module
+class _TranslationsIconModuleEn {
+	_TranslationsIconModuleEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _TranslationsIconModuleIconPickerEn icon_picker = _TranslationsIconModuleIconPickerEn._(_root);
+	late final _TranslationsIconModuleIconSelectorEn icon_selector = _TranslationsIconModuleIconSelectorEn._(_root);
+	late final _TranslationsIconModuleColorPickerEn color_picker = _TranslationsIconModuleColorPickerEn._(_root);
+}
+
 // Path: onboarding_module
 class _TranslationsOnboardingModuleEn {
 	_TranslationsOnboardingModuleEn._(this._root);
@@ -209,6 +223,16 @@ class _TranslationsOnboardingModuleEn {
 	late final _TranslationsOnboardingModuleHomeScreenEn home_screen = _TranslationsOnboardingModuleHomeScreenEn._(_root);
 }
 
+// Path: other
+class _TranslationsOtherEn {
+	_TranslationsOtherEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	late final _TranslationsOtherMoreScreenEn more_screen = _TranslationsOtherMoreScreenEn._(_root);
+}
+
 // Path: shared
 class _TranslationsSharedEn {
 	_TranslationsSharedEn._(this._root);
@@ -216,7 +240,6 @@ class _TranslationsSharedEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final _TranslationsSharedIconModuleEn icon_module = _TranslationsSharedIconModuleEn._(_root);
 	late final _TranslationsSharedWidgetsEn widgets = _TranslationsSharedWidgetsEn._(_root);
 }
 
@@ -278,6 +301,39 @@ class _TranslationsCurrencyModuleCurrencyFormFieldEn {
 	String get currency => 'Currency';
 }
 
+// Path: icon_module.icon_picker
+class _TranslationsIconModuleIconPickerEn {
+	_TranslationsIconModuleIconPickerEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get select_icon => 'Select Icon';
+	String get search => 'Search';
+}
+
+// Path: icon_module.icon_selector
+class _TranslationsIconModuleIconSelectorEn {
+	_TranslationsIconModuleIconSelectorEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get change_icon_color => 'Change Icon Color';
+	String get change_background_color => 'Change Background Color';
+	String get reset_colors => 'Reset Colors';
+}
+
+// Path: icon_module.color_picker
+class _TranslationsIconModuleColorPickerEn {
+	_TranslationsIconModuleColorPickerEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get pick_a_color => 'Pick a color!';
+}
+
 // Path: onboarding_module.onboarding_screen
 class _TranslationsOnboardingModuleOnboardingScreenEn {
 	_TranslationsOnboardingModuleOnboardingScreenEn._(this._root);
@@ -321,16 +377,14 @@ class _TranslationsOnboardingModuleHomeScreenEn {
 	String get new_record => 'New Record';
 }
 
-// Path: shared.icon_module
-class _TranslationsSharedIconModuleEn {
-	_TranslationsSharedIconModuleEn._(this._root);
+// Path: other.more_screen
+class _TranslationsOtherMoreScreenEn {
+	_TranslationsOtherMoreScreenEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final _TranslationsSharedIconModuleIconPickerEn icon_picker = _TranslationsSharedIconModuleIconPickerEn._(_root);
-	late final _TranslationsSharedIconModuleIconSelectorEn icon_selector = _TranslationsSharedIconModuleIconSelectorEn._(_root);
-	late final _TranslationsSharedIconModuleColorPickerEn color_picker = _TranslationsSharedIconModuleColorPickerEn._(_root);
+	String get title => 'More';
 }
 
 // Path: shared.widgets
@@ -388,39 +442,6 @@ class _TranslationsOnboardingModuleOnboardingScreen$pages$0i3$En with Onboarding
 	@override String get subtitle => 'View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!';
 }
 
-// Path: shared.icon_module.icon_picker
-class _TranslationsSharedIconModuleIconPickerEn {
-	_TranslationsSharedIconModuleIconPickerEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get select_icon => 'Select Icon';
-	String get search => 'Search';
-}
-
-// Path: shared.icon_module.icon_selector
-class _TranslationsSharedIconModuleIconSelectorEn {
-	_TranslationsSharedIconModuleIconSelectorEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get change_icon_color => 'Change Icon Color';
-	String get change_background_color => 'Change Background Color';
-	String get reset_colors => 'Reset Colors';
-}
-
-// Path: shared.icon_module.color_picker
-class _TranslationsSharedIconModuleColorPickerEn {
-	_TranslationsSharedIconModuleColorPickerEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get pick_a_color => 'Pick a color!';
-}
-
 // Path: shared.widgets.custom_text_fields
 class _TranslationsSharedWidgetsCustomTextFieldsEn {
 	_TranslationsSharedWidgetsCustomTextFieldsEn._(this._root);
@@ -464,6 +485,12 @@ extension on Translations {
 			case 'currency_module.currency_form_field.select_currency': return 'Select Currency';
 			case 'currency_module.currency_form_field.cannot_be_empty': return 'Cannot Be Empty';
 			case 'currency_module.currency_form_field.currency': return 'Currency';
+			case 'icon_module.icon_picker.select_icon': return 'Select Icon';
+			case 'icon_module.icon_picker.search': return 'Search';
+			case 'icon_module.icon_selector.change_icon_color': return 'Change Icon Color';
+			case 'icon_module.icon_selector.change_background_color': return 'Change Background Color';
+			case 'icon_module.icon_selector.reset_colors': return 'Reset Colors';
+			case 'icon_module.color_picker.pick_a_color': return 'Pick a color!';
 			case 'onboarding_module.onboarding_screen.pages.0.title': return 'Welcome To Kashflow';
 			case 'onboarding_module.onboarding_screen.pages.0.subtitle': return 'Let\'s help you manage your finances';
 			case 'onboarding_module.onboarding_screen.pages.1.title': return 'Record Your Daily Transactions';
@@ -482,12 +509,7 @@ extension on Translations {
 			case 'onboarding_module.home_screen.balance': return 'BALANCE';
 			case 'onboarding_module.home_screen.net_worth': return 'NET WORTH';
 			case 'onboarding_module.home_screen.new_record': return 'New Record';
-			case 'shared.icon_module.icon_picker.select_icon': return 'Select Icon';
-			case 'shared.icon_module.icon_picker.search': return 'Search';
-			case 'shared.icon_module.icon_selector.change_icon_color': return 'Change Icon Color';
-			case 'shared.icon_module.icon_selector.change_background_color': return 'Change Background Color';
-			case 'shared.icon_module.icon_selector.reset_colors': return 'Reset Colors';
-			case 'shared.icon_module.color_picker.pick_a_color': return 'Pick a color!';
+			case 'other.more_screen.title': return 'More';
 			case 'shared.widgets.custom_text_fields.description': return 'Description';
 			case 'shared.widgets.custom_text_fields.amount': return 'Amount';
 			case 'shared.widgets.custom_text_fields.cannot_be_empty': return 'Cannot Be Empty';

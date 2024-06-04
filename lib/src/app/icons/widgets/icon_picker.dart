@@ -56,7 +56,7 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final userText = context.t.shared.icon_module.icon_picker;
+    final userText = context.t.icon_module.icon_picker;
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),

@@ -31,7 +31,7 @@ class _IconSelectorState extends State<IconSelector> {
     final backgroundColor = controller.backgroundColor;
     final defualtIconColor = context.colorScheme.onPrimaryContainer;
     final defaultBackgroundColor = context.colorScheme.primaryContainer;
-    final userText = context.t.shared.icon_module.icon_selector;
+    final userText = context.t.icon_module.icon_selector;
 
     return Row(
       children: [
