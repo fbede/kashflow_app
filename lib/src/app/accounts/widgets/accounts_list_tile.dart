@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../shared/shared.dart';
+import '../../icons/icons.dart';
 import '../accounts.dart';
 
 class AccountListTile extends StatelessWidget {

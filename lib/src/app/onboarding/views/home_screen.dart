@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../shared/shared.dart';
 import '../../app.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -36,10 +37,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         body: NestedScrollView(
           controller: _scrollController,
           headerSliverBuilder: (_, __) => [
-            HomeAppBar(
+            FaddingAppBar(
               scrollController: _scrollController,
-              tabController: _tabController,
-              randomInt: intIndex,
+              background: HomeAppBarBackgroud(tabController: _tabController),
+              title: HomeAppBarTitle(tabController: _tabController),
+              bottom: HomeTabBar(tabController: _tabController),
             ),
           ],
           body: TabBarView(

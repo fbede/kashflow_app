@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../../core/core.dart';
-import '../../../shared.dart';
+import '../../../core/core.dart';
+import '../icons.dart';
 
 part 'asset_icon_provider.g.dart';
 

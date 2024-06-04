@@ -1,4 +1,4 @@
-import '../../../../core/db/db.dart';
+import '../../../core/db/db.dart';
 import '../daos/daos.dart';
 
 class AssetIconInteractor {

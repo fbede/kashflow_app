@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/db/db.dart';
-import '../../../../core/gen/assets.gen.dart';
-import '../../../shared.dart';
+import '../../../core/db/db.dart';
+import '../../../core/gen/assets.gen.dart';
+import '../../../shared/shared.dart';
 
 class AssetIcon extends StatelessWidget {
   final AssetIconTableData data;

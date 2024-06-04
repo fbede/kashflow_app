@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
-import '../../../../core/core.dart';
-import '../../../shared.dart';
+import '../../../core/core.dart';
+import '../../../shared/shared.dart';
+import '../providers/providers.dart';
 import 'asset_icon.dart';
 
 Future<AssetIconTableData?> showIconPicker(BuildContext context) async {

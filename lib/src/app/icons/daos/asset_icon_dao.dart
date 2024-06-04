@@ -1,6 +1,6 @@
 import 'package:drift/drift.dart';
 
-import '../../../../core/core.dart';
+import '../../../core/core.dart';
 
 part 'asset_icon_dao.g.dart';
 
