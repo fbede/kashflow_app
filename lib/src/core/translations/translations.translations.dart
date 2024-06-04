@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 51
+/// Strings: 52
 ///
-/// Built on 2024-06-02 at 21:21 UTC
+/// Built on 2024-06-04 at 16:08 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -263,6 +263,7 @@ class _TranslationsAccountModuleCreateEditAccountViewEn {
 	String get add_account => 'Add Account';
 	String get edit_account => 'Edit Account';
 	String get account_name => 'Account Name';
+	String get balance_change_warning => 'You are about to change the opening balance of your account. This will also change the current balance of the account.';
 }
 
 // Path: currency_module.currency_form_field
@@ -459,6 +460,7 @@ extension on Translations {
 			case 'account_module.create_edit_account_view.add_account': return 'Add Account';
 			case 'account_module.create_edit_account_view.edit_account': return 'Edit Account';
 			case 'account_module.create_edit_account_view.account_name': return 'Account Name';
+			case 'account_module.create_edit_account_view.balance_change_warning': return 'You are about to change the opening balance of your account. This will also change the current balance of the account.';
 			case 'currency_module.currency_form_field.select_currency': return 'Select Currency';
 			case 'currency_module.currency_form_field.cannot_be_empty': return 'Cannot Be Empty';
 			case 'currency_module.currency_form_field.currency': return 'Currency';

@@ -9,7 +9,7 @@ class Accounts extends _$Accounts {
   final _interactor = AccountInteractor();
 
   @override
-  Stream<List<Account>> build() => _interactor.watchAllAccounts();
+  Stream<List<AccountViewDTO>> build() => _interactor.watchAllAccounts();
 
   Future<void> createNewAccount(CreateAccountDTO account) async =>
       _interactor.createNewAccount(account);

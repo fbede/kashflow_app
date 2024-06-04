@@ -9,7 +9,7 @@ part 'account_dao.g.dart';
 class AccountDao extends DatabaseAccessor<LocalDB> with _$AccountDaoMixin {
   AccountDao(super.attachedDatabase);
 
-  Stream<List<Account>> watchAllAccounts() async* {
+  Stream<List<AccountViewDTO>> watchAllAccounts() async* {
     try {
       final stream = select(accountTable).join([
         leftOuterJoin(
@@ -24,8 +24,8 @@ class AccountDao extends DatabaseAccessor<LocalDB> with _$AccountDaoMixin {
 
       await for (final List<TypedResult> event in stream) {
         yield event
-            .map<Account>(
-              (e) => Account(
+            .map<AccountViewDTO>(
+              (e) => AccountViewDTO(
                 accountData: e.readTable(accountTable),
                 currencyData: e.readTable(currencyTable),
                 iconData: e.readTable(assetIconTable),

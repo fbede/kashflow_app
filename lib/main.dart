@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'src/core/core.dart';
 import 'src/shared/shared.dart';
@@ -16,25 +17,28 @@ Future<void> main() async {
 
   registerFontLicenses();
 
+  final appName = (await PackageInfo.fromPlatform()).appName;
+
   runApp(
     ProviderScope(
       observers: [AppProviderObserver()],
       child: TranslationProvider(
-        child: const MyApp(),
+        child: MyApp(appName),
       ),
     ),
   );
 }
 
 class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+  const MyApp(this.appName, {super.key});
+
+  final String appName;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) => TooltipVisibility(
         visible: false,
         child: MaterialApp.router(
-          //TODO: Add AppName
-          // title: UserText.appName,
+          title: appName,
           theme: AppTheme(MaterialTheme.lightScheme()).themeData,
           darkTheme: AppTheme(MaterialTheme.darkScheme()).themeData,
           //themeMode: ThemeMode.light, // themeMode,

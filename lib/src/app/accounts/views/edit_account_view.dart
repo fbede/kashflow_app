@@ -15,7 +15,7 @@ class EditAccountView extends ConsumerStatefulWidget {
     super.key,
   });
 
-  final Account data;
+  final AccountViewDTO data;
 
   @override
   ConsumerState<EditAccountView> createState() => _EditAccountViewState();

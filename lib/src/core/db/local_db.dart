@@ -10,7 +10,6 @@ import 'package:vlsid/vlsid.dart';
 
 import '../../app/app.dart';
 import '../core.dart';
-import 'functions/functions.dart';
 
 part 'local_db.g.dart';
 part 'local_db.tables.dart';
