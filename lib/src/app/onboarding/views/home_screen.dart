@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               background: HomeAppBarBackgroud(tabController: _tabController),
               title: HomeAppBarTitle(tabController: _tabController),
               bottom: HomeTabBar(tabController: _tabController),
+              height: context.screenSize.height / 4,
             ),
           ],
           body: TabBarView(

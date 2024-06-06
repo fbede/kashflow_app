@@ -29,7 +29,9 @@ class HomeAppBarTitle extends StatelessWidget {
           ),
           child: Text(
             text.balance.toUpperCase(),
-            style: context.textTheme.titleBold,
+            style: context.textTheme.titleBold.copyWith(
+              color: context.colorScheme.onSurface,
+            ),
           ),
         ),
         SlideTransition(
@@ -40,7 +42,9 @@ class HomeAppBarTitle extends StatelessWidget {
           ),
           child: Text(
             text.net_worth.toUpperCase(),
-            style: context.textTheme.titleBold,
+            style: context.textTheme.titleBold.copyWith(
+              color: context.colorScheme.onSurface,
+            ),
           ),
         ),
       ],

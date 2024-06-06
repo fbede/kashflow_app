@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talker_flutter/talker_flutter.dart';
 
-import '../../app/onboarding/views/home_screen.dart';
-import '../../app/onboarding/views/app_shell.dart';
-import '../../app/onboarding/views/onboarding_screen.dart';
-import '../../app/onboarding/views/splashscreen.dart';
+import '../../app/app.dart';
+
 import '../logging/log_handler.dart';
 import 'route_names.dart';
 
@@ -69,15 +67,21 @@ final _mainAppRoutes = <RouteBase>[
     builder: (context, state) => const SizedBox(),
   ),
   GoRoute(
-    path: Routes.other,
-    name: Routes.other,
+    path: Routes.more,
+    name: Routes.more,
     parentNavigatorKey: _appNavBarNavigatorKey,
-    routes: _settingsRoutes,
-    builder: (context, state) => const SizedBox(), //const SettingsScreen(),
+    routes: _moreRoutes,
+    builder: (context, state) => const MoreScreen(),
   ),
 ];
 
-final _settingsRoutes = <RouteBase>[
+final _moreRoutes = <RouteBase>[
+  GoRoute(
+    path: Routes.selectThemeMode,
+    name: Routes.selectThemeMode,
+    parentNavigatorKey: _rootNavigatorKey,
+    builder: (_, __) => const SelectThemeModeView(),
+  ),
   // GoRoute(
   //   path: Routes.manageCategories,
   //   name: Routes.manageCategories,

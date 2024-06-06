@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 53
+/// Strings: 51
 ///
-/// Built on 2024-06-04 at 20:48 UTC
+/// Built on 2024-06-06 at 08:46 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -161,20 +161,13 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 
 	// Translations
 	late final _TranslationsAccountModuleEn account_module = _TranslationsAccountModuleEn._(_root);
+	late final _TranslationsAppearanceEn appearance = _TranslationsAppearanceEn._(_root);
 	late final _TranslationsCurrencyModuleEn currency_module = _TranslationsCurrencyModuleEn._(_root);
 	late final _TranslationsIconModuleEn icon_module = _TranslationsIconModuleEn._(_root);
+	String get more => 'More';
 	late final _TranslationsOnboardingModuleEn onboarding_module = _TranslationsOnboardingModuleEn._(_root);
-	late final _TranslationsOtherEn other = _TranslationsOtherEn._(_root);
 	late final _TranslationsSharedEn shared = _TranslationsSharedEn._(_root);
 	late final _TranslationsRecordsEn records = _TranslationsRecordsEn._(_root);
-	String get settings => 'Settings';
-	String get purse => 'Purse';
-	String get portfoilo => 'Portfolio';
-	String get account_name => 'Account Name';
-	String get add_new_account => 'Add New Account';
-	String get add_account => 'Add Account';
-	String get edit_account => 'Edit Account';
-	String get new_record => 'New Record';
 }
 
 // Path: account_module
@@ -187,6 +180,21 @@ class _TranslationsAccountModuleEn {
 	late final _TranslationsAccountModuleAccountPurseViewEn account_purse_view = _TranslationsAccountModuleAccountPurseViewEn._(_root);
 	late final _TranslationsAccountModuleAccountPopupMenuButtonEn account_popup_menu_button = _TranslationsAccountModuleAccountPopupMenuButtonEn._(_root);
 	late final _TranslationsAccountModuleCreateEditAccountViewEn create_edit_account_view = _TranslationsAccountModuleCreateEditAccountViewEn._(_root);
+}
+
+// Path: appearance
+class _TranslationsAppearanceEn {
+	_TranslationsAppearanceEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Appearance';
+	String get theme_mode => 'Theme Mode';
+	String get light_mode => 'Light Mode';
+	String get dark_mode => 'Dark Mode';
+	String get system => 'System';
+	String get select_theme_mode => 'Select Theme Mode';
 }
 
 // Path: currency_module
@@ -218,19 +226,9 @@ class _TranslationsOnboardingModuleEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final _TranslationsOnboardingModuleOnboardingScreenEn onboarding_screen = _TranslationsOnboardingModuleOnboardingScreenEn._(_root);
-	late final _TranslationsOnboardingModuleMobileAppShellEn mobile_app_shell = _TranslationsOnboardingModuleMobileAppShellEn._(_root);
 	late final _TranslationsOnboardingModuleHomeScreenEn home_screen = _TranslationsOnboardingModuleHomeScreenEn._(_root);
-}
-
-// Path: other
-class _TranslationsOtherEn {
-	_TranslationsOtherEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	late final _TranslationsOtherMoreScreenEn more_screen = _TranslationsOtherMoreScreenEn._(_root);
+	late final _TranslationsOnboardingModuleMobileAppShellEn mobile_app_shell = _TranslationsOnboardingModuleMobileAppShellEn._(_root);
+	late final _TranslationsOnboardingModuleOnboardingScreenEn onboarding_screen = _TranslationsOnboardingModuleOnboardingScreenEn._(_root);
 }
 
 // Path: shared
@@ -334,34 +332,6 @@ class _TranslationsIconModuleColorPickerEn {
 	String get pick_a_color => 'Pick a color!';
 }
 
-// Path: onboarding_module.onboarding_screen
-class _TranslationsOnboardingModuleOnboardingScreenEn {
-	_TranslationsOnboardingModuleOnboardingScreenEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	List<OnboardingPageData> get pages => [
-		_TranslationsOnboardingModuleOnboardingScreen$pages$0i0$En._(_root),
-		_TranslationsOnboardingModuleOnboardingScreen$pages$0i1$En._(_root),
-		_TranslationsOnboardingModuleOnboardingScreen$pages$0i2$En._(_root),
-		_TranslationsOnboardingModuleOnboardingScreen$pages$0i3$En._(_root),
-	];
-	String get currency_picker_title => 'Select Default Currency';
-}
-
-// Path: onboarding_module.mobile_app_shell
-class _TranslationsOnboardingModuleMobileAppShellEn {
-	_TranslationsOnboardingModuleMobileAppShellEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get nav_bar_home => 'Home';
-	String get nav_bar_records => 'Records';
-	String get nav_bar_more => 'More';
-}
-
 // Path: onboarding_module.home_screen
 class _TranslationsOnboardingModuleHomeScreenEn {
 	_TranslationsOnboardingModuleHomeScreenEn._(this._root);
@@ -377,14 +347,32 @@ class _TranslationsOnboardingModuleHomeScreenEn {
 	String get new_record => 'New Record';
 }
 
-// Path: other.more_screen
-class _TranslationsOtherMoreScreenEn {
-	_TranslationsOtherMoreScreenEn._(this._root);
+// Path: onboarding_module.mobile_app_shell
+class _TranslationsOnboardingModuleMobileAppShellEn {
+	_TranslationsOnboardingModuleMobileAppShellEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'More';
+	String get nav_bar_home => 'Home';
+	String get nav_bar_records => 'Records';
+	String get nav_bar_more => 'More';
+}
+
+// Path: onboarding_module.onboarding_screen
+class _TranslationsOnboardingModuleOnboardingScreenEn {
+	_TranslationsOnboardingModuleOnboardingScreenEn._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	List<OnboardingPageData> get pages => [
+		_TranslationsOnboardingModuleOnboardingScreen$pages$0i0$En._(_root),
+		_TranslationsOnboardingModuleOnboardingScreen$pages$0i1$En._(_root),
+		_TranslationsOnboardingModuleOnboardingScreen$pages$0i2$En._(_root),
+		_TranslationsOnboardingModuleOnboardingScreen$pages$0i3$En._(_root),
+	];
+	String get currency_picker_title => 'Select Default Currency';
 }
 
 // Path: shared.widgets
@@ -482,6 +470,12 @@ extension on Translations {
 			case 'account_module.create_edit_account_view.edit_account': return 'Edit Account';
 			case 'account_module.create_edit_account_view.account_name': return 'Account Name';
 			case 'account_module.create_edit_account_view.balance_change_warning': return 'You are about to change the opening balance of your account. This will also change the current balance of the account.';
+			case 'appearance.title': return 'Appearance';
+			case 'appearance.theme_mode': return 'Theme Mode';
+			case 'appearance.light_mode': return 'Light Mode';
+			case 'appearance.dark_mode': return 'Dark Mode';
+			case 'appearance.system': return 'System';
+			case 'appearance.select_theme_mode': return 'Select Theme Mode';
 			case 'currency_module.currency_form_field.select_currency': return 'Select Currency';
 			case 'currency_module.currency_form_field.cannot_be_empty': return 'Cannot Be Empty';
 			case 'currency_module.currency_form_field.currency': return 'Currency';
@@ -491,6 +485,16 @@ extension on Translations {
 			case 'icon_module.icon_selector.change_background_color': return 'Change Background Color';
 			case 'icon_module.icon_selector.reset_colors': return 'Reset Colors';
 			case 'icon_module.color_picker.pick_a_color': return 'Pick a color!';
+			case 'more': return 'More';
+			case 'onboarding_module.home_screen.title': return 'Home';
+			case 'onboarding_module.home_screen.purse': return 'Purse';
+			case 'onboarding_module.home_screen.portfoilo': return 'Portfolio';
+			case 'onboarding_module.home_screen.balance': return 'BALANCE';
+			case 'onboarding_module.home_screen.net_worth': return 'NET WORTH';
+			case 'onboarding_module.home_screen.new_record': return 'New Record';
+			case 'onboarding_module.mobile_app_shell.nav_bar_home': return 'Home';
+			case 'onboarding_module.mobile_app_shell.nav_bar_records': return 'Records';
+			case 'onboarding_module.mobile_app_shell.nav_bar_more': return 'More';
 			case 'onboarding_module.onboarding_screen.pages.0.title': return 'Welcome To Kashflow';
 			case 'onboarding_module.onboarding_screen.pages.0.subtitle': return 'Let\'s help you manage your finances';
 			case 'onboarding_module.onboarding_screen.pages.1.title': return 'Record Your Daily Transactions';
@@ -500,16 +504,6 @@ extension on Translations {
 			case 'onboarding_module.onboarding_screen.pages.3.title': return 'Know Your Networth';
 			case 'onboarding_module.onboarding_screen.pages.3.subtitle': return 'View and manage your assets and liabilities - stocks, bonds, saving, loans, real estate, crypto, gold, anything. Seriously, anything!';
 			case 'onboarding_module.onboarding_screen.currency_picker_title': return 'Select Default Currency';
-			case 'onboarding_module.mobile_app_shell.nav_bar_home': return 'Home';
-			case 'onboarding_module.mobile_app_shell.nav_bar_records': return 'Records';
-			case 'onboarding_module.mobile_app_shell.nav_bar_more': return 'More';
-			case 'onboarding_module.home_screen.title': return 'Home';
-			case 'onboarding_module.home_screen.purse': return 'Purse';
-			case 'onboarding_module.home_screen.portfoilo': return 'Portfolio';
-			case 'onboarding_module.home_screen.balance': return 'BALANCE';
-			case 'onboarding_module.home_screen.net_worth': return 'NET WORTH';
-			case 'onboarding_module.home_screen.new_record': return 'New Record';
-			case 'other.more_screen.title': return 'More';
 			case 'shared.widgets.custom_text_fields.description': return 'Description';
 			case 'shared.widgets.custom_text_fields.amount': return 'Amount';
 			case 'shared.widgets.custom_text_fields.cannot_be_empty': return 'Cannot Be Empty';
@@ -518,14 +512,6 @@ extension on Translations {
 			case 'shared.widgets.save_or_cancel_button_bar.cancel': return 'Cancel';
 			case 'shared.widgets.save_or_cancel_button_bar.save': return 'Save';
 			case 'records.title': return 'Records';
-			case 'settings': return 'Settings';
-			case 'purse': return 'Purse';
-			case 'portfoilo': return 'Portfolio';
-			case 'account_name': return 'Account Name';
-			case 'add_new_account': return 'Add New Account';
-			case 'add_account': return 'Add Account';
-			case 'edit_account': return 'Edit Account';
-			case 'new_record': return 'New Record';
 			default: return null;
 		}
 	}

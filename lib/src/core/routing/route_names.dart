@@ -1,4 +1,4 @@
-abstract class Routes {
+abstract final class Routes {
   //general
   static const home = '/';
 
@@ -9,9 +9,12 @@ abstract class Routes {
   //NavBar Routes
   static const dashboard = '/dashboard';
   static const records = '/records';
-  static const other = '/other';
+  static const more = '/more';
 
-  //Settings Routes
+  //More Routes
+  static const selectThemeMode = 'selectThemeMode';
+
+  //Old Routes
   static const chooseCurrency = '/chooseCurrency';
   static const chooseDefaultCurrency = '/chooseDefaultCurrency';
   static const editCurrency = '/editCurrency';

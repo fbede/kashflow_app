@@ -48,7 +48,7 @@ class AppShell extends StatelessWidget {
     if (location.contains(Routes.records)) {
       return 1;
     }
-    if (location.contains(Routes.other)) {
+    if (location.contains(Routes.more)) {
       return 2;
     }
 
@@ -62,7 +62,7 @@ class AppShell extends StatelessWidget {
       case 1:
         context.go(Routes.records);
       case 2:
-        context.go(Routes.other);
+        context.go(Routes.more);
     }
   }
 }

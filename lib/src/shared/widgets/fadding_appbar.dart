@@ -5,6 +5,7 @@ import '../shared.dart';
 class FaddingAppBar extends StatelessWidget {
   const FaddingAppBar({
     required this.scrollController,
+    this.height,
     this.bottom,
     super.key,
     this.title,
@@ -14,19 +15,21 @@ class FaddingAppBar extends StatelessWidget {
   final PreferredSizeWidget? bottom;
   final Widget? title;
   final Widget? background;
-
+  final double? height;
   final ScrollController scrollController;
 
   @override
   Widget build(BuildContext context) {
     final bottomHeight = bottom == null ? 0 : 64;
-    final appBarHeight = (context.screenSize.height / 4) + bottomHeight;
+    final appBarHeight = height == null
+        ? (context.screenSize.height / 3) + bottomHeight
+        : height! + bottomHeight;
     final titleWidget = title == null
         ? null
         : FadeOnScroll(
             scrollController: scrollController,
             fullOpacityOffset: appBarHeight,
-            child: title!,
+            child: Center(child: title),
           );
     final backgroundWidget = background == null
         ? null
@@ -34,7 +37,7 @@ class FaddingAppBar extends StatelessWidget {
             background: FadeOnScroll(
               scrollController: scrollController,
               zeroOpacityOffset: appBarHeight,
-              child: background!,
+              child: Center(child: background),
             ),
           );
 

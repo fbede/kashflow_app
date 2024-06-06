@@ -16,6 +16,14 @@
       "balance_change_warning": "You are about to change the opening balance of your account. This will also change the current balance of the account."
     }
   },
+  "appearance": {
+    "title": "Appearance",
+    "theme_mode": "Theme Mode",
+    "light_mode": "Light Mode",
+    "dark_mode": "Dark Mode",
+    "system": "System",
+    "select_theme_mode": "Select Theme Mode"
+  },
   "currency_module": {
     "currency_form_field": {
       "select_currency": "Select Currency",
@@ -37,7 +45,21 @@
       "pick_a_color": "Pick a color!"
     }
   },
+  "more": "More",
   "onboarding_module": {
+    "home_screen": {
+      "title": "Home",
+      "purse": "Purse",
+      "portfoilo": "Portfolio",
+      "balance": "BALANCE",
+      "net_worth": "NET WORTH",
+      "new_record": "New Record"
+    },
+    "mobile_app_shell": {
+      "nav_bar_home": "Home",
+      "nav_bar_records": "Records",
+      "nav_bar_more": "More"
+    },
     "onboarding_screen": {
       "pages": [
         {
@@ -58,24 +80,6 @@
         }
       ],
       "currency_picker_title": "Select Default Currency"
-    },
-    "mobile_app_shell": {
-      "nav_bar_home": "Home",
-      "nav_bar_records": "Records",
-      "nav_bar_more": "More"
-    },
-    "home_screen": {
-      "title": "Home",
-      "purse": "Purse",
-      "portfoilo": "Portfolio",
-      "balance": "BALANCE",
-      "net_worth": "NET WORTH",
-      "new_record": "New Record"
-    }
-  },
-  "other": {
-    "more_screen": {
-      "title": "More"
     }
   },
   "shared": {
@@ -95,13 +99,5 @@
   },
   "records": {
     "title": "Records"
-  },
-  "settings": "Settings",
-  "purse": "Purse",
-  "portfoilo": "Portfolio",
-  "account_name": "Account Name",
-  "add_new_account": "Add New Account",
-  "add_account": "Add Account",
-  "edit_account": "Edit Account",
-  "new_record": "New Record"
+  }
 }
