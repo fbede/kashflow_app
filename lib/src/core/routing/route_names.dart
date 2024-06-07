@@ -13,6 +13,7 @@ abstract final class Routes {
 
   //More Routes
   static const selectThemeMode = 'selectThemeMode';
+  static const defaultCurrency = 'defaultCurrency';
 
   //Old Routes
   static const chooseCurrency = '/chooseCurrency';

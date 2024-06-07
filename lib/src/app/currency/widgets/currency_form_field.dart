@@ -16,7 +16,7 @@ class CurrencyFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final text = context.t.currency_module.currency_form_field;
+    final text = context.t.currency_module;
 
     return TextFormField(
       readOnly: true,
@@ -33,7 +33,7 @@ class CurrencyFormField extends StatelessWidget {
   }
 
   String? _validator(String? v, BuildContext context) {
-    final text = context.t.currency_module.currency_form_field;
+    final text = context.t.other;
 
     if (v == null || v.isEmpty) {
       return text.cannot_be_empty;
@@ -42,7 +42,7 @@ class CurrencyFormField extends StatelessWidget {
   }
 
   Future<void> _onCurrencyTap(BuildContext context) async {
-    final text = context.t.currency_module.currency_form_field;
+    final text = context.t.currency_module;
     final result = await showCurrencyPicker(context, text.select_currency);
     if (result != null) {
       currencyController.currency = result;

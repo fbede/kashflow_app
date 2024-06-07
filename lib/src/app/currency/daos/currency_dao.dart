@@ -21,6 +21,7 @@ class CurrencyDao extends DatabaseAccessor<LocalDB> with _$CurrencyDaoMixin {
                 e.code.contains(searchTerm) |
                 e.unit.contains(searchTerm),
           )
+          .orderBy((o) => o.isDefault.desc())
           .get();
     } on Exception catch (e, s) {
       talker.handle(e, s);

@@ -24,7 +24,7 @@ class _AccountListTileMenuButtonState
   final loadingIcon = const CustomProgressIndicator();
   final notLoadingIcon = const Icon(LucideIcons.ellipsisVertical);
 
-  late final userText = context.t.account_module.account_popup_menu_button;
+  late final userText = context.t.other;
   late Widget icon;
 
   @override

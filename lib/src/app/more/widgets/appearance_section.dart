@@ -4,18 +4,46 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../../core/core.dart';
-import '../../../shared/extensions/extensions.dart';
+import '../../../shared/shared.dart';
 import '../../app.dart' as a;
 
-class ThemeModeListTile extends StatelessWidget {
-  const ThemeModeListTile({super.key});
+const appearanceSection = [_AppearanceTitle(), _AppearanceSection()];
+
+class _AppearanceSection extends StatelessWidget {
+  const _AppearanceSection();
+
+  @override
+  Widget build(BuildContext context) => SliverList.list(
+        children: const [
+          _ThemeModeListTile(),
+        ],
+      );
+}
+
+class _AppearanceTitle extends StatelessWidget {
+  const _AppearanceTitle();
+
+  @override
+  Widget build(BuildContext context) {
+    final text = context.t.appearance;
+    final textTheme = context.textTheme;
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Text(text.title, style: textTheme.labelBold),
+      ),
+    );
+  }
+}
+
+class _ThemeModeListTile extends StatelessWidget {
+  const _ThemeModeListTile();
 
   @override
   Widget build(BuildContext context) {
     final text = context.t.appearance;
     final textTheme = context.textTheme;
     return ListTile(
-      contentPadding: EdgeInsets.zero,
       leading: const _Leading(),
       title: Text(
         text.theme_mode,

@@ -1,51 +1,33 @@
 {
   "account_module": {
-    "account_purse_view": {
-      "add_new_account": "Add New Account",
-      "nothing_here": "Nothing Here",
-      "create_a_new_account_text": "Create a new account to start managing your finances."
-    },
-    "account_popup_menu_button": {
-      "edit": "Edit",
-      "delete": "Delete"
-    },
-    "create_edit_account_view": {
-      "add_account": "Add Account",
-      "edit_account": "Edit Account",
-      "account_name": "Account Name",
-      "balance_change_warning": "You are about to change the opening balance of your account. This will also change the current balance of the account."
-    }
+    "account_name": "Account Name",
+    "add_account": "Add Account",
+    "add_new_account": "Add New Account",
+    "balance_change_warning": "You are about to change the opening balance of your account. This will also change the current balance of the account.",
+    "create_a_new_account_text": "Create a new account to start managing your finances.",
+    "edit_account": "Edit Account",
+    "nothing_here": "Nothing Here"
   },
   "appearance": {
-    "title": "Appearance",
-    "theme_mode": "Theme Mode",
-    "light_mode": "Light Mode",
     "dark_mode": "Dark Mode",
-    "system": "System",
-    "select_theme_mode": "Select Theme Mode"
+    "light_mode": "Light Mode",
+    "theme_mode": "Theme Mode",
+    "title": "Appearance",
+    "select_theme_mode": "Select Theme Mode",
+    "system": "System"
   },
   "currency_module": {
-    "currency_form_field": {
-      "select_currency": "Select Currency",
-      "cannot_be_empty": "Cannot Be Empty",
-      "currency": "Currency"
-    }
+    "currency": "Currency",
+    "default_currency": "Default Currency",
+    "select_currency": "Select Currency"
   },
   "icon_module": {
-    "icon_picker": {
-      "select_icon": "Select Icon",
-      "search": "Search"
-    },
-    "icon_selector": {
-      "change_icon_color": "Change Icon Color",
-      "change_background_color": "Change Background Color",
-      "reset_colors": "Reset Colors"
-    },
-    "color_picker": {
-      "pick_a_color": "Pick a color!"
-    }
+    "change_background_color": "Change Background Color",
+    "change_icon_color": "Change Icon Color",
+    "pick_a_color": "Pick a color!",
+    "select_icon": "Select Icon",
+    "reset_colors": "Reset Colors"
   },
-  "more": "More",
   "onboarding_module": {
     "home_screen": {
       "title": "Home",
@@ -91,13 +73,19 @@
         "too_short": "Too Short",
         "search": "Search"
       },
-      "save_or_cancel_button_bar": {
-        "cancel": "Cancel",
-        "save": "Save"
-      }
+      "save_or_cancel_button_bar": {}
     }
   },
   "records": {
     "title": "Records"
+  },
+  "other": {
+    "cancel": "Cancel",
+    "cannot_be_empty": "Cannot Be Empty",
+    "delete": "Delete",
+    "edit": "Edit",
+    "more": "More",
+    "save": "Save",
+    "search": "Search"
   }
 }

@@ -16,7 +16,7 @@ Future<Color?> showColorPicker(BuildContext context, [Color? color]) async {
   await showDialog<Color>(
     context: context,
     builder: (context) {
-      final text = context.t.icon_module.color_picker;
+      final text = context.t.icon_module;
       return Dialog(
         child: Padding(
           padding: const EdgeInsets.all(16),

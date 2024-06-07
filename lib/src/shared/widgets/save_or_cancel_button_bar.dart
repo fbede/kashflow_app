@@ -16,7 +16,7 @@ class SaveOrCancelButtonBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userText = context.t.shared.widgets.save_or_cancel_button_bar;
+    final userText = context.t.other;
     return Row(
       children: [
         Expanded(

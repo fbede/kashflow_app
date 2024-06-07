@@ -56,23 +56,19 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final userText = context.t.icon_module.icon_picker;
+    final search = context.t.other.search;
+    final selectIcon = context.t.icon_module.select_icon;
+
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           children: [
             const SizedBox(height: 16),
-            Text(
-              userText.select_icon,
-              style: context.textTheme.titleNormal,
-            ),
+            Text(selectIcon, style: context.textTheme.titleNormal),
             const SizedBox(height: 8),
             Expanded(
-              child: _IconGrid(
-                onTap: widget.onTap,
-                searchTerm: searchTerm,
-              ),
+              child: _IconGrid(onTap: widget.onTap, searchTerm: searchTerm),
             ),
             const SizedBox(height: 8),
             TextField(
@@ -83,7 +79,7 @@ class _IconPickerDialogState extends ConsumerState<IconPickerDialog> {
                 filled: true,
                 contentPadding: EdgeInsetsDirectional.zero,
                 prefixIcon: const Icon(LucideIcons.search),
-                hintText: userText.search,
+                hintText: search,
               ),
             ),
             const SizedBox(height: 16),

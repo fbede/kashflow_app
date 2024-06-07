@@ -29,6 +29,7 @@ class _SelectThemeModeViewState extends ConsumerState<SelectThemeModeView> {
         title: Text(
           text.select_theme_mode,
           style: context.textTheme.displayBold,
+          textAlign: TextAlign.center,
         ),
         slivers: [
           SliverList.list(
@@ -38,6 +39,7 @@ class _SelectThemeModeViewState extends ConsumerState<SelectThemeModeView> {
                 title: Text(text.light_mode),
                 value: ThemeMode.light,
                 groupValue: mode,
+                selected: mode == ThemeMode.light,
                 onChanged: (i) async => notifier.saveThemeMode(i),
               ),
               const Divider(),
@@ -45,6 +47,7 @@ class _SelectThemeModeViewState extends ConsumerState<SelectThemeModeView> {
                 title: Text(text.dark_mode),
                 value: ThemeMode.dark,
                 groupValue: mode,
+                selected: mode == ThemeMode.dark,
                 onChanged: (i) async => notifier.saveThemeMode(i),
               ),
               const Divider(),
@@ -52,6 +55,7 @@ class _SelectThemeModeViewState extends ConsumerState<SelectThemeModeView> {
                 title: Text(text.system),
                 value: ThemeMode.system,
                 groupValue: mode,
+                selected: mode == ThemeMode.system,
                 onChanged: (i) async => notifier.saveThemeMode(i),
               ),
               const Divider(),

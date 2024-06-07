@@ -82,6 +82,12 @@ final _moreRoutes = <RouteBase>[
     parentNavigatorKey: _rootNavigatorKey,
     builder: (_, __) => const SelectThemeModeView(),
   ),
+  GoRoute(
+    path: Routes.defaultCurrency,
+    name: Routes.defaultCurrency,
+    parentNavigatorKey: _rootNavigatorKey,
+    builder: (_, __) => const DefaultCurrencyView(),
+  ),
   // GoRoute(
   //   path: Routes.manageCategories,
   //   name: Routes.manageCategories,

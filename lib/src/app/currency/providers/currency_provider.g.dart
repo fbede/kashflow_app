@@ -198,6 +198,190 @@ class _CurrencyProviderElement
   String get searchTerm => (origin as CurrencyProvider).searchTerm;
 }
 
+String _$defaultCurrencyScreenHash() =>
+    r'5df0b6e535c4f573dc3de62631c43e244d918510';
+
+/// See also [defaultCurrencyScreen].
+@ProviderFor(defaultCurrencyScreen)
+const defaultCurrencyScreenProvider = DefaultCurrencyScreenFamily();
+
+/// See also [defaultCurrencyScreen].
+class DefaultCurrencyScreenFamily extends Family {
+  /// See also [defaultCurrencyScreen].
+  const DefaultCurrencyScreenFamily();
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'defaultCurrencyScreenProvider';
+
+  /// See also [defaultCurrencyScreen].
+  DefaultCurrencyScreenProvider call(
+    String searchTerm,
+  ) {
+    return DefaultCurrencyScreenProvider(
+      searchTerm,
+    );
+  }
+
+  @visibleForOverriding
+  @override
+  DefaultCurrencyScreenProvider getProviderOverride(
+    covariant DefaultCurrencyScreenProvider provider,
+  ) {
+    return call(
+      provider.searchTerm,
+    );
+  }
+
+  /// Enables overriding the behavior of this provider, no matter the parameters.
+  Override overrideWith(
+      FutureOr<(CurrencyTableData?, List<CurrencyTableData>)> Function(
+              DefaultCurrencyScreenRef ref)
+          create) {
+    return _$DefaultCurrencyScreenFamilyOverride(this, create);
+  }
+}
+
+class _$DefaultCurrencyScreenFamilyOverride implements FamilyOverride {
+  _$DefaultCurrencyScreenFamilyOverride(this.overriddenFamily, this.create);
+
+  final FutureOr<(CurrencyTableData?, List<CurrencyTableData>)> Function(
+      DefaultCurrencyScreenRef ref) create;
+
+  @override
+  final DefaultCurrencyScreenFamily overriddenFamily;
+
+  @override
+  DefaultCurrencyScreenProvider getProviderOverride(
+    covariant DefaultCurrencyScreenProvider provider,
+  ) {
+    return provider._copyWith(create);
+  }
+}
+
+/// See also [defaultCurrencyScreen].
+class DefaultCurrencyScreenProvider extends AutoDisposeFutureProvider<
+    (CurrencyTableData?, List<CurrencyTableData>)> {
+  /// See also [defaultCurrencyScreen].
+  DefaultCurrencyScreenProvider(
+    String searchTerm,
+  ) : this._internal(
+          (ref) => defaultCurrencyScreen(
+            ref as DefaultCurrencyScreenRef,
+            searchTerm,
+          ),
+          from: defaultCurrencyScreenProvider,
+          name: r'defaultCurrencyScreenProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$defaultCurrencyScreenHash,
+          dependencies: DefaultCurrencyScreenFamily._dependencies,
+          allTransitiveDependencies:
+              DefaultCurrencyScreenFamily._allTransitiveDependencies,
+          searchTerm: searchTerm,
+        );
+
+  DefaultCurrencyScreenProvider._internal(
+    super.create, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.searchTerm,
+  }) : super.internal();
+
+  final String searchTerm;
+
+  @override
+  Override overrideWith(
+    FutureOr<(CurrencyTableData?, List<CurrencyTableData>)> Function(
+            DefaultCurrencyScreenRef ref)
+        create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: DefaultCurrencyScreenProvider._internal(
+        (ref) => create(ref as DefaultCurrencyScreenRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        searchTerm: searchTerm,
+      ),
+    );
+  }
+
+  @override
+  (String,) get argument {
+    return (searchTerm,);
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<
+      (CurrencyTableData?, List<CurrencyTableData>)> createElement() {
+    return _DefaultCurrencyScreenProviderElement(this);
+  }
+
+  DefaultCurrencyScreenProvider _copyWith(
+    FutureOr<(CurrencyTableData?, List<CurrencyTableData>)> Function(
+            DefaultCurrencyScreenRef ref)
+        create,
+  ) {
+    return DefaultCurrencyScreenProvider._internal(
+      (ref) => create(ref as DefaultCurrencyScreenRef),
+      name: name,
+      dependencies: dependencies,
+      allTransitiveDependencies: allTransitiveDependencies,
+      debugGetCreateSourceHash: debugGetCreateSourceHash,
+      from: from,
+      searchTerm: searchTerm,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is DefaultCurrencyScreenProvider &&
+        other.searchTerm == searchTerm;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, searchTerm.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin DefaultCurrencyScreenRef on AutoDisposeFutureProviderRef<
+    (CurrencyTableData?, List<CurrencyTableData>)> {
+  /// The parameter `searchTerm` of this provider.
+  String get searchTerm;
+}
+
+class _DefaultCurrencyScreenProviderElement
+    extends AutoDisposeFutureProviderElement<
+        (CurrencyTableData?, List<CurrencyTableData>)>
+    with DefaultCurrencyScreenRef {
+  _DefaultCurrencyScreenProviderElement(super.provider);
+
+  @override
+  String get searchTerm => (origin as DefaultCurrencyScreenProvider).searchTerm;
+}
+
 String _$defaultCurrencyHash() => r'631fe46beba9ccba4f9d7e776662c25b8dcbf82d';
 
 /// See also [DefaultCurrency].

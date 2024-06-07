@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/core.dart';
 import '../../../shared/shared.dart';
 import '../../app.dart';
+import '../widgets/currency_section.dart';
 
 class MoreScreen extends StatefulWidget {
   const MoreScreen({super.key});
@@ -26,6 +27,7 @@ class _MoreScreenState extends State<MoreScreen> {
           scrollController: _scrollController,
           slivers: const [
             ...appearanceSection,
+            ...currencySection,
           ],
           title: const _Title(),
         ),
@@ -37,7 +39,7 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final text = context.t.more;
+    final text = context.t.other.more;
     final textTheme = context.textTheme;
     return Text(text, style: textTheme.displayBold);
   }

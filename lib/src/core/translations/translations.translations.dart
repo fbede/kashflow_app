@@ -4,9 +4,9 @@
 /// To regenerate, run: `dart run slang`
 ///
 /// Locales: 1
-/// Strings: 51
+/// Strings: 52
 ///
-/// Built on 2024-06-06 at 08:46 UTC
+/// Built on 2024-06-07 at 05:33 UTC
 
 // coverage:ignore-file
 // ignore_for_file: type=lint
@@ -164,10 +164,10 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final _TranslationsAppearanceEn appearance = _TranslationsAppearanceEn._(_root);
 	late final _TranslationsCurrencyModuleEn currency_module = _TranslationsCurrencyModuleEn._(_root);
 	late final _TranslationsIconModuleEn icon_module = _TranslationsIconModuleEn._(_root);
-	String get more => 'More';
 	late final _TranslationsOnboardingModuleEn onboarding_module = _TranslationsOnboardingModuleEn._(_root);
 	late final _TranslationsSharedEn shared = _TranslationsSharedEn._(_root);
 	late final _TranslationsRecordsEn records = _TranslationsRecordsEn._(_root);
+	late final _TranslationsOtherEn other = _TranslationsOtherEn._(_root);
 }
 
 // Path: account_module
@@ -177,9 +177,13 @@ class _TranslationsAccountModuleEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final _TranslationsAccountModuleAccountPurseViewEn account_purse_view = _TranslationsAccountModuleAccountPurseViewEn._(_root);
-	late final _TranslationsAccountModuleAccountPopupMenuButtonEn account_popup_menu_button = _TranslationsAccountModuleAccountPopupMenuButtonEn._(_root);
-	late final _TranslationsAccountModuleCreateEditAccountViewEn create_edit_account_view = _TranslationsAccountModuleCreateEditAccountViewEn._(_root);
+	String get account_name => 'Account Name';
+	String get add_account => 'Add Account';
+	String get add_new_account => 'Add New Account';
+	String get balance_change_warning => 'You are about to change the opening balance of your account. This will also change the current balance of the account.';
+	String get create_a_new_account_text => 'Create a new account to start managing your finances.';
+	String get edit_account => 'Edit Account';
+	String get nothing_here => 'Nothing Here';
 }
 
 // Path: appearance
@@ -189,12 +193,12 @@ class _TranslationsAppearanceEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get title => 'Appearance';
-	String get theme_mode => 'Theme Mode';
-	String get light_mode => 'Light Mode';
 	String get dark_mode => 'Dark Mode';
-	String get system => 'System';
+	String get light_mode => 'Light Mode';
+	String get theme_mode => 'Theme Mode';
+	String get title => 'Appearance';
 	String get select_theme_mode => 'Select Theme Mode';
+	String get system => 'System';
 }
 
 // Path: currency_module
@@ -204,7 +208,9 @@ class _TranslationsCurrencyModuleEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final _TranslationsCurrencyModuleCurrencyFormFieldEn currency_form_field = _TranslationsCurrencyModuleCurrencyFormFieldEn._(_root);
+	String get currency => 'Currency';
+	String get default_currency => 'Default Currency';
+	String get select_currency => 'Select Currency';
 }
 
 // Path: icon_module
@@ -214,9 +220,11 @@ class _TranslationsIconModuleEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	late final _TranslationsIconModuleIconPickerEn icon_picker = _TranslationsIconModuleIconPickerEn._(_root);
-	late final _TranslationsIconModuleIconSelectorEn icon_selector = _TranslationsIconModuleIconSelectorEn._(_root);
-	late final _TranslationsIconModuleColorPickerEn color_picker = _TranslationsIconModuleColorPickerEn._(_root);
+	String get change_background_color => 'Change Background Color';
+	String get change_icon_color => 'Change Icon Color';
+	String get pick_a_color => 'Pick a color!';
+	String get select_icon => 'Select Icon';
+	String get reset_colors => 'Reset Colors';
 }
 
 // Path: onboarding_module
@@ -251,85 +259,20 @@ class _TranslationsRecordsEn {
 	String get title => 'Records';
 }
 
-// Path: account_module.account_purse_view
-class _TranslationsAccountModuleAccountPurseViewEn {
-	_TranslationsAccountModuleAccountPurseViewEn._(this._root);
+// Path: other
+class _TranslationsOtherEn {
+	_TranslationsOtherEn._(this._root);
 
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get add_new_account => 'Add New Account';
-	String get nothing_here => 'Nothing Here';
-	String get create_a_new_account_text => 'Create a new account to start managing your finances.';
-}
-
-// Path: account_module.account_popup_menu_button
-class _TranslationsAccountModuleAccountPopupMenuButtonEn {
-	_TranslationsAccountModuleAccountPopupMenuButtonEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get edit => 'Edit';
-	String get delete => 'Delete';
-}
-
-// Path: account_module.create_edit_account_view
-class _TranslationsAccountModuleCreateEditAccountViewEn {
-	_TranslationsAccountModuleCreateEditAccountViewEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get add_account => 'Add Account';
-	String get edit_account => 'Edit Account';
-	String get account_name => 'Account Name';
-	String get balance_change_warning => 'You are about to change the opening balance of your account. This will also change the current balance of the account.';
-}
-
-// Path: currency_module.currency_form_field
-class _TranslationsCurrencyModuleCurrencyFormFieldEn {
-	_TranslationsCurrencyModuleCurrencyFormFieldEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get select_currency => 'Select Currency';
+	String get cancel => 'Cancel';
 	String get cannot_be_empty => 'Cannot Be Empty';
-	String get currency => 'Currency';
-}
-
-// Path: icon_module.icon_picker
-class _TranslationsIconModuleIconPickerEn {
-	_TranslationsIconModuleIconPickerEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get select_icon => 'Select Icon';
+	String get delete => 'Delete';
+	String get edit => 'Edit';
+	String get more => 'More';
+	String get save => 'Save';
 	String get search => 'Search';
-}
-
-// Path: icon_module.icon_selector
-class _TranslationsIconModuleIconSelectorEn {
-	_TranslationsIconModuleIconSelectorEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get change_icon_color => 'Change Icon Color';
-	String get change_background_color => 'Change Background Color';
-	String get reset_colors => 'Reset Colors';
-}
-
-// Path: icon_module.color_picker
-class _TranslationsIconModuleColorPickerEn {
-	_TranslationsIconModuleColorPickerEn._(this._root);
-
-	final Translations _root; // ignore: unused_field
-
-	// Translations
-	String get pick_a_color => 'Pick a color!';
 }
 
 // Path: onboarding_module.home_screen
@@ -451,8 +394,6 @@ class _TranslationsSharedWidgetsSaveOrCancelButtonBarEn {
 	final Translations _root; // ignore: unused_field
 
 	// Translations
-	String get cancel => 'Cancel';
-	String get save => 'Save';
 }
 
 /// Flat map(s) containing all translations.
@@ -461,31 +402,27 @@ class _TranslationsSharedWidgetsSaveOrCancelButtonBarEn {
 extension on Translations {
 	dynamic _flatMapFunction(String path) {
 		switch (path) {
-			case 'account_module.account_purse_view.add_new_account': return 'Add New Account';
-			case 'account_module.account_purse_view.nothing_here': return 'Nothing Here';
-			case 'account_module.account_purse_view.create_a_new_account_text': return 'Create a new account to start managing your finances.';
-			case 'account_module.account_popup_menu_button.edit': return 'Edit';
-			case 'account_module.account_popup_menu_button.delete': return 'Delete';
-			case 'account_module.create_edit_account_view.add_account': return 'Add Account';
-			case 'account_module.create_edit_account_view.edit_account': return 'Edit Account';
-			case 'account_module.create_edit_account_view.account_name': return 'Account Name';
-			case 'account_module.create_edit_account_view.balance_change_warning': return 'You are about to change the opening balance of your account. This will also change the current balance of the account.';
-			case 'appearance.title': return 'Appearance';
-			case 'appearance.theme_mode': return 'Theme Mode';
-			case 'appearance.light_mode': return 'Light Mode';
+			case 'account_module.account_name': return 'Account Name';
+			case 'account_module.add_account': return 'Add Account';
+			case 'account_module.add_new_account': return 'Add New Account';
+			case 'account_module.balance_change_warning': return 'You are about to change the opening balance of your account. This will also change the current balance of the account.';
+			case 'account_module.create_a_new_account_text': return 'Create a new account to start managing your finances.';
+			case 'account_module.edit_account': return 'Edit Account';
+			case 'account_module.nothing_here': return 'Nothing Here';
 			case 'appearance.dark_mode': return 'Dark Mode';
-			case 'appearance.system': return 'System';
+			case 'appearance.light_mode': return 'Light Mode';
+			case 'appearance.theme_mode': return 'Theme Mode';
+			case 'appearance.title': return 'Appearance';
 			case 'appearance.select_theme_mode': return 'Select Theme Mode';
-			case 'currency_module.currency_form_field.select_currency': return 'Select Currency';
-			case 'currency_module.currency_form_field.cannot_be_empty': return 'Cannot Be Empty';
-			case 'currency_module.currency_form_field.currency': return 'Currency';
-			case 'icon_module.icon_picker.select_icon': return 'Select Icon';
-			case 'icon_module.icon_picker.search': return 'Search';
-			case 'icon_module.icon_selector.change_icon_color': return 'Change Icon Color';
-			case 'icon_module.icon_selector.change_background_color': return 'Change Background Color';
-			case 'icon_module.icon_selector.reset_colors': return 'Reset Colors';
-			case 'icon_module.color_picker.pick_a_color': return 'Pick a color!';
-			case 'more': return 'More';
+			case 'appearance.system': return 'System';
+			case 'currency_module.currency': return 'Currency';
+			case 'currency_module.default_currency': return 'Default Currency';
+			case 'currency_module.select_currency': return 'Select Currency';
+			case 'icon_module.change_background_color': return 'Change Background Color';
+			case 'icon_module.change_icon_color': return 'Change Icon Color';
+			case 'icon_module.pick_a_color': return 'Pick a color!';
+			case 'icon_module.select_icon': return 'Select Icon';
+			case 'icon_module.reset_colors': return 'Reset Colors';
 			case 'onboarding_module.home_screen.title': return 'Home';
 			case 'onboarding_module.home_screen.purse': return 'Purse';
 			case 'onboarding_module.home_screen.portfoilo': return 'Portfolio';
@@ -509,9 +446,14 @@ extension on Translations {
 			case 'shared.widgets.custom_text_fields.cannot_be_empty': return 'Cannot Be Empty';
 			case 'shared.widgets.custom_text_fields.too_short': return 'Too Short';
 			case 'shared.widgets.custom_text_fields.search': return 'Search';
-			case 'shared.widgets.save_or_cancel_button_bar.cancel': return 'Cancel';
-			case 'shared.widgets.save_or_cancel_button_bar.save': return 'Save';
 			case 'records.title': return 'Records';
+			case 'other.cancel': return 'Cancel';
+			case 'other.cannot_be_empty': return 'Cannot Be Empty';
+			case 'other.delete': return 'Delete';
+			case 'other.edit': return 'Edit';
+			case 'other.more': return 'More';
+			case 'other.save': return 'Save';
+			case 'other.search': return 'Search';
 			default: return null;
 		}
 	}

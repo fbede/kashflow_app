@@ -36,7 +36,7 @@ class _NoAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final text = context.t.account_module.account_purse_view;
+    final text = context.t.account_module;
     return Padding(
       padding: const EdgeInsets.all(32),
       child: AspectRatio(

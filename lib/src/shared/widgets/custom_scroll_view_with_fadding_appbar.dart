@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../core/core.dart';
+import '../shared.dart';
 import 'widgets.dart';
 
 class CustomScrollViewWithFaddingAppBar extends StatelessWidget {
@@ -15,18 +17,24 @@ class CustomScrollViewWithFaddingAppBar extends StatelessWidget {
   final Widget title;
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: [
-            FaddingAppBar(
-              scrollController: scrollController,
-              title: title,
-              background: title,
+  Widget build(BuildContext context) => CustomScrollView(
+        controller: scrollController,
+        slivers: [
+          FaddingAppBar(
+            scrollController: scrollController,
+            title: DefaultTextStyle(
+              style: context.textTheme.titleBold
+                  .copyWith(color: context.colorScheme.onSurface),
+              child: title,
             ),
-            ...slivers,
-          ],
-        ),
+            background: DefaultTextStyle(
+              style: context.textTheme.displayBold
+                  .copyWith(color: context.colorScheme.onSurface),
+              textAlign: TextAlign.center,
+              child: title,
+            ),
+          ),
+          ...slivers,
+        ],
       );
 }

@@ -15,6 +15,16 @@ Future<List<CurrencyTableData>> currency(
 }
 
 @riverpod
+Future<(CurrencyTableData?, List<CurrencyTableData>)> defaultCurrencyScreen(
+  DefaultCurrencyScreenRef ref,
+  String searchTerm,
+) async =>
+    (
+      await ref.watch(defaultCurrencyProvider.future),
+      await ref.watch(currencyProvider(searchTerm).future)
+    );
+
+@riverpod
 class DefaultCurrency extends _$DefaultCurrency {
   final _interactor = CurrencyInteractor();
 

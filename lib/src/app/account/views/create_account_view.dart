@@ -66,7 +66,7 @@ class _CreateAccountViewState extends ConsumerState<CreateAccountView> {
 
   @override
   Widget build(BuildContext context) {
-    final userText = context.t.account_module.create_edit_account_view;
+    final userText = context.t.account_module;
 
     return Padding(
       padding: const EdgeInsetsDirectional.all(16),
